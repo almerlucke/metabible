@@ -444,6 +444,33 @@ type Entity struct {
 	Fields map[string]any `json:"fields"`
 }
 
+func (e *Entity) Field(field string) any {
+	return e.Fields[field]
+}
+
+func (e *Entity) Str(field string) string {
+	return e.Field(field).(string)
+}
+
+func (e *Entity) Strs(field string) []string {
+	elems := e.Fields[field].([]any)
+	strs := make([]string, len(elems))
+
+	for index, elem := range elems {
+		strs[index] = elem.(string)
+	}
+
+	return strs
+}
+
+func (e *Entity) Float(field string) float64 {
+	return e.Field(field).(float64)
+}
+
+func (e *Entity) Int(field string) int {
+	return int(e.Float(field))
+}
+
 type Metadata struct {
 	Books        []*Entity
 	Chapters     []*Entity
@@ -484,7 +511,7 @@ func LoadMetadata(jsonDir string) (*Metadata, error) {
 	metadata := &Metadata{}
 
 	for _, fileName := range fileNames {
-		entities, err := loadEntityJson(fmt.Sprintf("jsonDir/%s.json", jsonDir, fileName))
+		entities, err := loadEntityJson(fmt.Sprintf("%s/%s.json", jsonDir, fileName))
 		if err != nil {
 			return nil, err
 		}
@@ -537,49 +564,22 @@ func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
 	book := &Book{}
 
 	book.ID = entity.ID
-	book.BookDiv = entity.Fields["bookDiv"].(string)
-	book.BookName = entity.Fields["bookName"].(string)
-	book.BookOrder = int(entity.Fields["bookOrder"].(float64))
-	book.ChapterCount = int(entity.Fields["chapterCount"].(float64))
-
-	/*
-			2023/10/31 07:11:04 key: bookDiv
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: bookName
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: bookOrder
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: chapterCount
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: chapters
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: osisName
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: peopleCount
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: placeCount
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: placeWritten
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: shortName
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: slug
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: testament
-		2023/10/31 07:11:04 possible values: [Old Testament New Testament]
-		2023/10/31 07:11:04 key: verseCount
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: verses
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: writers
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 key: yearWritten
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-	*/
+	book.BookDiv = entity.Str("bookDiv")
+	book.BookName = entity.Str("bookName")
+	book.BookOrder = entity.Int("bookOrder")
+	book.ChapterCount = entity.Int("chapterCount")
+	book.Chapters = entity.Strs("chapters")
+	book.OsisName = entity.Str("osisName")
+	book.PeopleCount = entity.Int("peopleCount")
+	book.PlaceCount = entity.Int("placeCount")
+	book.PlaceWritten = entity.Strs("placeWritten")
+	book.ShortName = entity.Str("shortName")
+	book.Slug = entity.Str("slug")
+	book.Testament = entity.Str("testament")
+	book.VerseCount = entity.Int("verseCount")
+	book.Verses = entity.Strs("verses")
+	// book.Writers = entity.Strs("writer")
+	book.YearWritten = entity.Strs("yearWritten")
 
 	return book
 }
