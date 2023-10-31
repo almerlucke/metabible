@@ -114,22 +114,7 @@ func (pats Patterns) investigate() {
 	}
 }
 
-func main() {
-	if !fileExists("metabible.db") {
-		fp, err := os.Create("metabible.db")
-		if err != nil {
-			log.Fatalln(err)
-		}
-		fp.Close()
-	}
-
-	db, err := sqlx.Open("sqlite3", "metabible.db")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer db.Close()
-
+func showPatterns() {
 	fileNames := []string{"books", "chapters", "easton", "events", "people", "peopleGroups", "periods", "places", "verses"}
 
 	for _, fileName := range fileNames {
@@ -181,4 +166,46 @@ func main() {
 
 		log.Printf("\n\n")
 	}
+}
+
+func loadEntityJson(filePath string) ([]*Entity, error) {
+	f, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	defer f.Close()
+
+	jsonData, err := io.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+
+	var entities []*Entity
+
+	err = json.Unmarshal(jsonData, &entities)
+	if err != nil {
+		return nil, err
+	}
+
+	return entities, nil
+}
+
+func main() {
+	if !fileExists("metabible.db") {
+		fp, err := os.Create("metabible.db")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		fp.Close()
+	}
+
+	db, err := sqlx.Open("sqlite3", "metabible.db")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer db.Close()
+
+	showPatterns()
 }

@@ -1,471 +1,710 @@
 package models
 
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"os"
+)
+
 /*
+2023/10/31 07:11:04 Filename: books
+2023/10/31 07:11:04 key: bookDiv
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: bookName
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: bookOrder
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: chapterCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: chapters
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: osisName
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: peopleCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: placeCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: placeWritten
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: shortName
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: slug
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: testament
+2023/10/31 07:11:04 possible values: [Old Testament New Testament]
+2023/10/31 07:11:04 key: verseCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: verses
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: writers
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 key: yearWritten
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04
 
+2023/10/31 07:11:04 Filename: chapters
+2023/10/31 07:11:04 key: book
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: chapterNum
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: modified
+2023/10/31 07:11:04 possible values: [2020-08-07T13:12:06.000Z 2020-08-07T13:12:13.000Z 2020-08-07T13:12:18.000Z 2019-08-08T01:43:21.000Z 2020-08-07T13:11:53.000Z]
+2023/10/31 07:11:04 key: osisRef
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: peopleCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: placesCount
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: slug
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: verses
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: writer
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: writer count
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04
 
-2023/10/28 10:14:28 Filename: chapters
-2023/10/28 10:14:28 key: book
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: chapterNum
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 possible values: [2020-08-07T13:12:13.000Z 2020-08-07T13:12:18.000Z 2019-08-08T01:43:21.000Z 2020-08-07T13:11:53.000Z 2020-08-07T13:12:06.000Z]
-2023/10/28 10:14:28 key: osisRef
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: peopleCount
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: placesCount
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: slug
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: verses
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: writer
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: writer count
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28
+2023/10/31 07:11:04 Filename: easton
+2023/10/31 07:11:04 key: def_id
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: dictLookup
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: dictText
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: has_list
+2023/10/31 07:11:04 possible values: [False True]
+2023/10/31 07:11:04 key: index
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: itemNum
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: matchSlugs
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: matchType
+2023/10/31 07:11:04 possible values: [unmatched person place multi]
+2023/10/31 07:11:04 key: personLookup
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: placeLookup
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: termID
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: termLabel
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04
 
-2023/10/28 10:14:28 Filename: easton
-2023/10/28 10:14:28 key: def_id
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: dictLookup
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: dictText
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: has_list
-2023/10/28 10:14:28 possible values: [False True]
-2023/10/28 10:14:28 key: index
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: itemNum
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: matchSlugs
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: matchType
-2023/10/28 10:14:28 possible values: [unmatched person place multi]
-2023/10/28 10:14:28 key: personLookup
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: placeLookup
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: termID
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: termLabel
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28
+2023/10/31 07:11:04 Filename: events
+2023/10/31 07:11:04 key: ID
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: Lag Type
+2023/10/31 07:11:04 possible values: [FS SS]
+2023/10/31 07:11:04 key: Sort Key
+2023/10/31 07:11:04 is float
+2023/10/31 07:11:04 key: duration
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: groups
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: lag
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: locations
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: modified
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: notes
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: partOf
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: participants
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: people (from verses)
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: places (from verses)
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: predecessor
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: rangeFlag
+2023/10/31 07:11:04 is bool
+2023/10/31 07:11:04 key: startDate
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: title
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: verseSort
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: verses
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04
 
-2023/10/28 10:14:28 Filename: events
-2023/10/28 10:14:28 key: ID
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: Lag Type
-2023/10/28 10:14:28 possible values: [FS SS]
-2023/10/28 10:14:28 key: Sort Key
-2023/10/28 10:14:28 is float
-2023/10/28 10:14:28 key: duration
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: groups
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: lag
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: locations
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: notes
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: partOf
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: participants
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: people (from verses)
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: places (from verses)
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: predecessor
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: rangeFlag
-2023/10/28 10:14:28 is bool
-2023/10/28 10:14:28 key: startDate
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: title
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: verseSort
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: verses
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28
+2023/10/31 07:11:04 Filename: people
+2023/10/31 07:11:04 key: Disambiguation (temp)
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: Easton's Count
+2023/10/31 07:11:04 is integer
+2023/10/31 07:11:04 key: alphaGroup
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: alsoCalled
+2023/10/31 07:11:04 is string
+2023/10/31 07:11:04 key: ambiguous
+2023/10/31 07:11:04 is bool
+2023/10/31 07:11:04 key: birthPlace
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: birthYear
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: chaptersWritten
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: children
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: deathPlace
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: deathYear
+2023/10/31 07:11:04 string slice
+2023/10/31 07:11:04 reference to objects
+2023/10/31 07:11:04 key: dictText
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 key: dictionaryLink
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: dictionaryText
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: displayTitle
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: eastons
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: eventGroups
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 key: events
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: father
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: gender
+2023/10/31 07:11:05 possible values: [Male Female]
+2023/10/31 07:11:05 key: halfSiblingsSameFather
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: halfSiblingsSameMother
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: isProperName
+2023/10/31 07:11:05 is bool
+2023/10/31 07:11:05 key: maxYear
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: memberOf
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: minYear
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: modified
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: mother
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: name
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: partners
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: personID
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: personLookup
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: siblings
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: slug
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: status
+2023/10/31 07:11:05 possible values: [publish wip]
+2023/10/31 07:11:05 key: surname
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: timeline
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: verseCount
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: verses
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05
 
-2023/10/28 10:14:28 Filename: people
-2023/10/28 10:14:28 key: Disambiguation (temp)
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: Easton's Count
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: alphaGroup
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: alsoCalled
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: ambiguous
-2023/10/28 10:14:28 is bool
-2023/10/28 10:14:28 key: birthPlace
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: birthYear
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: chaptersWritten
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: children
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: deathPlace
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: deathYear
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: dictText
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 key: dictionaryLink
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: dictionaryText
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: displayTitle
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: eastons
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: eventGroups
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 key: events
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: father
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: gender
-2023/10/28 10:14:28 possible values: [Male Female]
-2023/10/28 10:14:28 key: halfSiblingsSameFather
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: halfSiblingsSameMother
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: isProperName
-2023/10/28 10:14:28 is bool
-2023/10/28 10:14:28 key: maxYear
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: memberOf
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: minYear
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: mother
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: name
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: partners
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: personID
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: personLookup
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: siblings
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: slug
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: status
-2023/10/28 10:14:28 possible values: [publish wip]
-2023/10/28 10:14:28 key: surname
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: timeline
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: verseCount
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: verses
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28
+2023/10/31 07:11:05 Filename: peopleGroups
+2023/10/31 07:11:05 key: events
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: events_dev
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: groupName
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: members
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: modified
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: partOf
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: verses
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05
 
-2023/10/28 10:14:28 Filename: peopleGroups
-2023/10/28 10:14:28 key: events
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: events_dev
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: groupName
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: members
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: partOf
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: verses
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28
+2023/10/31 07:11:05 Filename: periods
+2023/10/31 07:11:05 key: BC-AD
+2023/10/31 07:11:05 possible values: [AD BC]
+2023/10/31 07:11:05 key: booksWritten
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: events
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: formattedYear
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: isoYear
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: modified
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: peopleBorn
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: peopleDied
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: yearNum
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05
 
-2023/10/28 10:14:28 Filename: periods
-2023/10/28 10:14:28 key: BC-AD
-2023/10/28 10:14:28 possible values: [BC AD]
-2023/10/28 10:14:28 key: booksWritten
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: events
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: formattedYear
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: isoYear
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: peopleBorn
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: peopleDied
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: yearNum
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28
+2023/10/31 07:11:05 Filename: places
+2023/10/31 07:11:05 key: aliases
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: alphaGroup
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: ambiguous
+2023/10/31 07:11:05 is bool
+2023/10/31 07:11:05 key: booksWritten
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: comment
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: dictText
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 key: dictionaryLink
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: dictionaryText
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: displayTitle
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: duplicate_of
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: eastons
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: esvName
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: eventGroups
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 key: eventsHere
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: featureSubType
+2023/10/31 07:11:05 possible values: [Tower River Gate Country Spring Well Garden Cave]
+2023/10/31 07:11:05 key: featureType
+2023/10/31 07:11:05 possible values: [Path Water Region City Landmark Mountain Island Valley]
+2023/10/31 07:11:05 key: hasBeenHere
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: kjvName
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: latitude
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: longitude
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: modified
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: openBibleLat
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: openBibleLong
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: peopleBorn
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: peopleDied
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: placeID
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: placeLookup
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: precision
+2023/10/31 07:11:05 possible values: [Rough Unlocated Related-Surrounding Related-Within Center Precise]
+2023/10/31 07:11:05 key: recogitoComments
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoLabel
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoLat
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoLon
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoStatus
+2023/10/31 07:11:05 possible values: [UNVERIFIED VERIFIED NOT_IDENTIFIABLE]
+2023/10/31 07:11:05 key: recogitoType
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoUID
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: recogitoUri
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: rootID
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: slug
+2023/10/31 07:11:05 is string
+2023/10/31 07:11:05 key: status
+2023/10/31 07:11:05 possible values: [wip publish]
+2023/10/31 07:11:05 key: timeline
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05 key: verseCount
+2023/10/31 07:11:05 is integer
+2023/10/31 07:11:05 key: verses
+2023/10/31 07:11:05 string slice
+2023/10/31 07:11:05 reference to objects
+2023/10/31 07:11:05
 
-2023/10/28 10:14:28 Filename: places
-2023/10/28 10:14:28 key: aliases
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: alphaGroup
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: ambiguous
-2023/10/28 10:14:28 is bool
-2023/10/28 10:14:28 key: booksWritten
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: comment
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: dictText
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 key: dictionaryLink
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: dictionaryText
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: displayTitle
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: duplicate_of
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: eastons
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: esvName
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: eventGroups
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 key: eventsHere
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: featureSubType
-2023/10/28 10:14:28 possible values: [Spring Well Garden Cave Tower River Gate Country]
-2023/10/28 10:14:28 key: featureType
-2023/10/28 10:14:28 possible values: [City Landmark Mountain Island Valley Path Water Region]
-2023/10/28 10:14:28 key: hasBeenHere
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: kjvName
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: latitude
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: longitude
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: modified
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: openBibleLat
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: openBibleLong
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: peopleBorn
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: peopleDied
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: placeID
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: placeLookup
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: precision
-2023/10/28 10:14:28 possible values: [Rough Unlocated Related-Surrounding Related-Within Center Precise]
-2023/10/28 10:14:28 key: recogitoComments
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoLabel
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoLat
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoLon
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoStatus
-2023/10/28 10:14:28 possible values: [UNVERIFIED VERIFIED NOT_IDENTIFIABLE]
-2023/10/28 10:14:28 key: recogitoType
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoUID
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: recogitoUri
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: rootID
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: slug
-2023/10/28 10:14:28 is string
-2023/10/28 10:14:28 key: status
-2023/10/28 10:14:28 possible values: [wip publish]
-2023/10/28 10:14:28 key: timeline
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28 key: verseCount
-2023/10/28 10:14:28 is integer
-2023/10/28 10:14:28 key: verses
-2023/10/28 10:14:28 string slice
-2023/10/28 10:14:28 reference to objects
-2023/10/28 10:14:28
-
-2023/10/28 10:14:29 Filename: verses
-2023/10/28 10:14:29 key: book
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: chapter
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: eventsDescribed
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: mdText
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: modified
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: osisRef
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: people
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: peopleCount
-2023/10/28 10:14:29 is integer
-2023/10/28 10:14:29 key: peopleGroups
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: places
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: placesCount
-2023/10/28 10:14:29 is integer
-2023/10/28 10:14:29 key: richText
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: status
-2023/10/28 10:14:29 possible values: [publish wip]
-2023/10/28 10:14:29 key: timeline
-2023/10/28 10:14:29 string slice
-2023/10/28 10:14:29 reference to objects
-2023/10/28 10:14:29 key: verseID
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: verseNum
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: verseText
-2023/10/28 10:14:29 is string
-2023/10/28 10:14:29 key: yearNum
-2023/10/28 10:14:29 is integer
-2023/10/28 10:14:29
+2023/10/31 07:11:06 Filename: verses
+2023/10/31 07:11:06 key: book
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: chapter
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: eventsDescribed
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: mdText
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: modified
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: osisRef
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: people
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: peopleCount
+2023/10/31 07:11:06 is integer
+2023/10/31 07:11:06 key: peopleGroups
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: places
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: placesCount
+2023/10/31 07:11:06 is integer
+2023/10/31 07:11:06 key: richText
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: status
+2023/10/31 07:11:06 possible values: [publish wip]
+2023/10/31 07:11:06 key: timeline
+2023/10/31 07:11:06 string slice
+2023/10/31 07:11:06 reference to objects
+2023/10/31 07:11:06 key: verseID
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: verseNum
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: verseText
+2023/10/31 07:11:06 is string
+2023/10/31 07:11:06 key: yearNum
+2023/10/31 07:11:06 is integer
+2023/10/31 07:11:06
 */
 
+type Entity struct {
+	ID     string         `json:"id"`
+	Fields map[string]any `json:"fields"`
+}
+
+type Metadata struct {
+	Books        []*Entity
+	Chapters     []*Entity
+	Easton       []*Entity
+	Events       []*Entity
+	People       []*Entity
+	PeopleGroups []*Entity
+	Periods      []*Entity
+	Places       []*Entity
+	Verses       []*Entity
+}
+
+func loadEntityJson(filePath string) ([]*Entity, error) {
+	f, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+
+	defer f.Close()
+
+	jsonData, err := io.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+
+	var entities []*Entity
+
+	err = json.Unmarshal(jsonData, &entities)
+	if err != nil {
+		return nil, err
+	}
+
+	return entities, nil
+}
+
+func LoadMetadata(jsonDir string) (*Metadata, error) {
+	fileNames := []string{"books", "chapters", "easton", "events", "people", "peopleGroups", "periods", "places", "verses"}
+	metadata := &Metadata{}
+
+	for _, fileName := range fileNames {
+		entities, err := loadEntityJson(fmt.Sprintf("jsonDir/%s.json", jsonDir, fileName))
+		if err != nil {
+			return nil, err
+		}
+		switch fileName {
+		case "books":
+			metadata.Books = entities
+		case "chapters":
+			metadata.Chapters = entities
+		case "easton":
+			metadata.Easton = entities
+		case "events":
+			metadata.Events = entities
+		case "people":
+			metadata.People = entities
+		case "peopleGroups":
+			metadata.PeopleGroups = entities
+		case "periods":
+			metadata.Periods = entities
+		case "places":
+			metadata.Places = entities
+		case "verses":
+			metadata.Verses = entities
+		}
+	}
+
+	return metadata, nil
+}
+
 type Book struct {
-	ID        string `json:"id" db:"id"`
-	BookDiv   string `db:"book_div"`
-	BookName  string `json:"bookName" db:"book_name"`
-	BookOrder int    `json:"bookOrder" db:"book_order"`
+	ID           string   `json:"id" db:"id"`
+	BookDiv      string   `json:"bookDiv" db:"book_div"`
+	BookName     string   `json:"bookName" db:"book_name"`
+	BookOrder    int      `json:"bookOrder" db:"book_order"`
+	ChapterCount int      `json:"chapterCount" db:"chapter_count"`
+	Chapters     []string `json:"chapters"` // refs
+	OsisName     string   `json:"osisName" db:"osis_name"`
+	PeopleCount  int      `json:"peopleCount" db:"people_count"`
+	PlaceCount   int      `json:"placeCount" db:"place_count"`
+	PlaceWritten []string `json:"placeWritten"` // refs
+	ShortName    string   `json:"shortName" db:"short_name"`
+	Slug         string   `json:"slug" db:"slug"`
+	Testament    string   `json:"testament" db:"testament"` // [Old Testament, New Testament]
+	VerseCount   int      `json:"verseCount" db:"verse_count"`
+	Verses       []string `json:"verses"`      // refs
+	Writers      []string `json:"writers"`     // refs TODO turn people id's into ref id's from source
+	YearWritten  []string `json:"yearWritten"` // refs
+}
 
-	VerseCount   int    `json:"verseCount" db:"verse_count"`
-	PeopleCount  int    `db:"people_count"`
-	PlaceCount   int    `db:"place_count"`
-	ChapterCount int    `db:"chapter_count"`
-	Testament    string `db:"testament"`
-	OsisName     string `db:"osis_name"`
+func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
+	book := &Book{}
 
-	ShortName string `db:"short_name"`
-
-	Slug string `db:"slug"`
+	book.ID = entity.ID
+	book.BookDiv = entity.Fields["bookDiv"].(string)
+	book.BookName = entity.Fields["bookName"].(string)
+	book.BookOrder = int(entity.Fields["bookOrder"].(float64))
+	book.ChapterCount = int(entity.Fields["chapterCount"].(float64))
 
 	/*
-		2023/10/28 10:14:28 Filename: books
-		2023/10/28 10:14:28 key: bookDiv
-		2023/10/28 10:14:28 is string
+			2023/10/31 07:11:04 key: bookDiv
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: bookName
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: bookOrder
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: chapterCount
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: chapters
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: osisName
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: peopleCount
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: placeCount
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: placeWritten
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: shortName
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: slug
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: testament
+		2023/10/31 07:11:04 possible values: [Old Testament New Testament]
+		2023/10/31 07:11:04 key: verseCount
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: verses
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: writers
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 key: yearWritten
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+	*/
 
-		2023/10/28 10:14:28 key: bookName
-		2023/10/28 10:14:28 is string
+	return book
+}
 
-		2023/10/28 10:14:28 key: bookOrder
+type Chapter struct {
+	ID          string   `json:"id" db:"id"`
+	Book        string   `json:"book" db:"book"` // ref TODO make single item instead of array (consistency)
+	ChapterNum  int      `json:"chapterNum" db:"chapter_num"`
+	OsisRef     string   `json:"osisRef" db:"osis_ref"`
+	PeopleCount int      `json:"peopleCount" db:"people_count"`
+	PlacesCount int      `json:"placesCount" db:"places_count"`
+	Slug        string   `json:"slug" db:"slug"`
+	Verses      []string `json:"verses"`  // refs
+	Writers     []string `json:"writers"` // refs
+	WriterCount int      `json:"writerCount" db:"writer_count"`
+}
+
+type Easton struct {
+	ID           string   `json:"id" db:"id"`
+	DefID        string   `json:"defId" db:"def_id"`
+	DictLookup   string   `json:"dictLookup" db:"dict_lookup"`
+	DictText     string   `json:"dictText" db:"dict_text"`
+	HasList      bool     `json:"hasList" db:"has_list"` // TODO convert [False True] string to bool
+	Index        int      `json:"index" db:"index"`
+	ItemNum      int      `json:"itemNum" db:"item_num"`
+	MatchSlugs   string   `json:"matchSlugs" db:"match_slugs"`
+	MatchType    string   `json:"matchType" db:"match_type"` // [unmatched person place multi]
+	PersonLookup []string `json:"personLookup"`              // refs
+	PlaceLookup  []string `json:"placeLookup"`               // refs
+	TermID       string   `json:"termId" db:"term_id"`
+	TermLabel    string   `json:"termLabel" db:"term_label"`
+}
+
+type Event struct {
+	ID        string  `db:"id"`
+	Title     string  `db:"title"`
+	StartDate string  `db:"start_date"`
+	Duration  string  `db:"duration"`
+	Lag       string  `db:"lag"`
+	LagType   string  `db:"lag_type"`
+	VerseSort string  `db:"verse_sort"`
+	SortKey   float64 `db:"sort_key"`
+	/*
+			2023/10/28 10:14:28 Filename: events
+		2023/10/28 10:14:28 key: ID
 		2023/10/28 10:14:28 is integer
-
-		2023/10/28 10:14:28 key: chapterCount
-		2023/10/28 10:14:28 is integer
-
-		2023/10/28 10:14:28 key: chapters
+		2023/10/28 10:14:28 key: Lag Type
+		2023/10/28 10:14:28 possible values: [FS SS]
+		2023/10/28 10:14:28 key: Sort Key
+		2023/10/28 10:14:28 is float
+		2023/10/28 10:14:28 key: duration
+		2023/10/28 10:14:28 is string
+		2023/10/28 10:14:28 key: groups
 		2023/10/28 10:14:28 string slice
 		2023/10/28 10:14:28 reference to objects
-
-		2023/10/28 10:14:28 key: osisName
+		2023/10/28 10:14:28 key: lag
 		2023/10/28 10:14:28 is string
-
-		2023/10/28 10:14:28 key: peopleCount
-		2023/10/28 10:14:28 is integer
-
-		2023/10/28 10:14:28 key: placeCount
-		2023/10/28 10:14:28 is integer
-
-		2023/10/28 10:14:28 key: placeWritten
+		2023/10/28 10:14:28 key: locations
 		2023/10/28 10:14:28 string slice
 		2023/10/28 10:14:28 reference to objects
-
-		2023/10/28 10:14:28 key: shortName
+		2023/10/28 10:14:28 key: modified
 		2023/10/28 10:14:28 is string
-
-		2023/10/28 10:14:28 key: slug
+		2023/10/28 10:14:28 key: notes
 		2023/10/28 10:14:28 is string
-
-		2023/10/28 10:14:28 key: testament
-		2023/10/28 10:14:28 possible values: [Old Testament New Testament]
-
-		2023/10/28 10:14:28 key: verseCount
-		2023/10/28 10:14:28 is integer
-
+		2023/10/28 10:14:28 key: partOf
+		2023/10/28 10:14:28 string slice
+		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28 key: participants
+		2023/10/28 10:14:28 string slice
+		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28 key: people (from verses)
+		2023/10/28 10:14:28 string slice
+		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28 key: places (from verses)
+		2023/10/28 10:14:28 string slice
+		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28 key: predecessor
+		2023/10/28 10:14:28 string slice
+		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28 key: rangeFlag
+		2023/10/28 10:14:28 is bool
+		2023/10/28 10:14:28 key: startDate
+		2023/10/28 10:14:28 is string
+		2023/10/28 10:14:28 key: title
+		2023/10/28 10:14:28 is string
+		2023/10/28 10:14:28 key: verseSort
+		2023/10/28 10:14:28 is string
 		2023/10/28 10:14:28 key: verses
 		2023/10/28 10:14:28 string slice
 		2023/10/28 10:14:28 reference to objects
-
-		2023/10/28 10:14:28 key: writers
-		2023/10/28 10:14:28 string slice
-
-		2023/10/28 10:14:28 key: yearWritten
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
+		2023/10/28 10:14:28
 	*/
+}
+
+type People struct { // TODO
+	ID             string `db:"id"`
+	PersonLookup   string `db:"person_lookup"`
+	PersonID       int    `db:"person_id"`
+	Name           string `db:"name"`
+	IsProperName   bool   `db:"is_proper_name"`
+	Gender         string `db:"gender"`
+	DictionaryLink string `db:"dictionary_link"`
+	DictionaryText string `db:"dictionary_text"`
+	DisplayTitle   string `db:"display_title"`
+	VerseCount     int    `db:"verse_count"`
+	MinYear        int    `db:"min_year"`
+	MaxYear        int    `db:"max_year"`
+	AlphaGroup     string `db:"alpha_group"`
+	Slug           string `db:"slug"`
+	EastonsCount   int    `db:"eastons_count"`
+	DictText       string `db:"dict_text"`
+	// BirthYear
+	// DeathYear
+	// MemberOf
+	// BirthPlace
+	// DeathPlace
+	// Verses
+	// Siblings
+	// Mother
+	// Father
+	// Children
+	// Partners
+	// Eastons
+	// Timeline
+
 }
 
 type Verse struct {
@@ -548,317 +787,6 @@ type Verse struct {
 
 		2023/10/28 10:05:50 key: status
 		2023/10/28 10:05:50 possible values: [publish wip]
-	*/
-}
-
-type Chapter struct {
-	ID          string `db:"id"`
-	OsisRef     string `db:"osis_ref"`
-	ChapterNum  int    `db:"chapter_num"`
-	Slug        string `db:"slug"`
-	PeopleCount int    `db:"people_count"`
-	PlacesCount int    `db:"places_count"`
-	WriterCount int    `db:"writer_count"`
-
-	/*
-		2023/10/28 09:46:48 key: verses
-		2023/10/28 09:46:48 string slice
-		2023/10/28 09:46:48 reference to objects
-		2023/10/28 09:46:48 key: chapterNum
-		2023/10/28 09:46:48 is integer
-		2023/10/28 09:46:48 key: modified
-		2023/10/28 09:46:48 possible values: [2019-08-08T01:43:21.000Z 2020-08-07T13:11:53.000Z 2020-08-07T13:12:06.000Z 2020-08-07T13:12:13.000Z 2020-08-07T13:12:18.000Z]
-		2023/10/28 09:46:48 key: book
-		2023/10/28 09:46:48 string slice
-		2023/10/28 09:46:48 reference to objects
-		2023/10/28 09:46:48 key: peopleCount
-		2023/10/28 09:46:48 is integer
-		2023/10/28 09:46:48 key: placesCount
-		2023/10/28 09:46:48 is integer
-		2023/10/28 09:46:48 key: writer count
-		2023/10/28 09:46:48 is integer
-		2023/10/28 09:46:48 key: osisRef
-		2023/10/28 09:46:48 is string
-		2023/10/28 09:46:48 key: slug
-		2023/10/28 09:46:48 is string
-		2023/10/28 09:46:48 key: writer
-		2023/10/28 09:46:48 string slice
-		2023/10/28 09:46:48 reference to objects
-	*/
-}
-
-/*
-EASTON
-
-2023/10/28 09:47:40 key: has_list
-2023/10/28 09:47:40 possible values: [False True]
-2023/10/28 09:47:40 key: index
-2023/10/28 09:47:40 is integer
-2023/10/28 09:47:40 key: dictLookup
-2023/10/28 09:47:40 is string
-2023/10/28 09:47:40 key: termID
-2023/10/28 09:47:40 is string
-2023/10/28 09:47:40 key: termLabel
-2023/10/28 09:47:40 is string
-2023/10/28 09:47:40 key: matchType
-2023/10/28 09:47:40 possible values: [multi unmatched person place]
-2023/10/28 09:47:40 key: personLookup
-2023/10/28 09:47:40 string slice
-2023/10/28 09:47:40 reference to objects
-2023/10/28 09:47:40 key: def_id
-2023/10/28 09:47:40 is string
-2023/10/28 09:47:40 key: placeLookup
-2023/10/28 09:47:40 string slice
-2023/10/28 09:47:40 reference to objects
-2023/10/28 09:47:40 key: itemNum
-2023/10/28 09:47:40 is integer
-2023/10/28 09:47:40 key: dictText
-2023/10/28 09:47:40 is string
-2023/10/28 09:47:40 key: matchSlugs
-2023/10/28 09:47:40 is string
-
-*/
-
-type Event struct {
-	ID        string  `db:"id"`
-	Title     string  `db:"title"`
-	StartDate string  `db:"start_date"`
-	Duration  string  `db:"duration"`
-	Lag       string  `db:"lag"`
-	LagType   string  `db:"lag_type"`
-	VerseSort string  `db:"verse_sort"`
-	SortKey   float64 `db:"sort_key"`
-	// Participants
-	// Locations
-	// Verses
-	// Predecessor
-	// PartOf
-	// People from verses
-
-	/*
-		2023/10/28 09:49:58 key: modified
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: rangeFlag
-		2023/10/28 09:49:58 is bool
-
-		2023/10/28 09:49:58 key: lag
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: Lag Type
-		2023/10/28 09:49:58 possible values: [FS SS]
-
-		2023/10/28 09:49:58 key: verseSort
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: startDate
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: Sort Key
-		2023/10/28 09:49:58 is float
-
-		2023/10/28 09:49:58 key: people (from verses)
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: participants
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: places (from verses)
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: locations
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: predecessor
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: verses
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: title
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: notes
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: ID
-		2023/10/28 09:49:58 is integer
-
-		2023/10/28 09:49:58 key: duration
-		2023/10/28 09:49:58 is string
-
-		2023/10/28 09:49:58 key: partOf
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-
-		2023/10/28 09:49:58 key: groups
-		2023/10/28 09:49:58 string slice
-		2023/10/28 09:49:58 reference to objects
-	*/
-}
-
-type People struct {
-	ID             string `db:"id"`
-	PersonLookup   string `db:"person_lookup"`
-	PersonID       int    `db:"person_id"`
-	Name           string `db:"name"`
-	IsProperName   bool   `db:"is_proper_name"`
-	Gender         string `db:"gender"`
-	DictionaryLink string `db:"dictionary_link"`
-	DictionaryText string `db:"dictionary_text"`
-	DisplayTitle   string `db:"display_title"`
-	VerseCount     int    `db:"verse_count"`
-	MinYear        int    `db:"min_year"`
-	MaxYear        int    `db:"max_year"`
-	AlphaGroup     string `db:"alpha_group"`
-	Slug           string `db:"slug"`
-	EastonsCount   int    `db:"eastons_count"`
-	DictText       string `db:"dict_text"`
-	// BirthYear
-	// DeathYear
-	// MemberOf
-	// BirthPlace
-	// DeathPlace
-	// Verses
-	// Siblings
-	// Mother
-	// Father
-	// Children
-	// Partners
-	// Eastons
-	// Timeline
-
-	/*
-		2023/10/28 09:54:20 key: verses
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: dictionaryLink
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: siblings
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: status
-		2023/10/28 09:54:20 possible values: [publish wip]
-
-		2023/10/28 09:54:20 key: father
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: maxYear
-		2023/10/28 09:54:20 is integer
-
-		2023/10/28 09:54:20 key: dictionaryText
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: name
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: surname
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: eastons
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: verseCount
-		2023/10/28 09:54:20 is integer
-
-		2023/10/28 09:54:20 key: displayTitle
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: ambiguous
-		2023/10/28 09:54:20 is bool
-
-		2023/10/28 09:54:20 key: events
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: chaptersWritten
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: memberOf
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: deathYear
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: minYear
-		2023/10/28 09:54:20 is integer
-
-		2023/10/28 09:54:20 key: birthYear
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: alsoCalled
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: halfSiblingsSameFather
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: children
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: gender
-		2023/10/28 09:54:20 possible values: [Female Male]
-
-		2023/10/28 09:54:20 key: slug
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: partners
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: alphaGroup
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: eventGroups
-		2023/10/28 09:54:20 string slice
-
-		2023/10/28 09:54:20 key: personLookup
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: Easton's Count
-		2023/10/28 09:54:20 is integer
-
-		2023/10/28 09:54:20 key: personID
-		2023/10/28 09:54:20 is integer
-
-		2023/10/28 09:54:20 key: timeline
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: deathPlace
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: birthPlace
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: dictText
-		2023/10/28 09:54:20 string slice
-
-		2023/10/28 09:54:20 key: Disambiguation (temp)
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: mother
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
-
-		2023/10/28 09:54:20 key: modified
-		2023/10/28 09:54:20 is string
-
-		2023/10/28 09:54:20 key: isProperName
-		2023/10/28 09:54:20 is bool
-
-		2023/10/28 09:54:20 key: halfSiblingsSameMother
-		2023/10/28 09:54:20 string slice
-		2023/10/28 09:54:20 reference to objects
 	*/
 }
 
