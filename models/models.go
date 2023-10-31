@@ -449,26 +449,55 @@ func (e *Entity) Field(field string) any {
 }
 
 func (e *Entity) Str(field string) string {
-	return e.Field(field).(string)
+	value := e.Field(field)
+	if value != nil {
+		return value.(string)
+	}
+
+	return ""
 }
 
 func (e *Entity) Strs(field string) []string {
-	elems := e.Fields[field].([]any)
-	strs := make([]string, len(elems))
+	value := e.Field(field)
+	if value != nil {
+		elems := e.Fields[field].([]any)
+		strs := make([]string, len(elems))
 
-	for index, elem := range elems {
-		strs[index] = elem.(string)
+		for index, elem := range elems {
+			strs[index] = elem.(string)
+		}
+
+		return strs
 	}
 
-	return strs
+	return nil
 }
 
 func (e *Entity) Float(field string) float64 {
-	return e.Field(field).(float64)
+	value := e.Field(field)
+	if value != nil {
+		return e.Field(field).(float64)
+	}
+
+	return 0.0
 }
 
 func (e *Entity) Int(field string) int {
-	return int(e.Float(field))
+	value := e.Field(field)
+	if value != nil {
+		return int(e.Float(field))
+	}
+
+	return 0
+}
+
+func (e *Entity) Bool(field string) bool {
+	value := e.Field(field)
+	if value != nil {
+		return e.Field(field).(bool)
+	}
+
+	return false
 }
 
 type Metadata struct {
@@ -556,7 +585,7 @@ type Book struct {
 	Testament    string   `json:"testament" db:"testament"` // [Old Testament, New Testament]
 	VerseCount   int      `json:"verseCount" db:"verse_count"`
 	Verses       []string `json:"verses"`      // refs
-	Writers      []string `json:"writers"`     // refs TODO turn people id's into ref id's from source
+	Writers      []string `json:"writers"`     // refs
 	YearWritten  []string `json:"yearWritten"` // refs
 }
 
@@ -578,7 +607,18 @@ func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
 	book.Testament = entity.Str("testament")
 	book.VerseCount = entity.Int("verseCount")
 	book.Verses = entity.Strs("verses")
-	// book.Writers = entity.Strs("writer")
+
+	writers := entity.Strs("writer")
+	book.Writers = make([]string, len(writers))
+	// Convert personLookup id's to entity id's as all other ref id's are entity id's
+	for index, writeID := range writers {
+		for _, entity := range metadata.People {
+			if writeID == entity.Str("personLookup") {
+				book.Writers[index] = entity.ID
+			}
+		}
+	}
+
 	book.YearWritten = entity.Strs("yearWritten")
 
 	return book
@@ -595,6 +635,23 @@ type Chapter struct {
 	Verses      []string `json:"verses"`  // refs
 	Writers     []string `json:"writers"` // refs
 	WriterCount int      `json:"writerCount" db:"writer_count"`
+}
+
+func ChapterFromEntity(entity *Entity, metadata *Metadata) *Chapter {
+	chapter := &Chapter{}
+
+	chapter.ID = entity.ID
+	chapter.Book = entity.Strs("book")[0]
+	chapter.ChapterNum = entity.Int("chapterNum")
+	chapter.OsisRef = entity.Str("osisRef")
+	chapter.PeopleCount = entity.Int("peopleCount")
+	chapter.PlacesCount = entity.Int("placesCount")
+	chapter.Slug = entity.Str("slug")
+	chapter.Verses = entity.Strs("verses")
+	chapter.Writers = entity.Strs("writers")
+	chapter.WriterCount = entity.Int("writerCount")
+
+	return chapter
 }
 
 type Easton struct {
@@ -614,64 +671,24 @@ type Easton struct {
 }
 
 type Event struct {
-	ID        string  `db:"id"`
-	Title     string  `db:"title"`
-	StartDate string  `db:"start_date"`
-	Duration  string  `db:"duration"`
-	Lag       string  `db:"lag"`
-	LagType   string  `db:"lag_type"`
-	VerseSort string  `db:"verse_sort"`
-	SortKey   float64 `db:"sort_key"`
-	/*
-			2023/10/28 10:14:28 Filename: events
-		2023/10/28 10:14:28 key: ID
-		2023/10/28 10:14:28 is integer
-		2023/10/28 10:14:28 key: Lag Type
-		2023/10/28 10:14:28 possible values: [FS SS]
-		2023/10/28 10:14:28 key: Sort Key
-		2023/10/28 10:14:28 is float
-		2023/10/28 10:14:28 key: duration
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: groups
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: lag
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: locations
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: modified
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: notes
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: partOf
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: participants
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: people (from verses)
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: places (from verses)
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: predecessor
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28 key: rangeFlag
-		2023/10/28 10:14:28 is bool
-		2023/10/28 10:14:28 key: startDate
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: title
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: verseSort
-		2023/10/28 10:14:28 is string
-		2023/10/28 10:14:28 key: verses
-		2023/10/28 10:14:28 string slice
-		2023/10/28 10:14:28 reference to objects
-		2023/10/28 10:14:28
-	*/
+	ID               string   `json:"id" db:"id"`
+	Duration         string   `json:"duration" db:"duration"`
+	Groups           []string `json:"groups"` // refs
+	Lag              string   `json:"lag" db:"lag"`
+	LagType          string   `json:"lagType" db:"lag_type"` // [FS SS] key: Lag Type
+	Locations        []string `json:"locations"`             // refs
+	Notes            string   `json:"notes" db:"notes"`
+	PartOf           []string `json:"partOf"`           // refs
+	Participants     []string `json:"participants"`     // refs
+	PeopleFromVerses []string `json:"peopleFromVerses"` // refs key: people (from verses)
+	PlacesFromVerses []string `json:"placesFromVerses"` // refs key: places (from verses)
+	Predecessor      []string `json:"predecessor"`      // refs
+	RangeFlag        bool     `json:"rangeFlag" db:"range_flag"`
+	SortKey          float64  `json:"sortKey" db:"sort_key"` // key: Sort Key
+	StartDate        string   `json:"startDate" db:"start_date"`
+	Title            string   `json:"title" db:"title"`
+	VerseSort        string   `json:"verseSort" db:"verse_sort"`
+	Verses           []string `json:"verses"` // refs
 }
 
 type People struct { // TODO

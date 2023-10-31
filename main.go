@@ -10,6 +10,7 @@ import (
 	"sort"
 	"time"
 
+	"github.com/almerlucke/metabible/models"
 	"github.com/almerlucke/metabible/patterns"
 	sqlx "github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
@@ -207,5 +208,13 @@ func main() {
 
 	defer db.Close()
 
-	showPatterns()
+	metadata, err := models.LoadMetadata("theographic-bible-metadata/json")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	for _, bookEntity := range metadata.Books {
+		book := models.BookFromEntity(bookEntity, metadata)
+		log.Printf("book: %v - writers: %v", book.BookName, book.Writers)
+	}
 }
