@@ -606,6 +606,7 @@ func (meta *Metadata) CleanJson() error {
 	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
 	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
 	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
+	cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -716,7 +717,7 @@ type Easton struct {
 	DefID        string   `json:"defId" db:"def_id"`
 	DictLookup   string   `json:"dictLookup" db:"dict_lookup"`
 	DictText     string   `json:"dictText" db:"dict_text"`
-	HasList      bool     `json:"hasList" db:"has_list"` // TODO convert [False True] string to bool
+	HasList      bool     `json:"hasList" db:"has_list"`
 	Index        int      `json:"index" db:"index"`
 	ItemNum      int      `json:"itemNum" db:"item_num"`
 	MatchSlugs   string   `json:"matchSlugs" db:"match_slugs"`
@@ -775,57 +776,24 @@ type Event struct {
 func EventFromEntity(entity *Entity, metadata *Metadata) *Event {
 	event := &Event{}
 
-	/*
-		023/10/31 07:11:04 Filename: events
-		2023/10/31 07:11:04 key: ID
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:04 key: Lag Type
-		2023/10/31 07:11:04 possible values: [FS SS]
-		2023/10/31 07:11:04 key: Sort Key
-		2023/10/31 07:11:04 is float
-		2023/10/31 07:11:04 key: duration
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: groups
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: lag
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: locations
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: modified
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: notes
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: partOf
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: participants
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: people (from verses)
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: places (from verses)
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: predecessor
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-		2023/10/31 07:11:04 key: rangeFlag
-		2023/10/31 07:11:04 is bool
-		2023/10/31 07:11:04 key: startDate
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: title
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: verseSort
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: verses
-		2023/10/31 07:11:04 string slice
-		2023/10/31 07:11:04 reference to objects
-	*/
-
 	event.ID = entity.ID
+	event.LagType = entity.Str("Lag Type")
+	event.SortKey = entity.Float("Sort Key")
+	event.Duration = entity.Str("duration")
+	event.Groups = entity.Strs("groups")
+	event.Lag = entity.Str("lag")
+	event.Locations = entity.Strs("locations")
+	event.Notes = entity.Str("notes")
+	event.PartOf = entity.Strs("partOf")
+	event.Participants = entity.Strs("participants")
+	event.PeopleFromVerses = entity.Strs("people (from verses)")
+	event.PlacesFromVerses = entity.Strs("places (from verses)")
+	event.Predecessor = entity.Strs("predecessor")
+	event.RangeFlag = entity.Bool("rangeFlag")
+	event.StartDate = entity.Str("startDate")
+	event.Title = entity.Str("title")
+	event.VerseSort = entity.Str("verseSort")
+	event.Verses = entity.Strs("verses")
 
 	return event
 }
