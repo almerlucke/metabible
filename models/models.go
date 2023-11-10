@@ -461,16 +461,18 @@ func (e *Entity) Strs(field string) []string {
 	value := e.Field(field)
 	if value != nil {
 		elems := e.Fields[field].([]any)
-		strs := make([]string, len(elems))
+		strs := []string{}
 
-		for index, elem := range elems {
-			strs[index] = elem.(string)
+		for _, elem := range elems {
+			if elem != nil {
+				strs = append(strs, elem.(string))
+			}
 		}
 
 		return strs
 	}
 
-	return nil
+	return []string{}
 }
 
 func (e *Entity) Float(field string) float64 {
@@ -569,6 +571,51 @@ func LoadMetadata(jsonDir string) (*Metadata, error) {
 	return metadata, nil
 }
 
+func writeCleanedJson(obj any, fileName string) error {
+	data, err := json.Marshal(obj)
+	if err != nil {
+		return err
+	}
+
+	f, err := os.Create(fmt.Sprintf("cleaned-json/%s.json", fileName))
+	if err != nil {
+		return err
+	}
+
+	_, err = f.Write(data)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
+	return nil
+}
+
+func createCleanObjectSlice(entities []*Entity, meta *Metadata, f func(*Entity, *Metadata) any) []any {
+	objs := make([]any, len(entities))
+	for index, entity := range entities {
+		objs[index] = f(entity, meta)
+	}
+	return objs
+}
+
+func (meta *Metadata) CleanJson() error {
+	cleanMap := map[string]any{}
+
+	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
+	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
+
+	for k, v := range cleanMap {
+		err := writeCleanedJson(v, k)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 type Book struct {
 	ID           string   `json:"id" db:"id"`
 	BookDiv      string   `json:"bookDiv" db:"book_div"`
@@ -608,8 +655,9 @@ func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
 	book.VerseCount = entity.Int("verseCount")
 	book.Verses = entity.Strs("verses")
 
-	writers := entity.Strs("writer")
+	writers := entity.Strs("writers")
 	book.Writers = make([]string, len(writers))
+
 	// Convert personLookup id's to entity id's as all other ref id's are entity id's
 	for index, writeID := range writers {
 		for _, entity := range metadata.People {
@@ -624,6 +672,10 @@ func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
 	return book
 }
 
+func BookAnyFromEntity(entity *Entity, metadata *Metadata) any {
+	return BookFromEntity(entity, metadata)
+}
+
 type Chapter struct {
 	ID          string   `json:"id" db:"id"`
 	Book        string   `json:"book" db:"book"` // ref TODO make single item instead of array (consistency)
@@ -634,7 +686,7 @@ type Chapter struct {
 	Slug        string   `json:"slug" db:"slug"`
 	Verses      []string `json:"verses"`  // refs
 	Writers     []string `json:"writers"` // refs
-	WriterCount int      `json:"writerCount" db:"writer_count"`
+	WriterCount int      `json:"writerCount" db:"writercount"`
 }
 
 func ChapterFromEntity(entity *Entity, metadata *Metadata) *Chapter {
@@ -648,10 +700,14 @@ func ChapterFromEntity(entity *Entity, metadata *Metadata) *Chapter {
 	chapter.PlacesCount = entity.Int("placesCount")
 	chapter.Slug = entity.Str("slug")
 	chapter.Verses = entity.Strs("verses")
-	chapter.Writers = entity.Strs("writers")
-	chapter.WriterCount = entity.Int("writerCount")
+	chapter.Writers = entity.Strs("writer")
+	chapter.WriterCount = entity.Int("writer count")
 
 	return chapter
+}
+
+func ChapterAnyFromEntity(entity *Entity, metadata *Metadata) any {
+	return ChapterFromEntity(entity, metadata)
 }
 
 type Easton struct {
@@ -806,202 +862,3 @@ type Verse struct {
 		2023/10/28 10:05:50 possible values: [publish wip]
 	*/
 }
-
-/*
-peopleGroups
-
-2023/10/28 10:00:02 key: modified
-2023/10/28 10:00:02 is string
-
-2023/10/28 10:00:02 key: verses
-2023/10/28 10:00:02 string slice
-2023/10/28 10:00:02 reference to objects
-
-2023/10/28 10:00:02 key: partOf
-2023/10/28 10:00:02 string slice
-2023/10/28 10:00:02 reference to objects
-
-2023/10/28 10:00:02 key: events
-2023/10/28 10:00:02 string slice
-2023/10/28 10:00:02 reference to objects
-
-2023/10/28 10:00:02 key: groupName
-2023/10/28 10:00:02 is string
-
-2023/10/28 10:00:02 key: members
-2023/10/28 10:00:02 string slice
-2023/10/28 10:00:02 reference to objects
-
-2023/10/28 10:00:02 key: events_dev
-2023/10/28 10:00:02 string slice
-2023/10/28 10:00:02 reference to objects
-
-
-Periods:
-2023/10/28 10:01:25 key: events
-2023/10/28 10:01:25 string slice
-2023/10/28 10:01:25 reference to objects
-
-2023/10/28 10:01:25 key: formattedYear
-2023/10/28 10:01:25 is string
-
-2023/10/28 10:01:25 key: modified
-2023/10/28 10:01:25 is string
-
-2023/10/28 10:01:25 key: isoYear
-2023/10/28 10:01:25 is integer
-
-2023/10/28 10:01:25 key: BC-AD
-2023/10/28 10:01:25 possible values: [BC AD]
-
-2023/10/28 10:01:25 key: yearNum
-2023/10/28 10:01:25 is string
-
-2023/10/28 10:01:25 key: peopleBorn
-2023/10/28 10:01:25 string slice
-2023/10/28 10:01:25 reference to objects
-
-2023/10/28 10:01:25 key: peopleDied
-2023/10/28 10:01:25 string slice
-2023/10/28 10:01:25 reference to objects
-
-2023/10/28 10:01:25 key: booksWritten
-2023/10/28 10:01:25 string slice
-2023/10/28 10:01:25 reference to objects
-
-Places:
-2023/10/28 10:02:06 key: featureType
-2023/10/28 10:02:06 possible values: [Water Region City Landmark Mountain Island Valley Path]
-
-2023/10/28 10:02:06 key: longitude
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: precision
-2023/10/28 10:02:06 possible values: [Related-Surrounding Related-Within Center Precise Rough Unlocated]
-
-2023/10/28 10:02:06 key: hasBeenHere
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: ambiguous
-2023/10/28 10:02:06 is bool
-
-2023/10/28 10:02:06 key: recogitoLabel
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: displayTitle
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: dictionaryLink
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: aliases
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: status
-2023/10/28 10:02:06 possible values: [wip publish]
-
-2023/10/28 10:02:06 key: verses
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: eastons
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: placeID
-2023/10/28 10:02:06 is integer
-
-2023/10/28 10:02:06 key: recogitoUri
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: recogitoComments
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: modified
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: dictText
-2023/10/28 10:02:06 string slice
-
-2023/10/28 10:02:06 key: recogitoType
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: duplicate_of
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: featureSubType
-2023/10/28 10:02:06 possible values: [Country Spring Well Garden Cave Tower River Gate]
-
-2023/10/28 10:02:06 key: comment
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: recogitoLat
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: recogitoLon
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: eventsHere
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: slug
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: openBibleLat
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: openBibleLong
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: kjvName
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: timeline
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: eventGroups
-2023/10/28 10:02:06 string slice
-
-2023/10/28 10:02:06 key: recogitoStatus
-2023/10/28 10:02:06 possible values: [UNVERIFIED VERIFIED NOT_IDENTIFIABLE]
-
-2023/10/28 10:02:06 key: latitude
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: alphaGroup
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: placeLookup
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: booksWritten
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: recogitoUID
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: verseCount
-2023/10/28 10:02:06 is integer
-
-2023/10/28 10:02:06 key: esvName
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: rootID
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: peopleDied
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-
-2023/10/28 10:02:06 key: dictionaryText
-2023/10/28 10:02:06 is string
-
-2023/10/28 10:02:06 key: peopleBorn
-2023/10/28 10:02:06 string slice
-2023/10/28 10:02:06 reference to objects
-*/

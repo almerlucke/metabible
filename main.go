@@ -213,8 +213,8 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	for _, bookEntity := range metadata.Books {
-		book := models.BookFromEntity(bookEntity, metadata)
-		log.Printf("book: %v - writers: %v", book.BookName, book.Writers)
+	err = metadata.CleanJson()
+	if err != nil {
+		log.Fatalln(err)
 	}
 }
