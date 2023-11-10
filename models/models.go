@@ -605,6 +605,7 @@ func (meta *Metadata) CleanJson() error {
 
 	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
 	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
+	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -726,6 +727,30 @@ type Easton struct {
 	TermLabel    string   `json:"termLabel" db:"term_label"`
 }
 
+func EastonFromEntity(entity *Entity, metadata *Metadata) *Easton {
+	easton := &Easton{}
+
+	easton.ID = entity.ID
+	easton.DefID = entity.Str("def_id")
+	easton.DictLookup = entity.Str("dictLookup")
+	easton.DictText = entity.Str("dictText")
+	easton.HasList = entity.Str("has_list") == "True"
+	easton.Index = entity.Int("index")
+	easton.ItemNum = entity.Int("itemNum")
+	easton.MatchSlugs = entity.Str("matchSlugs")
+	easton.MatchType = entity.Str("matchType")
+	easton.PersonLookup = entity.Strs("personLookup")
+	easton.PlaceLookup = entity.Strs("placeLookup")
+	easton.TermID = entity.Str("termID")
+	easton.TermLabel = entity.Str("termLabel")
+
+	return easton
+}
+
+func EastonAnyFromEntity(entity *Entity, metadata *Metadata) any {
+	return EastonFromEntity(entity, metadata)
+}
+
 type Event struct {
 	ID               string   `json:"id" db:"id"`
 	Duration         string   `json:"duration" db:"duration"`
@@ -745,6 +770,68 @@ type Event struct {
 	Title            string   `json:"title" db:"title"`
 	VerseSort        string   `json:"verseSort" db:"verse_sort"`
 	Verses           []string `json:"verses"` // refs
+}
+
+func EventFromEntity(entity *Entity, metadata *Metadata) *Event {
+	event := &Event{}
+
+	/*
+		023/10/31 07:11:04 Filename: events
+		2023/10/31 07:11:04 key: ID
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:04 key: Lag Type
+		2023/10/31 07:11:04 possible values: [FS SS]
+		2023/10/31 07:11:04 key: Sort Key
+		2023/10/31 07:11:04 is float
+		2023/10/31 07:11:04 key: duration
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: groups
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: lag
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: locations
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: modified
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: notes
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: partOf
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: participants
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: people (from verses)
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: places (from verses)
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: predecessor
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+		2023/10/31 07:11:04 key: rangeFlag
+		2023/10/31 07:11:04 is bool
+		2023/10/31 07:11:04 key: startDate
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: title
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: verseSort
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: verses
+		2023/10/31 07:11:04 string slice
+		2023/10/31 07:11:04 reference to objects
+	*/
+
+	event.ID = entity.ID
+
+	return event
+}
+
+func EventAnyFromEntity(entity *Entity, metadata *Metadata) any {
+	return EventFromEntity(entity, metadata)
 }
 
 type People struct { // TODO
