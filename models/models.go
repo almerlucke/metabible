@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"reflect"
+	"slices"
+	"strings"
 )
 
 /*
@@ -45,7 +48,7 @@ import (
 2023/10/31 07:11:04 key: yearWritten
 2023/10/31 07:11:04 string slice
 2023/10/31 07:11:04 reference to objects
-2023/10/31 07:11:04
+2023/10/31 07:104
 
 2023/10/31 07:11:04 Filename: chapters
 2023/10/31 07:11:04 key: book
@@ -71,7 +74,7 @@ import (
 2023/10/31 07:11:04 reference to objects
 2023/10/31 07:11:04 key: writer count
 2023/10/31 07:11:04 is integer
-2023/10/31 07:11:04
+2023/10/31 07:11:041:
 
 2023/10/31 07:11:04 Filename: easton
 2023/10/31 07:11:04 key: def_id
@@ -605,8 +608,8 @@ func (meta *Metadata) CleanJson() error {
 
 	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
 	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
-	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
-	cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
+	//cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
+	//cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -618,8 +621,135 @@ func (meta *Metadata) CleanJson() error {
 	return nil
 }
 
+type FieldType int
+
+const (
+	UnsupportedType FieldType = iota
+	IntType
+	FloatType
+	BoolType
+	StringType
+	StringsType
+)
+
+func FieldTypeFromValue(v reflect.Value) FieldType {
+	switch v.Type().Kind() {
+	case reflect.Bool:
+		return BoolType
+	case reflect.Int:
+		return IntType
+	case reflect.Float64:
+		return FloatType
+	case reflect.String:
+		return StringType
+	case reflect.Slice:
+		return StringsType
+	default:
+		return UnsupportedType
+	}
+}
+
+func StringsFromValue(v reflect.Value) []string {
+	var strs []string
+
+	for _, elem := range v.Interface().([]interface{}) {
+		if elem != nil {
+			strs = append(strs, elem.(string))
+		}
+	}
+
+	return strs
+}
+
+func setFieldFromEntityField(srcFieldValue reflect.Value, dstFieldValue reflect.Value) {
+	srcFieldType := FieldTypeFromValue(srcFieldValue)
+	dstFieldType := FieldTypeFromValue(dstFieldValue)
+
+	switch dstFieldType {
+	case IntType:
+		dstFieldValue.SetInt(int64(srcFieldValue.Float()))
+	case StringsType:
+		dstFieldValue.Set(reflect.ValueOf(StringsFromValue(srcFieldValue)))
+	case StringType:
+		if srcFieldType == StringsType {
+			dstFieldValue.Set(reflect.ValueOf(StringsFromValue(srcFieldValue)[0]))
+		} else {
+			dstFieldValue.Set(srcFieldValue)
+		}
+	default:
+		dstFieldValue.Set(srcFieldValue)
+	}
+}
+
+func setEmptyField(dstFieldValue reflect.Value) {
+	dstFieldType := FieldTypeFromValue(dstFieldValue)
+
+	switch dstFieldType {
+	case StringsType:
+		dstFieldValue.Set(reflect.ValueOf([]string{}))
+	default:
+		break
+	}
+}
+
+func ConvertFromEntity(src *Entity, dst any) {
+	v := reflect.ValueOf(dst)
+	if v.Kind() != reflect.Pointer {
+		return
+	}
+
+	v = v.Elem()
+	if v.Kind() != reflect.Struct {
+		return
+	}
+
+	vt := v.Type()
+
+	zeroValue := reflect.Value{}
+
+	idField := v.FieldByName("ID")
+	if idField == zeroValue {
+		return
+	}
+
+	idField.SetString(src.ID)
+
+	for i := 0; i < v.NumField(); i++ {
+		entityFieldName := "__skip__"
+
+		// Default use json tag
+		if jsonFieldName, ok := vt.Field(i).Tag.Lookup("json"); ok {
+			jsonFieldName = strings.Split(jsonFieldName, ",")[0]
+			if jsonFieldName != "" {
+				entityFieldName = jsonFieldName
+			}
+		}
+
+		// Maybe use src tag
+		if srcFieldName, ok := vt.Field(i).Tag.Lookup("src"); ok {
+			srcFieldName := strings.Split(srcFieldName, ",")[0]
+			if srcFieldName != "" {
+				entityFieldName = srcFieldName
+			}
+		}
+
+		if entityFieldName == "__skip__" {
+			continue
+		}
+
+		fieldsMap := reflect.ValueOf(src.Fields)
+		fieldValue := fieldsMap.MapIndex(reflect.ValueOf(entityFieldName))
+		if fieldValue == zeroValue {
+			setEmptyField(v.Field(i))
+			continue
+		}
+
+		setFieldFromEntityField(fieldValue.Elem(), v.Field(i))
+	}
+}
+
 type Book struct {
-	ID           string   `json:"id" db:"id"`
+	ID           string   `json:"id" db:"id" src:"__skip__"`
 	BookDiv      string   `json:"bookDiv" db:"book_div"`
 	BookName     string   `json:"bookName" db:"book_name"`
 	BookOrder    int      `json:"bookOrder" db:"book_order"`
@@ -641,35 +771,25 @@ type Book struct {
 func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
 	book := &Book{}
 
-	book.ID = entity.ID
-	book.BookDiv = entity.Str("bookDiv")
-	book.BookName = entity.Str("bookName")
-	book.BookOrder = entity.Int("bookOrder")
-	book.ChapterCount = entity.Int("chapterCount")
-	book.Chapters = entity.Strs("chapters")
-	book.OsisName = entity.Str("osisName")
-	book.PeopleCount = entity.Int("peopleCount")
-	book.PlaceCount = entity.Int("placeCount")
-	book.PlaceWritten = entity.Strs("placeWritten")
-	book.ShortName = entity.Str("shortName")
-	book.Slug = entity.Str("slug")
-	book.Testament = entity.Str("testament")
-	book.VerseCount = entity.Int("verseCount")
-	book.Verses = entity.Strs("verses")
+	ConvertFromEntity(entity, book)
 
-	writers := entity.Strs("writers")
-	book.Writers = make([]string, len(writers))
+	var writers []string
 
 	// Convert personLookup id's to entity id's as all other ref id's are entity id's
-	for index, writeID := range writers {
-		for _, entity := range metadata.People {
-			if writeID == entity.Str("personLookup") {
-				book.Writers[index] = entity.ID
+	for _, writeID := range book.Writers {
+		persons := strings.Split(writeID, ",")
+		for _, person := range persons {
+			for _, entity := range metadata.People {
+				personLookup := entity.Str("personLookup")
+				if person == personLookup && !slices.Contains(writers, entity.ID) {
+					writers = append(writers, entity.ID)
+					break
+				}
 			}
 		}
 	}
 
-	book.YearWritten = entity.Strs("yearWritten")
+	book.Writers = writers
 
 	return book
 }
@@ -679,37 +799,28 @@ func BookAnyFromEntity(entity *Entity, metadata *Metadata) any {
 }
 
 type Chapter struct {
-	ID          string   `json:"id" db:"id"`
+	ID          string   `json:"id" db:"id" src:"__skip__"`
 	Book        string   `json:"book" db:"book"` // ref TODO make single item instead of array (consistency)
 	ChapterNum  int      `json:"chapterNum" db:"chapter_num"`
 	OsisRef     string   `json:"osisRef" db:"osis_ref"`
 	PeopleCount int      `json:"peopleCount" db:"people_count"`
 	PlacesCount int      `json:"placesCount" db:"places_count"`
 	Slug        string   `json:"slug" db:"slug"`
-	Verses      []string `json:"verses"`  // refs
-	Writers     []string `json:"writers"` // refs
-	WriterCount int      `json:"writerCount" db:"writercount"`
+	Verses      []string `json:"verses"`               // refs
+	Writers     []string `json:"writers" src:"writer"` // refs
+	WriterCount int      `json:"writerCount" db:"writer_count" src:"writer count"`
 }
 
-func ChapterFromEntity(entity *Entity, metadata *Metadata) *Chapter {
+func ChapterFromEntity(entity *Entity) *Chapter {
 	chapter := &Chapter{}
 
-	chapter.ID = entity.ID
-	chapter.Book = entity.Strs("book")[0]
-	chapter.ChapterNum = entity.Int("chapterNum")
-	chapter.OsisRef = entity.Str("osisRef")
-	chapter.PeopleCount = entity.Int("peopleCount")
-	chapter.PlacesCount = entity.Int("placesCount")
-	chapter.Slug = entity.Str("slug")
-	chapter.Verses = entity.Strs("verses")
-	chapter.Writers = entity.Strs("writer")
-	chapter.WriterCount = entity.Int("writer count")
+	ConvertFromEntity(entity, chapter)
 
 	return chapter
 }
 
-func ChapterAnyFromEntity(entity *Entity, metadata *Metadata) any {
-	return ChapterFromEntity(entity, metadata)
+func ChapterAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return ChapterFromEntity(entity)
 }
 
 type Easton struct {
@@ -728,7 +839,7 @@ type Easton struct {
 	TermLabel    string   `json:"termLabel" db:"term_label"`
 }
 
-func EastonFromEntity(entity *Entity, metadata *Metadata) *Easton {
+func EastonFromEntity(entity *Entity) *Easton {
 	easton := &Easton{}
 
 	easton.ID = entity.ID
@@ -748,8 +859,8 @@ func EastonFromEntity(entity *Entity, metadata *Metadata) *Easton {
 	return easton
 }
 
-func EastonAnyFromEntity(entity *Entity, metadata *Metadata) any {
-	return EastonFromEntity(entity, metadata)
+func EastonAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return EastonFromEntity(entity)
 }
 
 type Event struct {
@@ -773,7 +884,7 @@ type Event struct {
 	Verses           []string `json:"verses"` // refs
 }
 
-func EventFromEntity(entity *Entity, metadata *Metadata) *Event {
+func EventFromEntity(entity *Entity) *Event {
 	event := &Event{}
 
 	event.ID = entity.ID
@@ -798,41 +909,144 @@ func EventFromEntity(entity *Entity, metadata *Metadata) *Event {
 	return event
 }
 
-func EventAnyFromEntity(entity *Entity, metadata *Metadata) any {
-	return EventFromEntity(entity, metadata)
+func EventAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return EventFromEntity(entity)
 }
 
 type People struct { // TODO
-	ID             string `db:"id"`
-	PersonLookup   string `db:"person_lookup"`
-	PersonID       int    `db:"person_id"`
-	Name           string `db:"name"`
-	IsProperName   bool   `db:"is_proper_name"`
-	Gender         string `db:"gender"`
-	DictionaryLink string `db:"dictionary_link"`
-	DictionaryText string `db:"dictionary_text"`
-	DisplayTitle   string `db:"display_title"`
-	VerseCount     int    `db:"verse_count"`
-	MinYear        int    `db:"min_year"`
-	MaxYear        int    `db:"max_year"`
-	AlphaGroup     string `db:"alpha_group"`
-	Slug           string `db:"slug"`
-	EastonsCount   int    `db:"eastons_count"`
-	DictText       string `db:"dict_text"`
-	// BirthYear
-	// DeathYear
-	// MemberOf
-	// BirthPlace
-	// DeathPlace
-	// Verses
-	// Siblings
-	// Mother
-	// Father
-	// Children
-	// Partners
-	// Eastons
-	// Timeline
+	ID                     string   `json:"id" db:"id"`
+	AlphaGroup             string   `json:"alphaGroup" db:"alpha_group" src:"fields.alpha"`
+	AlsoCalled             string   `json:"alsoCalled" db:"also_called"`
+	Ambiguous              bool     `json:"ambiguous" db:"ambiguous"`
+	BirthPlace             []string `json:"birthPlace"`
+	BirthYear              []string `json:"birthYear"`
+	ChaptersWritten        []string `json:"chaptersWritten"`
+	Children               []string `json:"children"`
+	DeathPlace             []string `json:"deathPlace"`
+	DeathYear              []string `json:"deathYear"`
+	DictText               []string `json:"dictText" db:"dict_text"` // TODO: convert db from and to string slice
+	DictionaryLink         string   `json:"dictionaryLink" db:"dictionary_link"`
+	DictionaryText         string   `json:"dictionaryText" db:"dictionary_text"`
+	Disambiguation         string   `json:"disambiguation" db:"disambiguation"`
+	DisplayTitle           string   `json:"displayTitle" db:"display_title"`
+	Eastons                []string `json:"eastons"`
+	EastonsCount           int      `json:"eastonsCount" db:"eastons_count"`
+	EventGroups            []string `json:"eventGroups" db:"event_groups"` // TODO: convert db from and to string slice
+	Events                 []string `json:"events"`
+	Father                 string   `json:"father"` // TODO: Single reference to father people
+	Gender                 string   `json:"gender" db:"gender"`
+	HalfSiblingsSameFather []string `json:"halfSiblingsSameFather"`
+	HalfSiblingsSameMother []string `json:"halfSiblingsSameMother"`
+	IsProperName           bool     `json:"isProperName" db:"is_proper_name"`
+	MaxYear                int      `json:"maxYear" db:"max_year"`
+	MemberOf               []string `json:"memberOf"`
+	MinYear                int      `json:"minYear" db:"min_year"`
+	Mother                 string   `json:"mother"` // TODO: Single reference to mother people
+	Name                   string   `json:"name" db:"name"`
+	Partners               []string `json:"partners"`
+	PersonID               int      `json:"personId" db:"person_id"`
+	PersonLookup           string   `json:"personLookup" db:"person_lookup"`
+	Siblings               []string `json:"siblings"`
+	Slug                   string   `json:"slug" db:"slug"`
+	Status                 string   `json:"status" db:"status"`
+	Surname                string   `json:"surname" db:"surname"`
+	Timeline               []string `json:"timeline"`
+	VerseCount             int      `json:"verseCount" db:"verse_count"`
+	Verses                 []string `json:"verses"`
+}
 
+func PeopleFromEntity(entity *Entity) *People {
+	people := &People{}
+
+	people.ID = entity.ID
+
+	people.AlphaGroup = entity.Str("alphaGroup")
+	people.AlsoCalled = entity.Str("alsoCalled")
+	people.Ambiguous = entity.Bool("ambiguous")
+	people.BirthPlace = entity.Strs("birthPlace")
+	people.BirthYear = entity.Strs("birthYear")
+	people.ChaptersWritten = entity.Strs("chaptersWritten")
+	people.Children = entity.Strs("children")
+	people.DeathPlace = entity.Strs("deathPlace")
+	people.DeathYear = entity.Strs("deathYear")
+	people.DictText = entity.Strs("dictText")
+	people.DictionaryLink = entity.Str("dictionaryLink")
+	people.DictionaryText = entity.Str("dictionaryText")
+	people.Disambiguation = entity.Str("Disambiguation (temp)")
+	/*
+		2023/10/31 07:11:04 key: Disambiguation (temp)
+		2023/10/31 07:11:04 is string
+		2023/10/31 07:11:04 key: Easton's Count
+		2023/10/31 07:11:04 is integer
+		2023/10/31 07:11:05 key: dictionaryLink
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: dictionaryText
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: displayTitle
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: eastons
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: eventGroups
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 key: events
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: father
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: gender
+		2023/10/31 07:11:05 possible values: [Male Female]
+		2023/10/31 07:11:05 key: halfSiblingsSameFather
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: halfSiblingsSameMother
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: isProperName
+		2023/10/31 07:11:05 is bool
+		2023/10/31 07:11:05 key: maxYear
+		2023/10/31 07:11:05 is integer
+		2023/10/31 07:11:05 key: memberOf
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: minYear
+		2023/10/31 07:11:05 is integer
+		2023/10/31 07:11:05 key: modified
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: mother
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: name
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: partners
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: personID
+		2023/10/31 07:11:05 is integer
+		2023/10/31 07:11:05 key: personLookup
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: siblings
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: slug
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: status
+		2023/10/31 07:11:05 possible values: [publish wip]
+		2023/10/31 07:11:05 key: surname
+		2023/10/31 07:11:05 is string
+		2023/10/31 07:11:05 key: timeline
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+		2023/10/31 07:11:05 key: verseCount
+		2023/10/31 07:11:05 is integer
+		2023/10/31 07:11:05 key: verses
+		2023/10/31 07:11:05 string slice
+		2023/10/31 07:11:05 reference to objects
+
+	*/
+
+	return people
 }
 
 type Verse struct {

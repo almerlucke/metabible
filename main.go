@@ -192,6 +192,10 @@ func loadEntityJson(filePath string) ([]*Entity, error) {
 	return entities, nil
 }
 
+type Test struct {
+	Test int
+}
+
 func main() {
 	if !fileExists("metabible.db") {
 		fp, err := os.Create("metabible.db")
