@@ -614,6 +614,7 @@ func (meta *Metadata) CleanJson() error {
 	cleanMap["peopleGroups"] = createCleanObjectSlice(meta.PeopleGroups, meta, PeopleGroupAnyFromEntity)
 	cleanMap["periods"] = createCleanObjectSlice(meta.Periods, meta, PeriodAnyFromEntity)
 	cleanMap["places"] = createCleanObjectSlice(meta.Places, meta, PlaceAnyFromEntity)
+	cleanMap["verses"] = createCleanObjectSlice(meta.Verses, meta, VerseAnyFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -1048,84 +1049,34 @@ func PlaceAnyFromEntity(entity *Entity, _ *Metadata) any {
 }
 
 type Verse struct {
-	ID          string `db:"id"`
-	OsisRef     string `db:"osis_ref"`
-	VerseNum    int    `db:"verse_num"`
-	VerseText   string `db:"verse_text"`
-	YearNum     int    `db:"year_num"`
-	Status      string `db:"status"`
-	MDText      string `db:"md_text"`
-	RichText    string `db:"rich_text"`
-	VerseID     string `db:"verse_id"`
-	PeopleCount int    `db:"people_count"`
-	PlacesCount int    `db:"places_count"`
+	ID              string   `json:"id" db:"id" src:"__skip__"`
+	Book            string   `json:"book" db:"book"`
+	Chapter         string   `json:"chapter" db:"chapter"`
+	EventsDescribed []string `json:"eventsDescribed"`
+	MDText          string   `json:"mdText" db:"md_text"`
+	OsisRef         string   `json:"osisRef" db:"osis_ref"`
+	People          []string `json:"people"`
+	PeopleCount     int      `json:"peopleCount" db:"people_count"`
+	PeopleGroups    []string `json:"peopleGroups"`
+	Places          []string `json:"places"`
+	PlacesCount     int      `json:"placesCount" db:"places_count"`
+	RichText        string   `json:"richText" db:"rich_text"`
+	Status          string   `json:"status" db:"status"` //  [publish wip]
+	Timeline        []string `json:"timeline"`
+	VerseID         string   `json:"verseId" db:"verse_id" src:"verseID"`
+	VerseNum        string   `json:"verseNum" db:"verse_num"`
+	VerseText       string   `json:"verseText" db:"verse_text"`
+	YearNum         int      `json:"yearNum" db:"year_num"`
+}
 
-	// Book
-	// EventsDescribed
-	// People
-	// Chapter
-	// Timeline
+func VerseFromEntity(entity *Entity) *Verse {
+	verse := &Verse{}
 
-	/*
-		2023/10/28 10:05:50 key: richText
-		2023/10/28 10:05:50 is string
+	ConvertFromEntity(entity, verse)
 
-		2023/10/28 10:05:50 key: osisRef
-		2023/10/28 10:05:50 is string
+	return verse
+}
 
-		2023/10/28 10:05:50 key: places
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: verseText
-		2023/10/28 10:05:50 is string
-
-		2023/10/28 10:05:50 key: chapter
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: peopleCount
-		2023/10/28 10:05:50 is integer
-
-		2023/10/28 10:05:50 key: placesCount
-		2023/10/28 10:05:50 is integer
-
-		2023/10/28 10:05:50 key: people
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: yearNum
-		2023/10/28 10:05:50 is integer
-
-		2023/10/28 10:05:50 key: mdText
-		2023/10/28 10:05:50 is string
-
-		2023/10/28 10:05:50 key: verseID
-		2023/10/28 10:05:50 is string
-
-		2023/10/28 10:05:50 key: timeline
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: eventsDescribed
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: peopleGroups
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: verseNum
-		2023/10/28 10:05:50 is string
-
-		2023/10/28 10:05:50 key: modified
-		2023/10/28 10:05:50 is string
-
-		2023/10/28 10:05:50 key: book
-		2023/10/28 10:05:50 string slice
-		2023/10/28 10:05:50 reference to objects
-
-		2023/10/28 10:05:50 key: status
-		2023/10/28 10:05:50 possible values: [publish wip]
-	*/
+func VerseAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return VerseFromEntity(entity)
 }
