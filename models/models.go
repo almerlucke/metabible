@@ -608,8 +608,12 @@ func (meta *Metadata) CleanJson() error {
 
 	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
 	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
-	//cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
-	//cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
+	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
+	cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
+	cleanMap["people"] = createCleanObjectSlice(meta.People, meta, PersonAnyFromEntity)
+	cleanMap["peopleGroups"] = createCleanObjectSlice(meta.PeopleGroups, meta, PeopleGroupAnyFromEntity)
+	cleanMap["periods"] = createCleanObjectSlice(meta.Periods, meta, PeriodAnyFromEntity)
+	cleanMap["places"] = createCleanObjectSlice(meta.Places, meta, PlaceAnyFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -824,37 +828,27 @@ func ChapterAnyFromEntity(entity *Entity, _ *Metadata) any {
 }
 
 type Easton struct {
-	ID           string   `json:"id" db:"id"`
-	DefID        string   `json:"defId" db:"def_id"`
+	ID           string   `json:"id" db:"id" src:"__skip__"`
+	DefID        string   `json:"defId" db:"def_id" src:"def_id"`
 	DictLookup   string   `json:"dictLookup" db:"dict_lookup"`
 	DictText     string   `json:"dictText" db:"dict_text"`
-	HasList      bool     `json:"hasList" db:"has_list"`
+	HasList      bool     `json:"hasList" db:"has_list" src:"__skip__"`
 	Index        int      `json:"index" db:"index"`
 	ItemNum      int      `json:"itemNum" db:"item_num"`
 	MatchSlugs   string   `json:"matchSlugs" db:"match_slugs"`
 	MatchType    string   `json:"matchType" db:"match_type"` // [unmatched person place multi]
 	PersonLookup []string `json:"personLookup"`              // refs
 	PlaceLookup  []string `json:"placeLookup"`               // refs
-	TermID       string   `json:"termId" db:"term_id"`
+	TermID       string   `json:"termId" db:"term_id" src:"termID"`
 	TermLabel    string   `json:"termLabel" db:"term_label"`
 }
 
 func EastonFromEntity(entity *Entity) *Easton {
 	easton := &Easton{}
 
-	easton.ID = entity.ID
-	easton.DefID = entity.Str("def_id")
-	easton.DictLookup = entity.Str("dictLookup")
-	easton.DictText = entity.Str("dictText")
+	ConvertFromEntity(entity, easton)
+
 	easton.HasList = entity.Str("has_list") == "True"
-	easton.Index = entity.Int("index")
-	easton.ItemNum = entity.Int("itemNum")
-	easton.MatchSlugs = entity.Str("matchSlugs")
-	easton.MatchType = entity.Str("matchType")
-	easton.PersonLookup = entity.Strs("personLookup")
-	easton.PlaceLookup = entity.Strs("placeLookup")
-	easton.TermID = entity.Str("termID")
-	easton.TermLabel = entity.Str("termLabel")
 
 	return easton
 }
@@ -864,20 +858,20 @@ func EastonAnyFromEntity(entity *Entity, _ *Metadata) any {
 }
 
 type Event struct {
-	ID               string   `json:"id" db:"id"`
+	ID               string   `json:"id" db:"id" src:"__skip__"`
 	Duration         string   `json:"duration" db:"duration"`
 	Groups           []string `json:"groups"` // refs
 	Lag              string   `json:"lag" db:"lag"`
-	LagType          string   `json:"lagType" db:"lag_type"` // [FS SS] key: Lag Type
-	Locations        []string `json:"locations"`             // refs
+	LagType          string   `json:"lagType" db:"lag_type" src:"Lag Type"` // [FS SS]
+	Locations        []string `json:"locations"`                            // refs
 	Notes            string   `json:"notes" db:"notes"`
-	PartOf           []string `json:"partOf"`           // refs
-	Participants     []string `json:"participants"`     // refs
-	PeopleFromVerses []string `json:"peopleFromVerses"` // refs key: people (from verses)
-	PlacesFromVerses []string `json:"placesFromVerses"` // refs key: places (from verses)
-	Predecessor      []string `json:"predecessor"`      // refs
+	PartOf           []string `json:"partOf"`                                      // refs
+	Participants     []string `json:"participants"`                                // refs
+	PeopleFromVerses []string `json:"peopleFromVerses" src:"people (from verses)"` // refs
+	PlacesFromVerses []string `json:"placesFromVerses" src:"places (from verses)"` // refs
+	Predecessor      []string `json:"predecessor"`                                 // refs
 	RangeFlag        bool     `json:"rangeFlag" db:"range_flag"`
-	SortKey          float64  `json:"sortKey" db:"sort_key"` // key: Sort Key
+	SortKey          float64  `json:"sortKey" db:"sort_key" src:"Sort Key"` // key: Sort Key
 	StartDate        string   `json:"startDate" db:"start_date"`
 	Title            string   `json:"title" db:"title"`
 	VerseSort        string   `json:"verseSort" db:"verse_sort"`
@@ -887,24 +881,7 @@ type Event struct {
 func EventFromEntity(entity *Entity) *Event {
 	event := &Event{}
 
-	event.ID = entity.ID
-	event.LagType = entity.Str("Lag Type")
-	event.SortKey = entity.Float("Sort Key")
-	event.Duration = entity.Str("duration")
-	event.Groups = entity.Strs("groups")
-	event.Lag = entity.Str("lag")
-	event.Locations = entity.Strs("locations")
-	event.Notes = entity.Str("notes")
-	event.PartOf = entity.Strs("partOf")
-	event.Participants = entity.Strs("participants")
-	event.PeopleFromVerses = entity.Strs("people (from verses)")
-	event.PlacesFromVerses = entity.Strs("places (from verses)")
-	event.Predecessor = entity.Strs("predecessor")
-	event.RangeFlag = entity.Bool("rangeFlag")
-	event.StartDate = entity.Str("startDate")
-	event.Title = entity.Str("title")
-	event.VerseSort = entity.Str("verseSort")
-	event.Verses = entity.Strs("verses")
+	ConvertFromEntity(entity, event)
 
 	return event
 }
@@ -913,9 +890,9 @@ func EventAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return EventFromEntity(entity)
 }
 
-type People struct { // TODO
-	ID                     string   `json:"id" db:"id"`
-	AlphaGroup             string   `json:"alphaGroup" db:"alpha_group" src:"fields.alpha"`
+type Person struct {
+	ID                     string   `json:"id" db:"id" src:"__skip__"`
+	AlphaGroup             string   `json:"alphaGroup" db:"alpha_group"`
 	AlsoCalled             string   `json:"alsoCalled" db:"also_called"`
 	Ambiguous              bool     `json:"ambiguous" db:"ambiguous"`
 	BirthPlace             []string `json:"birthPlace"`
@@ -927,13 +904,13 @@ type People struct { // TODO
 	DictText               []string `json:"dictText" db:"dict_text"` // TODO: convert db from and to string slice
 	DictionaryLink         string   `json:"dictionaryLink" db:"dictionary_link"`
 	DictionaryText         string   `json:"dictionaryText" db:"dictionary_text"`
-	Disambiguation         string   `json:"disambiguation" db:"disambiguation"`
+	Disambiguation         string   `json:"disambiguation" db:"disambiguation" src:"Disambiguation (temp)"`
 	DisplayTitle           string   `json:"displayTitle" db:"display_title"`
 	Eastons                []string `json:"eastons"`
-	EastonsCount           int      `json:"eastonsCount" db:"eastons_count"`
+	EastonsCount           int      `json:"eastonsCount" db:"eastons_count" src:"Easton's Count"`
 	EventGroups            []string `json:"eventGroups" db:"event_groups"` // TODO: convert db from and to string slice
 	Events                 []string `json:"events"`
-	Father                 string   `json:"father"` // TODO: Single reference to father people
+	Father                 string   `json:"father"`
 	Gender                 string   `json:"gender" db:"gender"`
 	HalfSiblingsSameFather []string `json:"halfSiblingsSameFather"`
 	HalfSiblingsSameMother []string `json:"halfSiblingsSameMother"`
@@ -941,10 +918,10 @@ type People struct { // TODO
 	MaxYear                int      `json:"maxYear" db:"max_year"`
 	MemberOf               []string `json:"memberOf"`
 	MinYear                int      `json:"minYear" db:"min_year"`
-	Mother                 string   `json:"mother"` // TODO: Single reference to mother people
+	Mother                 string   `json:"mother"`
 	Name                   string   `json:"name" db:"name"`
 	Partners               []string `json:"partners"`
-	PersonID               int      `json:"personId" db:"person_id"`
+	PersonID               int      `json:"personId" db:"person_id" src:"personID"`
 	PersonLookup           string   `json:"personLookup" db:"person_lookup"`
 	Siblings               []string `json:"siblings"`
 	Slug                   string   `json:"slug" db:"slug"`
@@ -955,98 +932,119 @@ type People struct { // TODO
 	Verses                 []string `json:"verses"`
 }
 
-func PeopleFromEntity(entity *Entity) *People {
-	people := &People{}
+func PersonFromEntity(entity *Entity) *Person {
+	person := &Person{}
 
-	people.ID = entity.ID
+	ConvertFromEntity(entity, person)
 
-	people.AlphaGroup = entity.Str("alphaGroup")
-	people.AlsoCalled = entity.Str("alsoCalled")
-	people.Ambiguous = entity.Bool("ambiguous")
-	people.BirthPlace = entity.Strs("birthPlace")
-	people.BirthYear = entity.Strs("birthYear")
-	people.ChaptersWritten = entity.Strs("chaptersWritten")
-	people.Children = entity.Strs("children")
-	people.DeathPlace = entity.Strs("deathPlace")
-	people.DeathYear = entity.Strs("deathYear")
-	people.DictText = entity.Strs("dictText")
-	people.DictionaryLink = entity.Str("dictionaryLink")
-	people.DictionaryText = entity.Str("dictionaryText")
-	people.Disambiguation = entity.Str("Disambiguation (temp)")
-	/*
-		2023/10/31 07:11:04 key: Disambiguation (temp)
-		2023/10/31 07:11:04 is string
-		2023/10/31 07:11:04 key: Easton's Count
-		2023/10/31 07:11:04 is integer
-		2023/10/31 07:11:05 key: dictionaryLink
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: dictionaryText
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: displayTitle
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: eastons
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: eventGroups
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 key: events
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: father
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: gender
-		2023/10/31 07:11:05 possible values: [Male Female]
-		2023/10/31 07:11:05 key: halfSiblingsSameFather
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: halfSiblingsSameMother
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: isProperName
-		2023/10/31 07:11:05 is bool
-		2023/10/31 07:11:05 key: maxYear
-		2023/10/31 07:11:05 is integer
-		2023/10/31 07:11:05 key: memberOf
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: minYear
-		2023/10/31 07:11:05 is integer
-		2023/10/31 07:11:05 key: modified
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: mother
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: name
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: partners
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: personID
-		2023/10/31 07:11:05 is integer
-		2023/10/31 07:11:05 key: personLookup
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: siblings
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: slug
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: status
-		2023/10/31 07:11:05 possible values: [publish wip]
-		2023/10/31 07:11:05 key: surname
-		2023/10/31 07:11:05 is string
-		2023/10/31 07:11:05 key: timeline
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
-		2023/10/31 07:11:05 key: verseCount
-		2023/10/31 07:11:05 is integer
-		2023/10/31 07:11:05 key: verses
-		2023/10/31 07:11:05 string slice
-		2023/10/31 07:11:05 reference to objects
+	return person
+}
 
-	*/
+func PersonAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return PersonFromEntity(entity)
+}
 
-	return people
+type PeopleGroup struct {
+	ID        string   `json:"id" db:"id" src:"__skip__"`
+	Events    []string `json:"events"`
+	EventsDev []string `json:"eventsDev" src:"events_dev"`
+	GroupName string   `json:"groupName" db:"group_name"`
+	Members   []string `json:"members"`
+	PartOf    []string `json:"partOf"`
+	Verses    []string `json:"verses"`
+}
+
+func PeopleGroupFromEntity(entity *Entity) *PeopleGroup {
+	group := &PeopleGroup{}
+
+	ConvertFromEntity(entity, group)
+
+	return group
+}
+
+func PeopleGroupAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return PeopleGroupFromEntity(entity)
+}
+
+type Period struct {
+	ID            string   `json:"id" db:"id" src:"__skip__"`
+	BcAD          string   `json:"bcAd" db:"bc_ad" src:"BC-AD"`
+	BooksWritten  []string `json:"booksWritten"`
+	Events        []string `json:"events"`
+	FormattedYear string   `json:"formattedYear" db:"formatted_year"`
+	ISOYear       int      `json:"isoYear" db:"iso_year"`
+	PeopleBorn    []string `json:"peopleBorn"`
+	PeopleDied    []string `json:"peopleDied"`
+	YearNum       string   `json:"yearNum" db:"year_num"`
+}
+
+func PeriodFromEntity(entity *Entity) *Period {
+	period := &Period{}
+
+	ConvertFromEntity(entity, period)
+
+	return period
+}
+
+func PeriodAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return PeriodFromEntity(entity)
+}
+
+type Place struct {
+	ID               string   `json:"id" db:"id" src:"__skip__"`
+	Aliases          string   `json:"aliases" db:"aliases"`
+	AlphaGroup       string   `json:"alphaGroup" db:"alpha_group"`
+	Ambiguous        bool     `json:"ambiguous" db:"ambiguous"`
+	BooksWritten     []string `json:"booksWritten"`
+	Comment          string   `json:"comment" db:"comment"`
+	DictText         []string `json:"dictText" db:"dict_text"` // TODO: convert slice to single string for db
+	DictionaryLink   string   `json:"dictionaryLink" db:"dictionary_link"`
+	DictionaryText   string   `json:"dictionaryText" db:"dictionary_text"`
+	DisplayTitle     string   `json:"displayTitle" db:"display_title"`
+	DuplicateOf      []string `json:"duplicateOf" src:"duplicate_of"`
+	Eastons          []string `json:"eastons"`
+	ESVName          string   `json:"esvName" db:"esv_name"`
+	EventGroups      []string `json:"eventGroups" db:"event_groups"` // TODO: convert slice to single string for db
+	EventsHere       []string `json:"eventsHere"`
+	FeatureSubType   string   `json:"featureSubType" db:"feature_sub_type"` // [Tower River Gate Country Spring Well Garden Cave]
+	FeatureType      string   `json:"featureType" db:"feature_type"`        // [Path Water Region City Landmark Mountain Island Valley]
+	HasBeenHere      string   `json:"hasBeenHere" db:"has_been_here"`
+	KJVName          string   `json:"kjvName" db:"kjv_name"`
+	Latitude         string   `json:"latitude" db:"latitude"`
+	Longitude        string   `json:"longitude" db:"longitude"`
+	OpenBibleLat     string   `json:"openBibleLat" db:"open_bible_lat"`
+	OpenBibleLong    string   `json:"openBibleLong" db:"open_bible_long"`
+	PeopleBorn       []string `json:"peopleBorn"`
+	PeopleDied       []string `json:"peopleDied"`
+	PlaceID          int      `json:"placeId" db:"place_id" src:"placeID"`
+	PlaceLookup      string   `json:"placeLookup" db:"place_lookup"`
+	Precision        string   `json:"precision" db:"precision"` //  [Rough Unlocated Related-Surrounding Related-Within Center Precise]
+	RecogitoComments string   `json:"recogitoComments" db:"recogito_comments"`
+	RecogitoLabel    string   `json:"recogitoLabel" db:"recogito_label"`
+	RecogitoLat      string   `json:"recogitoLat" db:"recogito_lat"`
+	RecogitoLon      string   `json:"recogitoLon" db:"recogito_lon"`
+	RecogitoStatus   string   `json:"recogitoStatus" db:"recogito_status"` //[UNVERIFIED VERIFIED NOT_IDENTIFIABLE]
+	RecogitoType     string   `json:"recogitoType" db:"recogito_type"`
+	RecogitoUID      string   `json:"recogitoUid" db:"recogito_uid"`
+	RecogitoURI      string   `json:"recogitoUri" db:"recogito_uri"`
+	RootID           []string `json:"rootId" src:"rootID"`
+	Slug             string   `json:"slug" db:"slug"`
+	Status           string   `json:"status" db:"status"` // [wip publish]
+	Timeline         []string `json:"timeline"`
+	VerseCount       int      `json:"verseCount" db:"verse_count"`
+	Verses           []string `json:"verses"`
+}
+
+func PlaceFromEntity(entity *Entity) *Place {
+	place := &Place{}
+
+	ConvertFromEntity(entity, place)
+
+	return place
+}
+
+func PlaceAnyFromEntity(entity *Entity, _ *Metadata) any {
+	return PlaceFromEntity(entity)
 }
 
 type Verse struct {
