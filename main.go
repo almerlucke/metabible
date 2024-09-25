@@ -12,8 +12,6 @@ import (
 
 	"github.com/almerlucke/metabible/models"
 	"github.com/almerlucke/metabible/patterns"
-	sqlx "github.com/jmoiron/sqlx"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 // https://wiki.crosswire.org/OSIS_Bibles
@@ -197,21 +195,6 @@ type Test struct {
 }
 
 func main() {
-	if !fileExists("metabible.db") {
-		fp, err := os.Create("metabible.db")
-		if err != nil {
-			log.Fatalln(err)
-		}
-		fp.Close()
-	}
-
-	db, err := sqlx.Open("sqlite3", "metabible.db")
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer db.Close()
-
 	metadata, err := models.LoadMetadata("theographic-bible-metadata/json")
 	if err != nil {
 		log.Fatalln(err)
