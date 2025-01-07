@@ -1,13 +1,16 @@
-package models
+package conversion
 
 import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"reflect"
 	"slices"
 	"strings"
+
+	"github.com/almerlucke/metabible/pkg/models"
 )
 
 type Entity struct {
@@ -85,6 +88,8 @@ type Metadata struct {
 	Verses       []*Entity
 }
 
+// https://wiki.crosswire.org/OSIS_Bibles
+
 func loadEntityJson(filePath string) ([]*Entity, error) {
 	f, err := os.Open(filePath)
 	if err != nil {
@@ -106,6 +111,18 @@ func loadEntityJson(filePath string) ([]*Entity, error) {
 	}
 
 	return entities, nil
+}
+
+func Conversion() {
+	metadata, err := LoadMetadata("theographic-bible-metadata/json")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = metadata.CleanJson()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func LoadMetadata(jsonDir string) (*Metadata, error) {
@@ -321,8 +338,8 @@ func ConvertFromEntity(src *Entity, dst any) {
 	}
 }
 
-func BookFromEntity(entity *Entity, metadata *Metadata) *Book {
-	book := &Book{}
+func BookFromEntity(entity *Entity, metadata *Metadata) *models.Book {
+	book := &models.Book{}
 
 	ConvertFromEntity(entity, book)
 
@@ -351,8 +368,8 @@ func BookAnyFromEntity(entity *Entity, metadata *Metadata) any {
 	return BookFromEntity(entity, metadata)
 }
 
-func ChapterFromEntity(entity *Entity) *Chapter {
-	chapter := &Chapter{}
+func ChapterFromEntity(entity *Entity) *models.Chapter {
+	chapter := &models.Chapter{}
 
 	ConvertFromEntity(entity, chapter)
 
@@ -363,8 +380,8 @@ func ChapterAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return ChapterFromEntity(entity)
 }
 
-func EastonFromEntity(entity *Entity) *Easton {
-	easton := &Easton{}
+func EastonFromEntity(entity *Entity) *models.Easton {
+	easton := &models.Easton{}
 
 	ConvertFromEntity(entity, easton)
 
@@ -377,8 +394,8 @@ func EastonAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return EastonFromEntity(entity)
 }
 
-func EventFromEntity(entity *Entity) *Event {
-	event := &Event{}
+func EventFromEntity(entity *Entity) *models.Event {
+	event := &models.Event{}
 
 	ConvertFromEntity(entity, event)
 
@@ -389,8 +406,8 @@ func EventAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return EventFromEntity(entity)
 }
 
-func PersonFromEntity(entity *Entity) *Person {
-	person := &Person{}
+func PersonFromEntity(entity *Entity) *models.Person {
+	person := &models.Person{}
 
 	ConvertFromEntity(entity, person)
 
@@ -401,8 +418,8 @@ func PersonAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return PersonFromEntity(entity)
 }
 
-func PeopleGroupFromEntity(entity *Entity) *PeopleGroup {
-	group := &PeopleGroup{}
+func PeopleGroupFromEntity(entity *Entity) *models.PeopleGroup {
+	group := &models.PeopleGroup{}
 
 	ConvertFromEntity(entity, group)
 
@@ -413,8 +430,8 @@ func PeopleGroupAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return PeopleGroupFromEntity(entity)
 }
 
-func PeriodFromEntity(entity *Entity) *Period {
-	period := &Period{}
+func PeriodFromEntity(entity *Entity) *models.Period {
+	period := &models.Period{}
 
 	ConvertFromEntity(entity, period)
 
@@ -425,8 +442,8 @@ func PeriodAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return PeriodFromEntity(entity)
 }
 
-func PlaceFromEntity(entity *Entity) *Place {
-	place := &Place{}
+func PlaceFromEntity(entity *Entity) *models.Place {
+	place := &models.Place{}
 
 	ConvertFromEntity(entity, place)
 
@@ -437,8 +454,8 @@ func PlaceAnyFromEntity(entity *Entity, _ *Metadata) any {
 	return PlaceFromEntity(entity)
 }
 
-func VerseFromEntity(entity *Entity) *Verse {
-	verse := &Verse{}
+func VerseFromEntity(entity *Entity) *models.Verse {
+	verse := &models.Verse{}
 
 	ConvertFromEntity(entity, verse)
 

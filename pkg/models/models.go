@@ -1,5 +1,11 @@
 package models
 
+import (
+	"encoding/json"
+	"io"
+	"os"
+)
+
 type Book struct {
 	ID           string   `json:"id" bson:"_id" db:"id" src:"__skip__"`
 	BookDiv      string   `json:"bookDiv" bson:"book_div" db:"book_div"`
@@ -198,4 +204,31 @@ type Verse struct {
 	VerseNum        string   `json:"verseNum" bson:"verse_num" db:"verse_num"`
 	VerseText       string   `json:"verseText" bson:"verse_text" db:"verse_text"`
 	YearNum         int      `json:"yearNum" bson:"year_num" db:"year_num"`
+}
+
+func Load(file string, v any) error {
+	f, err := os.Open(file)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+
+	data, err := io.ReadAll(f)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(data, v)
+}
+
+func LoadDocs[T any](file string) ([]T, error) {
+	var docs []T
+
+	err := Load(file, &docs)
+	if err != nil {
+		return nil, err
+	}
+
+	return docs, err
 }

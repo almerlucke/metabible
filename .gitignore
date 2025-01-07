@@ -124,3 +124,8 @@ Thumbs.db
 bin
 build/output
 profile
+
+# config and env
+config/*.yaml
+config/*.json
+.env
