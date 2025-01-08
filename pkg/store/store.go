@@ -92,3 +92,16 @@ func Seed[T any](store *Store, ctx context.Context, file string, collection stri
 
 	return store.AddDocuments(ctx, collection, docs)
 }
+
+func (store *Store) GetAllPlaces(ctx context.Context) ([]*models.Place, error) {
+	var result []*models.Place
+
+	cursor, err := store.Collection("places").Find(ctx, bson.M{})
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}

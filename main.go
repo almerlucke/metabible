@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/almerlucke/metabible/config"
 	"github.com/almerlucke/metabible/pkg/models"
 	"github.com/almerlucke/metabible/pkg/store"
+	"github.com/almerlucke/metabible/templates"
 	"log"
-	"os"
-	"os/signal"
-	"syscall"
+	"net/http"
 	"time"
 )
 
@@ -51,6 +51,23 @@ func seed(st *store.Store, ctx context.Context) {
 	}
 }
 
+type Handler struct {
+	st *store.Store
+}
+
+func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	places, err := h.st.GetAllPlaces(ctx)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	templates.Index(places).Render(r.Context(), w)
+}
+
 func main() {
 	cfg := config.MustLoad("config/dev.json")
 
@@ -66,7 +83,11 @@ func main() {
 
 	seed(st, ctx)
 
-	sigc := make(chan os.Signal, 1)
-	signal.Notify(sigc, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
-	_ = <-sigc
+	mux := http.NewServeMux()
+
+	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+	mux.Handle("/", &Handler{st: st})
+
+	fmt.Println("Listening on :3000")
+	http.ListenAndServe(":3000", mux)
 }
