@@ -14,8 +14,9 @@ templ PersonPage(person *models.Person) {
            </head>
             <body>
                 <div>
-                       <md-block>{person.DictText[0]}</md-block>
+                       <md-block id="dictText">{person.DictText[0]}</md-block>
                 </div>
+                <script type="text/javascript" src="/assets/js/utils/replace_verse_links.js"></script>
             </body>
         </html>
 }

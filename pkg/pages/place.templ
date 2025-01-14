@@ -24,14 +24,14 @@ templ PlacePage(place *models.Place) {
             <body>
                 <div>
                         if len(place.DictText) > 0 {
-                            <md-block id="placeBlock">{place.DictText[0]}</md-block>
+                            <md-block id="dictText">{place.DictText[0]}</md-block>
                         }
                 </div>
                 if place.HasLocation() {
                     <div id="map" style="width: 900px; height: 580px"></div>
                     <script type="text/javascript" src="/assets/js/place/place.js"></script>
                 }
-                <script type="text/javascript" src="/assets/js/replace_verse_links.js"></script>
+                <script type="text/javascript" src="/assets/js/utils/replace_verse_links.js"></script>
             </body>
         </html>
 }
