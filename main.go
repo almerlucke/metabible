@@ -4,11 +4,13 @@ import (
 	"context"
 	"fmt"
 	"github.com/almerlucke/metabible/config"
+	"github.com/almerlucke/metabible/pkg/controllers"
 	"github.com/almerlucke/metabible/pkg/models"
 	"github.com/almerlucke/metabible/pkg/store"
-	"github.com/almerlucke/metabible/templates"
+	"github.com/almerlucke/metabible/pkg/templates"
 	"log"
 	"net/http"
+	"regexp"
 	"time"
 )
 
@@ -52,12 +54,19 @@ func seed(st *store.Store, ctx context.Context) {
 }
 
 type Handler struct {
-	st *store.Store
+	st         *store.Store
+	verseRegex *regexp.Regexp
+}
+
+func NewHandler(st *store.Store) *Handler {
+	return &Handler{
+		st:         st,
+		verseRegex: regexp.MustCompile(`[0-9]?[a-z]+#(.+\.[0-9]+\.[0-9]+)`),
+	}
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
+	ctx := r.Context()
 
 	places, err := h.st.GetAllPlaces(ctx)
 	if err != nil {
@@ -86,7 +95,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	mux.Handle("/", &Handler{st: st})
+	mux.Handle("/", NewHandler(st))
+	mux.Handle("/place/{placeLookup}", &controllers.PlacePageController{Store: st})
+	mux.Handle("/verse/{reference}", &controllers.VersePageController{Store: st})
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", mux)

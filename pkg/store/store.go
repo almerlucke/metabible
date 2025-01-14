@@ -2,6 +2,7 @@ package store
 
 import (
 	"context"
+	"errors"
 	"github.com/almerlucke/metabible/pkg/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"time"
@@ -104,4 +105,46 @@ func (store *Store) GetAllPlaces(ctx context.Context) ([]*models.Place, error) {
 	err = cursor.All(ctx, &result)
 
 	return result, err
+}
+
+func (store *Store) GetPlaceByLookup(ctx context.Context, placeLookup string) (*models.Place, error) {
+	var result models.Place
+
+	err := store.Collection("places").FindOne(ctx, bson.M{"place_lookup": placeLookup}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) GetPlaceByID(ctx context.Context, placeID string) (*models.Place, error) {
+	var result models.Place
+
+	err := store.Collection("places").FindOne(ctx, bson.M{"_id": placeID}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) GetVerseByOsisRef(ctx context.Context, osisRef string) (*models.Verse, error) {
+	var result models.Verse
+
+	err := store.Collection("verses").FindOne(ctx, bson.M{"osis_ref": osisRef}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
 }

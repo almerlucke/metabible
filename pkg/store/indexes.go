@@ -289,6 +289,11 @@ func (store *Store) createVersesIndex(ctx context.Context) error {
 			{"verse_text", 1},
 		},
 		Options: nil,
+	}, {
+		Keys: bson.D{
+			{"osis_ref", 1},
+		},
+		Options: nil,
 	}})
 
 	return err

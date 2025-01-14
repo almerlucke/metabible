@@ -185,6 +185,10 @@ type Place struct {
 	Verses           []string `json:"verses" bson:"verses"`
 }
 
+func (p *Place) HasLocation() bool {
+	return p.Latitude != "" && p.Longitude != ""
+}
+
 type Verse struct {
 	ID              string   `json:"id" bson:"_id" db:"id" src:"__skip__"`
 	Book            string   `json:"book" bson:"book" db:"book"`
