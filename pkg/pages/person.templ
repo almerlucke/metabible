@@ -1,10 +1,10 @@
-package templates
+package pages
 
 import (
     "github.com/almerlucke/metabible/pkg/models"
 )
 
-templ VersePage(verse *models.Verse) {
+templ PersonPage(person *models.Person) {
         <!DOCTYPE html>
         <html lang="en">
            <head>
@@ -14,7 +14,7 @@ templ VersePage(verse *models.Verse) {
            </head>
             <body>
                 <div>
-                       <md-block>{verse.MDText}</md-block>
+                       <md-block>{person.DictText[0]}</md-block>
                 </div>
             </body>
         </html>

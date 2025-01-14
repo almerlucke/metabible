@@ -1,11 +1,9 @@
 package controllers
 
 import (
-	"context"
+	"github.com/almerlucke/metabible/pkg/pages"
 	"github.com/almerlucke/metabible/pkg/store"
-	"github.com/almerlucke/metabible/pkg/templates"
 	"net/http"
-	"time"
 )
 
 type PlacePageController struct {
@@ -13,12 +11,10 @@ type PlacePageController struct {
 }
 
 func (pc *PlacePageController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
 	placeLookup := r.PathValue("placeLookup")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-
-	place, err := pc.Store.GetPlaceByLookup(ctx, placeLookup)
+	place, err := pc.Store.GetPlaceByLookup(r.Context(), placeLookup)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -29,5 +25,5 @@ func (pc *PlacePageController) ServeHTTP(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	templates.PlacePage(place).Render(r.Context(), w)
+	pages.PlacePage(place).Render(ctx, w)
 }

@@ -1,0 +1,3 @@
+- replace markdown links in place md text with correct verse links instead of # links
+- replace array with single string in model content
+- clean up markdown links (remove illegal characters)

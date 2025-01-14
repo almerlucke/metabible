@@ -6,8 +6,8 @@ import (
 	"github.com/almerlucke/metabible/config"
 	"github.com/almerlucke/metabible/pkg/controllers"
 	"github.com/almerlucke/metabible/pkg/models"
+	"github.com/almerlucke/metabible/pkg/pages"
 	"github.com/almerlucke/metabible/pkg/store"
-	"github.com/almerlucke/metabible/pkg/templates"
 	"log"
 	"net/http"
 	"regexp"
@@ -74,7 +74,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	templates.Index(places).Render(r.Context(), w)
+	pages.Index(places).Render(r.Context(), w)
 }
 
 func main() {
@@ -97,6 +97,7 @@ func main() {
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	mux.Handle("/", NewHandler(st))
 	mux.Handle("/place/{placeLookup}", &controllers.PlacePageController{Store: st})
+	mux.Handle("/person/{personLookup}", &controllers.PersonPageController{Store: st})
 	mux.Handle("/verse/{reference}", &controllers.VersePageController{Store: st})
 
 	fmt.Println("Listening on :3000")

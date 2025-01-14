@@ -148,3 +148,17 @@ func (store *Store) GetVerseByOsisRef(ctx context.Context, osisRef string) (*mod
 
 	return &result, nil
 }
+
+func (store *Store) GetPersonByLookup(ctx context.Context, personLookup string) (*models.Person, error) {
+	var result models.Person
+
+	err := store.Collection("people").FindOne(ctx, bson.M{"person_lookup": personLookup}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
