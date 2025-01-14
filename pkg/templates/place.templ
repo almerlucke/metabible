@@ -1,0 +1,37 @@
+package templates
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+)
+
+templ PlacePage(place *models.Place) {
+        <!DOCTYPE html>
+        <html lang="en">
+           <head>
+              <title>Places</title>
+              if place.HasLocation() {
+                  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                       crossorigin=""/>
+                   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                        crossorigin=""></script>
+              }
+              <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+              <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+              @templ.JSONScript("place", place)
+           </head>
+            <body>
+                <div>
+                        if len(place.DictText) > 0 {
+                            <md-block id="placeBlock">{place.DictText[0]}</md-block>
+                        }
+                </div>
+                if place.HasLocation() {
+                    <div id="map" style="width: 900px; height: 580px"></div>
+                    <script type="text/javascript" src="/assets/js/place/place.js"></script>
+                }
+                <script type="text/javascript" src="/assets/js/replace_verse_links.js"></script>
+            </body>
+        </html>
+}

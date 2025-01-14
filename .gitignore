@@ -126,3 +126,8 @@ build/output
 profile
 
 tmp/
+
+# config and env
+config/*.yaml
+config/*.json
+.env

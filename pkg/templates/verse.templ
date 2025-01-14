@@ -1,0 +1,21 @@
+package templates
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+)
+
+templ VersePage(verse *models.Verse) {
+        <!DOCTYPE html>
+        <html lang="en">
+           <head>
+              <title>Places</title>
+              <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+              <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+           </head>
+            <body>
+                <div>
+                       <md-block>{verse.MDText}</md-block>
+                </div>
+            </body>
+        </html>
+}

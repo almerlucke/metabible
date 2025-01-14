@@ -1,0 +1,23 @@
+package templates
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ Index(places []*models.Place) {
+    <!DOCTYPE html>
+    <html lang="en">
+       <head>
+          <title>Places</title>
+          <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+       </head>
+        <body>
+            <ul>
+                for _, place := range places {
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.PlaceLookup))}>{ place.DisplayTitle }</a></li>
+                 }
+            </ul>
+        </body>
+    </html>
+}
