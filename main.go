@@ -98,7 +98,7 @@ func main() {
 	mux.Handle("/", NewHandler(st))
 	mux.Handle("/place/{placeLookup}", &controllers.PlacePageController{Store: st})
 	mux.Handle("/person/{personLookup}", &controllers.PersonPageController{Store: st})
-	mux.Handle("/verse/{reference}", &controllers.VersePageController{Store: st})
+	mux.Handle("/verse/{id}", &controllers.VersePageController{Store: st})
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", mux)

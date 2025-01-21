@@ -135,10 +135,10 @@ func (store *Store) GetPlaceByID(ctx context.Context, placeID string) (*models.P
 	return &result, nil
 }
 
-func (store *Store) GetVerseByOsisRef(ctx context.Context, osisRef string) (*models.Verse, error) {
+func (store *Store) GetVerseByID(ctx context.Context, id string) (*models.Verse, error) {
 	var result models.Verse
 
-	err := store.Collection("verses").FindOne(ctx, bson.M{"osis_ref": osisRef}, nil).Decode(&result)
+	err := store.Collection("verses").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return nil, nil

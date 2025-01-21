@@ -8,6 +8,9 @@ templ PlacePage(place *models.Place) {
         <!DOCTYPE html>
         <html lang="en">
            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="color-scheme" content="light dark">
               <title>Places</title>
               if place.HasLocation() {
                   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -20,18 +23,31 @@ templ PlacePage(place *models.Place) {
               <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
               <script type="module" src="https://md-block.verou.me/md-block.js"></script>
               @templ.JSONScript("place", place)
-           </head>
+              <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
+            </head>
             <body>
+            <main class="container">
+                <section>
+                <article>
+                <header><h1>{place.DisplayTitle}</h1></header>
                 <div>
-                        if len(place.DictText) > 0 {
-                            <md-block id="dictText">{place.DictText[0]}</md-block>
-                        }
+                    if place.DictText != "" {
+                        <md-block id="dictText">{place.DictText}</md-block>
+                    }
                 </div>
                 if place.HasLocation() {
-                    <div id="map" style="width: 900px; height: 580px"></div>
+                    <div id="map" style="width: 100%; height: 580px"></div>
+                }
+                </article>
+                </section>
+                <section>
+                <article>
+                </article>
+                </section>
+                </main>
+                if place.HasLocation() {
                     <script type="text/javascript" src="/assets/js/place/place.js"></script>
                 }
-                <script type="text/javascript" src="/assets/js/utils/replace_verse_links.js"></script>
             </body>
         </html>
 }

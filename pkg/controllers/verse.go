@@ -18,14 +18,10 @@ func (vc *VersePageController) ServeHTTP(w http.ResponseWriter, r *http.Request)
 		ctx   = r.Context()
 	)
 
-	ref := r.PathValue("reference")
-
-	if r.URL.Query().Get("osisRef") == "true" {
-		verse, err = vc.Store.GetVerseByOsisRef(ctx, ref)
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
+	verse, err = vc.Store.GetVerseByID(ctx, r.PathValue("id"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	if verse == nil {

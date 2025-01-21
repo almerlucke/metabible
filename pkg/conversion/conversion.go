@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"reflect"
+	"regexp"
 	"slices"
 	"strings"
 
@@ -114,7 +115,7 @@ func loadEntityJson(filePath string) ([]*Entity, error) {
 }
 
 func Conversion() {
-	metadata, err := LoadMetadata("theographic-bible-metadata/json")
+	metadata, err := LoadMetadata("data/theographic-bible-metadata/json")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -165,7 +166,7 @@ func writeCleanedJson(obj any, fileName string) error {
 		return err
 	}
 
-	f, err := os.Create(fmt.Sprintf("cleaned-json/%s.json", fileName))
+	f, err := os.Create(fmt.Sprintf("data/json/%s.json", fileName))
 	if err != nil {
 		return err
 	}
@@ -191,15 +192,15 @@ func createCleanObjectSlice(entities []*Entity, meta *Metadata, f func(*Entity, 
 func (meta *Metadata) CleanJson() error {
 	cleanMap := map[string]any{}
 
-	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookAnyFromEntity)
-	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterAnyFromEntity)
-	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonAnyFromEntity)
-	cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventAnyFromEntity)
-	cleanMap["people"] = createCleanObjectSlice(meta.People, meta, PersonAnyFromEntity)
-	cleanMap["peopleGroups"] = createCleanObjectSlice(meta.PeopleGroups, meta, PeopleGroupAnyFromEntity)
-	cleanMap["periods"] = createCleanObjectSlice(meta.Periods, meta, PeriodAnyFromEntity)
-	cleanMap["places"] = createCleanObjectSlice(meta.Places, meta, PlaceAnyFromEntity)
-	cleanMap["verses"] = createCleanObjectSlice(meta.Verses, meta, VerseAnyFromEntity)
+	cleanMap["books"] = createCleanObjectSlice(meta.Books, meta, BookFromEntity)
+	cleanMap["chapters"] = createCleanObjectSlice(meta.Chapters, meta, ChapterFromEntity)
+	cleanMap["easton"] = createCleanObjectSlice(meta.Easton, meta, EastonFromEntity)
+	cleanMap["events"] = createCleanObjectSlice(meta.Events, meta, EventFromEntity)
+	cleanMap["people"] = createCleanObjectSlice(meta.People, meta, PersonFromEntity)
+	cleanMap["peopleGroups"] = createCleanObjectSlice(meta.PeopleGroups, meta, PeopleGroupFromEntity)
+	cleanMap["periods"] = createCleanObjectSlice(meta.Periods, meta, PeriodFromEntity)
+	cleanMap["places"] = createCleanObjectSlice(meta.Places, meta, PlaceFromEntity)
+	cleanMap["verses"] = createCleanObjectSlice(meta.Verses, meta, VerseFromEntity)
 
 	for k, v := range cleanMap {
 		err := writeCleanedJson(v, k)
@@ -338,7 +339,40 @@ func ConvertFromEntity(src *Entity, dst any) {
 	}
 }
 
-func BookFromEntity(entity *Entity, metadata *Metadata) *models.Book {
+type VerseReference struct {
+	Book    string
+	Chapter string
+	Verse   string
+}
+
+func VerseReferenceFromString(s string) *VerseReference {
+	var (
+		book    string
+		chapter = "1"
+		verse   = "1"
+	)
+	parts := strings.Split(s, ".")
+	if len(parts) > 0 {
+		book = parts[0]
+	}
+	if len(parts) > 1 {
+		chapter = parts[1]
+	}
+	if len(parts) > 2 {
+		verse = parts[2]
+	}
+	return &VerseReference{
+		Book:    book,
+		Chapter: chapter,
+		Verse:   verse,
+	}
+}
+
+func (vr *VerseReference) String() string {
+	return fmt.Sprintf("%s.%s.%s", vr.Book, vr.Chapter, vr.Verse)
+}
+
+func BookFromEntity(entity *Entity, metadata *Metadata) any {
 	book := &models.Book{}
 
 	ConvertFromEntity(entity, book)
@@ -364,11 +398,7 @@ func BookFromEntity(entity *Entity, metadata *Metadata) *models.Book {
 	return book
 }
 
-func BookAnyFromEntity(entity *Entity, metadata *Metadata) any {
-	return BookFromEntity(entity, metadata)
-}
-
-func ChapterFromEntity(entity *Entity) *models.Chapter {
+func ChapterFromEntity(entity *Entity, _ *Metadata) any {
 	chapter := &models.Chapter{}
 
 	ConvertFromEntity(entity, chapter)
@@ -376,11 +406,7 @@ func ChapterFromEntity(entity *Entity) *models.Chapter {
 	return chapter
 }
 
-func ChapterAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return ChapterFromEntity(entity)
-}
-
-func EastonFromEntity(entity *Entity) *models.Easton {
+func EastonFromEntity(entity *Entity, _ *Metadata) any {
 	easton := &models.Easton{}
 
 	ConvertFromEntity(entity, easton)
@@ -390,11 +416,7 @@ func EastonFromEntity(entity *Entity) *models.Easton {
 	return easton
 }
 
-func EastonAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return EastonFromEntity(entity)
-}
-
-func EventFromEntity(entity *Entity) *models.Event {
+func EventFromEntity(entity *Entity, _ *Metadata) any {
 	event := &models.Event{}
 
 	ConvertFromEntity(entity, event)
@@ -402,11 +424,7 @@ func EventFromEntity(entity *Entity) *models.Event {
 	return event
 }
 
-func EventAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return EventFromEntity(entity)
-}
-
-func PersonFromEntity(entity *Entity) *models.Person {
+func PersonFromEntity(entity *Entity, _ *Metadata) any {
 	person := &models.Person{}
 
 	ConvertFromEntity(entity, person)
@@ -414,11 +432,7 @@ func PersonFromEntity(entity *Entity) *models.Person {
 	return person
 }
 
-func PersonAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return PersonFromEntity(entity)
-}
-
-func PeopleGroupFromEntity(entity *Entity) *models.PeopleGroup {
+func PeopleGroupFromEntity(entity *Entity, _ *Metadata) any {
 	group := &models.PeopleGroup{}
 
 	ConvertFromEntity(entity, group)
@@ -426,11 +440,7 @@ func PeopleGroupFromEntity(entity *Entity) *models.PeopleGroup {
 	return group
 }
 
-func PeopleGroupAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return PeopleGroupFromEntity(entity)
-}
-
-func PeriodFromEntity(entity *Entity) *models.Period {
+func PeriodFromEntity(entity *Entity, _ *Metadata) any {
 	period := &models.Period{}
 
 	ConvertFromEntity(entity, period)
@@ -438,30 +448,47 @@ func PeriodFromEntity(entity *Entity) *models.Period {
 	return period
 }
 
-func PeriodAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return PeriodFromEntity(entity)
-}
-
-func PlaceFromEntity(entity *Entity) *models.Place {
+func PlaceFromEntity(entity *Entity, meta *Metadata) any {
 	place := &models.Place{}
 
 	ConvertFromEntity(entity, place)
 
+	var (
+		dictText     string
+		replacedText string
+	)
+
+	dictTextSlice := entity.Strs("dictText")
+	if len(dictTextSlice) > 0 {
+		dictText = dictTextSlice[0]
+	}
+
+	reg := regexp.MustCompile(`/[0-9]?[a-z]+#(.+?\.[0-9]+(\.[0-9]+)?)`)
+
+	textParts := reg.Split(dictText, -1)
+	replacedText = textParts[0]
+	indices := reg.FindAllSubmatchIndex([]byte(dictText), -1)
+	for i, index := range indices {
+		ref := VerseReferenceFromString(dictText[index[2]:index[3]]).String()
+		for _, verse := range meta.Verses {
+			if verse.Str("osisRef") == ref {
+				ref = fmt.Sprintf("/verse/%s", verse.ID)
+				break
+			}
+		}
+
+		replacedText += ref + textParts[i+1]
+	}
+
+	place.DictText = replacedText
+
 	return place
 }
 
-func PlaceAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return PlaceFromEntity(entity)
-}
-
-func VerseFromEntity(entity *Entity) *models.Verse {
+func VerseFromEntity(entity *Entity, _ *Metadata) any {
 	verse := &models.Verse{}
 
 	ConvertFromEntity(entity, verse)
 
 	return verse
-}
-
-func VerseAnyFromEntity(entity *Entity, _ *Metadata) any {
-	return VerseFromEntity(entity)
 }

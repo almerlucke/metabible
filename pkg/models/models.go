@@ -28,7 +28,7 @@ type Book struct {
 
 type Chapter struct {
 	ID          string   `json:"id" bson:"_id" db:"id" src:"__skip__"`
-	Book        string   `json:"book" bson:"book" db:"book"` // ref TODO make single item instead of array (consistency)
+	Book        string   `json:"book" bson:"book" db:"book"` // ref
 	ChapterNum  int      `json:"chapterNum" bson:"chapter_num" db:"chapter_num"`
 	OsisRef     string   `json:"osisRef" bson:"osis_ref" db:"osis_ref"`
 	PeopleCount int      `json:"peopleCount" bson:"people_count" db:"people_count"`
@@ -147,7 +147,7 @@ type Place struct {
 	Ambiguous        bool     `json:"ambiguous" bson:"ambiguous" db:"ambiguous"`
 	BooksWritten     []string `json:"booksWritten" bson:"books_written"`
 	Comment          string   `json:"comment" bson:"comment" db:"comment"`
-	DictText         []string `json:"dictText" bson:"dict_text" db:"dict_text"` // TODO: convert slice to single string for db
+	DictText         string   `json:"dictText" bson:"dict_text" db:"dict_text" src:"__skip__"`
 	DictionaryLink   string   `json:"dictionaryLink" bson:"dictionary_link" db:"dictionary_link"`
 	DictionaryText   string   `json:"dictionaryText" bson:"dictionary_text" db:"dictionary_text"`
 	DisplayTitle     string   `json:"displayTitle" bson:"display_title" db:"display_title"`
