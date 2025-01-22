@@ -1,0 +1,44 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ ChapterPage(book *models.Book, chapter *models.Chapter, verses []*models.Verse, prevChapter string, nextChapter string) {
+        <!DOCTYPE html>
+        <html lang="en">
+           <head>
+              <title>Chapter</title>
+              <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+              <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+              <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
+           </head>
+           <body>
+                <main class="container">
+                    <article>
+                    <header>
+                    <nav>
+                       <ul>
+                          <li><h1><a href={templ.SafeURL(fmt.Sprintf("/book/%s", book.ID))}>{book.BookName}</a> {fmt.Sprintf("%d", chapter.ChapterNum)}</h1></li>
+                       </ul>
+                          <ul>
+                            if prevChapter != "" {
+                                <li><h4><a href={templ.SafeURL(fmt.Sprintf("/chapter/%s", prevChapter))}>&lt; Prev</a></h4></li>
+                            }
+                             if nextChapter != "" {
+                                <li><h4><a href={templ.SafeURL(fmt.Sprintf("/chapter/%s", nextChapter))}>Next &gt;</a></h4></li>
+                             }
+                          </ul>
+                       </nav>
+                    </header>
+                    <ul>
+                        for _, verse := range verses {
+                            <li><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", verse.ID))}><b>{fmt.Sprintf("[%d]   ", verse.VerseNum)}</b><i>{verse.ShortExcerpt()}</i></a></li>
+                        }
+                    </ul>
+                    </article>
+                    </main>
+            </body>
+        </html>
+}

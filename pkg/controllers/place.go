@@ -12,9 +12,8 @@ type PlacePageController struct {
 
 func (pc *PlacePageController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	placeLookup := r.PathValue("placeLookup")
 
-	place, err := pc.Store.GetPlaceByLookup(r.Context(), placeLookup)
+	place, err := pc.Store.GetPlaceByID(ctx, r.PathValue("id"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

@@ -1,0 +1,47 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ PlacesPage(places []*models.Place, search string) {
+    <!DOCTYPE html>
+    <html lang="en">
+       <head>
+          <title>Places</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="color-scheme" content="light dark">
+          <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+          <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
+       </head>
+        <body>
+        <main class="container">
+        <header class="container">
+        <nav>
+          <ul>
+            <li><h1>Places</h1></li>
+          </ul>
+          <ul>
+            <li><a href="/places">Places</a></li>
+            <li><a href="/people">People</a></li>
+            <li><a href="#">Events</a></li>
+          </ul>
+        </nav>
+        </header>
+            <form>
+              <fieldset role="group">
+                <input name="search" type="text" placeholder="Search place" value={search} />
+                <input type="submit" value="Search" />
+              </fieldset>
+            </form>
+            <ul>
+                for _, place := range places {
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.ID))}>{ place.DisplayTitle }</a></li>
+                 }
+            </ul>
+        </main>
+        </body>
+    </html>
+}

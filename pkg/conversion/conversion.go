@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"regexp"
 	"slices"
+	"strconv"
 	"strings"
 
 	"github.com/almerlucke/metabible/pkg/models"
@@ -339,17 +340,17 @@ func ConvertFromEntity(src *Entity, dst any) {
 	}
 }
 
-type VerseReference struct {
+type BookPosition struct {
 	Book    string
 	Chapter string
 	Verse   string
 }
 
-func VerseReferenceFromString(s string) *VerseReference {
+func BookPositionFromString(s string) *BookPosition {
 	var (
 		book    string
-		chapter = "1"
-		verse   = "1"
+		chapter string
+		verse   string
 	)
 	parts := strings.Split(s, ".")
 	if len(parts) > 0 {
@@ -361,15 +362,83 @@ func VerseReferenceFromString(s string) *VerseReference {
 	if len(parts) > 2 {
 		verse = parts[2]
 	}
-	return &VerseReference{
+	return &BookPosition{
 		Book:    book,
 		Chapter: chapter,
 		Verse:   verse,
 	}
 }
 
-func (vr *VerseReference) String() string {
-	return fmt.Sprintf("%s.%s.%s", vr.Book, vr.Chapter, vr.Verse)
+func (pos *BookPosition) IsBook() bool {
+	return pos.Book != "" && pos.Chapter == "" && pos.Verse == ""
+}
+
+func (pos *BookPosition) IsChapter() bool {
+	return pos.Book != "" && pos.Chapter != "" && pos.Verse == ""
+}
+
+func (pos *BookPosition) IsVerse() bool {
+	return pos.Book != "" && pos.Chapter != "" && pos.Verse != ""
+}
+
+func (pos *BookPosition) String() string {
+	var str string
+	if pos.Book != "" {
+		str += pos.Book
+	}
+	if pos.Chapter != "" {
+		str += "." + pos.Chapter
+	}
+	if pos.Verse != "" {
+		str += "." + pos.Verse
+	}
+	return str
+}
+
+func replaceReferences(text string, reg *regexp.Regexp, group int, replaceFunc func(string) string) string {
+	textParts := reg.Split(text, -1)
+	replacedText := textParts[0]
+	indices := reg.FindAllSubmatchIndex([]byte(text), -1)
+	for i, index := range indices {
+		replacedText += replaceFunc(text[index[group*2]:index[group*2+1]]) + textParts[i+1]
+	}
+	return replacedText
+}
+
+func replaceBookPositionReferences(text string, meta *Metadata) string {
+	reg := regexp.MustCompile(`/[0-9]?[a-z]+#(.+?\.[0-9]+(\.[0-9]+)?)`)
+
+	return replaceReferences(text, reg, 1, func(str string) string {
+		pos := BookPositionFromString(str)
+		ref := pos.String()
+
+		if pos.IsBook() {
+			for _, book := range meta.Books {
+				if book.Str("osisName") == ref {
+					ref = fmt.Sprintf("/book/%s", book.ID)
+					break
+				}
+			}
+		} else if pos.IsChapter() {
+			for _, chapter := range meta.Chapters {
+				if chapter.Str("osisRef") == ref {
+					ref = fmt.Sprintf("/chapter/%s", chapter.ID)
+					break
+				}
+			}
+		} else if pos.IsVerse() {
+			for _, verse := range meta.Verses {
+				if verse.Str("osisRef") == ref {
+					ref = fmt.Sprintf("/verse/%s", verse.ID)
+					break
+				}
+			}
+		} else {
+			log.Printf("unknown ref: %v", str)
+		}
+
+		return ref
+	})
 }
 
 func BookFromEntity(entity *Entity, metadata *Metadata) any {
@@ -424,10 +493,19 @@ func EventFromEntity(entity *Entity, _ *Metadata) any {
 	return event
 }
 
-func PersonFromEntity(entity *Entity, _ *Metadata) any {
+func PersonFromEntity(entity *Entity, meta *Metadata) any {
 	person := &models.Person{}
 
 	ConvertFromEntity(entity, person)
+
+	var dictText string
+
+	dictTextSlice := entity.Strs("dictText")
+	if len(dictTextSlice) > 0 {
+		dictText = dictTextSlice[0]
+	}
+
+	person.DictText = replaceBookPositionReferences(dictText, meta)
 
 	return person
 }
@@ -453,42 +531,53 @@ func PlaceFromEntity(entity *Entity, meta *Metadata) any {
 
 	ConvertFromEntity(entity, place)
 
-	var (
-		dictText     string
-		replacedText string
-	)
+	var dictText string
 
 	dictTextSlice := entity.Strs("dictText")
 	if len(dictTextSlice) > 0 {
 		dictText = dictTextSlice[0]
 	}
 
-	reg := regexp.MustCompile(`/[0-9]?[a-z]+#(.+?\.[0-9]+(\.[0-9]+)?)`)
-
-	textParts := reg.Split(dictText, -1)
-	replacedText = textParts[0]
-	indices := reg.FindAllSubmatchIndex([]byte(dictText), -1)
-	for i, index := range indices {
-		ref := VerseReferenceFromString(dictText[index[2]:index[3]]).String()
-		for _, verse := range meta.Verses {
-			if verse.Str("osisRef") == ref {
-				ref = fmt.Sprintf("/verse/%s", verse.ID)
-				break
-			}
-		}
-
-		replacedText += ref + textParts[i+1]
-	}
-
-	place.DictText = replacedText
+	place.DictText = replaceBookPositionReferences(dictText, meta)
 
 	return place
 }
 
-func VerseFromEntity(entity *Entity, _ *Metadata) any {
+func VerseFromEntity(entity *Entity, meta *Metadata) any {
 	verse := &models.Verse{}
 
 	ConvertFromEntity(entity, verse)
+
+	verse.VerseNum, _ = strconv.Atoi(entity.Str("verseNum"))
+
+	replaceFunc := func(ref string) string {
+		parts := strings.Split(ref, "/")
+		if parts[1] == "place" {
+			for _, place := range meta.Places {
+				if place.Str("slug") == parts[2] {
+					ref = fmt.Sprintf("/place/%s", place.ID)
+					break
+				}
+			}
+		} else if parts[1] == "person" {
+			for _, person := range meta.People {
+				if person.Str("slug") == parts[2] {
+					ref = fmt.Sprintf("/person/%s", person.ID)
+					break
+				}
+			}
+		}
+
+		return ref
+	}
+
+	cleanReg := regexp.MustCompile(`http:/+`)
+	mdText := cleanReg.ReplaceAllString(entity.Str("mdText"), "/")
+	richText := cleanReg.ReplaceAllString(entity.Str("richText"), "/")
+
+	reg := regexp.MustCompile(`\[?/.+?/.+?_[0-9]+`)
+	verse.MDText = replaceReferences(mdText, reg, 0, replaceFunc)
+	verse.RichText = replaceReferences(richText, reg, 0, replaceFunc)
 
 	return verse
 }

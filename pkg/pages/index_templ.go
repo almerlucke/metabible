@@ -34,7 +34,7 @@ func Index(places []*models.Place) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><head><title>Places</title><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"color-scheme\" content=\"light dark\"><script src=\"/assets/js/htmx/htmx.min.js\" type=\"application/javascript\"></script><link rel=\"stylesheet\" href=\"/assets/pico/css/pico.min.css\"></head><body><main class=\"container\"><header class=\"container\"><nav><ul><li><h1>Bible</h1></li></ul><ul><li><a href=\"#\">Places</a></li><li><a href=\"#\">People</a></li><li><a href=\"#\">Events</a></li></ul></nav></header><ul>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!doctype html><html lang=\"en\"><head><title>Places</title><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"color-scheme\" content=\"light dark\"><script src=\"/assets/js/htmx/htmx.min.js\" type=\"application/javascript\"></script><link rel=\"stylesheet\" href=\"/assets/pico/css/pico.min.css\"></head><body><main class=\"container\"><header class=\"container\"><nav><ul><li><h1>Bible</h1></li></ul><ul><li><a href=\"#\">Places</a></li><li><a href=\"#\">People</a></li><li><a href=\"#\">Events</a></li></ul></nav></header><form><fieldset role=\"group\"><input name=\"search\" type=\"text\" placeholder=\"Search place\"> <input type=\"submit\" value=\"Search\"></fieldset></form><ul>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -43,7 +43,7 @@ func Index(places []*models.Place) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var2 templ.SafeURL = templ.SafeURL(fmt.Sprintf("/place/%s", place.PlaceLookup))
+			var templ_7745c5c3_Var2 templ.SafeURL = templ.SafeURL(fmt.Sprintf("/place/%s", place.ID))
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var2)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -55,7 +55,7 @@ func Index(places []*models.Place) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(place.DisplayTitle)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/index.templ`, Line: 35, Col: 113}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/index.templ`, Line: 41, Col: 104}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

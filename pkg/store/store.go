@@ -107,20 +107,6 @@ func (store *Store) GetAllPlaces(ctx context.Context) ([]*models.Place, error) {
 	return result, err
 }
 
-func (store *Store) GetPlaceByLookup(ctx context.Context, placeLookup string) (*models.Place, error) {
-	var result models.Place
-
-	err := store.Collection("places").FindOne(ctx, bson.M{"place_lookup": placeLookup}, nil).Decode(&result)
-	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return nil, nil
-		}
-		return nil, err
-	}
-
-	return &result, nil
-}
-
 func (store *Store) GetPlaceByID(ctx context.Context, placeID string) (*models.Place, error) {
 	var result models.Place
 
@@ -149,10 +135,10 @@ func (store *Store) GetVerseByID(ctx context.Context, id string) (*models.Verse,
 	return &result, nil
 }
 
-func (store *Store) GetPersonByLookup(ctx context.Context, personLookup string) (*models.Person, error) {
-	var result models.Person
+func (store *Store) GetChapterByID(ctx context.Context, id string) (*models.Chapter, error) {
+	var result models.Chapter
 
-	err := store.Collection("people").FindOne(ctx, bson.M{"person_lookup": personLookup}, nil).Decode(&result)
+	err := store.Collection("chapters").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			return nil, nil
@@ -161,4 +147,71 @@ func (store *Store) GetPersonByLookup(ctx context.Context, personLookup string) 
 	}
 
 	return &result, nil
+}
+
+func (store *Store) GetBookByID(ctx context.Context, id string) (*models.Book, error) {
+	var result models.Book
+
+	err := store.Collection("books").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) GetVersesForChapter(ctx context.Context, chapter *models.Chapter) ([]*models.Verse, error) {
+	var result []*models.Verse
+
+	cursor, err := store.Collection("verses").Find(ctx, bson.M{"_id": bson.M{"$in": chapter.Verses}}, options.Find().SetSort(bson.D{{Key: "verse_num", Value: 1}}))
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
+func (store *Store) GetPersonByID(ctx context.Context, id string) (*models.Person, error) {
+	var result models.Person
+
+	err := store.Collection("people").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) PlaceSearch(ctx context.Context, search string) ([]*models.Place, error) {
+	var result []*models.Place
+
+	cursor, err := store.Collection("places").Find(ctx, bson.M{"display_title": bson.M{"$regex": search, "$options": "i"}}, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
+func (store *Store) PeopleSearch(ctx context.Context, search string) ([]*models.Person, error) {
+	var result []*models.Person
+
+	cursor, err := store.Collection("people").Find(ctx, bson.M{"display_title": bson.M{"$regex": search, "$options": "i"}}, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
 }

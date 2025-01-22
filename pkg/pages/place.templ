@@ -27,7 +27,6 @@ templ PlacePage(place *models.Place) {
             </head>
             <body>
             <main class="container">
-                <section>
                 <article>
                 <header><h1>{place.DisplayTitle}</h1></header>
                 <div>
@@ -39,11 +38,6 @@ templ PlacePage(place *models.Place) {
                     <div id="map" style="width: 100%; height: 580px"></div>
                 }
                 </article>
-                </section>
-                <section>
-                <article>
-                </article>
-                </section>
                 </main>
                 if place.HasLocation() {
                     <script type="text/javascript" src="/assets/js/place/place.js"></script>

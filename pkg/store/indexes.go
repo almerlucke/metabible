@@ -119,7 +119,7 @@ func (store *Store) createPeopleIndex(ctx context.Context) error {
 		Options: nil,
 	}, {
 		Keys: bson.D{
-			{"display_title", 1},
+			{"display_title", "text"},
 		},
 		Options: nil,
 	}, {
@@ -218,7 +218,7 @@ func (store *Store) createPlacesIndex(ctx context.Context) error {
 		Options: nil,
 	}, {
 		Keys: bson.D{
-			{"display_title", 1},
+			{"display_title", "text"},
 		},
 		Options: nil,
 	}, {

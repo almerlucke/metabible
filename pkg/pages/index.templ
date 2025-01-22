@@ -30,9 +30,15 @@ templ Index(places []*models.Place) {
           </ul>
         </nav>
         </header>
+            <form>
+              <fieldset role="group">
+                <input name="search" type="text" placeholder="Search place" />
+                <input type="submit" value="Search" />
+              </fieldset>
+            </form>
             <ul>
                 for _, place := range places {
-                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.PlaceLookup))}>{ place.DisplayTitle }</a></li>
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.ID))}>{ place.DisplayTitle }</a></li>
                  }
             </ul>
         </main>

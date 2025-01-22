@@ -6,17 +6,27 @@ import (
 
 templ PersonPage(person *models.Person) {
         <!DOCTYPE html>
-        <html lang="en">
-           <head>
-              <title>Places</title>
-              <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
-              <script type="module" src="https://md-block.verou.me/md-block.js"></script>
-           </head>
-            <body>
-                <div>
-                       <md-block id="dictText">{person.DictText[0]}</md-block>
-                </div>
-                <script type="text/javascript" src="/assets/js/utils/replace_verse_links.js"></script>
-            </body>
-        </html>
+                <html lang="en">
+                   <head>
+                      <meta charset="utf-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1">
+                      <meta name="color-scheme" content="light dark">
+                      <title>Person</title>
+                      <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
+                      <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+                      <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
+                   </head>
+                    <body>
+                    <main class="container">
+                        <article>
+                        <header><h1>{person.DisplayTitle}</h1></header>
+                        <div>
+                            if person.DictText != "" {
+                                <md-block>{person.DictText}</md-block>
+                            }
+                        </div>
+                        </article>
+                    </main>
+                    </body>
+                </html>
 }

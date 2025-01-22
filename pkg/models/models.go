@@ -87,7 +87,7 @@ type Person struct {
 	Children               []string `json:"children" bson:"children"`
 	DeathPlace             []string `json:"deathPlace" bson:"death_place"`
 	DeathYear              []string `json:"deathYear" bson:"death_year"`
-	DictText               []string `json:"dictText" bson:"dict_text" db:"dict_text"` // TODO: convert db from and to string slice
+	DictText               string   `json:"dictText" bson:"dict_text" db:"dict_text" src:"__skip__"`
 	DictionaryLink         string   `json:"dictionaryLink" bson:"dictionary_link" db:"dictionary_link"`
 	DictionaryText         string   `json:"dictionaryText" bson:"dictionary_text" db:"dictionary_text"`
 	Disambiguation         string   `json:"disambiguation" bson:"disambiguation" db:"disambiguation" src:"Disambiguation (temp)"`
@@ -194,20 +194,30 @@ type Verse struct {
 	Book            string   `json:"book" bson:"book" db:"book"`
 	Chapter         string   `json:"chapter" bson:"chapter" db:"chapter"`
 	EventsDescribed []string `json:"eventsDescribed" bson:"events_described"`
-	MDText          string   `json:"mdText" bson:"md_text" db:"md_text"`
+	MDText          string   `json:"mdText" bson:"md_text" db:"md_text" src:"__skip__"`
 	OsisRef         string   `json:"osisRef" bson:"osis_ref" db:"osis_ref"`
 	People          []string `json:"people" bson:"people"`
 	PeopleCount     int      `json:"peopleCount" bson:"people_count" db:"people_count"`
 	PeopleGroups    []string `json:"peopleGroups" bson:"people_groups"`
 	Places          []string `json:"places" bson:"places"`
 	PlacesCount     int      `json:"placesCount" bson:"places_count" db:"places_count"`
-	RichText        string   `json:"richText" bson:"rich_text" db:"rich_text"`
+	RichText        string   `json:"richText" bson:"rich_text" db:"rich_text" src:"__skip__"`
 	Status          string   `json:"status" bson:"status" db:"status"` //  [publish wip]
 	Timeline        []string `json:"timeline" bson:"timeline"`
 	VerseID         string   `json:"verseId" bson:"verse_id" db:"verse_id" src:"verseID"`
-	VerseNum        string   `json:"verseNum" bson:"verse_num" db:"verse_num"`
+	VerseNum        int      `json:"verseNum" bson:"verse_num" db:"verse_num" src:"__skip__"`
 	VerseText       string   `json:"verseText" bson:"verse_text" db:"verse_text"`
 	YearNum         int      `json:"yearNum" bson:"year_num" db:"year_num"`
+}
+
+func (v *Verse) ShortExcerpt() string {
+	excerptLen := 64
+
+	if len(v.VerseText) > excerptLen {
+		return v.VerseText[:excerptLen] + "..."
+	}
+
+	return v.VerseText
 }
 
 func Load(file string, v any) error {

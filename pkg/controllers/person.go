@@ -12,9 +12,8 @@ type PersonPageController struct {
 
 func (pc *PersonPageController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	personLookup := r.PathValue("personLookup")
 
-	person, err := pc.Store.GetPersonByLookup(ctx, personLookup)
+	person, err := pc.Store.GetPersonByID(ctx, r.PathValue("id"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -25,5 +24,5 @@ func (pc *PersonPageController) ServeHTTP(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	pages.PersonPage(person).Render(r.Context(), w)
+	pages.PersonPage(person).Render(ctx, w)
 }

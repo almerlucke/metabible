@@ -95,10 +95,13 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	mux.Handle("/", NewHandler(st))
-	mux.Handle("/place/{placeLookup}", &controllers.PlacePageController{Store: st})
-	mux.Handle("/person/{personLookup}", &controllers.PersonPageController{Store: st})
+	mux.Handle("/", &controllers.PlacesPageController{Store: st})
+	mux.Handle("/places", &controllers.PlacesPageController{Store: st})
+	mux.Handle("/people", &controllers.PeoplePageController{Store: st})
+	mux.Handle("/place/{id}", &controllers.PlacePageController{Store: st})
+	mux.Handle("/person/{id}", &controllers.PersonPageController{Store: st})
 	mux.Handle("/verse/{id}", &controllers.VersePageController{Store: st})
+	mux.Handle("/chapter/{id}", &controllers.ChapterPageController{Store: st})
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", mux)
