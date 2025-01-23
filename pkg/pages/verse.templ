@@ -6,42 +6,15 @@ import (
 )
 
 templ VersePage(book *models.Book, chapter *models.Chapter, verse *models.Verse, prevVerse string, nextVerse string) {
-        <!DOCTYPE html>
-        <html lang="en">
-           <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1">
-              <meta name="color-scheme" content="light dark">
-              <title>Verse</title>
-              <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
-              <script type="module" src="https://md-block.verou.me/md-block.js"></script>
-              <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
-           </head>
-            <body>
-            <main class="container">
-                <article>
-                    <header>
-                    <nav>
-                    <ul>
-                      <li><h1>
-                             <a href={templ.SafeURL(fmt.Sprintf("/book/%s", book.ID))}>{book.BookName}</a>
-                            <a href={templ.SafeURL(fmt.Sprintf("/chapter/%s", chapter.ID))}>{fmt.Sprintf("%d", chapter.ChapterNum)}</a>.{fmt.Sprintf("%d", verse.VerseNum)}</h1></li>
-                   </ul>
-                      <ul>
-                        if prevVerse != "" {
-                            <li><h4><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", prevVerse))}>&lt; Prev</a></h4></li>
-                        }
-                         if nextVerse != "" {
-                            <li><h4><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", nextVerse))}>Next &gt;</a></h4></li>
-                         }
-                      </ul>
-                   </nav>
-                    </header>
-                    <div>
-                        <md-block>{verse.RichText}</md-block>
-                    </div>
-                </article>
-            </main>
-            </body>
-        </html>
+    <!DOCTYPE html>
+    <html lang="en">
+        @head(fmt.Sprintf("%s %d.%d", book.BookName, chapter.ChapterNum, verse.VerseNum)) {}
+        <body>
+        @mainContainer("Verse") {
+            @navArticle(verseTitleComponent(book, chapter, verse), "/verse/%s",  prevVerse, nextVerse) {
+                <md-block>{verse.RichText}</md-block>
+            }
+        }
+        </body>
+    </html>
 }

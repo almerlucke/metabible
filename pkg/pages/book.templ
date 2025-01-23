@@ -1,0 +1,25 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ BookPage(book *models.Book, chapters []*models.Chapter, excerpts []string, prevBook string, nextBook string)  {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head(book.BookName) {}
+        <body>
+        @mainContainer("Book") {
+            @navArticle(bookTitleComponent(book), "/book/%s",  prevBook, nextBook) {
+                <h5>Chapters:</h5>
+                <ul>
+                    for i, chapter := range chapters {
+                        <li><a href={templ.SafeURL(fmt.Sprintf("/chapter/%s", chapter.ID))}><b>{fmt.Sprintf("[%d]   ", chapter.ChapterNum)}</b><i>{excerpts[i]}</i></a></li>
+                    }
+                </ul>
+            }
+        }
+        </body>
+    </html>
+}

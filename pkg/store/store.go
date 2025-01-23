@@ -176,6 +176,32 @@ func (store *Store) GetVersesForChapter(ctx context.Context, chapter *models.Cha
 	return result, err
 }
 
+func (store *Store) GetChaptersForBook(ctx context.Context, book *models.Book) ([]*models.Chapter, error) {
+	var result []*models.Chapter
+
+	cursor, err := store.Collection("chapters").Find(ctx, bson.M{"_id": bson.M{"$in": book.Chapters}}, options.Find().SetSort(bson.D{{Key: "chapter_num", Value: 1}}))
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
+func (store *Store) GetAllBooks(ctx context.Context) ([]*models.Book, error) {
+	var result []*models.Book
+
+	cursor, err := store.Collection("books").Find(ctx, bson.M{}, options.Find().SetSort(bson.D{{Key: "book_order", Value: 1}}))
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
 func (store *Store) GetPersonByID(ctx context.Context, id string) (*models.Person, error) {
 	var result models.Person
 
