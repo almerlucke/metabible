@@ -1,0 +1,30 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ ConcordancePage(items []*models.ConcordanceItem, search string) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head("Concordance") {}
+        <body>
+        @mainContainer("Concordance") {
+            <form>
+                <fieldset role="group">
+                    <input name="search" type="text" placeholder="Search verses" value={search} />
+                    <input type="submit" value="Search" />
+                </fieldset>
+            </form>
+            <ul>
+                for i, item := range items {
+                    <li>
+                        <a href={templ.SafeURL(fmt.Sprintf("/verse/%s", item.Verse.ID))}><b>[{fmt.Sprintf("%d", i)}]</b> { item.Name() }</a>
+                    </li>
+                }
+            </ul>
+        }
+        </body>
+    </html>
+}

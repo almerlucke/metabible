@@ -241,3 +241,16 @@ func (store *Store) PeopleSearch(ctx context.Context, search string) ([]*models.
 
 	return result, err
 }
+
+func (store *Store) VerseSearch(ctx context.Context, search string) ([]*models.Verse, error) {
+	var result []*models.Verse
+
+	cursor, err := store.Collection("verses").Find(ctx, bson.M{"verse_text": bson.M{"$regex": search, "$options": "i"}}, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}

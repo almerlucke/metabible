@@ -2,8 +2,11 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
+	"strconv"
+	"strings"
 )
 
 type Book struct {
@@ -218,6 +221,30 @@ func (v *Verse) ShortExcerpt() string {
 	}
 
 	return v.VerseText
+}
+
+func (v *Verse) ChapterNum() int {
+	parts := strings.Split(v.OsisRef, ".")
+	if len(parts) == 3 {
+		n, _ := strconv.Atoi(parts[1])
+		return n
+	}
+
+	return 0
+}
+
+type ConcordanceItem struct {
+	Verse      *Verse
+	Book       *Book
+	ChapterNum int
+}
+
+func (item *ConcordanceItem) Name() string {
+	return fmt.Sprintf("%s %d.%d", item.Book.BookName, item.ChapterNum, item.Verse.VerseNum)
+}
+
+func (item *ConcordanceItem) SortIndex() int {
+	return item.Book.BookOrder*10000 + item.ChapterNum*100 + item.Verse.VerseNum
 }
 
 func Load(file string, v any) error {

@@ -8,40 +8,21 @@ import (
 templ PeoplePage(people []*models.Person, search string) {
     <!DOCTYPE html>
     <html lang="en">
-       <head>
-          <title>People</title>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <meta name="color-scheme" content="light dark">
-          <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
-          <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
-       </head>
+        @head("People") {}
         <body>
-        <main class="container">
-        <header class="container">
-        <nav>
-          <ul>
-            <li><h1>People</h1></li>
-          </ul>
-          <ul>
-            <li><a href="/places">Places</a></li>
-            <li><a href="/people">People</a></li>
-            <li><a href="#">Events</a></li>
-          </ul>
-        </nav>
-        </header>
+        @mainContainer("People") {
             <form>
-              <fieldset role="group">
-                <input name="search" type="text" placeholder="Search people" value={search} />
-                <input type="submit" value="Search" />
-              </fieldset>
+                <fieldset role="group">
+                    <input name="search" type="text" placeholder="Search people" value={search} />
+                    <input type="submit" value="Search" />
+                </fieldset>
             </form>
             <ul>
                 for _, person := range people {
                     <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", person.ID))}>{ person.DisplayTitle }</a></li>
-                 }
+                }
             </ul>
-        </main>
+        }
         </body>
     </html>
 }
