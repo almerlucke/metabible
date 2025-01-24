@@ -15,7 +15,7 @@ templ ChapterPage(book *models.Book, chapter *models.Chapter, verses []*models.V
                 <h5>Verses:</h5>
                 <ul>
                     for _, verse := range verses {
-                        <li><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", verse.ID))}><b>{fmt.Sprintf("[%d]   ", verse.VerseNum)}</b><i>{verse.ShortExcerpt()}</i></a></li>
+                        <li><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", verse.ID))}><b>{fmt.Sprintf("(%d)\t", verse.VerseNum)}</b><i>{verse.ShortExcerpt()}</i></a></li>
                     }
                 </ul>
             }

@@ -89,9 +89,9 @@ func ChapterPage(book *models.Book, chapter *models.Chapter, verses []*models.Ve
 						return templ_7745c5c3_Err
 					}
 					var templ_7745c5c3_Var5 string
-					templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("[%d]   ", verse.VerseNum))
+					templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("(%d)\t", verse.VerseNum))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/chapter.templ`, Line: 18, Col: 130}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/chapter.templ`, Line: 18, Col: 129}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 					if templ_7745c5c3_Err != nil {
@@ -104,7 +104,7 @@ func ChapterPage(book *models.Book, chapter *models.Chapter, verses []*models.Ve
 					var templ_7745c5c3_Var6 string
 					templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(verse.ShortExcerpt())
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/chapter.templ`, Line: 18, Col: 159}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/chapter.templ`, Line: 18, Col: 158}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 					if templ_7745c5c3_Err != nil {

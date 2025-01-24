@@ -1,0 +1,24 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ BooksPage(books []*models.Book) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head("Books") {}
+        <body>
+        @mainContainer("Books") {
+            <ul>
+                for _, book := range books {
+                    <li>
+                        <a href={templ.SafeURL(fmt.Sprintf("/book/%s", book.ID))}>{ fmt.Sprintf("%s (%s - %s)", book.BookName, book.Testament, book.BookDiv) }</a>
+                    </li>
+                }
+            </ul>
+        }
+        </body>
+    </html>
+}

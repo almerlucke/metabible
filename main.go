@@ -98,6 +98,7 @@ func main() {
 	mux.Handle("/", &controllers.PlacesPageController{Store: st})
 	mux.Handle("/places", &controllers.PlacesPageController{Store: st})
 	mux.Handle("/people", &controllers.PeoplePageController{Store: st})
+	mux.Handle("/books", &controllers.BooksPageController{Store: st})
 	mux.Handle("/place/{id}", &controllers.PlacePageController{Store: st})
 	mux.Handle("/person/{id}", &controllers.PersonPageController{Store: st})
 	mux.Handle("/verse/{id}", &controllers.VersePageController{Store: st})

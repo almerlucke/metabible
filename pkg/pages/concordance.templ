@@ -20,7 +20,7 @@ templ ConcordancePage(items []*models.ConcordanceItem, search string) {
             <ul>
                 for i, item := range items {
                     <li>
-                        <a href={templ.SafeURL(fmt.Sprintf("/verse/%s", item.Verse.ID))}><b>[{fmt.Sprintf("%d", i)}]</b> { item.Name() }</a>
+                        <a href={templ.SafeURL(fmt.Sprintf("/verse/%s", item.Verse.ID))}><b>{fmt.Sprintf("(%d)\t", i+1)}</b>{ item.Name() }</a>
                     </li>
                 }
             </ul>
