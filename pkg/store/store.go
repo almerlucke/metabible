@@ -229,6 +229,20 @@ func (store *Store) PlaceSearch(ctx context.Context, search string) ([]*models.P
 	return result, err
 }
 
+func (store *Store) EventSearch(ctx context.Context, search string) ([]*models.Event, error) {
+	var result []*models.Event
+
+	sort := options.Find().SetSort(bson.D{{Key: "sort_key", Value: 1}})
+	cursor, err := store.Collection("events").Find(ctx, bson.M{"title": bson.M{"$regex": search, "$options": "i"}}, sort)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
 func (store *Store) PeopleSearch(ctx context.Context, search string) ([]*models.Person, error) {
 	var result []*models.Person
 

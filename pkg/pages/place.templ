@@ -16,12 +16,10 @@ templ PlacePage(place *models.Place) {
         }
         <body>
         @mainContainer("Place") {
-            @article(place.DisplayTitle) {
-                <div>
-                    if place.DictText != "" {
-                        <md-block id="dictText">{place.DictText}</md-block>
-                    }
-                </div>
+            @article(place.ListingLabel()) {
+                if place.DictText != "" {
+                    <md-block id="dictText">{place.DictText}</md-block>
+                }
                 if place.HasLocation() {
                     <div id="map" style="width: 100%; height: 580px"></div>
                 }

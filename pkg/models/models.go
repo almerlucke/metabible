@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Book struct {
@@ -79,6 +81,77 @@ type Event struct {
 	Verses           []string `json:"verses" bson:"verses"` // refs
 }
 
+func (e *Event) HumanReadableStartDate() string {
+	var (
+		year  int
+		month int
+		day   int
+		strb  strings.Builder
+	)
+
+	reg := regexp.MustCompile(`(-?\d+)(-\d+-\d+)?`)
+	comp := reg.FindStringSubmatch(e.StartDate)
+
+	year, _ = strconv.Atoi(strings.TrimLeft(comp[1], "0"))
+
+	if comp[2] != "" {
+		dayMonthComp := strings.Split(comp[2], "-")
+		month, _ = strconv.Atoi(strings.TrimLeft(dayMonthComp[1], "0"))
+		day, _ = strconv.Atoi(strings.TrimLeft(dayMonthComp[2], "0"))
+	}
+
+	if day > 0 {
+		strb.WriteString(fmt.Sprintf("%d", day))
+	}
+
+	if month > 0 {
+		if strb.Len() > 0 {
+			strb.WriteString(" ")
+		}
+		strb.WriteString(time.Month(month).String())
+	}
+
+	if strb.Len() > 0 {
+		strb.WriteString(" ")
+	}
+
+	if year < 0 {
+		strb.WriteString(fmt.Sprintf("%d BC", -year))
+	} else {
+		strb.WriteString(fmt.Sprintf("%d AD", year))
+	}
+
+	return strb.String()
+}
+
+func (e *Event) HumanReadableDuration() string {
+	var strb strings.Builder
+
+	reg := regexp.MustCompile(`\d+[MDY]`)
+	comp := reg.FindAllString(e.Duration, -1)
+	for _, v := range comp {
+		unit := v[len(v)-1]
+		amount := v[:len(v)-1]
+		if strb.Len() > 0 {
+			strb.WriteString(", ")
+		}
+		switch unit {
+		case 'D':
+			strb.WriteString(fmt.Sprintf("%s day(s)", amount))
+		case 'M':
+			strb.WriteString(fmt.Sprintf("%s months(s)", amount))
+		case 'Y':
+			strb.WriteString(fmt.Sprintf("%s year(s)", amount))
+		}
+	}
+
+	return strb.String()
+}
+
+func (e *Event) ListingLabel() string {
+	return fmt.Sprintf("%s (%s)", e.Title, e.HumanReadableStartDate())
+}
+
 type Person struct {
 	ID                     string   `json:"id" bson:"_id" db:"id" src:"__skip__"`
 	AlphaGroup             string   `json:"alphaGroup" bson:"alpha_group" db:"alpha_group"`
@@ -119,6 +192,23 @@ type Person struct {
 	Timeline               []string `json:"timeline" bson:"timeline"`
 	VerseCount             int      `json:"verseCount" bson:"verse_count" db:"verse_count"`
 	Verses                 []string `json:"verses" bson:"verses"`
+}
+
+func (p *Person) ListingLabel() string {
+	label := p.DisplayTitle
+
+	if p.Disambiguation != "" {
+		disambiguation := strings.Trim(strings.TrimPrefix(p.Disambiguation, p.DisplayTitle), " -")
+		excerptLen := 32
+
+		if len(disambiguation) > 32 {
+			label += " - " + disambiguation[:excerptLen] + "..."
+		} else {
+			label += " - " + disambiguation
+		}
+	}
+
+	return label
 }
 
 type PeopleGroup struct {
@@ -190,6 +280,20 @@ type Place struct {
 
 func (p *Place) HasLocation() bool {
 	return p.Latitude != "" && p.Longitude != ""
+}
+
+func (p *Place) ListingLabel() string {
+	str := p.DisplayTitle
+
+	if p.FeatureType != "" {
+		str += " (" + p.FeatureType
+		if p.FeatureSubType != "" {
+			str += " - " + p.FeatureSubType
+		}
+		str += ")"
+	}
+
+	return str
 }
 
 type Verse struct {

@@ -1,0 +1,28 @@
+package pages
+
+import (
+    "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
+)
+
+templ EventsPage(events []*models.Event, search string) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @head("Events") {}
+        <body>
+        @mainContainer("Events") {
+            <form>
+                <fieldset role="group">
+                    <input name="search" type="text" placeholder="Search event" value={search} />
+                    <input type="submit" value="Search" />
+                </fieldset>
+            </form>
+            <ul>
+                for _, event := range events {
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/event/%s", event.ID))}>{ event.ListingLabel() }</a></li>
+                }
+            </ul>
+        }
+        </body>
+    </html>
+}

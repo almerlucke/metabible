@@ -19,7 +19,7 @@ templ PlacesPage(places []*models.Place, search string) {
             </form>
             <ul>
                 for _, place := range places {
-                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.ID))}>{ place.DisplayTitle }</a></li>
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/place/%s", place.ID))}>{ place.ListingLabel() }</a></li>
                 }
             </ul>
         }

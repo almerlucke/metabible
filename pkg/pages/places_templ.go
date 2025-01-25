@@ -90,9 +90,9 @@ func PlacesPage(places []*models.Place, search string) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(place.DisplayTitle)
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(place.ListingLabel())
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/places.templ`, Line: 22, Col: 104}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/places.templ`, Line: 22, Col: 106}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {

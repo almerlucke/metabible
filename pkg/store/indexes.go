@@ -86,7 +86,7 @@ func (store *Store) createEventsIndex(ctx context.Context) error {
 
 	_, err := col.Indexes().CreateMany(ctx, []mongo.IndexModel{{
 		Keys: bson.D{
-			{"title", 1},
+			{"title", "text"},
 		},
 		Options: nil,
 	}, {

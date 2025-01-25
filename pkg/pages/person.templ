@@ -10,12 +10,11 @@ templ PersonPage(person *models.Person)  {
         @head(person.DisplayTitle) {}
         <body>
         @mainContainer("Person") {
-            @article(person.DisplayTitle) {
-                <div>
-                    if person.DictText != "" {
-                        <md-block>{person.DictText}</md-block>
-                    }
-                </div>
+            @article(person.DisplayTitle + " " + "(" + person.Gender + ")") {
+                <h5>{person.Disambiguation}</h5>
+                if person.DictText != "" {
+                    <md-block>{person.DictText}</md-block>
+                }
             }
         }
         </body>

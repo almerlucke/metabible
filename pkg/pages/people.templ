@@ -19,7 +19,7 @@ templ PeoplePage(people []*models.Person, search string) {
             </form>
             <ul>
                 for _, person := range people {
-                    <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", person.ID))}>{ person.DisplayTitle }</a></li>
+                    <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", person.ID))}>{ person.ListingLabel() }</a></li>
                 }
             </ul>
         }
