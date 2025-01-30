@@ -157,7 +157,7 @@ type Person struct {
 	AlphaGroup             string   `json:"alphaGroup" bson:"alpha_group" db:"alpha_group"`
 	AlsoCalled             string   `json:"alsoCalled" bson:"also_called" db:"also_called"`
 	Ambiguous              bool     `json:"ambiguous" bson:"ambiguous" db:"ambiguous"`
-	BirthPlace             []string `json:"birthPlace" bson:"birth_place"`
+	BirthPlace             []string `json:"birthPlace" bson:"birth_place"` // TODO: convert to string instead of slice
 	BirthYear              []string `json:"birthYear" bson:"birth_year"`
 	ChaptersWritten        []string `json:"chaptersWritten" bson:"chapters_written"`
 	Children               []string `json:"children" bson:"children"`

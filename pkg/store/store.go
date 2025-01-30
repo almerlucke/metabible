@@ -94,19 +94,6 @@ func Seed[T any](store *Store, ctx context.Context, file string, collection stri
 	return store.AddDocuments(ctx, collection, docs)
 }
 
-func (store *Store) GetAllPlaces(ctx context.Context) ([]*models.Place, error) {
-	var result []*models.Place
-
-	cursor, err := store.Collection("places").Find(ctx, bson.M{})
-	if err != nil {
-		return nil, err
-	}
-
-	err = cursor.All(ctx, &result)
-
-	return result, err
-}
-
 func (store *Store) GetPlaceByID(ctx context.Context, placeID string) (*models.Place, error) {
 	var result models.Place
 
@@ -121,6 +108,19 @@ func (store *Store) GetPlaceByID(ctx context.Context, placeID string) (*models.P
 	return &result, nil
 }
 
+func (store *Store) GetPlacesInList(ctx context.Context, places []string) ([]*models.Place, error) {
+	var result []*models.Place
+
+	cursor, err := store.Collection("places").Find(ctx, bson.M{"_id": bson.M{"$in": places}}, options.Find().SetSort(bson.D{{Key: "display_title", Value: 1}}))
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
 func (store *Store) GetVerseByID(ctx context.Context, id string) (*models.Verse, error) {
 	var result models.Verse
 
@@ -133,6 +133,19 @@ func (store *Store) GetVerseByID(ctx context.Context, id string) (*models.Verse,
 	}
 
 	return &result, nil
+}
+
+func (store *Store) GetVersesInList(ctx context.Context, verses []string) ([]*models.Verse, error) {
+	var result []*models.Verse
+
+	cursor, err := store.Collection("verses").Find(ctx, bson.M{"_id": bson.M{"$in": verses}})
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
 }
 
 func (store *Store) GetChapterByID(ctx context.Context, id string) (*models.Chapter, error) {
@@ -161,6 +174,60 @@ func (store *Store) GetBookByID(ctx context.Context, id string) (*models.Book, e
 	}
 
 	return &result, nil
+}
+
+func (store *Store) GetPersonByID(ctx context.Context, id string) (*models.Person, error) {
+	var result models.Person
+
+	err := store.Collection("people").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) GetPeopleInList(ctx context.Context, people []string) ([]*models.Person, error) {
+	var result []*models.Person
+
+	cursor, err := store.Collection("people").Find(ctx, bson.M{"_id": bson.M{"$in": people}}, options.Find().SetSort(bson.D{{Key: "display_title", Value: 1}}))
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
+}
+
+func (store *Store) GetEventByID(ctx context.Context, id string) (*models.Event, error) {
+	var result models.Event
+
+	err := store.Collection("events").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
+func (store *Store) GetEventsInList(ctx context.Context, events []string) ([]*models.Event, error) {
+	var result []*models.Event
+
+	cursor, err := store.Collection("events").Find(ctx, bson.M{"_id": bson.M{"$in": events}})
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(ctx, &result)
+
+	return result, err
 }
 
 func (store *Store) GetVersesForChapter(ctx context.Context, chapter *models.Chapter) ([]*models.Verse, error) {
@@ -202,18 +269,17 @@ func (store *Store) GetAllBooks(ctx context.Context) ([]*models.Book, error) {
 	return result, err
 }
 
-func (store *Store) GetPersonByID(ctx context.Context, id string) (*models.Person, error) {
-	var result models.Person
+func (store *Store) GetAllPlaces(ctx context.Context) ([]*models.Place, error) {
+	var result []*models.Place
 
-	err := store.Collection("people").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	cursor, err := store.Collection("places").Find(ctx, bson.M{})
 	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return nil, nil
-		}
 		return nil, err
 	}
 
-	return &result, nil
+	err = cursor.All(ctx, &result)
+
+	return result, err
 }
 
 func (store *Store) PlaceSearch(ctx context.Context, search string) ([]*models.Place, error) {

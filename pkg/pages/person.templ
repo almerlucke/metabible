@@ -2,19 +2,60 @@ package pages
 
 import (
     "github.com/almerlucke/metabible/pkg/models"
+    "fmt"
 )
 
-templ PersonPage(person *models.Person)  {
+type PersonInfo struct {
+    Person *models.Person
+    BirthPlace *models.Place
+    BirthYear *models.Event
+    Children []*models.Person
+    DeathPlace *models.Place
+    DeathYear *models.Event
+    Father *models.Person
+    Mother *models.Person
+    Partners []*models.Person
+    Siblings []*models.Person
+    Timeline []*models.Event
+    Verses []*models.Verse
+}
+
+templ PersonPage(info *PersonInfo)  {
     <!DOCTYPE html>
     <html lang="en">
-        @head(person.DisplayTitle) {}
+        @head(info.Person.DisplayTitle) {}
         <body>
         @mainContainer("Person") {
-            @article(person.DisplayTitle + " " + "(" + person.Gender + ")") {
-                <h5>{person.Disambiguation}</h5>
-                if person.DictText != "" {
-                    <md-block>{person.DictText}</md-block>
+            @article(info.Person.DisplayTitle + " " + "(" + info.Person.Gender + ")") {
+                <h5>{info.Person.Disambiguation}</h5>
+                if info.Person.DictText != "" {
+                    <details open>
+                        <summary>Description</summary>
+                        <md-block>{info.Person.DictText}</md-block>
+                    </details>
                 }
+                <details open>
+                    <summary>Details</summary>
+                    <ul>
+                    if info.BirthPlace != nil {
+                        <li>Birth place: <a href={templ.SafeURL(fmt.Sprintf("/place/%s", info.BirthPlace.ID))}>{info.BirthPlace.DisplayTitle}</a></li>
+                    }
+                    if info.BirthYear != nil {
+                        <li>Birth year: <a href={templ.SafeURL(fmt.Sprintf("/period/%s", info.BirthYear.ID))}>{info.BirthYear.ListingLabel()}</a></li>
+                    }
+                    if info.DeathPlace != nil {
+                        <li>Death place: <a href={templ.SafeURL(fmt.Sprintf("/place/%s", info.DeathPlace.ID))}>{info.DeathPlace.DisplayTitle}</a></li>
+                    }
+                    <li>
+                        Children:
+                        <ul>
+                            for _, child := range info.Children {
+                                <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", child.ID))}>{child.DisplayTitle}</a></li>
+                            }
+                        </ul>
+                    </li>
+                    </ul>
+                </details>
             }
         }
         </body>
