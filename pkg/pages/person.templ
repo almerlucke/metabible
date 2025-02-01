@@ -8,16 +8,16 @@ import (
 type PersonInfo struct {
     Person *models.Person
     BirthPlace *models.Place
-    BirthYear *models.Event
+    BirthYear *models.Period
     Children []*models.Person
     DeathPlace *models.Place
-    DeathYear *models.Event
+    DeathYear *models.Period
     Father *models.Person
     Mother *models.Person
     Partners []*models.Person
     Siblings []*models.Person
     Timeline []*models.Event
-    Verses []*models.Verse
+    Verses []*models.ConcordanceItem
 }
 
 templ PersonPage(info *PersonInfo)  {
@@ -41,19 +41,70 @@ templ PersonPage(info *PersonInfo)  {
                         <li>Birth place: <a href={templ.SafeURL(fmt.Sprintf("/place/%s", info.BirthPlace.ID))}>{info.BirthPlace.DisplayTitle}</a></li>
                     }
                     if info.BirthYear != nil {
-                        <li>Birth year: <a href={templ.SafeURL(fmt.Sprintf("/period/%s", info.BirthYear.ID))}>{info.BirthYear.ListingLabel()}</a></li>
+                        <li>Birth year: {info.BirthYear.FormattedYear}</li>
                     }
                     if info.DeathPlace != nil {
                         <li>Death place: <a href={templ.SafeURL(fmt.Sprintf("/place/%s", info.DeathPlace.ID))}>{info.DeathPlace.DisplayTitle}</a></li>
                     }
-                    <li>
-                        Children:
-                        <ul>
-                            for _, child := range info.Children {
-                                <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", child.ID))}>{child.DisplayTitle}</a></li>
-                            }
-                        </ul>
-                    </li>
+                    if info.DeathYear != nil {
+                        <li>Death year: {info.DeathYear.FormattedYear}</li>
+                    }
+                    if info.Father != nil {
+                        <li>Father: <a href={templ.SafeURL(fmt.Sprintf("/person/%s", info.Father.ID))}>{info.Father.DisplayTitle}</a></li>
+                    }
+                    if info.Mother != nil {
+                        <li>Mother: <a href={templ.SafeURL(fmt.Sprintf("/person/%s", info.Mother.ID))}>{info.Mother.DisplayTitle}</a></li>
+                    }
+                    if len(info.Siblings) > 0 {
+                        <li>
+                            Siblings:
+                            <ul>
+                                for _, sibling := range info.Siblings {
+                                    <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", sibling.ID))}>{sibling.DisplayTitle}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    if len(info.Partners) > 0 {
+                        <li>
+                            Partner(s):
+                            <ul>
+                                for _, partner := range info.Partners {
+                                    <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", partner.ID))}>{partner.DisplayTitle}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    if len(info.Children) > 0 {
+                        <li>
+                            Children:
+                            <ul>
+                                for _, child := range info.Children {
+                                    <li><a href={templ.SafeURL(fmt.Sprintf("/person/%s", child.ID))}>{child.DisplayTitle}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    if len(info.Timeline) > 0 {
+                        <li>
+                            Timeline:
+                            <ul>
+                                for _, event := range info.Timeline {
+                                    <li><a href={templ.SafeURL(fmt.Sprintf("/event/%s", event.ID))}>{event.ListingLabel()}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    if len(info.Verses) > 0 {
+                        <li>
+                            Verses:
+                            <ul>
+                                for _, verse := range info.Verses {
+                                    <li><a href={templ.SafeURL(fmt.Sprintf("/verse/%s", verse.Verse.ID))}>{verse.Name()}</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
                     </ul>
                 </details>
             }

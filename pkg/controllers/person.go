@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"github.com/almerlucke/metabible/pkg/models"
 	"github.com/almerlucke/metabible/pkg/pages"
 	"github.com/almerlucke/metabible/pkg/store"
 	"net/http"
+	"slices"
 )
 
 type PersonPageController struct {
@@ -36,7 +38,7 @@ func (pc *PersonPageController) ServeHTTP(w http.ResponseWriter, r *http.Request
 	}
 
 	if len(person.BirthYear) > 0 {
-		if info.BirthYear, err = pc.Store.GetEventByID(ctx, person.BirthYear[0]); err != nil {
+		if info.BirthYear, err = pc.Store.GetPeriodByID(ctx, person.BirthYear[0]); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -50,7 +52,7 @@ func (pc *PersonPageController) ServeHTTP(w http.ResponseWriter, r *http.Request
 	}
 
 	if len(person.DeathYear) > 0 {
-		if info.DeathYear, err = pc.Store.GetEventByID(ctx, person.DeathYear[0]); err != nil {
+		if info.DeathYear, err = pc.Store.GetPeriodByID(ctx, person.DeathYear[0]); err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -86,9 +88,30 @@ func (pc *PersonPageController) ServeHTTP(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	if info.Verses, err = pc.Store.GetVersesInList(ctx, person.Verses); err != nil {
+	if verses, err := pc.Store.GetVersesInList(ctx, person.Verses); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
+	} else {
+		items := make([]*models.ConcordanceItem, len(verses))
+
+		for i, verse := range verses {
+			book, err := pc.Store.GetBookByID(ctx, verse.Book)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			items[i] = &models.ConcordanceItem{
+				Verse:      verse,
+				Book:       book,
+				ChapterNum: verse.ChapterNum(),
+			}
+		}
+
+		slices.SortFunc(items, func(a *models.ConcordanceItem, b *models.ConcordanceItem) int {
+			return a.SortIndex() - b.SortIndex()
+		})
+
+		info.Verses = items
 	}
 
 	pages.PersonPage(&info).Render(ctx, w)

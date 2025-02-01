@@ -217,6 +217,20 @@ func (store *Store) GetEventByID(ctx context.Context, id string) (*models.Event,
 	return &result, nil
 }
 
+func (store *Store) GetPeriodByID(ctx context.Context, id string) (*models.Period, error) {
+	var result models.Period
+
+	err := store.Collection("periods").FindOne(ctx, bson.M{"_id": id}, nil).Decode(&result)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &result, nil
+}
+
 func (store *Store) GetEventsInList(ctx context.Context, events []string) ([]*models.Event, error) {
 	var result []*models.Event
 
