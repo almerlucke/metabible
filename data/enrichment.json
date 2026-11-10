@@ -6,6 +6,32 @@
   "Wikipedia text": "https://en.wikipedia.org (CC BY-SA 4.0)"
  },
  "places": {
+  "rec5WK4QGcKa48pA6": {
+   "title": "Nineveh",
+   "summary": "Nineveh was an ancient Near Eastern city of Upper Mesopotamia, located in the modern-day city of Mosul in northern Iraq. It is located on the eastern bank of the Tigris River and was the capital and largest city of the Neo-Assyrian Empire, and potentially the wealthiest city in the ancient world. Today, it is a common name for the half of Mosul that lies on the eastern bank of the Tigris, and the country's Nineveh Governorate takes its name from it.",
+   "desc": "Ancient Assyrian city",
+   "page": "https://en.wikipedia.org/wiki/Nineveh",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Nineveh_-_Mashki_Gate.jpg/330px-Nineveh_-_Mashki_Gate.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Nineveh_-_Mashki_Gate.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Omar Siddeeq Yousif",
+    "credit": "Own work",
+    "w": 330,
+    "h": 226
+   }
+  },
+  "rec5Yu6987dc60uKz": {
+   "title": "Mount Sinai",
+   "summary": "Mount Sinai, also known as Jabal Musa, is a mountain on the Sinai Peninsula of Egypt. It is one of several locations claimed to be the biblical Mount Sinai, the place where, according to the sacred scriptures of the three major Abrahamic religions, the Hebrew prophet Moses received the Ten Commandments from God.",
+   "desc": "Mountain in the Sinai Peninsula",
+   "page": "https://en.wikipedia.org/wiki/Mount_Sinai"
+  },
+  "rec5g1fzEKYzCO1Re": {
+   "title": "Libnah",
+   "summary": "Libnah or Lobana was an independent city, probably near the western seaboard of Israel, with its own king at the time of the Israelite conquest of Canaan. It is thought to have been an important producer of revenue, and one that rebelled against the Judahite crown.",
+   "page": "https://en.wikipedia.org/wiki/Libnah"
+  },
   "rec81f3wE4gATsRRE": {
    "title": "Bethlehem",
    "summary": "Bethlehem is a city in the West Bank, Palestine, located about ten kilometres south of Jerusalem, and the capital of the Bethlehem Governorate. It had a population of 28,591 people, as of 2017. The city's economy is strongly linked to tourism, especially during the Christmas period, when Christians embark on a pilgrimage to the Church of the Nativity, which is revered as the location of the birth of Jesus.",
@@ -21,11 +47,41 @@
     "h": 219
    }
   },
+  "recA34XfYsCxhyu31": {
+   "title": "Hama",
+   "summary": "Hama is a city on the banks of the Orontes River in west-central Syria. It is located 213 kilometres (132 mi) north of Damascus and 46 km (29 mi) north of Homs. It is the provincial capital of the Hama Governorate. Hama is one of the four largest cities in Syria, alongside Damascus, Aleppo and Homs. Hama is known for its cheesemaking tradition, notably reflected in a signature local dessert, Halawet el Jibn.",
+   "desc": "City in Hama Governorate, Syria",
+   "page": "https://en.wikipedia.org/wiki/Hama",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Hama%2C_Panoramic_view%2C_Syria.jpg/330px-Hama%2C_Panoramic_view%2C_Syria.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Hama%2C_Panoramic_view%2C_Syria.jpg",
+    "license": "CC BY 4.0",
+    "artist": "Vyacheslav Argenberg",
+    "credit": "Own work",
+    "w": 330,
+    "h": 185
+   }
+  },
   "recAalC2QoLT7cJKN": {
    "title": "Judea",
    "summary": "Judea or Judaea is a mountainous region of the Levant. Traditionally dominated by the city of Jerusalem, it is now part of Israel and the West Bank. The name is derived from the Hebrew name Yehudah, and was used during the Babylonian, Persian, Hellenistic, and Roman periods. Under the Hasmoneans, the Herodians, and the Romans, the term was applied to an area larger than the Judea of earlier periods. In the aftermath of the Bar Kokhba revolt, the Roman province of Judaea was renamed Syria Palaestina.",
    "desc": "Region in the Levant",
    "page": "https://en.wikipedia.org/wiki/Judea"
+  },
+  "recBYO9ocr5Gssb47": {
+   "title": "Ephesus",
+   "summary": "Ephesus was an ancient Greek city on the coast of Ionia, in present-day Selçuk in İzmir Province, Turkey. It was built in the 10th century BC on the site of Apasa, a city-state that was also the capital of Arzawa, by Attic and Ionian Greek colonists. During the Classical Greek era, it was one of twelve cities that were members of the Ionian League. The city came under the control of the Roman Republic in 129 BC.",
+   "desc": "Ancient Greek city in Anatolia",
+   "page": "https://en.wikipedia.org/wiki/Ephesus",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/330px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Ephesus_Celsus_Library_Fa%C3%A7ade.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Benh LIEU SONG",
+    "credit": "Own work",
+    "w": 330,
+    "h": 256
+   }
   },
   "recCXgnK86jc1U9IB": {
    "title": "Lebanon",
@@ -44,6 +100,27 @@
    "summary": "Samaria, the Hellenized form of the Hebrew name Shomron, is used as a historical and biblical name for the central region of the Land of Israel. It is bordered by Judea to the south, Galilee to the north, the Jordan River to the east, and the Mediterranean Sea to the west. The region is known in Arabic under two names, Samirah, and Mount Nablus.",
    "desc": "Region of ancient Israel",
    "page": "https://en.wikipedia.org/wiki/Samaria"
+  },
+  "recGkTmeTOeg38tLo": {
+   "title": "Capernaum",
+   "summary": "Capernaum was a fishing village established during the time of the Hasmoneans in Israel, located on the northern shore of the Sea of Galilee. It had a population of about 1,500 in the 1st century AD. Archaeological excavations have revealed two ancient synagogues built successively at the same spot. A house progressively turned into a church during the 4th and 5th centuries is held by Christian tradition to have been the home of Saint Peter.",
+   "desc": "Village at Lake Tiberias in historical Judea",
+   "page": "https://en.wikipedia.org/wiki/Capernaum",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_%28or_Kfar_Nahum%29_on_the_shore_of_the_Lake_of_Galilee%2C_Northern_Israel.jpg/330px-thumbnail.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_%28or_Kfar_Nahum%29_on_the_shore_of_the_Lake_of_Galilee%2C_Northern_Israel.jpg",
+    "license": "CC BY-SA 3.0 igo",
+    "artist": "Eddie Gerald",
+    "credit": "This file has been provided by UNESCO (unesco.org) as part of a GLAM-Wiki partnership.",
+    "w": 330,
+    "h": 219
+   }
+  },
+  "recH30EhVzvnkXBTl": {
+   "title": "Tel Lachish",
+   "summary": "Lachish was an ancient Canaanite and later Israelite city in the Shephelah (\"lowlands\") region of Canaan on the south bank of the Lakhish River. The current tell by that name, known as Tel Lachish or Tell el-Duweir, has been identified with Lachish. Today, it is an Israeli national park operated and maintained by the Israel Nature and Parks Authority. It lies near the present-day moshav of Lakhish, which was named in honor of the ancient city.",
+   "desc": "Biblical city and an archeological site in Israel",
+   "page": "https://en.wikipedia.org/wiki/Tel_Lachish"
   },
   "recJK76HLZSOzxTWW": {
    "title": "Bethel",
@@ -71,6 +148,42 @@
    "summary": "Jerusalem is a city in the Southern Levant, on a plateau in the Judaean Mountains between the Mediterranean and the Dead Sea. It is one of the oldest cities in the world and is considered a holy city to the three major Abrahamic religions: Judaism, Christianity and Islam. Both Israel and Palestine claim Jerusalem as their capital city; Israel maintains its primary governmental institutions there, while Palestine ultimately foresees it as its seat of power. Neither claim is widely recognised internationally.",
    "desc": "City in the Southern Levant",
    "page": "https://en.wikipedia.org/wiki/Jerusalem"
+  },
+  "recN2YJFW0fYzSL9r": {
+   "title": "Ashdod",
+   "summary": "Ashdod is the sixth-largest city in Israel. Located in the country's Southern District, it lies on the Mediterranean coast 32 kilometres south of Tel Aviv and 20 km (12 mi) north of Ashkelon. Ashdod's port is the largest in Israel, handling 60% of the country's imported goods.",
+   "desc": "City in Israel",
+   "page": "https://en.wikipedia.org/wiki/Ashdod",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg/330px-%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "מקף־עברי",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "recNzNKGhPz5qS3Kc": {
+   "title": "Gaza City",
+   "summary": "Gaza City, often simply called Gaza, is a city in the Gaza Strip, Palestine, and the capital of the Gaza Governorate. Located on the Mediterranean coast, 76.6 kilometres (47.6 mi) southwest of Jerusalem, it was home to Palestine's only port. With a population of 590,481 people as of 2017, Gaza City was the most populous city in Palestine until the Gaza war and ongoing genocide caused most of the population to be displaced or killed.",
+   "desc": "City in Palestine",
+   "page": "https://en.wikipedia.org/wiki/Gaza_City",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg/330px-Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Jaber Jehad Badwan",
+    "credit": "Jaber Jehad Badwan",
+    "w": 330,
+    "h": 186
+   }
+  },
+  "recOpGyXVzzKCuVs5": {
+   "title": "Anathoth",
+   "summary": "Anathoth is the name of one of the Levitical cities given to \"the children of Aaron\" in the tribe of Benjamin. Residents were called Antothites or Anetothites.",
+   "desc": "City in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Anathoth"
   },
   "recPoImnA7S93jcHx": {
    "title": "Gilead",
@@ -162,6 +275,12 @@
    "desc": "Biblical place",
    "page": "https://en.wikipedia.org/wiki/Gilgal"
   },
+  "receX4PMAVfHZyoCO": {
+   "title": "Susa",
+   "summary": "Susa was an ancient city in the lower Zagros Mountains about 250 km (160 mi) east of the Tigris, between the Karkheh and Dez Rivers in Iran. It represents the current city of Shush, located on the site of ancient Susa. One of the most important cities of the Ancient Near East, Susa served as the capital of Elam and the winter capital of the Achaemenid Empire, and remained a strategic centre during the Parthian and Sasanian periods.",
+   "desc": "Ancient city in Iran",
+   "page": "https://en.wikipedia.org/wiki/Susa"
+  },
   "recedRWoiFNdeGFm4": {
    "title": "Ai (Canaan)",
    "summary": "The Ai was a city in Canaan, mentioned in the Hebrew Bible. According to the Book of Joshua, it was conquered by the Israelites, headed by Joshua, during their conquest of Canaan.",
@@ -173,6 +292,12 @@
    "summary": "Egypt, officially the Arab Republic of Egypt, is a country spanning the northeast corner of Africa and southwest corner of Asia via the Sinai Peninsula. It is bordered by the Mediterranean Sea to the north, Palestine and Israel to the northeast, the Red Sea to the east, Sudan and the Sahara to the south, and Libya to the west. The Gulf of Aqaba in the northeast separates Egypt from Jordan and Saudi Arabia. Cairo is the capital, largest city, and leading cultural centre, while Alexandria is the second-largest city and an important hub of industry and tourism.",
    "desc": "Country in North Africa",
    "page": "https://en.wikipedia.org/wiki/Egypt"
+  },
+  "rechZwu8ZbWlB6fyU": {
+   "title": "Mount Zion",
+   "summary": "Mount Zion is a hill in Jerusalem located just outside the walls of the Old City to the south. The term Mount Zion has been used in the Hebrew Bible first for the City of David and later for the Temple Mount, but its meaning has shifted and it is now used as the name of ancient Jerusalem's Western Hill. In a wider sense, the term Zion is also used for the entire Land of Israel.",
+   "desc": "Hill in Jerusalem",
+   "page": "https://en.wikipedia.org/wiki/Mount_Zion"
   },
   "recmL1lWBqWP3mAq3": {
    "title": "Galilee",
@@ -219,11 +344,53 @@
     "h": 248
    }
   },
+  "recocNih6Mr5ISN1d": {
+   "title": "Beit Shemesh",
+   "summary": "Beit Shemesh is a city located approximately 30 kilometres (19 mi) west of Jerusalem in Israel's Jerusalem District. A center of Haredi Judaism and Modern Orthodoxy, Beit Shemesh had a population of 176,786 as of 2024.",
+   "desc": "City in Israel",
+   "page": "https://en.wikipedia.org/wiki/Beit_Shemesh",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg/330px-%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "דג קטן",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "recp2WSSUeSBeg6rV": {
+   "title": "Ramoth-Gilead",
+   "summary": "Ramoth-Gilead, was a Levitical city and city of refuge east of the Jordan River in the Hebrew Bible, also called \"Ramoth in Gilead\" or \"Ramoth Galaad\" in the Douay–Rheims Bible. It was located in the tribal territorial allotment of the tribe of Gad.",
+   "desc": "Ancient city in the Transjordan",
+   "page": "https://en.wikipedia.org/wiki/Ramoth-Gilead"
+  },
   "recpqKANUDcRgN4HU": {
    "title": "Babylon",
    "summary": "Babylon was an ancient city located on the lower Euphrates river in southern Mesopotamia, within modern-day Hillah, Iraq, about 85 kilometres south of modern-day Baghdad. Babylon functioned as the main cultural and political centre of the Akkadian-speaking region of Babylonia. Its rulers established two important empires in antiquity, the 19th–16th century BC Old Babylonian Empire, and the 7th–6th century BC Neo-Babylonian Empire. Babylon also served as a regional capital of other empires, such as the Achaemenid Empire. Babylon was one of the most important urban centres of the ancient Near East until its decline during the Hellenistic period.",
    "desc": "Ancient Mesopotamian city in Iraq",
    "page": "https://en.wikipedia.org/wiki/Babylon"
+  },
+  "recq9ttBUfBJW1lhG": {
+   "title": "Amman",
+   "summary": "Amman is the capital and the largest city of Jordan, and the country's economic, political, and cultural center. With a population of five million as of 2026, Amman is Jordan's primate city and is the largest city in the Levant region, the seventh-largest city in the Arab world, and the eighth-largest metropolitan area in the Middle East.",
+   "desc": "Capital city of Jordan",
+   "page": "https://en.wikipedia.org/wiki/Amman"
+  },
+  "recqxkLUTRbyks2qF": {
+   "title": "Gezer",
+   "summary": "Gezer is an archaeological site in the foothills of the Judaean Mountains at the border of the Shephelah roughly midway between Jerusalem and Tel Aviv in central Israel. It is now an Israeli national park. In the Hebrew Bible, Gezer is associated with Joshua and Solomon. Gezer rises to an elevation of 229 metres (751 ft) above sea-level, and affords a commanding prospect of the plains to the west, north, and east.",
+   "desc": "Archaeological site in the foothills of the Judaean Mountains",
+   "page": "https://en.wikipedia.org/wiki/Gezer",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/88338_gazar_mound_PikiWiki_Israel.jpg/330px-88338_gazar_mound_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:88338_gazar_mound_PikiWiki_Israel.jpg",
+    "license": "CC BY 2.5",
+    "artist": "זאב שטיין",
+    "credit": "Heritage Conservation Outside The City via the PikiWiki - Israel free image collection project",
+    "w": 330,
+    "h": 220
+   }
   },
   "recsX4et9ux7g07Zg": {
    "title": "Negev",
@@ -245,6 +412,12 @@
    "summary": "Beersheba, officially Be'er-Sheva, is the largest city in the Negev desert of southern Israel. Often referred to as the \"Capital of the Negev\", it is the centre of the fourth-most populous metropolitan area in Israel, the eighth-most populous Israeli city with a population of 223,587, and the second-largest city in the area, with a total area of 117,500 dunams.",
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Beersheba"
+  },
+  "recwFUncFiNWPsPWN": {
+   "title": "Dan (ancient city)",
+   "summary": "Dan, and older name Laish, is an ancient city mentioned in the Hebrew Bible, described as the northernmost city of the Kingdom of Israel, and belonging to the tribe of Dan, its namesake. It was later the site of a royal sanctuary built by Jeroboam.",
+   "desc": "Ancient city in northern Israel",
+   "page": "https://en.wikipedia.org/wiki/Dan_(ancient_city)"
   },
   "recxiSg5QZWkj9Hy3": {
    "title": "Sidon",
