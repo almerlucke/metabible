@@ -82,7 +82,7 @@ func (a *Atlas) View(lang string) *Atlas {
 	}
 	nt, titles := a.names[lang], a.titles[lang]
 	dict := a.easton[lang]
-	if nt == nil && titles == nil && dict == nil && a.artwork[lang] == nil {
+	if nt == nil && titles == nil && dict == nil && a.artwork[lang] == nil && a.bibles[lang] == nil {
 		return a
 	}
 	if nt == nil {
@@ -124,7 +124,7 @@ func (a *Atlas) View(lang string) *Atlas {
 		v.Places[i] = &c
 		v.PlaceByID[c.ID] = &c
 	}
-	if titles != nil {
+	if titles != nil || a.bibles[lang] != nil {
 		moved := map[*Event]*Event{}
 		v.Events = make([]*Event, len(a.Events))
 		v.EventByID = make(map[string]*Event, len(a.Events))
@@ -132,6 +132,10 @@ func (a *Atlas) View(lang string) *Atlas {
 			c := *e
 			if t := titles[e.ID]; t != "" {
 				c.Orig, c.Title = e.Title, t
+			}
+			c.Text = a.verseText(e.VerseID, lang, e.Text) // the verse the event points at, in the language
+			if v := a.VerseByID[e.VerseID]; v != nil {
+				c.Ref = a.verseLabel(v, lang) // "Genesis 1:1" with the local book name, instead of the OSIS "Gen.1.1"
 			}
 			moved[e], v.Events[i], v.EventByID[c.ID] = &c, &c, &c
 		}

@@ -804,3 +804,27 @@ func TestDutchArtwork(t *testing.T) {
 		t.Error("no engravings in the Dutch gallery")
 	}
 }
+
+func TestDutchEventText(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	n := 0
+	for _, e := range a.Events {
+		d := nl.EventByID[e.ID]
+		if e.VerseID == "" || e.Text == "" {
+			continue
+		}
+		if want := a.VerseIn(a.VerseByID[e.VerseID], "nl"); d.Text != want {
+			t.Fatalf("event %q: text %q, want the Dutch verse %q", e.Title, d.Text, want)
+		}
+		if d.Text != e.Text {
+			n++
+		}
+		if e.Ref == "Gen.1.1" && d.Ref != "Genesis 1:1" {
+			t.Errorf("Ref = %q", d.Ref)
+		}
+	}
+	if n < 300 {
+		t.Errorf("only %d events show a Dutch verse", n)
+	}
+}
