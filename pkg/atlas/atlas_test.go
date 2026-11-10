@@ -2,6 +2,7 @@ package atlas
 
 import (
 	"os"
+	"sort"
 	"strings"
 	"sync"
 	"testing"
@@ -408,5 +409,62 @@ func TestDropDuplicates(t *testing.T) {
 	}
 	if same, _ := dropDuplicates([]Art{{}}, dir+"/missing.json"); len(same) != 1 {
 		t.Error("a missing file means no duplicates")
+	}
+}
+
+func TestArtNameKeys(t *testing.T) {
+	a := load(t)
+	keys := a.artNameKeys()
+	jesus, peter := "", ""
+	for _, p := range a.People {
+		if p.Name == "Jesus Christ" {
+			jesus = p.ID
+		}
+		if p.Name == "Simon Peter" {
+			peter = p.ID
+		}
+	}
+	if keys["jesus"] != jesus || keys["christ"] != jesus || keys["peter"] != peter {
+		t.Errorf("distinctive names not mapped: jesus=%q christ=%q peter=%q", keys["jesus"], keys["christ"], keys["peter"])
+	}
+	for _, generic := range []string{"king", "angel", "god", "lord", "israel"} {
+		if _, ok := keys[generic]; ok {
+			t.Errorf("%q must never identify a person", generic)
+		}
+	}
+	if got := peopleInTitle("Christ Before Pilate", keys); len(got) == 0 || got[0] != jesus {
+		t.Errorf("Christ Before Pilate -> %v", got)
+	}
+}
+
+// ATLAS_REPORT=1 go test ./pkg/atlas -run TestArtReport -v  lists who has engravings and why.
+func TestArtReport(t *testing.T) {
+	if os.Getenv("ATLAS_REPORT") == "" {
+		t.Skip("set ATLAS_REPORT=1 to print")
+	}
+	a := load(t)
+	type row struct {
+		name string
+		n    int
+	}
+	var rows []row
+	for id, arts := range a.artByPerson {
+		rows = append(rows, row{a.PersonByID[id].Name, len(arts)})
+	}
+	sort.Slice(rows, func(i, j int) bool {
+		return rows[i].n > rows[j].n || rows[i].n == rows[j].n && rows[i].name < rows[j].name
+	})
+	t.Logf("%d people have engravings", len(rows))
+	for _, r := range rows {
+		t.Logf("%-24s %d", r.name, r.n)
+	}
+	for _, name := range []string{"Jesus Christ", "Simon Peter", "Mary (Mother of Jesus)", "John the Baptist", "Pontius Pilate"} {
+		for _, p := range a.People {
+			if p.Name == name {
+				for _, art := range a.artByPerson[p.ID] {
+					t.Logf("  %s <- %s", name, art.Title)
+				}
+			}
+		}
 	}
 }

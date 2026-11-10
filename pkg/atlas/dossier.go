@@ -254,7 +254,7 @@ func (a *Atlas) PersonDossier(id string) *PersonDossier {
 	}
 	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), Wiki: a.wikiPerson(id)}
 	if arts := a.artByPerson[id]; len(arts) > 0 {
-		d.Art = arts[:min(len(arts), 3)]
+		d.Art = arts[:min(len(arts), 24)]
 	}
 	if p.Group > 0 && p.Group <= len(a.Groups) {
 		d.GroupName = a.Groups[p.Group-1].Name

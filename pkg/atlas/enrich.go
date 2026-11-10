@@ -117,6 +117,19 @@ func (a *Atlas) loadEnrichment(file string) error {
 			}
 		}
 	}
+	// link engravings to people by the distinctive names in their titles, besides what the fetch stored
+	keys := a.artNameKeys()
+	for i := range en.Art {
+		have := map[string]bool{}
+		for _, id := range en.Art[i].People {
+			have[id] = true
+		}
+		for _, id := range peopleInTitle(en.Art[i].Title, keys) {
+			if !have[id] {
+				en.Art[i].People = append(en.Art[i].People, id)
+			}
+		}
+	}
 	a.Enrich = &en
 	a.artByEvent = map[string][]Art{}
 	a.artByPerson = map[string][]Art{}

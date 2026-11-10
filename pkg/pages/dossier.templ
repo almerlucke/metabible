@@ -159,8 +159,22 @@ templ PersonPage(d *atlas.PersonDossier) {
 					if len(d.Art) > 0 {
 						<section>
 							<h2>In art</h2>
-							for _, a := range d.Art {
-								@artFigure(a)
+							for i, a := range d.Art {
+								if i < 3 {
+									@artFigure(a)
+								}
+							}
+							if len(d.Art) > 3 {
+								<details class="gallery">
+									<summary>More engravings ({ fmt.Sprint(len(d.Art) - 3) })</summary>
+									<div class="grid">
+										for i, a := range d.Art {
+											if i >= 3 {
+												@artFigure(a)
+											}
+										}
+									</div>
+								</details>
 							}
 						</section>
 					}

@@ -629,3 +629,8 @@ html[data-theme="dark"] body { background-attachment: fixed; min-height: 100vh; 
   .reader .verses .v { font-size: 1.08rem; }
 }
 .mb-hero { grid-template-columns: minmax(0, 1fr); }
+
+details.gallery { margin-top: 1rem; }
+details.gallery summary { cursor: pointer; color: var(--mb-gold); font-size: .9rem; margin-bottom: .6rem; }
+details.gallery .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+details.gallery figure.art { margin: 0; }
