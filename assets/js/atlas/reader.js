@@ -9,7 +9,7 @@ const placesOf = new Map(verses.map((v) => [v.id, (v.pl || []).map((id) => byId.
 const cap = document.getElementById('rcap');
 
 const first = points[0];
-const map = createMap('readmap', { center: [first.lng, first.lat], zoom: 5, pitch: 45, controls: true });
+const map = createMap('readmap', { center: [first.lng, first.lat], zoom: 5, pitch: 45, controls: true, cooperative: true });
 const feat = (p, active) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: { id: p.id, n: p.n, k: p.k || '', active } });
 let ready = false, current = null;
 

@@ -41,6 +41,11 @@ export function createMap(container, { center = [35.2, 32], zoom = 5, pitch = 50
     center, zoom, pitch, bearing,
     maxPitch: 75,
     cooperativeGestures: cooperative,
+    locale: cooperative ? {
+      'CooperativeGesturesHandler.WindowsHelpText': window.tx ? window.tx('js.map.ctrl') : 'Use ctrl + scroll to zoom the map',
+      'CooperativeGesturesHandler.MacHelpText': window.tx ? window.tx('js.map.cmd') : 'Use ⌘ + scroll to zoom the map',
+      'CooperativeGesturesHandler.MobileHelpText': window.tx ? window.tx('js.map.touch') : 'Use two fingers to move the map',
+    } : undefined,
     attributionControl: { compact: true },
     style: {
       version: 8,

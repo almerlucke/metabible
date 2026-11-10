@@ -1,6 +1,6 @@
 // MetaBible service worker: the shell and libraries work offline; pages and data refresh when online.
 // Bump VERSION when changing this file or when static assets change shape.
-const VERSION = 'mb-v1';
+const VERSION = 'mb-v3';
 const STATIC = VERSION + '-static', DATA = VERSION + '-data', PAGES = VERSION + '-pages';
 const PRECACHE = ['/', '/assets/css/metabible.css', '/assets/js/site/site.js', '/assets/vendor/fonts/fonts.css',
   '/assets/vendor/maplibre/maplibre-gl.js', '/assets/vendor/maplibre/maplibre-gl.css', '/assets/manifest.webmanifest'];
