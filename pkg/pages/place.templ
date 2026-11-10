@@ -17,6 +17,9 @@ templ PlacePage(place *models.Place) {
         <body>
         @mainContainer("Place") {
             @article(place.ListingLabel()) {
+                if place.HasLocation() {
+                    <p><a role="button" class="outline" href={templ.SafeURL("/atlas?place=" + place.ID)}>See it on the 3D time atlas</a></p>
+                }
                 if place.DictText != "" {
                     <md-block id="dictText">{place.DictText}</md-block>
                 }

@@ -1,0 +1,162 @@
+package pages
+
+import "fmt"
+
+type HomeStats struct {
+	Verses int
+	People int
+	Places int
+	Events int
+}
+
+templ atlasHead(title string, immersive bool) {
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="color-scheme" content="dark"/>
+		<title>{ title } · MetaBible</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap"/>
+		<link rel="stylesheet" href="/assets/css/metabible.css"/>
+		<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+		{ children... }
+	</head>
+}
+
+templ topNav(active string) {
+	<nav class="mb-nav">
+		<a class="mb-brand" href="/">METABIBLE</a>
+		<div class="links">
+			<a href="/atlas" class={ templ.KV("on", active == "atlas") }>Time Atlas</a>
+			<a href="/journeys" class={ templ.KV("on", active == "journeys") }>Journeys</a>
+			<a href="/tree" class={ templ.KV("on", active == "tree") }>Family</a>
+			<a href="/cosmos" class={ templ.KV("on", active == "cosmos") }>Cosmos</a>
+			<a href="/canon" class={ templ.KV("on", active == "canon") }>Canon</a>
+			<a href="/lifespans" class={ templ.KV("on", active == "lifespans") }>Lifespans</a>
+		</div>
+		<span class="sep"></span>
+		<div class="links secondary">
+			<a href="/books">Books</a>
+			<a href="/people">People</a>
+			<a href="/places">Places</a>
+			<a href="/events">Events</a>
+			<a href="/concordance">Concordance</a>
+		</div>
+		<span class="grow"></span>
+		<button class="mb-kbd" data-mb-search type="button">Search <kbd>Ctrl K</kbd></button>
+	</nav>
+}
+
+templ immersive(title string, active string, headExtra templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="dark">
+		@atlasHead(title, true) {
+			if headExtra != nil {
+				@headExtra
+			}
+		}
+		<body class="mb-immersive">
+			@topNav(active)
+			<div class="mb-stage">
+				{ children... }
+			</div>
+			<script src="/assets/js/site/site.js"></script>
+		</body>
+	</html>
+}
+
+templ mapLibreHead() {
+	<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"/>
+	<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+}
+
+templ noHead() {
+}
+
+templ HomePage(s HomeStats) {
+	<!DOCTYPE html>
+	<html lang="en" data-theme="dark">
+		@atlasHead("The Bible, alive", false) {
+		}
+		<body>
+			@topNav("")
+			<section class="mb-hero" style="margin-top: var(--mb-nav-h)">
+				<canvas id="hero"></canvas>
+				<div class="inner">
+					<div class="mb-tag">an interactive atlas of scripture</div>
+					<h1>METABIBLE</h1>
+					<p class="lead">Four thousand years, three thousand people, one thousand places. Walk the routes, follow the families, watch the story move across the map.</p>
+					<a class="mb-btn" href="/atlas?play=1" style="font-size:1rem;padding:.7rem 1.6rem">▶ Begin the story</a>
+					<div class="mb-stats">
+						<div><b>{ fmt.Sprint(s.Verses) }</b>verses</div>
+						<div><b>{ fmt.Sprint(s.People) }</b>people</div>
+						<div><b>{ fmt.Sprint(s.Places) }</b>places</div>
+						<div><b>{ fmt.Sprint(s.Events) }</b>events</div>
+					</div>
+					<div class="mb-cards">
+						<a class="mb-card" href="/atlas"><div class="ic">⏳</div><b>Time Atlas</b><span>Scrub from 4004 BC to AD 100 and watch events light up across a 3D relief map.</span></a>
+						<a class="mb-card" href="/journeys"><div class="ic">🧭</div><b>Journeys</b><span>Abraham, the Exodus, David, Jesus, Paul — animated routes with the verses beside them.</span></a>
+						<a class="mb-card" href="/tree"><div class="ic">🌳</div><b>Family Tree</b><span>From Adam to Jesus. Find how any two people in the Bible are related.</span></a>
+						<a class="mb-card" href="/cosmos"><div class="ic">✨</div><b>Cosmos</b><span>A 3D constellation of every person and place, with time running upward.</span></a>
+						<a class="mb-card" href="/canon"><div class="ic">📜</div><b>Canon</b><span>All 66 books as ribbons: who appears where, which books share people, and where a word lives.</span></a>
+						<a class="mb-card" href="/lifespans"><div class="ic">⌛</div><b>Who Was Alive?</b><span>Pick any year and see who was alive, who they overlapped with.</span></a>
+					</div>
+				</div>
+			</section>
+			<script src="/assets/js/site/site.js"></script>
+			<script type="module" src="/assets/js/atlas/home.js"></script>
+		</body>
+	</html>
+}
+
+templ AtlasPage() {
+	@immersive("Time Atlas", "atlas", mapLibreHead()) {
+		<div id="map" class="mb-fill"></div>
+		<div id="yearbox" class="mb-panel"></div>
+		<div id="layers" class="mb-panel"></div>
+		<div id="feed" class="mb-panel mb-scroll"></div>
+		<div id="timeline" class="mb-panel"></div>
+		<script type="module" src="/assets/js/atlas/atlas.js"></script>
+	}
+}
+
+templ JourneysPage() {
+	@immersive("Journeys", "journeys", mapLibreHead()) {
+		<div id="map" class="mb-fill"></div>
+		<div id="jlist" class="mb-panel mb-scroll"></div>
+		<div id="jstep" class="mb-panel"></div>
+		<script type="module" src="/assets/js/atlas/journeys.js"></script>
+	}
+}
+
+templ TreePage(id string) {
+	@immersive("Family Tree", "tree", noHead()) {
+		<div id="tree" class="mb-fill" data-id={ id }></div>
+		<div id="tpanel" class="mb-panel mb-scroll"></div>
+		<script type="module" src="/assets/js/atlas/tree.js"></script>
+	}
+}
+
+templ CosmosPage() {
+	@immersive("Cosmos", "cosmos", noHead()) {
+		<div id="cosmos" class="mb-fill"></div>
+		<div id="cpanel" class="mb-panel"></div>
+		<div id="cinfo" class="mb-panel"></div>
+		<script type="module" src="/assets/js/atlas/cosmos.js"></script>
+	}
+}
+
+templ CanonPage() {
+	@immersive("Canon", "canon", noHead()) {
+		<div id="canon" class="mb-fill mb-scroll"></div>
+		<script type="module" src="/assets/js/atlas/canon.js"></script>
+	}
+}
+
+templ LifespansPage() {
+	@immersive("Who Was Alive?", "lifespans", noHead()) {
+		<div id="lifespans" class="mb-fill"></div>
+		<script type="module" src="/assets/js/atlas/lifespans.js"></script>
+	}
+}

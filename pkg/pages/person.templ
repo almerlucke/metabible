@@ -26,8 +26,14 @@ templ PersonPage(info *PersonInfo)  {
         @head(info.Person.DisplayTitle) {}
         <body>
         @mainContainer("Person") {
-            @article(info.Person.DisplayTitle + " " + "(" + info.Person.Gender + ")") {
+            @article(info.Person.DisplayTitle) {
                 <h5>{info.Person.Disambiguation}</h5>
+                <p>
+                    <a role="button" class="outline" href={templ.SafeURL(fmt.Sprintf("/journeys?person=%s", info.Person.ID))}>Journey</a>
+                    <a role="button" class="outline" href={templ.SafeURL(fmt.Sprintf("/tree/%s", info.Person.ID))}>Family tree</a>
+                    <a role="button" class="outline" href={templ.SafeURL(fmt.Sprintf("/lifespans?person=%s", info.Person.ID))}>Who was alive?</a>
+                    <a role="button" class="outline" href={templ.SafeURL(fmt.Sprintf("/cosmos?id=%s", info.Person.ID))}>In the cosmos</a>
+                </p>
                 if info.Person.DictText != "" {
                     <details open>
                         <summary>Description</summary>
@@ -37,6 +43,7 @@ templ PersonPage(info *PersonInfo)  {
                 <details open>
                     <summary>Details</summary>
                     <ul>
+                    <li>Gender: {info.Person.Gender}</li>
                     if info.BirthPlace != nil {
                         <li>Birth place: <a href={templ.SafeURL(fmt.Sprintf("/place/%s", info.BirthPlace.ID))}>{info.BirthPlace.DisplayTitle}</a></li>
                     }

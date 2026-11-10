@@ -1,0 +1,261 @@
+package atlas
+
+import (
+	"fmt"
+	"regexp"
+	"sort"
+	"strconv"
+	"strings"
+	"unicode"
+)
+
+type searchEntry struct {
+	Type  string
+	ID    string
+	Label string
+	Sub   string
+	URL   string
+	Lower string
+	W     int
+}
+
+type SearchHit struct {
+	Type  string `json:"t"`
+	ID    string `json:"id"`
+	Label string `json:"l"`
+	Sub   string `json:"s,omitempty"`
+	URL   string `json:"u"`
+}
+
+func (a *Atlas) buildSearch() {
+	for _, p := range a.People {
+		sub := "person"
+		if p.Y0 != 0 || p.Y1 != 0 {
+			sub = "person · " + FormatYear(p.Y0)
+		}
+		l := strings.ToLower(p.Name)
+		if p.AlsoCall != "" {
+			l += " " + strings.ToLower(p.AlsoCall)
+		}
+		a.nameIdx = append(a.nameIdx, searchEntry{"person", p.ID, p.Name, sub, "/person/" + p.ID, l, p.Verses})
+	}
+	for _, p := range a.Places {
+		sub := "place"
+		if p.Kind != "" {
+			sub = strings.ToLower(p.Kind)
+		}
+		a.nameIdx = append(a.nameIdx, searchEntry{"place", p.ID, p.Name, sub, "/place/" + p.ID, strings.ToLower(p.Name), p.Verses})
+	}
+	for _, e := range a.Events {
+		a.nameIdx = append(a.nameIdx, searchEntry{"event", e.ID, e.Title, "event · " + e.Date, "/atlas?event=" + e.ID, strings.ToLower(e.Title), 20})
+	}
+	for _, b := range a.Books {
+		a.nameIdx = append(a.nameIdx, searchEntry{"book", b.ID, b.Name, "book · " + b.Testament, "/book/" + b.ID, strings.ToLower(b.Name), 100000})
+	}
+}
+
+var refRe = regexp.MustCompile(`^\s*([1-3]?\s*[a-zA-Z]+(?:\s+of\s+[a-zA-Z]+)?)\s+(\d+)(?:\s*[:.]\s*(\d+))?\s*$`)
+
+func (a *Atlas) findBook(name string) *Book {
+	n := strings.ToLower(strings.ReplaceAll(name, " ", ""))
+	if n == "" {
+		return nil
+	}
+	var best *Book
+	for _, b := range a.Books {
+		bn := strings.ToLower(strings.ReplaceAll(b.Name, " ", ""))
+		if bn == n || strings.ToLower(b.Short) == n || strings.ToLower(b.Osis) == n {
+			return b
+		}
+		if best == nil && strings.HasPrefix(bn, n) {
+			best = b
+		}
+	}
+	return best
+}
+
+func (a *Atlas) Search(q string, limit int) []SearchHit {
+	q = strings.TrimSpace(q)
+	if q == "" {
+		return nil
+	}
+	var hits []SearchHit
+
+	if m := refRe.FindStringSubmatch(q); m != nil {
+		if b := a.findBook(m[1]); b != nil {
+			ch, _ := strconv.Atoi(m[2])
+			if m[3] != "" {
+				vn, _ := strconv.Atoi(m[3])
+				osis := fmt.Sprintf("%s.%d.%d", b.Osis, ch, vn)
+				if v, ok := a.VerseByOsis[strings.ToLower(osis)]; ok {
+					hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", b.Name, ch, vn), trunc(v.Text, 80), "/verse/" + v.ID})
+				}
+			} else {
+				for _, c := range b.Chapters {
+					if c.Num == ch {
+						hits = append(hits, SearchHit{"chapter", c.ID, fmt.Sprintf("%s %d", b.Name, ch), "chapter", "/chapter/" + c.ID})
+					}
+				}
+			}
+		}
+	}
+
+	lq := strings.ToLower(q)
+	type scored struct {
+		e     searchEntry
+		score int
+	}
+	var sc []scored
+	for _, e := range a.nameIdx {
+		idx := strings.Index(e.Lower, lq)
+		if idx < 0 {
+			continue
+		}
+		s := 1
+		if idx == 0 {
+			s = 3
+		} else if idx > 0 && !unicode.IsLetter(rune(e.Lower[idx-1])) {
+			s = 2
+		}
+		if e.Lower == lq {
+			s = 5
+		}
+		sc = append(sc, scored{e, s})
+	}
+	sort.SliceStable(sc, func(i, j int) bool {
+		if sc[i].score != sc[j].score {
+			return sc[i].score > sc[j].score
+		}
+		return sc[i].e.W > sc[j].e.W
+	})
+	for _, s := range sc {
+		if len(hits) >= limit {
+			break
+		}
+		hits = append(hits, SearchHit{s.e.Type, s.e.ID, s.e.Label, s.e.Sub, s.e.URL})
+	}
+
+	if len(q) >= 4 && len(hits) < limit {
+		n := 0
+		for i, t := range a.lowerText {
+			if strings.Contains(t, lq) {
+				v := a.Verses[i]
+				b := a.BookByID[v.Book]
+				bn := ""
+				if b != nil {
+					bn = b.Name
+				}
+				hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", bn, a.ChapterNum[v.Chapter], v.Num), trunc(v.Text, 90), "/verse/" + v.ID})
+				n++
+				if n >= 4 || len(hits) >= limit+4 {
+					break
+				}
+			}
+		}
+	}
+	return hits
+}
+
+func trunc(s string, n int) string {
+	r := []rune(s)
+	if len(r) <= n {
+		return s
+	}
+	return string(r[:n]) + "…"
+}
+
+var mdLink = regexp.MustCompile(`\[([^\]]*)\]\([^)]*\)`)
+
+func plain(s string) string {
+	s = mdLink.ReplaceAllString(s, "$1")
+	s = strings.ReplaceAll(s, "\n", " ")
+	return strings.Join(strings.Fields(s), " ")
+}
+
+// Peek is the small card shown when hovering a link.
+type Peek struct {
+	Type  string      `json:"t"`
+	Title string      `json:"title"`
+	Sub   string      `json:"sub,omitempty"`
+	Text  string      `json:"text,omitempty"`
+	Facts []string    `json:"facts,omitempty"`
+	Links [][2]string `json:"links,omitempty"`
+}
+
+func (a *Atlas) verseLabel(v *Verse) string {
+	b := a.BookByID[v.Book]
+	if b == nil {
+		return v.Osis
+	}
+	return fmt.Sprintf("%s %d:%d", b.Name, a.ChapterNum[v.Chapter], v.Num)
+}
+
+func (a *Atlas) PeekFor(kind, id string) *Peek {
+	switch kind {
+	case "person":
+		p := a.PersonByID[id]
+		if p == nil {
+			return nil
+		}
+		pk := &Peek{Type: "person", Title: p.Name, Text: trunc(plain(p.Dict), 260)}
+		if p.Gender != "" {
+			pk.Sub = p.Gender
+		}
+		if p.Y0 != 0 || p.Y1 != 0 {
+			pk.Facts = append(pk.Facts, fmt.Sprintf("Appears %s – %s", FormatYear(p.Y0), FormatYear(p.Y1)))
+		}
+		pk.Facts = append(pk.Facts, fmt.Sprintf("%d verses", p.Verses))
+		if len(p.Children) > 0 {
+			pk.Facts = append(pk.Facts, fmt.Sprintf("%d children", len(p.Children)))
+		}
+		if f := a.PersonByID[p.Father]; f != nil {
+			pk.Facts = append(pk.Facts, "Son/daughter of "+f.Name)
+		}
+		pk.Links = [][2]string{{"Journey", "/journeys?person=" + p.ID}, {"Family tree", "/tree/" + p.ID}}
+		return pk
+	case "place":
+		p := a.PlaceByID[id]
+		if p == nil {
+			return nil
+		}
+		pk := &Peek{Type: "place", Title: p.Name, Sub: strings.TrimSpace(p.Kind + " " + p.Sub), Text: trunc(plain(p.Dict), 260)}
+		if pk.Text == "" {
+			pk.Text = p.Comment
+		}
+		pk.Facts = append(pk.Facts, fmt.Sprintf("%d verses", p.Verses))
+		if p.HasGeo {
+			pk.Facts = append(pk.Facts, fmt.Sprintf("%.2f°, %.2f°", p.Lat, p.Lng))
+			pk.Links = [][2]string{{"On the atlas", fmt.Sprintf("/atlas?place=%s", p.ID)}}
+		}
+		return pk
+	case "verse":
+		v := a.VerseByID[id]
+		if v == nil {
+			return nil
+		}
+		pk := &Peek{Type: "verse", Title: a.verseLabel(v), Text: v.Text}
+		pk.Facts = append(pk.Facts, fmt.Sprintf("%d people · %d places", len(v.People), len(v.Places)))
+		return pk
+	case "book":
+		b := a.BookByID[id]
+		if b == nil {
+			return nil
+		}
+		return &Peek{Type: "book", Title: b.Name, Sub: b.Div + " · " + b.Testament, Facts: []string{fmt.Sprintf("%d chapters · %d verses", len(b.Chapters), b.Verses)}}
+	case "chapter":
+		for _, b := range a.Books {
+			for _, c := range b.Chapters {
+				if c.ID == id {
+					return &Peek{Type: "chapter", Title: fmt.Sprintf("%s %d", b.Name, c.Num), Facts: []string{fmt.Sprintf("%d verses · %d people · %d places", c.Verses, c.People, c.Places)}}
+				}
+			}
+		}
+	case "event":
+		e := a.EventByID[id]
+		if e == nil {
+			return nil
+		}
+		return &Peek{Type: "event", Title: e.Title, Sub: e.Date, Text: e.Text, Links: [][2]string{{"On the atlas", "/atlas?event=" + e.ID}}}
+	}
+	return nil
+}

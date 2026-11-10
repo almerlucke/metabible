@@ -13,6 +13,11 @@ templ mainContainer(title string) {
                 <li><h1>{title}</h1></li>
             </ul>
             <ul>
+                <li><a href="/atlas">Atlas</a></li>
+                <li><a href="/journeys">Journeys</a></li>
+                <li><a href="/tree">Family</a></li>
+                <li><a href="/cosmos">Cosmos</a></li>
+                <li><a href="/canon">Canon</a></li>
                 <li><a href="/books">Books</a></li>
                 <li><a href="/people">People</a></li>
                 <li><a href="/places">Places</a></li>
@@ -33,7 +38,10 @@ templ head(title string) {
         <title>{title}</title>
         <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
         <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap">
         <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
+        <link rel="stylesheet" href="/assets/css/metabible.css">
+        <script src="/assets/js/site/site.js"></script>
         { children... }
     </head>
 }
@@ -87,4 +95,8 @@ templ chapterTitleComponent(book *models.Book, chapter *models.Chapter) {
 
 templ bookTitleComponent(book *models.Book) {
     {book.BookName}
+}
+
+templ eventTitleComponent(title string) {
+    {title}
 }

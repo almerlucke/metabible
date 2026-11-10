@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/almerlucke/metabible/config"
+	"github.com/almerlucke/metabible/pkg/atlas"
 	"github.com/almerlucke/metabible/pkg/controllers"
 	"github.com/almerlucke/metabible/pkg/models"
 	"github.com/almerlucke/metabible/pkg/pages"
@@ -95,7 +96,11 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	mux.Handle("/", &controllers.PlacesPageController{Store: st})
+	at, err := atlas.Load("data/json", "data/journeys.json")
+	if err != nil {
+		log.Panic(err)
+	}
+	controllers.MountAtlas(mux, at) // "/", /atlas, /journeys, /tree, /cosmos, /canon, /lifespans, /api/atlas/*
 	mux.Handle("/books", &controllers.BooksPageController{Store: st})
 	mux.Handle("/people", &controllers.PeoplePageController{Store: st})
 	mux.Handle("/places", &controllers.PlacesPageController{Store: st})

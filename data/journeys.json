@@ -1,0 +1,177 @@
+[
+  {
+    "id": "abraham", "title": "Abraham's Calling", "subtitle": "From Ur of the Chaldeans to the land of promise",
+    "color": "#f5c451", "era": "patriarchs",
+    "intro": "A man of Mesopotamia hears a voice and walks west with his family and flocks. This is where the story of a chosen people begins.",
+    "stops": [
+      {"name": "Ur", "lat": 30.96, "lng": 46.10, "ref": "Gen.11.31", "note": "Terah takes Abram, Sarai and Lot out of Ur of the Chaldeans, heading for Canaan."},
+      {"name": "Haran", "lat": 36.86, "lng": 39.03, "ref": "Gen.12.1", "note": "They settle at Haran until Terah dies. Then the call comes: go from your country to the land I will show you."},
+      {"name": "Shechem", "lat": 32.22, "lng": 35.25, "ref": "Gen.12.6", "note": "In the land of Canaan, at the oak of Moreh, the promise is given: to your offspring I will give this land."},
+      {"name": "Bethel", "lat": 31.94, "lng": 35.22, "ref": "Gen.12.8", "note": "Abram pitches his tent between Bethel and Ai, and builds an altar."},
+      {"name": "Memphis", "lat": 29.85, "lng": 31.25, "ref": "Gen.12.10", "note": "Famine drives him south into Egypt."},
+      {"name": "Hebron", "lat": 31.52, "lng": 35.10, "ref": "Gen.13.18", "note": "Back in Canaan he settles by the oaks of Mamre at Hebron."},
+      {"name": "Gerar", "lat": 31.38, "lng": 34.60, "ref": "Gen.20.1", "note": "He journeys toward the Negeb and lives for a time at Gerar."},
+      {"name": "Beersheba", "lat": 31.24, "lng": 34.84, "ref": "Gen.21.33", "note": "Abraham plants a tamarisk tree at Beersheba and calls on the name of the LORD."},
+      {"name": "Jerusalem", "lat": 31.77, "lng": 35.23, "ref": "Gen.22.2", "note": "The test on Mount Moriah: the land where, a thousand years later, a temple would stand."}
+    ]
+  },
+  {
+    "id": "exodus", "title": "The Exodus", "subtitle": "Out of Egypt, through the sea, to the mountain",
+    "color": "#ef6c00", "era": "egypt",
+    "intro": "Six hundred thousand men on foot, besides women and children. A road through the sea, a mountain wrapped in fire, and forty years of desert.",
+    "stops": [
+      {"name": "Rameses", "lat": 30.80, "lng": 31.83, "ref": "Exod.12.37", "note": "The people of Israel journey from Rameses to Succoth."},
+      {"name": "Etham", "lat": 30.47, "lng": 32.28, "ref": "Num.33.6", "note": "They camp at Etham, on the edge of the wilderness."},
+      {"name": "Pi-hahiroth", "lat": 29.95, "lng": 32.43, "ref": "Exod.14.2", "note": "Turn back and camp before Pi-hahiroth, between Migdol and the sea."},
+      {"name": "Red Sea crossing", "lat": 29.90, "lng": 32.55, "ref": "Exod.14.22", "note": "The waters are a wall to the right and to the left.", "sea": true},
+      {"name": "Marah", "lat": 29.35, "lng": 32.93, "ref": "Exod.15.23", "note": "Three days without water; and the water at Marah is bitter."},
+      {"name": "Elim", "lat": 29.31, "lng": 32.98, "ref": "Exod.15.27", "note": "Twelve springs of water and seventy palm trees."},
+      {"name": "Rephidim", "lat": 28.73, "lng": 33.84, "ref": "Exod.17.1", "note": "No water again. Moses strikes the rock at Horeb."},
+      {"name": "Mount Sinai", "lat": 28.54, "lng": 33.97, "ref": "Exod.19.2", "note": "They camp before the mountain. Here the covenant is given, and the Law."},
+      {"name": "Kadesh", "lat": 30.65, "lng": 34.42, "ref": "Num.13.26", "note": "Spies return from Canaan; the people refuse to go up. Forty years of wandering follow."},
+      {"name": "Mount Hor", "lat": 30.33, "lng": 35.45, "ref": "Num.20.22", "note": "Aaron dies on Mount Hor."},
+      {"name": "Ezion-geber", "lat": 29.53, "lng": 35.00, "ref": "Num.33.35", "note": "They skirt Edom southward, then turn north along the King's Highway."},
+      {"name": "Mount Nebo", "lat": 31.77, "lng": 35.75, "ref": "Deut.34.1", "note": "Moses climbs Nebo and sees the whole land, but does not enter it."}
+    ]
+  },
+  {
+    "id": "conquest", "title": "Joshua's Campaign", "subtitle": "Across the Jordan and into Canaan",
+    "color": "#c0392b", "era": "conquest",
+    "intro": "The river parts, the walls fall, and a nomadic people becomes a nation in a land.",
+    "stops": [
+      {"name": "Shittim", "lat": 31.83, "lng": 35.65, "ref": "Josh.3.1", "note": "Joshua rises early and sets out from Shittim to the Jordan."},
+      {"name": "Gilgal", "lat": 31.86, "lng": 35.46, "ref": "Josh.4.19", "note": "The people come up out of the Jordan and camp at Gilgal."},
+      {"name": "Jericho", "lat": 31.87, "lng": 35.44, "ref": "Josh.6.20", "note": "The people shout, the wall falls down flat."},
+      {"name": "Ai", "lat": 31.92, "lng": 35.26, "ref": "Josh.7.2", "note": "After a first defeat, Ai falls to an ambush."},
+      {"name": "Gibeon", "lat": 31.85, "lng": 35.19, "ref": "Josh.10.2", "note": "The Gibeonites ally with Israel; the sun stands still over Gibeon."},
+      {"name": "Hazor", "lat": 33.02, "lng": 35.57, "ref": "Josh.11.10", "note": "In the north Joshua defeats the coalition and burns Hazor."}
+    ]
+  },
+  {
+    "id": "david", "title": "David: Shepherd to King", "subtitle": "From Bethlehem to Jerusalem",
+    "color": "#5c6bc0", "era": "kingdom", "person": "",
+    "intro": "A boy with a sling, a fugitive in caves, a king in a conquered city.",
+    "stops": [
+      {"name": "Bethlehem", "lat": 31.70, "lng": 35.21, "ref": "1Sam.16.13", "note": "Samuel anoints the youngest son of Jesse in the midst of his brothers."},
+      {"name": "Valley of Elah", "lat": 31.69, "lng": 34.97, "ref": "1Sam.17.2", "note": "Saul and Israel are encamped in the Valley of Elah, facing the Philistines."},
+      {"name": "Nob", "lat": 31.80, "lng": 35.24, "ref": "1Sam.21.1", "note": "Fleeing Saul, David comes to Nob, to Ahimelech the priest."},
+      {"name": "Adullam", "lat": 31.65, "lng": 34.99, "ref": "1Sam.22.1", "note": "He escapes to the cave of Adullam; his brothers and four hundred men gather to him."},
+      {"name": "En Gedi", "lat": 31.46, "lng": 35.39, "ref": "1Sam.24.1", "note": "In the cave at En-gedi David spares Saul's life."},
+      {"name": "Ziklag", "lat": 31.38, "lng": 34.84, "ref": "1Sam.27.6", "note": "Achish gives him Ziklag, which belongs to the kings of Judah to this day."},
+      {"name": "Hebron", "lat": 31.52, "lng": 35.10, "ref": "2Sam.2.4", "note": "The men of Judah anoint David king over Judah at Hebron."},
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "2Sam.5.7", "note": "David takes the stronghold of Zion: the city of David."}
+    ]
+  },
+  {
+    "id": "exile", "title": "Exile and Return", "subtitle": "Jerusalem, Babylon and back",
+    "color": "#8d6e63", "era": "exile",
+    "intro": "The temple burns, the city is emptied, and a people learns to sing the LORD's song in a strange land. Then, decades later, the road leads home.",
+    "stops": [
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "2Kgs.25.9", "note": "Nebuzaradan burns the house of the LORD and every great house in Jerusalem."},
+      {"name": "Riblah", "lat": 34.43, "lng": 36.55, "ref": "2Kgs.25.6", "note": "Zedekiah is brought to the king of Babylon at Riblah and judged there."},
+      {"name": "Carchemish", "lat": 36.83, "lng": 38.02, "ref": "Jer.46.2", "note": "The road to Babylon passes the old battlefield of Carchemish."},
+      {"name": "Babylon", "lat": 32.54, "lng": 44.42, "ref": "Ps.137.1", "note": "By the waters of Babylon, there we sat down and wept."},
+      {"name": "Susa", "lat": 32.19, "lng": 48.25, "ref": "Esth.1.2", "note": "In the Persian capital the story of Esther unfolds."},
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "Ezra.3.8", "note": "In the second year after their coming, they begin to rebuild the house of God."}
+    ]
+  },
+  {
+    "id": "jesus", "title": "The Way of Jesus", "subtitle": "Bethlehem to Calvary",
+    "color": "#ffe082", "era": "gospels",
+    "intro": "A birth in a small town, a ministry around a lake, and a last road up to Jerusalem.",
+    "stops": [
+      {"name": "Bethlehem", "lat": 31.70, "lng": 35.21, "ref": "Matt.2.1", "note": "Jesus is born in Bethlehem of Judea in the days of Herod the king."},
+      {"name": "Memphis", "lat": 29.85, "lng": 31.25, "ref": "Matt.2.14", "note": "The family flees by night to Egypt."},
+      {"name": "Nazareth", "lat": 32.70, "lng": 35.30, "ref": "Matt.2.23", "note": "They settle in a city called Nazareth."},
+      {"name": "Jordan", "lat": 31.84, "lng": 35.55, "ref": "Matt.3.13", "note": "Jesus comes from Galilee to the Jordan to be baptized by John."},
+      {"name": "Cana", "lat": 32.82, "lng": 35.30, "ref": "John.2.1", "note": "A wedding in Cana: water into wine."},
+      {"name": "Capernaum", "lat": 32.88, "lng": 35.57, "ref": "Matt.4.13", "note": "He leaves Nazareth and makes his home in Capernaum by the sea."},
+      {"name": "Sychar", "lat": 32.21, "lng": 35.28, "ref": "John.4.5", "note": "At Jacob's well in Samaria he talks with a woman at noon."},
+      {"name": "Bethany", "lat": 31.77, "lng": 35.26, "ref": "John.11.1", "note": "Lazarus of Bethany is raised from the dead."},
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "Matt.21.10", "note": "He enters the city on a donkey; all the city is stirred."},
+      {"name": "Gethsemane", "lat": 31.78, "lng": 35.24, "ref": "Matt.26.36", "note": "Then Jesus went with them to a place called Gethsemane."},
+      {"name": "Golgotha", "lat": 31.78, "lng": 35.23, "ref": "Matt.27.33", "note": "They came to a place called Golgotha, which means the place of a skull."},
+      {"name": "Emmaus", "lat": 31.84, "lng": 34.99, "ref": "Luke.24.13", "note": "On the third day two travellers walk to Emmaus with a stranger."}
+    ]
+  },
+  {
+    "id": "paul-1", "title": "Paul's First Journey", "subtitle": "Cyprus and the Galatian highlands",
+    "color": "#4fc3f7", "era": "church",
+    "intro": "Sent out by the church at Antioch, Barnabas and Saul sail for Cyprus and then into Asia Minor.",
+    "stops": [
+      {"name": "Antioch", "lat": 36.20, "lng": 36.16, "ref": "Acts.13.1", "note": "The Holy Spirit says: set apart for me Barnabas and Saul."},
+      {"name": "Seleucia", "lat": 36.12, "lng": 35.94, "ref": "Acts.13.4", "note": "They go down to Seleucia and sail to Cyprus."},
+      {"name": "Salamis", "lat": 35.18, "lng": 33.90, "ref": "Acts.13.5", "note": "They proclaim the word of God in the synagogues at Salamis."},
+      {"name": "Paphos", "lat": 34.71, "lng": 32.57, "ref": "Acts.13.6", "note": "The proconsul Sergius Paulus believes."},
+      {"name": "Perga", "lat": 36.96, "lng": 30.85, "ref": "Acts.13.13", "note": "Paul and his company sail to Perga; John Mark leaves them."},
+      {"name": "Antioch of Pisidia", "lat": 38.30, "lng": 31.19, "ref": "Acts.13.14", "note": "They go into the synagogue on the Sabbath."},
+      {"name": "Iconium", "lat": 37.87, "lng": 32.49, "ref": "Acts.14.1", "note": "A great number of both Jews and Greeks believe."},
+      {"name": "Lystra", "lat": 37.60, "lng": 32.34, "ref": "Acts.14.8", "note": "A lame man is healed; Paul is stoned and left for dead."},
+      {"name": "Derbe", "lat": 37.35, "lng": 33.36, "ref": "Acts.14.20", "note": "The next day he went on with Barnabas to Derbe."}
+    ]
+  },
+  {
+    "id": "paul-2", "title": "Paul's Second Journey", "subtitle": "Into Europe",
+    "color": "#29b6f6", "era": "church",
+    "intro": "A vision in the night at Troas: come over to Macedonia and help us. The gospel crosses into Europe.",
+    "stops": [
+      {"name": "Antioch", "lat": 36.20, "lng": 36.16, "ref": "Acts.15.40", "note": "Paul chooses Silas and departs, commended by the brothers."},
+      {"name": "Tarsus", "lat": 36.91, "lng": 34.90, "ref": "Acts.15.41", "note": "Through Syria and Cilicia he strengthens the churches."},
+      {"name": "Lystra", "lat": 37.60, "lng": 32.34, "ref": "Acts.16.1", "note": "A disciple named Timothy joins them."},
+      {"name": "Troas", "lat": 39.75, "lng": 26.16, "ref": "Acts.16.9", "note": "A vision: a man of Macedonia pleads, come over and help us."},
+      {"name": "Philippi", "lat": 41.01, "lng": 24.28, "ref": "Acts.16.12", "note": "Lydia, the slave girl, the jailer: the first church in Europe."},
+      {"name": "Thessalonica", "lat": 40.63, "lng": 22.95, "ref": "Acts.17.1", "note": "For three Sabbaths he reasons with them from the Scriptures."},
+      {"name": "Berea", "lat": 40.52, "lng": 22.20, "ref": "Acts.17.10", "note": "The Bereans were more noble: they examined the Scriptures daily."},
+      {"name": "Athens", "lat": 37.97, "lng": 23.73, "ref": "Acts.17.22", "note": "Paul stands in the midst of the Areopagus."},
+      {"name": "Corinth", "lat": 37.91, "lng": 22.88, "ref": "Acts.18.1", "note": "He stays a year and a half, teaching the word of God."},
+      {"name": "Ephesus", "lat": 37.94, "lng": 27.34, "ref": "Acts.18.19", "note": "They come to Ephesus and he reasons with the Jews."},
+      {"name": "Caesarea", "lat": 32.50, "lng": 34.89, "ref": "Acts.18.22", "note": "He lands at Caesarea, goes up and greets the church."},
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "Acts.18.22", "note": "Then down to Antioch."}
+    ]
+  },
+  {
+    "id": "paul-3", "title": "Paul's Third Journey", "subtitle": "Ephesus and farewell",
+    "color": "#03a9f4", "era": "church",
+    "intro": "Three years in Ephesus, a riot in the theatre, a collection for Jerusalem, and tearful goodbyes on the beach at Miletus.",
+    "stops": [
+      {"name": "Ephesus", "lat": 37.94, "lng": 27.34, "ref": "Acts.19.1", "note": "All who lived in Asia heard the word of the Lord, Jews and Greeks."},
+      {"name": "Philippi", "lat": 41.01, "lng": 24.28, "ref": "Acts.20.1", "note": "After the uproar Paul departs for Macedonia."},
+      {"name": "Corinth", "lat": 37.91, "lng": 22.88, "ref": "Acts.20.2", "note": "He came to Greece and spent three months there."},
+      {"name": "Troas", "lat": 39.75, "lng": 26.16, "ref": "Acts.20.7", "note": "Eutychus falls asleep during a long sermon, and is raised."},
+      {"name": "Miletus", "lat": 37.53, "lng": 27.28, "ref": "Acts.20.17", "note": "He sends for the elders of Ephesus: you will not see my face again."},
+      {"name": "Tyre", "lat": 33.27, "lng": 35.21, "ref": "Acts.21.3", "note": "They sail to Syria and land at Tyre."},
+      {"name": "Caesarea", "lat": 32.50, "lng": 34.89, "ref": "Acts.21.8", "note": "At the house of Philip the evangelist, a prophet warns of chains."},
+      {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "Acts.21.17", "note": "When we had come to Jerusalem, the brothers received us gladly."}
+    ]
+  },
+  {
+    "id": "paul-rome", "title": "Paul's Voyage to Rome", "subtitle": "Storm, shipwreck and the capital",
+    "color": "#0288d1", "era": "church",
+    "intro": "A prisoner appeals to Caesar. Fourteen days of storm; every soul reaches shore.",
+    "stops": [
+      {"name": "Caesarea", "lat": 32.50, "lng": 34.89, "ref": "Acts.27.1", "note": "Paul and some other prisoners are put in the charge of the centurion Julius."},
+      {"name": "Sidon", "lat": 33.56, "lng": 35.37, "ref": "Acts.27.3", "note": "The next day we put in at Sidon."},
+      {"name": "Fair Havens, Crete", "lat": 34.93, "lng": 24.80, "ref": "Acts.27.8", "note": "With difficulty we came to a place called Fair Havens.", "sea": true},
+      {"name": "Storm at sea", "lat": 34.30, "lng": 22.00, "ref": "Acts.27.14", "note": "A tempestuous wind called the northeaster struck down from the land.", "sea": true},
+      {"name": "Malta", "lat": 35.95, "lng": 14.40, "ref": "Acts.28.1", "note": "After we were brought safely through, we then learned that the island was called Malta.", "sea": true},
+      {"name": "Syracuse", "lat": 37.06, "lng": 15.29, "ref": "Acts.28.12", "note": "Putting in at Syracuse, we stayed there three days."},
+      {"name": "Puteoli", "lat": 40.83, "lng": 14.12, "ref": "Acts.28.13", "note": "We came to Puteoli, where we found brothers."},
+      {"name": "Rome", "lat": 41.89, "lng": 12.48, "ref": "Acts.28.16", "note": "And when we came into Rome, Paul was allowed to stay by himself."}
+    ]
+  },
+  {
+    "id": "revelation", "title": "The Seven Churches", "subtitle": "From Patmos around Asia Minor",
+    "color": "#ab47bc", "era": "church",
+    "intro": "John, exiled on a small island, writes seven letters to seven cities arranged along a Roman postal road.",
+    "stops": [
+      {"name": "Patmos", "lat": 37.31, "lng": 26.55, "ref": "Rev.1.9", "note": "I was on the island called Patmos on account of the word of God."},
+      {"name": "Ephesus", "lat": 37.94, "lng": 27.34, "ref": "Rev.2.1", "note": "You have abandoned the love you had at first."},
+      {"name": "Smyrna", "lat": 38.45, "lng": 27.16, "ref": "Rev.2.8", "note": "Be faithful unto death, and I will give you the crown of life."},
+      {"name": "Pergamum", "lat": 39.12, "lng": 27.17, "ref": "Rev.2.12", "note": "I know where you dwell, where Satan's throne is."},
+      {"name": "Thyatira", "lat": 38.92, "lng": 27.84, "ref": "Rev.2.18", "note": "Your latter works exceed the first."},
+      {"name": "Sardis", "lat": 38.48, "lng": 28.11, "ref": "Rev.3.1", "note": "You have the reputation of being alive, but you are dead."},
+      {"name": "Philadelphia", "lat": 38.35, "lng": 28.52, "ref": "Rev.3.7", "note": "I have set before you an open door that no one can shut."},
+      {"name": "Laodicea", "lat": 37.84, "lng": 29.11, "ref": "Rev.3.14", "note": "Because you are lukewarm, I will spit you out of my mouth."}
+    ]
+  }
+]
