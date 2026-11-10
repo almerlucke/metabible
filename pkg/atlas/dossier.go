@@ -246,6 +246,7 @@ type PersonDossier struct {
 	Wiki       *WikiEntry
 	Art        []Art
 	Gallery    []GalleryItem
+	Aliases    []string
 	WikiPhoto  *GalleryItem
 }
 
@@ -254,7 +255,7 @@ func (a *Atlas) PersonDossier(id string) *PersonDossier {
 	if p == nil {
 		return nil
 	}
-	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), Wiki: a.wikiPerson(id)}
+	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), Wiki: a.wikiPerson(id), Aliases: splitAliases(p.AlsoCall, p.Name)}
 	if arts := a.artByPerson[id]; len(arts) > 0 {
 		d.Art = arts[:min(len(arts), 24)]
 		d.Gallery = a.ArtGallery(d.Art)
@@ -787,4 +788,21 @@ func (a *Atlas) BookDossier(id string) *BookDossier {
 		}
 	}
 	return d
+}
+
+// splitAliases turns the data's "Lord,Son,Lamb" into separate names, once each (ignoring case)
+// and without repeating the person's own name.
+func splitAliases(raw, self string) []string {
+	seen := map[string]bool{strings.ToLower(strings.TrimSpace(parenRe.ReplaceAllString(self, ""))): true}
+	var out []string
+	for _, part := range strings.FieldsFunc(raw, func(r rune) bool { return r == ',' || r == ';' }) {
+		part = strings.TrimSpace(part)
+		k := strings.ToLower(part)
+		if part == "" || seen[k] {
+			continue
+		}
+		seen[k] = true
+		out = append(out, part)
+	}
+	return out
 }

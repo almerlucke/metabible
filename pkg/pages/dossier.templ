@@ -147,8 +147,12 @@ templ PersonPage(d *atlas.PersonDossier) {
 				if d.Disambig != "" {
 					<p class="sub">{ d.Disambig }</p>
 				}
-				if d.P.AlsoCall != "" {
-					<p class="mb-muted">Also called: { d.P.AlsoCall }</p>
+				if len(d.Aliases) > 0 {
+					<div class="aliases"><span class="mb-muted">Also called</span>
+						for _, n := range d.Aliases {
+							<span class="alias">{ n }</span>
+						}
+					</div>
 				}
 				if d.HasLife {
 					@lifeBar(d)

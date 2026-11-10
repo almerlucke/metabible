@@ -674,3 +674,22 @@ details.gallery figure.art { margin: 0; }
 #mb-lb .count { position: absolute; left: 1rem; top: 1.2rem; font-size: .8rem; color: var(--mb-dim); }
 @media (max-width: 640px) { #mb-lb { padding: 1rem .5rem; } #mb-lb .nav.prev { left: .2rem; } #mb-lb .nav.next { right: .2rem; } }
 @media print { #mb-lb { display: none !important; } }
+
+/* my reading: every book strip shares one scale (150 = Psalms) so long books can never overflow */
+.pbooks { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
+.pb { grid-template-columns: 110px minmax(0, 1fr) 46px; }
+.pb .cells { display: flex; height: 10px; min-width: 0; overflow: hidden; gap: 0; }
+.pb .cells a { flex: 0 0 calc(100% / 150); min-width: 0; }
+.pb .cells a:nth-child(even) { filter: brightness(1.18); } /* alternate shade keeps neighbouring cells apart at tiny widths */
+@media (max-width: 640px) { .pb { grid-template-columns: 90px minmax(0, 1fr) 40px; } }
+
+/* long unbroken text must wrap inside the hero, and aliases are small tags */
+.dossier .hero p, .dossier .hero div { overflow-wrap: anywhere; }
+.aliases { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .35rem; margin: .2rem 0 .5rem; max-width: 760px; font-size: .85rem; }
+.aliases .alias { border: 1px solid var(--mb-line); border-radius: 99px; padding: .05rem .6rem; font-size: .76rem; color: var(--mb-ink); opacity: .9; }
+
+/* lifespans: collapse button for the info panel */
+#lmin { position: absolute; left: 252px; top: 22px; z-index: 6; width: 2rem; height: 2rem; padding: 0; border-radius: 50%; font-size: 1.1rem; line-height: 1; display: grid; place-items: center; }
+#lifespans.min #lpanel { display: none; }
+#lifespans.min #lmin { left: 16px; top: 16px; }
+@media (max-width: 900px) { #lmin { left: auto; right: 24px; } #lifespans.min #lmin { left: 16px; right: auto; } }

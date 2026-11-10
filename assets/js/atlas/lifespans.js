@@ -37,11 +37,17 @@ let lanes = packLanes(shown);
 
 $('lifespans').innerHTML = `<canvas id="lc"></canvas>
   <div class="mb-panel" id="lpanel"></div>
+  <button class="mb-btn" id="lmin" type="button" aria-label="Hide the panel" title="Hide or show the panel">‹</button>
   <div class="ctip" id="ltip"></div>`;
 const cv = $('lc'), ctx = cv.getContext('2d');
-let W = 0, H = 0, vx0 = -4100, vx1 = 100, year = qs.get('year') ? +qs.get('year') : -1000, sel = null, hover = null;
+// the chart runs a little past AD 100 so people at the very end have room, and labels can never be cut off
+const MIN_Y = -4100, MAX_Y = 260;
+let W = 0, H = 0, vx0 = MIN_Y, vx1 = MAX_Y, year = qs.get('year') ? +qs.get('year') : -1000, sel = null, hover = null;
 const TOPPAD = 34, BOT = 54, LANE = 11;
-const xOf = (y) => ((y - vx0) / (vx1 - vx0)) * W, yearAt = (x) => vx0 + (x / W) * (vx1 - vx0);
+// the info panel sits over the left of the screen on wide displays: the timeline starts beside it, not under it
+let collapsed = false;
+const gut = () => (collapsed || innerWidth <= 900 ? 0 : 304);
+const xOf = (y) => gut() + ((y - vx0) / (vx1 - vx0)) * (W - gut()), yearAt = (x) => vx0 + ((x - gut()) / (W - gut())) * (vx1 - vx0);
 const alive = (p) => p.a <= year && p.b >= year;
 
 function size() { const r = cv.parentElement.getBoundingClientRect(), d = devicePixelRatio || 1; W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; cv.style.width = W + 'px'; cv.style.height = H + 'px'; ctx.setTransform(d, 0, 0, d, 0, 0); draw(); }
@@ -49,6 +55,7 @@ function laneY(l) { const avail = H - TOPPAD - BOT, lh = Math.min(LANE + 4, avai
 
 function draw() {
   ctx.clearRect(0, 0, W, H);
+  ctx.save(); ctx.beginPath(); ctx.rect(gut(), 0, W - gut(), H); ctx.clip(); // nothing is ever drawn under the panel's margin
   // era bands
   ctx.font = '600 11px Inter, sans-serif'; ctx.textBaseline = 'middle';
   for (const e of eras) {
@@ -73,7 +80,11 @@ function draw() {
     const h = 6; ctx.beginPath(); ctx.roundRect(x0, y - h / 2, x1 - x0, h, 3); ctx.fill();
     if (!p.exact) { ctx.fillStyle = '#0a0d1a'; ctx.globalAlpha *= 0.5; for (let xx = x0 + 3; xx < x1 - 2; xx += 6) ctx.fillRect(xx, y - 1, 3, 2); }
     ctx.globalAlpha = isRel || isSel ? 1 : 0.35;
-    if (x1 - x0 > 55 || isSel || hover === p) { ctx.fillStyle = isSel ? '#fff' : '#f3ecd6'; ctx.font = (isSel ? '600 ' : '') + '10.5px Inter, sans-serif'; ctx.fillText(p.n, x1 + 5, y); }
+    if (x1 - x0 > 55 || isSel || hover === p) { ctx.fillStyle = isSel ? '#fff' : '#f3ecd6'; ctx.font = (isSel ? '600 ' : '') + '10.5px Inter, sans-serif';
+      // put the label on the other side of the bar when it would run off the right edge
+      const tw = ctx.measureText(p.n).width;
+      if (x1 + 5 + tw > W - 6 && x0 - 5 - tw > gut() + 4) { ctx.textAlign = 'right'; ctx.fillText(p.n, x0 - 5, y); ctx.textAlign = 'left'; }
+      else ctx.fillText(p.n, Math.min(x1 + 5, Math.max(4, W - 6 - tw)), y); }
     ctx.globalAlpha = 1;
   }
   // year cursor
@@ -81,6 +92,7 @@ function draw() {
   ctx.strokeStyle = '#ffe08a'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx, TOPPAD - 14); ctx.lineTo(cx, H - BOT + 8); ctx.stroke();
   ctx.fillStyle = '#ffe08a'; ctx.beginPath(); ctx.moveTo(cx - 7, TOPPAD - 20); ctx.lineTo(cx + 7, TOPPAD - 20); ctx.lineTo(cx, TOPPAD - 8); ctx.fill();
   ctx.font = '600 12px Inter, sans-serif'; ctx.fillStyle = '#ffe08a'; ctx.textAlign = cx > W - 80 ? 'right' : 'left'; ctx.fillText(fmtYear(year), cx + (cx > W - 80 ? -10 : 10), TOPPAD - 18); ctx.textAlign = 'left';
+  ctx.restore();
 }
 
 function panel() {
@@ -109,7 +121,7 @@ function choose(p) {
   if (!p) return; sel = p; year = Math.round((p.a + p.b) / 2);
   if (!shown.includes(p)) { shown.push(p); shown.sort((x, y) => x.a - y.a); lanes = packLanes(shown); }
   // keep the person in view
-  if (p.a < vx0 || p.b > vx1) { const m = (p.a + p.b) / 2, half = Math.max(300, (p.b - p.a) * 2); vx0 = Math.max(-4100, m - half); vx1 = Math.min(100, m + half); }
+  if (p.a < vx0 || p.b > vx1) { const m = (p.a + p.b) / 2, half = Math.max(300, (p.b - p.a) * 2); vx0 = Math.max(MIN_Y, m - half); vx1 = Math.min(MAX_Y, m + half); }
   panel(); draw();
 }
 
@@ -117,6 +129,7 @@ function choose(p) {
 const tip = $('ltip');
 function hit(mx, my) {
   let best = null, bd = 9;
+  if (mx < gut()) return null;
   for (const p of shown) { const x0 = xOf(p.a), x1 = Math.max(x0 + 4, xOf(p.b)); if (mx < x0 - 3 || mx > x1 + 3) continue; const d = Math.abs(laneY(p.lane) - my); if (d < bd) { bd = d; best = p; } }
   return best;
 }
@@ -126,7 +139,7 @@ cv.addEventListener('pointermove', (e) => {
   const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
   if (drag) {
     const dx = e.clientX - drag.x; if (Math.abs(dx) > 3) drag.moved = true;
-    if (drag.moved) { const dy = -(dx / W) * (drag.v1 - drag.v0); let a = drag.v0 + dy, b = drag.v1 + dy; if (a < -4100) { b += -4100 - a; a = -4100; } if (b > 100) { a -= b - 100; b = 100; } vx0 = a; vx1 = b; draw(); return; }
+    if (drag.moved) { const dy = -(dx / (W - gut())) * (drag.v1 - drag.v0); let a = drag.v0 + dy, b = drag.v1 + dy; if (a < MIN_Y) { b += MIN_Y - a; a = MIN_Y; } if (b > MAX_Y) { a -= b - MAX_Y; b = MAX_Y; } vx0 = a; vx1 = b; draw(); return; }
   }
   const h = hit(mx, my); if (h !== hover) { hover = h; draw(); }
   cv.style.cursor = h ? 'pointer' : 'crosshair';
@@ -142,10 +155,11 @@ cv.addEventListener('wheel', (e) => {
   e.preventDefault();
   const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, anchor = yearAt(mx), k = Math.exp(e.deltaY * 0.0015);
   let a = anchor - (anchor - vx0) * k, b = anchor + (vx1 - anchor) * k;
-  if (b - a > 4200) { a = -4100; b = 100; } if (b - a < 40) return; a = Math.max(-4100, a); b = Math.min(100, b);
+  if (b - a > MAX_Y - MIN_Y) { a = MIN_Y; b = MAX_Y; } if (b - a < 40) return; a = Math.max(MIN_Y, a); b = Math.min(MAX_Y, b);
   vx0 = a; vx1 = b; draw();
 }, { passive: false });
 addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') { year -= e.shiftKey ? 100 : 10; panel(); draw(); } else if (e.key === 'ArrowRight') { year += e.shiftKey ? 100 : 10; panel(); draw(); } });
 addEventListener('resize', size);
+$('lmin').onclick = () => { collapsed = !collapsed; $('lifespans').classList.toggle('min', collapsed); $('lmin').textContent = collapsed ? '›' : '‹'; $('lmin').setAttribute('aria-label', collapsed ? 'Show the panel' : 'Hide the panel'); draw(); };
 size(); panel();
 const pid = qs.get('person'); if (pid && byId.get(pid)) choose(byId.get(pid));

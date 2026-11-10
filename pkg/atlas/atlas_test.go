@@ -506,3 +506,19 @@ func TestCleanArtTitle(t *testing.T) {
 		}
 	}
 }
+
+func TestSplitAliases(t *testing.T) {
+	got := splitAliases("Lord,Son,Lamb,JESUS,LORD,lord,Jesus Christ ,,Messiah", "Jesus Christ")
+	want := []string{"Lord", "Son", "Lamb", "JESUS", "Messiah"}
+	if len(got) != len(want) {
+		t.Fatalf("got %v, want %v", got, want)
+	}
+	for i := range want {
+		if got[i] != want[i] {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	}
+	if len(splitAliases("", "X")) != 0 {
+		t.Error("empty input has no aliases")
+	}
+}
