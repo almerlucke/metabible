@@ -150,7 +150,7 @@ func (a *Atlas) handlePerson(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		if v := a.VerseByID[id]; v != nil {
-			verses = append(verses, map[string]string{"id": v.ID, "l": a.verseLabel(v), "t": v.Text})
+			verses = append(verses, map[string]string{"id": v.ID, "l": a.verseLabel(v), "t": a.VerseIn(v, i18n.FromContext(r.Context()))})
 		}
 	}
 	writeJSON(w, r, map[string]any{"id": p.ID, "text": trunc(plain(p.Dict), 600), "verses": verses})

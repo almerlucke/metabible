@@ -1,6 +1,6 @@
 {
- "_code": "en",
  "_name": "English",
+ "_code": "en",
  "compare.unknown.time": "an unknown time",
  "count.chapter.one": "{n} chapter",
  "count.chapter.other": "{n} chapters",
@@ -852,6 +852,7 @@
  "ui.includes": "Includes",
  "ui.journey": "🧭 Journey",
  "ui.kept.in.this.browser.only": "kept in this browser only",
+ "ui.kjv": "King James",
  "ui.lasting": "Lasting",
  "ui.later": "Later ▶",
  "ui.led.to": "Led to",
@@ -921,6 +922,7 @@
  "ui.timeline": "Timeline",
  "ui.try.a.word.several.words": "Try a word, several words (all must appear), or a quoted phrase.",
  "ui.verse.text.king.james.version": "Verse text: King James Version. Public domain.",
+ "ui.verse.text.statenvertaling": "Dutch verse text: the Statenvertaling (1637), public domain, from the open-bibles collection.",
  "ui.watch.them.unfold.on.the": "Watch them unfold on the map →",
  "ui.what.happened.here": "What happened here",
  "ui.where": "Where",

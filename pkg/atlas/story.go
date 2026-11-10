@@ -94,7 +94,7 @@ func (a *Atlas) Story(lang string) *Story {
 			if i >= 2 {
 				break
 			}
-			parts = append(parts, v.Text)
+			parts = append(parts, a.VerseIn(v, lang))
 		}
 		s.Text = trunc(strings.Join(parts, " "), 420)
 		if len(vs) > 0 {

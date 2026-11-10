@@ -87,11 +87,13 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 
 	// browse pages
 	mux.Handle("GET /books", templ.Handler(pages.BooksPage(a.BooksBrowse())))
-	mux.Handle("GET /events", templ.Handler(pages.EventsPage(a.EventsTimeline())))
+	mux.HandleFunc("GET /events", func(w http.ResponseWriter, r *http.Request) {
+		templ.Handler(pages.EventsPage(a.EventsTimeline(i18n.FromContext(r.Context())))).ServeHTTP(w, r)
+	})
 	mux.Handle("GET /people", templ.Handler(pages.PeoplePage()))
 	mux.Handle("GET /places", templ.Handler(pages.PlacesPage()))
 	mux.HandleFunc("GET /concordance", func(w http.ResponseWriter, r *http.Request) {
-		res := a.Concordance(r.URL.Query().Get("search"), r.URL.Query().Get("book"), 400)
+		res := a.Concordance(r.URL.Query().Get("search"), r.URL.Query().Get("book"), 400, i18n.FromContext(r.Context()))
 		templ.Handler(pages.ConcordancePage(res)).ServeHTTP(w, r)
 	})
 
@@ -104,27 +106,27 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 		templ.Handler(c).ServeHTTP(w, r)
 	}
 	mux.HandleFunc("GET /person/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.PersonDossier(r.PathValue("id"))
+		d := a.PersonDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.PersonPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /place/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.PlaceDossier(r.PathValue("id"))
+		d := a.PlaceDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.PlacePage(d), d != nil)
 	})
 	mux.HandleFunc("GET /event/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.EventDossier(r.PathValue("id"))
+		d := a.EventDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.EventPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /verse/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.VerseDossier(r.PathValue("id"))
+		d := a.VerseDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.VersePage(d), d != nil)
 	})
 	mux.HandleFunc("GET /chapter/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.ChapterDossier(r.PathValue("id"))
+		d := a.ChapterDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.ChapterPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /book/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.BookDossier(r.PathValue("id"))
+		d := a.BookDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
 		detail(w, r, pages.BookPage(d), d != nil)
 	})
 }

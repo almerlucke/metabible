@@ -699,3 +699,7 @@ details.gallery figure.art { margin: 0; }
 .langsw a { padding: .22rem .5rem; font-size: .72rem; letter-spacing: .06em; color: var(--mb-dim); text-decoration: none; }
 .langsw a.on { background: rgba(245,196,81,.18); color: var(--mb-gold2); }
 .langsw a:hover { color: var(--mb-gold2); }
+
+/* the King James text shown under a translated verse */
+.altver { margin: 0.9rem 0 0; color: var(--muted, #9aa); font-size: 0.95rem; line-height: 1.6; max-width: 62ch; }
+.altver .mb-tag { margin-right: 0.5rem; }

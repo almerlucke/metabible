@@ -79,9 +79,13 @@ remembered in a cookie; the browser's language is used the first time).
   hover cards, search results) use keys too, so they follow the language.
 - **Add a language:** copy `en.json` to `<code>.json`, set `_name`, translate the values, and add nothing else.
   `go test ./pkg/i18n` lists any missing keys and checks the placeholders match.
-- Still English everywhere: the Bible text itself (King James Version), the dictionary descriptions of people
-  and places (Easton), Bible book names and people/place names, and image titles. Translating those is separate
-  work (a Dutch Bible text and a name table).
+- **Bible text:** extra translations are `data/bible/<code>.json`, `{"01001001": "text"}` keyed by the verse id of
+  the source data (`data/bible/nl.json` is the Statenvertaling, 1637, public domain, converted from the
+  [open-bibles](https://github.com/seven1m/open-bibles) Zefania file). Verses a translation lacks fall back to the King James text.
+  Verse pages, the reading view, concordance, search, hover cards, story and journeys follow the language; a translated verse page
+  also shows the King James text with its person and place links. A translation is plain text (no inline links).
+- Still English everywhere: the dictionary descriptions of people and places (Easton), Bible book names and
+  people/place names, and image titles. Translating those is separate work (a name table).
 
 ## Code map
 

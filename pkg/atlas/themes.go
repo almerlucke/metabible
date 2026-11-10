@@ -207,7 +207,7 @@ func (a *Atlas) Theme(id, lang string) *ThemeDetail {
 			continue
 		}
 		seenBook[v.Book]++
-		d.Sample = append(d.Sample, ThemeHit{v.ID, a.verseLabel(v), highlightStems(v.Text, def.Stems)})
+		d.Sample = append(d.Sample, ThemeHit{v.ID, a.verseLabel(v), a.themeMark(v, def.Stems, lang)})
 		if len(d.Sample) >= 14 {
 			break
 		}

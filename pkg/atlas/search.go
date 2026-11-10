@@ -103,7 +103,7 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 				vn, _ := strconv.Atoi(m[3])
 				osis := fmt.Sprintf("%s.%d.%d", b.Osis, ch, vn)
 				if v, ok := a.VerseByOsis[strings.ToLower(osis)]; ok {
-					hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", b.Name, ch, vn), trunc(v.Text, 80), "/verse/" + v.ID})
+					hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", b.Name, ch, vn), trunc(a.VerseIn(v, lang), 80), "/verse/" + v.ID})
 				}
 			} else {
 				for _, c := range b.Chapters {
@@ -152,7 +152,7 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 
 	if len(q) >= 4 && len(hits) < limit {
 		n := 0
-		for i, t := range a.lowerText {
+		for i, t := range a.lowerFor(lang) {
 			if strings.Contains(t, lq) {
 				v := a.Verses[i]
 				b := a.BookByID[v.Book]
@@ -160,7 +160,7 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 				if b != nil {
 					bn = b.Name
 				}
-				hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", bn, a.ChapterNum[v.Chapter], v.Num), trunc(v.Text, 90), "/verse/" + v.ID})
+				hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", bn, a.ChapterNum[v.Chapter], v.Num), trunc(a.VerseIn(v, lang), 90), "/verse/" + v.ID})
 				n++
 				if n >= 4 || len(hits) >= limit+4 {
 					break
@@ -248,7 +248,7 @@ func (a *Atlas) PeekFor(kind, id, lang string) *Peek {
 		if v == nil {
 			return nil
 		}
-		pk := &Peek{Type: "verse", Title: a.verseLabel(v), Text: v.Text}
+		pk := &Peek{Type: "verse", Title: a.verseLabel(v), Text: a.VerseIn(v, lang)}
 		pk.Facts = append(pk.Facts, a.tx(lang, "peek.verse.counts", "p", a.txn(lang, "count.person", len(v.People)), "l", a.txn(lang, "count.place", len(v.Places))))
 		return pk
 	case "book":
@@ -272,7 +272,7 @@ func (a *Atlas) PeekFor(kind, id, lang string) *Peek {
 		if e == nil {
 			return nil
 		}
-		return &Peek{Type: "event", Title: e.Title, Sub: a.locDate(lang, e.Date), Text: e.Text, Links: [][2]string{{a.tx(lang, "peek.link.atlas"), "/atlas?event=" + e.ID}}}
+		return &Peek{Type: "event", Title: e.Title, Sub: a.locDate(lang, e.Date), Text: a.verseText(e.VerseID, lang, e.Text), Links: [][2]string{{a.tx(lang, "peek.link.atlas"), "/atlas?event=" + e.ID}}}
 	}
 	return nil
 }

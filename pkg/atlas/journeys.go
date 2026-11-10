@@ -113,7 +113,7 @@ func loadJourneys(a *Atlas, file string) ([]*Journey, error) {
 			if s.Ref != "" {
 				if v, ok := a.VerseByOsis[strings.ToLower(s.Ref)]; ok {
 					st.VerseID = v.ID
-					st.Text = v.Text
+					st.Text = v.Text // KJV; JourneysFor swaps it per language
 					st.Label = a.verseLabel(v)
 					if st.Year == 0 {
 						st.Year = v.Year
@@ -163,7 +163,7 @@ func (a *Atlas) PersonJourney(id, lang string) *Journey {
 			}
 			last = plid
 			j.Stops = append(j.Stops, Stop{Place: plid, Name: pl.Name, Lat: pl.Lat, Lng: pl.Lng, Year: v.Year,
-				Ref: v.Osis, Label: a.verseLabel(v), VerseID: v.ID, Text: v.Text, Kind: pl.Kind})
+				Ref: v.Osis, Label: a.verseLabel(v), VerseID: v.ID, Text: a.VerseIn(v, lang), Kind: pl.Kind})
 		}
 	}
 	if len(j.Stops) > 250 {
@@ -187,7 +187,7 @@ func (a *Atlas) trOr(lang, key, fallback string) string {
 
 // JourneysFor returns the curated journeys with their texts in a language.
 func (a *Atlas) JourneysFor(lang string) []*Journey {
-	if lang == i18n.Default || a.tr == nil {
+	if (lang == i18n.Default || a.tr == nil) && !a.HasBible(lang) {
 		return a.Journeys
 	}
 	out := make([]*Journey, len(a.Journeys))
@@ -200,6 +200,9 @@ func (a *Atlas) JourneysFor(lang string) []*Journey {
 		for k, st := range j.Stops {
 			st.Name = a.trOr(lang, fmt.Sprintf("journey.%s.stop.%d.name", j.ID, k), st.Name)
 			st.Note = a.trOr(lang, fmt.Sprintf("journey.%s.stop.%d.note", j.ID, k), st.Note)
+			if st.VerseID != "" {
+				st.Text = a.verseText(st.VerseID, lang, st.Text)
+			}
 			c.Stops[k] = st
 		}
 		out[i] = &c

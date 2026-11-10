@@ -77,7 +77,7 @@ type EraGroup struct {
 	Events []EventCard
 }
 
-func (a *Atlas) EventsTimeline() []EraGroup {
+func (a *Atlas) EventsTimeline(lang string) []EraGroup {
 	var out []EraGroup
 	idx := map[string]int{}
 	for _, e := range Eras {
@@ -94,7 +94,7 @@ func (a *Atlas) EventsTimeline() []EraGroup {
 		if len(pl) > 3 {
 			pl = pl[:3]
 		}
-		c := EventCard{ID: e.ID, Title: e.Title, Date: e.Date, Year: e.Year, Text: trunc(e.Text, 150), Ref: e.Ref, VerseID: e.VerseID,
+		c := EventCard{ID: e.ID, Title: e.Title, Date: e.Date, Year: e.Year, Text: trunc(a.verseText(e.VerseID, lang, e.Text), 150), Ref: e.Ref, VerseID: e.VerseID,
 			Places: a.placeRefs(pl), People: a.personRefs(pe), Days: e.Days}
 		g := &out[idx[era.ID]]
 		g.Events = append(g.Events, c)
@@ -215,14 +215,14 @@ func highlight(text string, terms []string) string {
 }
 
 // Concordance finds verses containing every term (a quoted phrase counts as one term).
-func (a *Atlas) Concordance(q, bookID string, limit int) *ConcResult {
+func (a *Atlas) Concordance(q, bookID string, limit int, lang string) *ConcResult {
 	terms := parseTerms(q)
 	res := &ConcResult{Query: q, Terms: terms, BookID: bookID}
 	if len(terms) == 0 || len(strings.Join(terms, "")) < 2 {
 		return res
 	}
 	counts := map[string]int{}
-	for i, t := range a.lowerText {
+	for i, t := range a.lowerFor(lang) {
 		ok := true
 		for _, term := range terms {
 			if indexWord(t, term, 0) < 0 {
@@ -240,7 +240,7 @@ func (a *Atlas) Concordance(q, bookID string, limit int) *ConcResult {
 			continue
 		}
 		if len(res.Hits) < limit {
-			res.Hits = append(res.Hits, ConcHit{ID: v.ID, Label: a.verseLabel(v), HTML: highlight(v.Text, terms)})
+			res.Hits = append(res.Hits, ConcHit{ID: v.ID, Label: a.verseLabel(v), HTML: highlight(a.VerseIn(v, lang), terms)})
 		} else {
 			res.Capped = true
 		}

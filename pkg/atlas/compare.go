@@ -398,7 +398,7 @@ func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 		r.A, r.B = a.personSide(pa), a.personSide(pb)
 		shared := intersect(pa.Vs, pb.Vs)
 		r.SharedCount = len(shared)
-		r.SharedVerses, _ = flat(a.groupVerses(shared, 0))
+		r.SharedVerses, _ = flat(a.groupVerses(shared, 0, lang))
 		if len(r.SharedVerses) > 12 {
 			r.SharedVerses = r.SharedVerses[:12]
 		}
@@ -441,7 +441,7 @@ func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 						best = o
 					}
 				}
-				r.QuoteVerse, r.QuoteText, r.QuoteLabel = best.ID, best.Text, a.verseLabel(best)
+				r.QuoteVerse, r.QuoteText, r.QuoteLabel = best.ID, a.VerseIn(best, lang), a.verseLabel(best)
 			}
 		}
 		r.Story = a.personStory(lang, r, pa, pb)
@@ -453,7 +453,7 @@ func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 		r.A, r.B = a.placeSide(pa), a.placeSide(pb)
 		shared := intersect(pa.Vs, pb.Vs)
 		r.SharedCount = len(shared)
-		r.SharedVerses, _ = flat(a.groupVerses(shared, 0))
+		r.SharedVerses, _ = flat(a.groupVerses(shared, 0, lang))
 		if len(r.SharedVerses) > 12 {
 			r.SharedVerses = r.SharedVerses[:12]
 		}

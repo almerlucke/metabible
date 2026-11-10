@@ -1,6 +1,6 @@
 {
- "_code": "nl",
  "_name": "Nederlands",
+ "_code": "nl",
  "compare.unknown.time": "een onbekende tijd",
  "count.chapter.one": "{n} hoofdstuk",
  "count.chapter.other": "{n} hoofdstukken",
@@ -852,6 +852,7 @@
  "ui.includes": "Omvat",
  "ui.journey": "🧭 Reis",
  "ui.kept.in.this.browser.only": "alleen bewaard in deze browser",
+ "ui.kjv": "King James",
  "ui.lasting": "Duurde",
  "ui.later": "Later ▶",
  "ui.led.to": "Leidde tot",
@@ -921,6 +922,7 @@
  "ui.timeline": "Tijdlijn",
  "ui.try.a.word.several.words": "Probeer een woord, meerdere woorden (alle moeten voorkomen) of een tekst tussen aanhalingstekens.",
  "ui.verse.text.king.james.version": "Verstekst: King James Version. Publiek domein.",
+ "ui.verse.text.statenvertaling": "Nederlandse bijbeltekst: de Statenvertaling (1637), publiek domein, uit de open-bibles-collectie.",
  "ui.watch.them.unfold.on.the": "Zie ze zich ontvouwen op de kaart →",
  "ui.what.happened.here": "Wat hier gebeurde",
  "ui.where": "Waar",

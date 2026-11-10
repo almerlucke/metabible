@@ -110,7 +110,7 @@ func TestParseTermsAndWordMatch(t *testing.T) {
 
 func TestConcordance(t *testing.T) {
 	a := load(t)
-	r := a.Concordance("love one another", "", 100)
+	r := a.Concordance("love one another", "", 100, "en")
 	if r.Total < 10 || len(r.Books) != len(a.Books) {
 		t.Fatalf("total=%d books=%d", r.Total, len(r.Books))
 	}
@@ -119,7 +119,7 @@ func TestConcordance(t *testing.T) {
 			t.Errorf("hit without highlight: %s", h.Label)
 		}
 	}
-	if got := a.Concordance("x", "", 10); got.Total != 0 {
+	if got := a.Concordance("x", "", 10, "en"); got.Total != 0 {
 		t.Error("too-short queries should return nothing")
 	}
 }
@@ -181,36 +181,36 @@ func TestJourneys(t *testing.T) {
 func TestDossiersDoNotPanic(t *testing.T) {
 	a := load(t)
 	for i, p := range a.People {
-		if i%20 == 0 && a.PersonDossier(p.ID) == nil {
+		if i%20 == 0 && a.PersonDossier(p.ID, "en") == nil {
 			t.Fatalf("person dossier nil: %s", p.ID)
 		}
 	}
 	for _, p := range a.Places {
-		if a.PlaceDossier(p.ID) == nil {
+		if a.PlaceDossier(p.ID, "en") == nil {
 			t.Fatalf("place dossier nil: %s", p.ID)
 		}
 	}
 	for _, e := range a.Events {
-		if a.EventDossier(e.ID) == nil {
+		if a.EventDossier(e.ID, "en") == nil {
 			t.Fatalf("event dossier nil: %s", e.ID)
 		}
 	}
 	for i, v := range a.Verses {
-		if i%100 == 0 && a.VerseDossier(v.ID) == nil {
+		if i%100 == 0 && a.VerseDossier(v.ID, "en") == nil {
 			t.Fatalf("verse dossier nil: %s", v.ID)
 		}
 	}
 	for _, b := range a.Books {
-		if a.BookDossier(b.ID) == nil {
+		if a.BookDossier(b.ID, "en") == nil {
 			t.Fatalf("book dossier nil: %s", b.ID)
 		}
 		for i, c := range b.Chapters {
-			if i%7 == 0 && a.ChapterDossier(c.ID) == nil {
+			if i%7 == 0 && a.ChapterDossier(c.ID, "en") == nil {
 				t.Fatalf("chapter dossier nil: %s %d", b.Name, c.Num)
 			}
 		}
 	}
-	if len(a.BooksBrowse()) == 0 || len(a.EventsTimeline()) == 0 {
+	if len(a.BooksBrowse()) == 0 || len(a.EventsTimeline("en")) == 0 {
 		t.Error("browse data empty")
 	}
 }
@@ -573,5 +573,44 @@ func TestDutch(t *testing.T) {
 	}
 	if got := a.locDate("nl", "1446 BC – 30 AD"); got != "1446 v.Chr. – 30 n.Chr." {
 		t.Errorf("locDate: %q", got)
+	}
+}
+
+func TestDutchBible(t *testing.T) {
+	a := load(t)
+	if !a.HasBible("nl") {
+		t.Fatal("no Dutch Bible loaded")
+	}
+	v := a.VerseByOsis["gen.1.1"]
+	if got := a.VerseIn(v, "nl"); !strings.HasPrefix(got, "In den beginne") {
+		t.Errorf("Genesis 1:1 = %q", got)
+	}
+	if got := a.VerseIn(v, "en"); !strings.HasPrefix(got, "In the beginning") {
+		t.Errorf("English changed: %q", got)
+	}
+	// Job 38:39 is numbered differently in the Statenvertaling: it falls back to English
+	if v := a.VerseByOsis["job.38.39"]; v != nil && a.VerseIn(v, "nl") != v.Text {
+		t.Error("missing verse did not fall back")
+	}
+	// concordance searches the Dutch text
+	r := a.Concordance("in den beginne", "", 10, "nl")
+	if r.Total == 0 {
+		t.Error("Dutch concordance found nothing")
+	}
+	if a.Concordance("in den beginne", "", 10, "en").Total != 0 {
+		t.Error("English concordance matched Dutch words")
+	}
+	d := a.VerseDossier(v.ID, "nl")
+	if !strings.Contains(d.HTML, "In den beginne") {
+		t.Errorf("verse page not Dutch: %s", d.HTML)
+	}
+	covered := 0
+	for _, v := range a.Verses {
+		if a.VerseIn(v, "nl") != v.Text {
+			covered++
+		}
+	}
+	if covered < 30000 {
+		t.Errorf("only %d verses differ from KJV", covered)
 	}
 }

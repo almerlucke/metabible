@@ -441,6 +441,9 @@ templ VersePage(d *atlas.VerseDossier) {
 				</div>
 				<h1>{ d.Label }</h1>
 				<blockquote class="big">@templ.Raw(d.HTML)</blockquote>
+				if d.Alt != "" {
+					<p class="altver"><span class="mb-tag">{ t(ctx, "ui.kjv") }</span> @templ.Raw(d.Alt)</p>
+				}
 				<div class="actions">
 					if d.Prev != "" {
 						<a class="mb-btn" href={ href("verse", d.Prev) }>{ t(ctx, "ui.previous.verse") }</a>

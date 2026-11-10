@@ -142,6 +142,8 @@ type Atlas struct {
 	cosmosOnce sync.Once
 	cosmos     *Cosmos
 	lowerText  []string
+	bibles     map[string]map[string]string
+	lowerBible map[string][]string
 	nameIdx    []searchEntry
 
 	tr            Translator
@@ -575,6 +577,7 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 	for i, v := range a.Verses {
 		a.lowerText[i] = strings.ToLower(v.Text)
 	}
+	a.loadBibles(dir)
 	a.buildSearch()
 
 	if journeysFile != "" {

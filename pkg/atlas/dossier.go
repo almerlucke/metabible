@@ -87,11 +87,11 @@ type EventRef struct {
 	Year  float64
 }
 
-func (a *Atlas) verseRef(v *Verse) VerseRef {
-	return VerseRef{ID: v.ID, Label: a.verseLabel(v), Excerpt: trunc(v.Text, 110)}
+func (a *Atlas) verseRef(v *Verse, lang string) VerseRef {
+	return VerseRef{ID: v.ID, Label: a.verseLabel(v), Excerpt: trunc(a.VerseIn(v, lang), 110)}
 }
 
-func (a *Atlas) groupVerses(ids []string, limit int) ([]BookVerses, int) {
+func (a *Atlas) groupVerses(ids []string, limit int, lang string) ([]BookVerses, int) {
 	var vs []*Verse
 	for _, id := range ids {
 		if v := a.VerseByID[id]; v != nil {
@@ -110,7 +110,7 @@ func (a *Atlas) groupVerses(ids []string, limit int) ([]BookVerses, int) {
 		}
 		g := &out[len(out)-1]
 		if limit <= 0 || len(g.Verses) < limit {
-			g.Verses = append(g.Verses, a.verseRef(v))
+			g.Verses = append(g.Verses, a.verseRef(v, lang))
 		}
 	}
 	return out, len(vs)
@@ -250,7 +250,7 @@ type PersonDossier struct {
 	WikiPhoto  *GalleryItem
 }
 
-func (a *Atlas) PersonDossier(id string) *PersonDossier {
+func (a *Atlas) PersonDossier(id, lang string) *PersonDossier {
 	p := a.PersonByID[id]
 	if p == nil {
 		return nil
@@ -301,7 +301,7 @@ func (a *Atlas) PersonDossier(id string) *PersonDossier {
 		}
 	}
 	d.Siblings = a.personRefs(sibIDs)
-	d.Verses, d.VerseCount = a.groupVerses(p.Vs, 0)
+	d.Verses, d.VerseCount = a.groupVerses(p.Vs, 0, lang)
 
 	evs := append([]*Event{}, a.personEvents[id]...)
 	for _, eid := range p.Events {
@@ -371,7 +371,7 @@ type PlaceDossier struct {
 	WikiPhoto  *GalleryItem
 }
 
-func (a *Atlas) PlaceDossier(id string) *PlaceDossier {
+func (a *Atlas) PlaceDossier(id, lang string) *PlaceDossier {
 	p := a.PlaceByID[id]
 	if p == nil {
 		return nil
@@ -380,7 +380,7 @@ func (a *Atlas) PlaceDossier(id string) *PlaceDossier {
 	d.WikiPhoto = a.WikiPhotoItem("place", id, p.Name, d.Wiki)
 	d.Events = eventRefs(a.placeEvents[id])
 	d.Born, d.Died = a.personRefs(p.Born), a.personRefs(p.Died)
-	d.Verses, d.VerseCount = a.groupVerses(p.Vs, 0)
+	d.Verses, d.VerseCount = a.groupVerses(p.Vs, 0, lang)
 
 	// people who appear most often in verses naming this place
 	count := map[string]int{}
@@ -479,7 +479,7 @@ func humanDuration(days int) string {
 	return fmt.Sprintf("%d days", days)
 }
 
-func (a *Atlas) EventDossier(id string) *EventDossier {
+func (a *Atlas) EventDossier(id, lang string) *EventDossier {
 	e := a.EventByID[id]
 	if e == nil {
 		return nil
@@ -514,7 +514,7 @@ func (a *Atlas) EventDossier(id string) *EventDossier {
 	}
 	sort.Slice(vs, func(i, j int) bool { return vs[i].VID < vs[j].VID })
 	for _, v := range vs {
-		d.Verses = append(d.Verses, EventVerse{v.ID, a.verseLabel(v), v.Text})
+		d.Verses = append(d.Verses, EventVerse{v.ID, a.verseLabel(v), a.VerseIn(v, lang)})
 	}
 	for i, o := range a.Events {
 		if o.ID == id {
@@ -549,6 +549,7 @@ type VerseDossier struct {
 	ChapterNum int
 	Label      string
 	HTML       string
+	Alt        string // the King James text with its person/place links, when HTML is a translation
 	Prev, Next string
 	Context    []CtxVerse
 	People     []Ref
@@ -561,7 +562,7 @@ type VerseDossier struct {
 	Gallery    []GalleryItem
 }
 
-func (a *Atlas) VerseDossier(id string) *VerseDossier {
+func (a *Atlas) VerseDossier(id, lang string) *VerseDossier {
 	v := a.VerseByID[id]
 	if v == nil {
 		return nil
@@ -570,7 +571,10 @@ func (a *Atlas) VerseDossier(id string) *VerseDossier {
 	if b == nil {
 		return nil
 	}
-	d := &VerseDossier{V: v, Book: b, ChapterID: v.Chapter, ChapterNum: a.ChapterNum[v.Chapter], Label: a.verseLabel(v), HTML: RichInline(mdOf(v)), Year: FormatYear(v.Year)}
+	d := &VerseDossier{V: v, Book: b, ChapterID: v.Chapter, ChapterNum: a.ChapterNum[v.Chapter], Label: a.verseLabel(v), HTML: a.richIn(v, lang), Year: FormatYear(v.Year)}
+	if a.HasBible(lang) && a.VerseIn(v, lang) != v.Text {
+		d.Alt = RichInline(mdOf(v))
+	}
 	siblings := a.chapterVerses[v.Chapter]
 	for i, o := range siblings {
 		if o.ID != id {
@@ -583,7 +587,7 @@ func (a *Atlas) VerseDossier(id string) *VerseDossier {
 			d.Next = siblings[i+1].ID
 		}
 		for j := max(0, i-4); j <= min(len(siblings)-1, i+4); j++ {
-			d.Context = append(d.Context, CtxVerse{siblings[j].ID, siblings[j].Num, RichInline(mdOf(siblings[j])), j == i})
+			d.Context = append(d.Context, CtxVerse{siblings[j].ID, siblings[j].Num, a.richIn(siblings[j], lang), j == i})
 		}
 	}
 	d.People, d.Places = a.personRefs(v.People), a.placeRefs(v.Places)
@@ -637,7 +641,7 @@ type ChapterDossier struct {
 	People     []Ref
 }
 
-func (a *Atlas) ChapterDossier(id string) *ChapterDossier {
+func (a *Atlas) ChapterDossier(id, lang string) *ChapterDossier {
 	b := a.chapterBook[id]
 	vs := a.chapterVerses[id]
 	if b == nil || len(vs) == 0 {
@@ -647,7 +651,7 @@ func (a *Atlas) ChapterDossier(id string) *ChapterDossier {
 	var placeIDs []string
 	people := map[string]int{}
 	for _, v := range vs {
-		rv := ReadVerse{ID: v.ID, Num: v.Num, HTML: RichInline(mdOf(v)), Places: v.Places, Year: v.Year}
+		rv := ReadVerse{ID: v.ID, Num: v.Num, HTML: a.richIn(v, lang), Places: v.Places, Year: v.Year}
 		var evs []*Event
 		for _, eid := range v.Events {
 			if e := a.EventByID[eid]; e != nil {
@@ -733,7 +737,7 @@ type BookDossier struct {
 	FirstYear  string
 }
 
-func (a *Atlas) BookDossier(id string) *BookDossier {
+func (a *Atlas) BookDossier(id, lang string) *BookDossier {
 	b := a.BookByID[id]
 	if b == nil {
 		return nil
@@ -749,7 +753,7 @@ func (a *Atlas) BookDossier(id string) *BookDossier {
 	for _, c := range b.Chapters {
 		bc := BookChapter{ID: c.ID, Num: c.Num, People: c.People, Places: c.Places, Heat: float64(c.People) / float64(maxPe)}
 		if vs := a.chapterVerses[c.ID]; len(vs) > 0 {
-			bc.Excerpt = trunc(vs[0].Text, 120)
+			bc.Excerpt = trunc(a.VerseIn(vs[0], lang), 120)
 			for _, v := range vs {
 				for _, p := range v.People {
 					pc[p]++
