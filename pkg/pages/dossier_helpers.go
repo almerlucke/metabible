@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"net/url"
+	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/almerlucke/metabible/pkg/atlas"
@@ -41,6 +42,20 @@ func artCredit(a atlas.Art) string {
 		return "Gustave Doré · " + a.License
 	}
 	return a.License
+}
+
+// lbAttrs makes any element open the lightbox for this picture.
+func lbAttrs(it atlas.GalleryItem) templ.Attributes {
+	return templ.Attributes{
+		"data-lb":     "",
+		"data-full":   it.Full,
+		"data-title":  it.Title,
+		"data-credit": it.Credit,
+		"data-page":   it.Page,
+		"data-links":  it.LinksJSON(),
+		"data-kind":   it.Kind,
+		"data-q":      strings.ToLower(it.Title + " " + it.Credit),
+	}
 }
 
 func yr(y int) string { return atlas.FormatYear(y) }

@@ -46,10 +46,11 @@ templ topNav(active string) {
 			<a href="/canon" class={ templ.KV("on", active == "canon") }>Canon</a>
 		</div>
 		<details class="more">
-			<summary class={ templ.KV("on", active == "lifespans" || active == "migrations" || active == "themes" || active == "compare" || active == "quiz" || active == "progress") }>More ▾</summary>
+			<summary class={ templ.KV("on", active == "lifespans" || active == "migrations" || active == "gallery" || active == "themes" || active == "compare" || active == "quiz" || active == "progress") }>More ▾</summary>
 			<div class="menu">
 				<a href="/lifespans">Lifespans</a>
 				<a href="/migrations">Migrations</a>
+				<a href="/gallery">Gallery</a>
 				<a href="/themes">Themes</a>
 				<a href="/compare">Compare</a>
 				<a href="/quiz">Quiz</a>

@@ -231,3 +231,30 @@ templ CreditsPage(images []atlas.Credit, texts []atlas.Credit) {
 		</div>
 	}
 }
+
+// ---------------------------------------------------------------- gallery
+
+templ GalleryPage(items []atlas.GalleryItem, engravings int, people int, places int) {
+	@classic("Gallery", "gallery", nil) {
+		<div class="browse wide galpage">
+			<div class="mb-tag">open images</div>
+			<h1 class="mb-display">Gallery</h1>
+			<p class="mb-muted lead">Engravings by Gustave Doré and photographs from Wikimedia Commons. Click any picture to enlarge it, read its license and follow it to the person, event or place it belongs to.</p>
+			if len(items) == 0 {
+				<p class="mb-muted">No images have been fetched yet. Run <code>go run ./cmd/enrich</code>.</p>
+			} else {
+				<div class="galtools">
+					<div class="seg2" id="galtabs">
+						<button class="mb-btn on" data-f="">All { fmt.Sprint(len(items)) }</button>
+						<button class="mb-btn" data-f="engraving">Engravings { fmt.Sprint(engravings) }</button>
+						<button class="mb-btn" data-f="person">People { fmt.Sprint(people) }</button>
+						<button class="mb-btn" data-f="place">Places { fmt.Sprint(places) }</button>
+					</div>
+					<input id="galq" class="mb-input" type="search" placeholder="Filter by title…" autocomplete="off"/>
+				</div>
+				@gallery(items)
+			}
+		</div>
+		<script src="/assets/js/atlas/gallery.js"></script>
+	}
+}

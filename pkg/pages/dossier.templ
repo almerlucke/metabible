@@ -38,10 +38,10 @@ templ miniMap(cfg atlas.MapConfig, class string) {
 
 // ---------------------------------------------------------------- shared pieces
 
-templ wikiCard(w *atlas.WikiEntry) {
+templ wikiCard(w *atlas.WikiEntry, photo *atlas.GalleryItem) {
 	<div class="card wiki">
-		if w.Image != nil {
-			<figure class="pic">
+		if w.Image != nil && photo != nil {
+			<figure class="pic zoom" { lbAttrs(*photo)... } tabindex="0" role="button" aria-label={ "Enlarge: " + w.Title }>
 				<img src={ templ.SafeURL(w.Image.URL) } alt={ w.Title } loading="lazy"/>
 				<figcaption><a href={ templ.SafeURL(w.Image.Page) } rel="noopener">{ imgCredit(w.Image) }</a></figcaption>
 			</figure>
@@ -56,11 +56,23 @@ templ wikiCard(w *atlas.WikiEntry) {
 	</div>
 }
 
-templ artFigure(a atlas.Art) {
-	<figure class="art">
-		<img src={ templ.SafeURL(a.URL) } alt={ a.Title } loading="lazy"/>
-		<figcaption>{ a.Title } — <a href={ templ.SafeURL(a.Page) } rel="noopener">{ artCredit(a) }</a></figcaption>
+templ lbFigure(it atlas.GalleryItem) {
+	<figure class="art zoom" { lbAttrs(it)... } tabindex="0" role="button" aria-label={ "Enlarge: " + it.Title }>
+		<img src={ templ.SafeURL(it.Full) } alt={ it.Title } loading="lazy"/>
+		<figcaption>{ it.Title } — <a href={ templ.SafeURL(it.Page) } rel="noopener">{ it.Credit }</a></figcaption>
 	</figure>
+}
+
+// gallery is a balanced mosaic: uniform tiles with a few larger ones, each opening the lightbox.
+templ gallery(items []atlas.GalleryItem) {
+	<div class="mosaic" data-lb-group>
+		for i, it := range items {
+			<button type="button" class={ "tile", templ.KV("feat", i%11 == 0 && len(items) >= 5), templ.KV("wide", i%11 == 6) } { lbAttrs(it)... }>
+				<img src={ templ.SafeURL(it.Thumb) } alt={ it.Title } loading="lazy"/>
+				<span class="cap">{ it.Title }</span>
+			</button>
+		}
+	</div>
 }
 
 templ chips(refs []atlas.Ref, kind string) {
@@ -156,26 +168,10 @@ templ PersonPage(d *atlas.PersonDossier) {
 							<div class="prose">@templ.Raw(d.Dict)</div>
 						</section>
 					}
-					if len(d.Art) > 0 {
+					if len(d.Gallery) > 0 {
 						<section>
 							<h2>In art</h2>
-							for i, a := range d.Art {
-								if i < 3 {
-									@artFigure(a)
-								}
-							}
-							if len(d.Art) > 3 {
-								<details class="gallery">
-									<summary>More engravings ({ fmt.Sprint(len(d.Art) - 3) })</summary>
-									<div class="grid">
-										for i, a := range d.Art {
-											if i >= 3 {
-												@artFigure(a)
-											}
-										}
-									</div>
-								</details>
-							}
+							@gallery(d.Gallery)
 						</section>
 					}
 					if len(d.Events) > 0 {
@@ -193,7 +189,7 @@ templ PersonPage(d *atlas.PersonDossier) {
 				</div>
 				<aside>
 					if d.Wiki != nil {
-						@wikiCard(d.Wiki)
+						@wikiCard(d.Wiki, d.WikiPhoto)
 					}
 					if d.HasMap {
 						<div class="card">
@@ -305,7 +301,7 @@ templ PlacePage(d *atlas.PlaceDossier) {
 				</div>
 				<aside>
 					if d.Wiki != nil {
-						@wikiCard(d.Wiki)
+						@wikiCard(d.Wiki, d.WikiPhoto)
 					}
 					if len(d.People) > 0 {
 						<div class="card">
@@ -363,8 +359,10 @@ templ EventPage(d *atlas.EventDossier) {
 			if d.HasMap {
 				@miniMap(d.Map, "wide")
 			}
-			for _, a := range d.Art {
-				@artFigure(a)
+			if len(d.Gallery) == 1 {
+				@lbFigure(d.Gallery[0])
+			} else if len(d.Gallery) > 1 {
+				@gallery(d.Gallery)
 			}
 			if len(d.Before) > 0 || len(d.After) > 0 {
 				<div class="chain">
@@ -461,8 +459,8 @@ templ VersePage(d *atlas.VerseDossier) {
 					</section>
 				</div>
 				<aside>
-					if len(d.Art) > 0 {
-						@artFigure(d.Art[0])
+					if len(d.Gallery) > 0 {
+						@lbFigure(d.Gallery[0])
 					}
 					if d.HasMap {
 						<div class="card">
@@ -522,8 +520,8 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 								<a class="evbadge" href={ href("event", e.ID) } title={ e.Date }>◆ { e.Title }</a>
 							}
 						</p>
-						if v.Art != nil {
-							@artFigure(*v.Art)
+						if v.ArtItem != nil {
+							@lbFigure(*v.ArtItem)
 						}
 					}
 				</div>

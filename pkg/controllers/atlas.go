@@ -44,6 +44,21 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		_, _ = w.Write(og.Render(t, s))
 	})
+	mux.HandleFunc("GET /gallery", func(w http.ResponseWriter, r *http.Request) {
+		items := a.AllGallery()
+		var eng, ppl, plc int
+		for _, it := range items {
+			switch it.Kind {
+			case "engraving":
+				eng++
+			case "person":
+				ppl++
+			case "place":
+				plc++
+			}
+		}
+		templ.Handler(pages.GalleryPage(items, eng, ppl, plc)).ServeHTTP(w, r)
+	})
 	mux.HandleFunc("GET /credits", func(w http.ResponseWriter, r *http.Request) {
 		images, texts := a.Credits()
 		templ.Handler(pages.CreditsPage(images, texts)).ServeHTTP(w, r)

@@ -468,3 +468,41 @@ func TestArtReport(t *testing.T) {
 		}
 	}
 }
+
+func TestGallery(t *testing.T) {
+	if got := sized("https://commons.wikimedia.org/wiki/Special:FilePath/A%20b.jpg?width=960", 480); !strings.HasSuffix(got, "width=480") {
+		t.Errorf("FilePath sizing: %s", got)
+	}
+	if got := sized("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/X.jpg/500px-X.jpg", 1280); !strings.Contains(got, "/1280px-X.jpg") {
+		t.Errorf("thumb sizing: %s", got)
+	}
+	a := load(t)
+	items := a.AllGallery()
+	if a.Enrich != nil && len(items) < 100 {
+		t.Fatalf("gallery too small: %d", len(items))
+	}
+	for _, it := range items {
+		if it.Thumb == "" || it.Full == "" || it.Title == "" || it.Credit == "" || it.Page == "" {
+			t.Errorf("incomplete gallery item: %+v", it)
+		}
+		if !strings.HasPrefix(it.LinksJSON(), "[") {
+			t.Errorf("links json: %s", it.LinksJSON())
+		}
+	}
+}
+
+func TestCleanArtTitle(t *testing.T) {
+	cases := map[string]string{
+		"Abraham Journeying into the Land of Canaan (89393798)":   "Abraham Journeying into the Land of Canaan",
+		"Gustave Dore - John the Baptist baptizes Jesus":          "John the Baptist baptizes Jesus",
+		"Gustave Doré, St Peter Denying Christ":                   "St Peter Denying Christ",
+		"Gustave Doré - Christ on the Cross - Google Art Project": "Christ on the Cross",
+		"By Dore, Gustave; La Sainte Trinite":                     "By Dore, Gustave; La Sainte Trinite",
+		"Gustave Doré":                                            "Engraving",
+	}
+	for in, want := range cases {
+		if got := cleanArtTitle(in); got != want {
+			t.Errorf("%q -> %q, want %q", in, got, want)
+		}
+	}
+}

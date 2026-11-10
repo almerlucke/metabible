@@ -22,7 +22,7 @@ func TestRoutes(t *testing.T) {
 	chapter := a.Books[3].Chapters[1].ID
 	paths := []string{
 		"/", "/atlas", "/journeys", "/tree", "/tree/" + person, "/cosmos", "/canon", "/lifespans",
-		"/og.png?t=Hello", "/credits", "/books", "/people", "/places", "/events", "/concordance", "/concordance?search=grace",
+		"/og.png?t=Hello", "/gallery", "/credits", "/books", "/people", "/places", "/events", "/concordance", "/concordance?search=grace",
 		"/person/" + person, "/place/" + place, "/event/" + event, "/verse/" + verse, "/chapter/" + chapter, "/book/" + book,
 		"/story", "/migrations", "/compare", "/themes", "/progress", "/quiz", "/api/atlas/themes", "/api/atlas/progress-index", "/export/journey/exodus.gpx", "/export/journey/exodus.kml", "/api/atlas/compare?kind=person&a=" + person + "&b=" + person, "/api/atlas/theme/love", "/api/atlas/migration", "/api/atlas/story", "/api/atlas/validate", "/api/atlas/world", "/api/atlas/people", "/api/atlas/journeys", "/api/atlas/journey/" + person, "/api/atlas/canon",
 		"/api/atlas/word?q=love", "/api/atlas/search?q=moses", "/api/atlas/peek/person/" + person, "/api/atlas/peek/verse/" + verse,

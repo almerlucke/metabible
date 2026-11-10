@@ -142,4 +142,52 @@
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => { /* optional */ }));
   }
+
+  // ---------- lightbox: any element with data-lb opens its picture; arrows move through its group ----------
+  let lb, lbItems = [], lbIdx = 0, lbFrom = null;
+  const lbEsc = esc;
+  function lbBuild() {
+    lb = document.createElement('div');
+    lb.id = 'mb-lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Image viewer');
+    lb.innerHTML = '<button class="x" type="button" aria-label="Close">✕</button><button class="nav prev" type="button" aria-label="Previous image">‹</button>' +
+      '<figure><img alt=""><figcaption><div class="t"></div><div class="c"></div><div class="links"></div></figcaption></figure>' +
+      '<button class="nav next" type="button" aria-label="Next image">›</button><div class="count"></div>';
+    document.body.appendChild(lb);
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target.closest('.x')) lbClose(); else if (e.target.closest('.prev')) lbGo(-1); else if (e.target.closest('.next')) lbGo(1); });
+  }
+  function lbShow() {
+    const el = lbItems[lbIdx], d = el.dataset;
+    const img = lb.querySelector('img'); img.alt = d.title || ''; img.removeAttribute('src'); img.src = d.full;
+    lb.querySelector('.t').textContent = d.title || '';
+    lb.querySelector('.c').innerHTML = d.page ? `<a href="${lbEsc(d.page)}" target="_blank" rel="noopener">${lbEsc(d.credit || 'Source')}</a>` : lbEsc(d.credit || '');
+    let links = []; try { links = JSON.parse(d.links || '[]'); } catch (e) { /* ignore */ }
+    lb.querySelector('.links').innerHTML = links.map((l) => `<a class="mb-chip" href="${lbEsc(l.u)}"${/^https?:/.test(l.u) ? ' target="_blank" rel="noopener"' : ''}>${lbEsc(l.l)}</a>`).join('');
+    lb.querySelector('.count').textContent = lbItems.length > 1 ? `${lbIdx + 1} / ${lbItems.length}` : '';
+    lb.classList.toggle('single', lbItems.length < 2);
+    for (const k of [lbIdx - 1, lbIdx + 1]) { const n = lbItems[k]; if (n) { const p = new Image(); p.src = n.dataset.full; } } // preload neighbours
+  }
+  function lbOpen(el) {
+    if (!lb) lbBuild();
+    const group = el.closest('[data-lb-group]');
+    lbItems = group ? [...group.querySelectorAll('[data-lb]')].filter((x) => !x.hidden) : [el];
+    lbIdx = Math.max(0, lbItems.indexOf(el)); lbFrom = el;
+    lbShow(); lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    lb.querySelector('.x').focus();
+  }
+  function lbClose() { if (!lb) return; lb.classList.remove('open'); document.body.style.overflow = ''; if (lbFrom) lbFrom.focus(); }
+  function lbGo(d) { if (lbItems.length < 2) return; lbIdx = (lbIdx + d + lbItems.length) % lbItems.length; lbShow(); }
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-lb]');
+    if (!el || e.target.closest('a')) return;
+    e.preventDefault(); lbOpen(el);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (lb && lb.classList.contains('open')) {
+      if (e.key === 'Escape') { lbClose(); e.stopPropagation(); } else if (e.key === 'ArrowRight') lbGo(1); else if (e.key === 'ArrowLeft') lbGo(-1);
+      return;
+    }
+    const el = e.target.closest && e.target.closest('[data-lb][tabindex]');
+    if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); lbOpen(el); }
+  }, true);
 })();
+
