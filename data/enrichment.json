@@ -32,6 +32,27 @@
    "summary": "Libnah or Lobana was an independent city, probably near the western seaboard of Israel, with its own king at the time of the Israelite conquest of Canaan. It is thought to have been an important producer of revenue, and one that rebelled against the Judahite crown.",
    "page": "https://en.wikipedia.org/wiki/Libnah"
   },
+  "rec5wqkJ6JXv03dvF": {
+   "title": "Mount of Olives",
+   "summary": "The Mount of Olives or Mount Olivet is a mountain ridge in East Jerusalem, east of and adjacent to Jerusalem's Old City. It is named for the olive groves that once covered its slopes. The southern part of the mount was the Silwan necropolis, attributed to the elite of the ancient Kingdom of Judah. The western slopes of the mount, those facing Jerusalem, have been used as a Jewish cemetery for over 3,000 years and holds approximately 150,000 graves, making it central in the tradition of Jewish cemeteries. Atop the hill lies the Palestinian neighbourhood of At-Tur, a former village that is now part of East Jerusalem.",
+   "desc": "Mountain in East Jerusalem",
+   "page": "https://en.wikipedia.org/wiki/Mount_of_Olives",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/2013-Aerial-Mount_of_Olives.jpg/330px-2013-Aerial-Mount_of_Olives.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:2013-Aerial-Mount_of_Olives.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Godot13",
+    "credit": "Own work",
+    "w": 330,
+    "h": 183
+   }
+  },
+  "rec6G3mRvN9MpCyjT": {
+   "title": "Kedesh",
+   "summary": "Kedesh was an ancient Canaanite and later Israelite settlement in Upper Galilee, mentioned several times in the Hebrew Bible. Its remains are located in Tel Kedesh, 3 km (1.9 mi) northeast of the modern Kibbutz Malkiya in Israel on the Israeli-Lebanese border.",
+   "desc": "Archeological site in northern Israel",
+   "page": "https://en.wikipedia.org/wiki/Kedesh"
+  },
   "rec81f3wE4gATsRRE": {
    "title": "Bethlehem",
    "summary": "Bethlehem is a city in the West Bank, Palestine, located about ten kilometres south of Jerusalem, and the capital of the Bethlehem Governorate. It had a population of 28,591 people, as of 2017. The city's economy is strongly linked to tourism, especially during the Christmas period, when Christians embark on a pilgrimage to the Church of the Nativity, which is revered as the location of the birth of Jesus.",
@@ -89,11 +110,32 @@
    "desc": "Country in West Asia",
    "page": "https://en.wikipedia.org/wiki/Lebanon"
   },
+  "recDDkVF36ecPUge4": {
+   "title": "Rome",
+   "summary": "Rome is the capital and largest city of Italy. It is also the administrative centre of the Lazio region and of the Metropolitan City of Rome. A special municipality named Roma Capitale with a population of 2.7 million in an area of 1,287.36 km2 (497.1 mi2), Rome is the third most populous city in the European Union by population within city limits. The Metropolitan City of Rome Capital, with a population of 4.2 million, is the most populous metropolitan city in Italy. Its metropolitan area is the third-most populous within Italy. Rome is located in the central-western portion of the Italian Peninsula, within Lazio (Latium), along the shores of the Tiber Valley.",
+   "desc": "Capital and largest city of Italy",
+   "page": "https://en.wikipedia.org/wiki/Rome"
+  },
   "recDWNfN3f6E04V4m": {
    "title": "Gath (city)",
    "summary": "Gath or Gat was one of the five cities of the Philistine pentapolis during the Iron Age. It was located in northeastern Philistia, close to the border with Judah. Gath is often mentioned in the Hebrew Bible and its existence is confirmed by Egyptian inscriptions. Already of significance during the Bronze Age, the city is believed to be mentioned in the El-Amarna letters as Gimti/Gintu, ruled by the two Shuwardata and 'Abdi-Ashtarti. Another Gath, known as Ginti-kirmil also appears in the Amarna letters.",
    "desc": "Ancient city and archaeological site",
    "page": "https://en.wikipedia.org/wiki/Gath_(city)"
+  },
+  "recE3qR8iDUqdkAuw": {
+   "title": "Mount Seir",
+   "summary": "Mount Seir is the ancient and biblical name for a mountainous region stretching between the Dead Sea and the Gulf of Aqaba in the northwestern region of Edom, southeast of the Kingdom of Judah. It may also have marked the older historical limit of Ancient Egypt in Canaan. A place called \"Seir, in the land of Shasu\", thought to be near Petra, Jordan, is listed in the temple of Amenhotep III at Soleb.",
+   "desc": "Mountainous region stretching between the Dead Sea and the Gulf of Aqaba",
+   "page": "https://en.wikipedia.org/wiki/Mount_Seir",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Jordanien.svg/330px-Jordanien.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Jordanien.svg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Bgabel",
+    "credit": "Own work (Original text: self-made) based on [.. Template/Data-Source? ..]",
+    "w": 330,
+    "h": 362
+   }
   },
   "recEP3QZ3HUmIkv4Q": {
    "title": "Samaria",
@@ -143,11 +185,41 @@
    "desc": "City in the West Bank, Palestine",
    "page": "https://en.wikipedia.org/wiki/Hebron"
   },
+  "recKAFuMIt8BAi2OH": {
+   "title": "Antioch",
+   "summary": "Antioch was a city located in northern Syria at the site of modern Antakya, Turkey. Founded in 300 BC, Antioch became one of the most important cities of the ancient eastern Mediterranean. The capital of the Hellenistic Seleucid Empire, it remained significant under the Roman and Byzantine Empires, and during the Crusades was the centre of the Principality of Antioch.",
+   "desc": "Hellenistic city, modern Antakya, Turkey",
+   "page": "https://en.wikipedia.org/wiki/Antioch",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Antioch_on_the_Orontes_en.svg/330px-Antioch_on_the_Orontes_en.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Antioch_on_the_Orontes_en.svg",
+    "license": "CC BY-SA 4.0",
+    "artist": "UndercoverClassicist",
+    "credit": "Own work; original file by Cristiano64. Data appears to be taken from Committee for the Excavation of Antioch-on-the-Orontes (1936) Map of Ancient Antioch or a derivative work thereof.",
+    "w": 330,
+    "h": 401
+   }
+  },
   "recL1WV82pXaRBQ59": {
    "title": "Jerusalem",
    "summary": "Jerusalem is a city in the Southern Levant, on a plateau in the Judaean Mountains between the Mediterranean and the Dead Sea. It is one of the oldest cities in the world and is considered a holy city to the three major Abrahamic religions: Judaism, Christianity and Islam. Both Israel and Palestine claim Jerusalem as their capital city; Israel maintains its primary governmental institutions there, while Palestine ultimately foresees it as its seat of power. Neither claim is widely recognised internationally.",
    "desc": "City in the Southern Levant",
    "page": "https://en.wikipedia.org/wiki/Jerusalem"
+  },
+  "recLDF53uVzhhlyux": {
+   "title": "Bethany",
+   "summary": "Bethany, locally called in Arabic al-Eizariya or el-Aizariya, is a Palestinian town in the Jerusalem Governorate of Palestine, bordering East Jerusalem, in the West Bank. The name al-Eizariya refers to the New Testament figure Lazarus of Bethany, who according to the Gospel of John, was raised from the dead by Jesus in the town. The traditional site of the miracle, the Tomb of Lazarus, in the city is a place of pilgrimage.",
+   "desc": "Municipality type B in Jerusalem, Palestine",
+   "page": "https://en.wikipedia.org/wiki/Bethany",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg/330px-%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Tomer hu",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
   },
   "recN2YJFW0fYzSL9r": {
    "title": "Ashdod",
@@ -251,6 +323,24 @@
     "h": 220
    }
   },
+  "recV2VLKz20IKBZ1N": {
+   "title": "Aroer",
+   "summary": "Aroer is the name of two biblical cities in the Transjordan, in what is today the Kingdom of Jordan.",
+   "desc": "Biblical town in present-day Jordan",
+   "page": "https://en.wikipedia.org/wiki/Aroer"
+  },
+  "recVfy9PlsXdODNGL": {
+   "title": "Kadesh (biblical)",
+   "summary": "Kadesh or Qadesh or Cades is a place-name that occurs several times in the Hebrew Bible, describing a site or sites located south of, or at the southern border of, Canaan and the Kingdom of Judah. Many modern academics hold that it was a single site, located at the modern Tel el-Qudeirat, while some academics and rabbinical authorities hold that there were two locations named Kadesh. A related term, either synonymous with Kadesh or referring to one of the two sites, is Kadesh Barnea. Various etymologies for Barnea have been proposed, including 'desert of wanderings,' but none have produced widespread agreement.",
+   "desc": "Placename in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Kadesh_(biblical)"
+  },
+  "recWncFFjf41531kw": {
+   "title": "Land of Goshen",
+   "summary": "The land of Goshen is mentioned in the Hebrew Bible as the area in Egypt that was allotted to the Hebrews by the Pharaoh during the time of Joseph. They dwelt in Goshen up until the time of the Exodus, when they left Egypt. It is believed to have been located in the eastern Nile Delta, lower Egypt; perhaps at or near Avaris, the seat of power of the Hyksos kings.",
+   "desc": "Place in Egypt given to the Hebrews by the pharaoh of Joseph",
+   "page": "https://en.wikipedia.org/wiki/Land_of_Goshen"
+  },
   "recYsXWjhw6FUqHLY": {
    "title": "Gibeon (ancient city)",
    "summary": "Gibeon was a Canaanite and later an Israelite city, which was located north of Jerusalem. According to Joshua 11:19, the pre-Israelite-conquest inhabitants, the Gibeonites, were Hivites; according to 2 Samuel 21:2, they were Amorites, there can be also expected that they were a mingled people, since the city of Jerusalem has her nativity disclosed in Ezekiel 16:3. The remains of Gibeon are located in the southern portion of the Arab-majority village of al-Jib in Area C of the West Bank.",
@@ -269,11 +359,32 @@
    "desc": "Palestinian city in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Jericho"
   },
+  "recdjDOceY7iCq93A": {
+   "title": "Ashkelon",
+   "summary": "Ashkelon or Ashqelon, is a coastal city in the Southern District of Israel on the Mediterranean coast, 50 kilometres (30 mi) south of Tel Aviv, and 13 kilometres (8 mi) north of the border with the Gaza Strip. The modern city is named after the ancient seaport of Ascalon, which was destroyed in 1270 and whose remains are on the southwestern edge of the modern metropolis.",
+   "desc": "City in Israel",
+   "page": "https://en.wikipedia.org/wiki/Ashkelon",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/93439_marina_ashkelon_PikiWiki_Israel.jpg/330px-93439_marina_ashkelon_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:93439_marina_ashkelon_PikiWiki_Israel.jpg",
+    "license": "CC BY 2.5",
+    "artist": "דוידי ורדי",
+    "credit": "Davidi Vardi via the PikiWiki - Israel free image collection project",
+    "w": 330,
+    "h": 186
+   }
+  },
   "recdm9AlLF01lFAfP": {
    "title": "Gilgal",
    "summary": "Gilgal, also known as Galgala or Galgalatokai of the 12 Stones, is the name of one or more places in the Hebrew Bible. Gilgal is mentioned 39 times, in particular in the Book of Joshua, as the place where the Israelites camped after crossing the Jordan River.",
    "desc": "Biblical place",
    "page": "https://en.wikipedia.org/wiki/Gilgal"
+  },
+  "receEjvf5hXhkgVuZ": {
+   "title": "Cyprus",
+   "summary": "Cyprus, officially the Republic of Cyprus, is an island country in the eastern Mediterranean Sea, located off the coast of the Levant mainland in West Asia. The island of Cyprus, which is the third largest and third most populous island in the Mediterranean, is divided along the United Nations Buffer Zone between the internationally recognised Republic of Cyprus and the Turkish Republic of Northern Cyprus, which is recognised only by Turkey. The south of the island also hosts the British sovereign military bases of Akrotiri and Dhekelia. The capital and largest city of Cyprus is Nicosia.",
+   "desc": "Island country in the Mediterranean Sea",
+   "page": "https://en.wikipedia.org/wiki/Cyprus"
   },
   "receX4PMAVfHZyoCO": {
    "title": "Susa",
@@ -298,6 +409,27 @@
    "summary": "Mount Zion is a hill in Jerusalem located just outside the walls of the Old City to the south. The term Mount Zion has been used in the Hebrew Bible first for the City of David and later for the Temple Mount, but its meaning has shifted and it is now used as the name of ancient Jerusalem's Western Hill. In a wider sense, the term Zion is also used for the entire Land of Israel.",
    "desc": "Hill in Jerusalem",
    "page": "https://en.wikipedia.org/wiki/Mount_Zion"
+  },
+  "rechszjphdueUPvPi": {
+   "title": "Dhiban, Jordan",
+   "summary": "Dhiban is a Jordanian town located in Madaba Governorate approximately 70 kilometres (43 mi) south of Amman and east of the Dead Sea.",
+   "desc": "City in Madaba Governorate, Jordan",
+   "page": "https://en.wikipedia.org/wiki/Dhiban%2C_Jordan"
+  },
+  "recj2XUqaJxCKA6qs": {
+   "title": "Achaea",
+   "summary": "Achaea or Achaia, sometimes transliterated from Greek as Akhaia, is one of the regional units of Greece. It is part of the region of Western Greece and is situated in the northwestern part of the Peloponnese peninsula. The capital is Patras which is the third largest city in Greece.",
+   "desc": "Regional unit in Greece",
+   "page": "https://en.wikipedia.org/wiki/Achaea",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/2010_Dimi_Achaias_numbered.svg/330px-2010_Dimi_Achaias_numbered.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:2010_Dimi_Achaias_numbered.svg",
+    "license": "Public domain",
+    "artist": "Achaia_municipalities_numbered.svg: Badseed derivative work: Pitichinaccio (talk)",
+    "credit": "Achaia_municipalities_numbered.svg",
+    "w": 330,
+    "h": 228
+   }
   },
   "recmL1lWBqWP3mAq3": {
    "title": "Galilee",
@@ -328,6 +460,12 @@
     "w": 330,
     "h": 220
    }
+  },
+  "recn5ad7qKvkUdCyZ": {
+   "title": "Mount Hor",
+   "summary": "Mount Hor is the name given in the Hebrew Bible to two distinct mountains. One borders the land of Edom in the area south of the Dead Sea, and the other is by the Mediterranean Sea at the Northern border of Israel. The first Mount Hor is especially significant to the Israelites, as Aaron the high priest, brother of Moses, died there.",
+   "desc": "Mountains mentioned in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Mount_Hor"
   },
   "reco9Wc4YyNXZq43z": {
    "title": "Tyre, Lebanon",
@@ -418,6 +556,12 @@
    "summary": "Dan, and older name Laish, is an ancient city mentioned in the Hebrew Bible, described as the northernmost city of the Kingdom of Israel, and belonging to the tribe of Dan, its namesake. It was later the site of a royal sanctuary built by Jeroboam.",
    "desc": "Ancient city in northern Israel",
    "page": "https://en.wikipedia.org/wiki/Dan_(ancient_city)"
+  },
+  "recwejjn5PDlbkVgH": {
+   "title": "Riblah",
+   "summary": "The ancient town of Riblah, today a tell covered by a cemetery not far from the town of Ribleh on the Syrian side of the border with Lebanon, was in biblical times located on the northern frontier of the land of Canaan. The site lies on the eastern bank of the Orontes River, in a wide and fertile plain, 35 miles north-east of Baalbek and 10 or 12 miles south of the artificial Lake Homs created by the Romans. Brenton translated the place as Rablaam in his translation of the Septuagint.",
+   "desc": "Ancient town, now in Syria",
+   "page": "https://en.wikipedia.org/wiki/Riblah"
   },
   "recxiSg5QZWkj9Hy3": {
    "title": "Sidon",
