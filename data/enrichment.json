@@ -6,6 +6,21 @@
   "Wikipedia text": "https://en.wikipedia.org (CC BY-SA 4.0)"
  },
  "places": {
+  "rec3RF6Fb7wZUoamW": {
+   "title": "Azekah",
+   "summary": "Azekah was an ancient town in the Shephela guarding the upper reaches of the Valley of Elah, about 26 km (16 mi) northwest of Hebron.",
+   "desc": "Ruins of an ancient town in Israel",
+   "page": "https://en.wikipedia.org/wiki/Azekah",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/TEL_AZEKA_A.jpg/330px-TEL_AZEKA_A.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:TEL_AZEKA_A.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "AVRAMGR",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
   "rec5WK4QGcKa48pA6": {
    "title": "Nineveh",
    "summary": "Nineveh was an ancient Near Eastern city of Upper Mesopotamia, located in the modern-day city of Mosul in northern Iraq. It is located on the eastern bank of the Tigris River and was the capital and largest city of the Neo-Assyrian Empire, and potentially the wealthiest city in the ancient world. Today, it is a common name for the half of Mosul that lies on the eastern bank of the Tigris, and the country's Nineveh Governorate takes its name from it.",
@@ -83,6 +98,12 @@
     "h": 185
    }
   },
+  "recAW3NovSbgdfNfk": {
+   "title": "Ayalon Valley",
+   "summary": "The Ayalon Valley, also written Aijalon and Ajalon, is a valley in the lowland of the Shephelah in Israel.",
+   "desc": "Valley in Shephelah, Israel",
+   "page": "https://en.wikipedia.org/wiki/Ayalon_Valley"
+  },
   "recAalC2QoLT7cJKN": {
    "title": "Judea",
    "summary": "Judea or Judaea is a mountainous region of the Levant. Traditionally dominated by the city of Jerusalem, it is now part of Israel and the West Bank. The name is derived from the Hebrew name Yehudah, and was used during the Babylonian, Persian, Hellenistic, and Roman periods. Under the Hasmoneans, the Herodians, and the Romans, the term was applied to an area larger than the Judea of earlier periods. In the aftermath of the Bar Kokhba revolt, the Roman province of Judaea was renamed Syria Palaestina.",
@@ -104,6 +125,21 @@
     "h": 256
    }
   },
+  "recBsRcVlu8hkiGKW": {
+   "title": "Gehenna",
+   "summary": "Gehenna or Gehinnom is a Biblical toponym that has acquired various theological connotations, including as a place of divine punishment, in Jewish eschatology.",
+   "desc": "Historic valley in Jerusalem and religious concept",
+   "page": "https://en.wikipedia.org/wiki/Gehenna",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg/330px-11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Michal Levinsky",
+    "credit": "Own work",
+    "w": 330,
+    "h": 219
+   }
+  },
   "recCXgnK86jc1U9IB": {
    "title": "Lebanon",
    "summary": "Lebanon, officially the Lebanese Republic, is a country in the Levant region of West Asia. Situated at the crossroads of the Mediterranean Basin and the Arabian Peninsula, it is bordered by Syria to the north and east, Israel to the south, and the Mediterranean Sea to the west; Cyprus lies a short distance from the coastline. Lebanon has a population of more than five million and an area of 10,452 square kilometres (4,036 sq mi). Beirut is the country's capital and largest city.",
@@ -121,6 +157,12 @@
    "summary": "Gath or Gat was one of the five cities of the Philistine pentapolis during the Iron Age. It was located in northeastern Philistia, close to the border with Judah. Gath is often mentioned in the Hebrew Bible and its existence is confirmed by Egyptian inscriptions. Already of significance during the Bronze Age, the city is believed to be mentioned in the El-Amarna letters as Gimti/Gintu, ruled by the two Shuwardata and 'Abdi-Ashtarti. Another Gath, known as Ginti-kirmil also appears in the Amarna letters.",
    "desc": "Ancient city and archaeological site",
    "page": "https://en.wikipedia.org/wiki/Gath_(city)"
+  },
+  "recDmxCwEt4vEy5RQ": {
+   "title": "Zarqa River",
+   "summary": "The Zarqa River is the second largest tributary of the lower Jordan River, after the Yarmouk River. It is the third largest river in the region by annual discharge and its watershed encompasses the most densely populated areas east of the Jordan River. The Zarqa rises in springs near Amman, and flows through a deep and broad valley into the Jordan, at an elevation 1,090 metres (3,580 ft) lower.",
+   "desc": "Jordanian river near Amman, tributary of the lower Jordan River",
+   "page": "https://en.wikipedia.org/wiki/Zarqa_River"
   },
   "recE3qR8iDUqdkAuw": {
    "title": "Mount Seir",
@@ -163,6 +205,12 @@
    "summary": "Lachish was an ancient Canaanite and later Israelite city in the Shephelah (\"lowlands\") region of Canaan on the south bank of the Lakhish River. The current tell by that name, known as Tel Lachish or Tell el-Duweir, has been identified with Lachish. Today, it is an Israeli national park operated and maintained by the Israel Nature and Parks Authority. It lies near the present-day moshav of Lakhish, which was named in honor of the ancient city.",
    "desc": "Biblical city and an archeological site in Israel",
    "page": "https://en.wikipedia.org/wiki/Tel_Lachish"
+  },
+  "recHdRjsxQjhsjW3i": {
+   "title": "Michmas",
+   "summary": "Michmas was an Israelite and Jewish town located in the highlands north of Jerusalem. According to the Hebrew Bible, it belonged to the Tribe of Benjamin. It was the setting of the biblical Battle of Michmash, recounted in 1 Samuel 14. Michmas was inhabited during the Second Temple period, when, according to the Mishnah, its fine wheat was brought to the Temple.",
+   "desc": "Ancient Israelite and Jewish town, identified with modern-day Mukhmas",
+   "page": "https://en.wikipedia.org/wiki/Michmas"
   },
   "recJK76HLZSOzxTWW": {
    "title": "Bethel",
@@ -251,11 +299,32 @@
     "h": 186
    }
   },
+  "recOVVrn4ss5k4zG9": {
+   "title": "Adullam",
+   "summary": "Adullam is an ancient ruin once numbered among the thirty-six cities of Canaan whose kings \"Joshua and the children of Israel smote\" (Joshua 12:7–24). After that, it fell as an inheritance to the tribe of Judah and was included in the northern division of the Shephelah \"lowland\" cities of the land of Judah (Joshua 15:35). Adullam is mentioned a number of times in the Hebrew Bible, including events featuring David who took refuge at Adullam, escaping King Saul. At this time Adullam was close to the land of the Philistines.",
+   "desc": "Archaeological site in Israel",
+   "page": "https://en.wikipedia.org/wiki/Adullam",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Hill_of_Adullam%2C_Covered_in_Pines.jpg/330px-Hill_of_Adullam%2C_Covered_in_Pines.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Hill_of_Adullam%2C_Covered_in_Pines.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Davidbena",
+    "credit": "With my Fuji XF1 digital camera Previously published: Never before published",
+    "w": 330,
+    "h": 248
+   }
+  },
   "recOpGyXVzzKCuVs5": {
    "title": "Anathoth",
    "summary": "Anathoth is the name of one of the Levitical cities given to \"the children of Aaron\" in the tribe of Benjamin. Residents were called Antothites or Anetothites.",
    "desc": "City in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Anathoth"
+  },
+  "recPhbU6SICXKWVJ8": {
+   "title": "Ezion-Geber",
+   "summary": "Ezion-Geber is a city only known from the Hebrew Bible, in Idumea, a seaport on the northern extremity of the Gulf of Eilat/Aqaba, in modern terms somewhere in the area of modern Aqaba and Eilat.",
+   "desc": "Biblical seaport on the northern extremity of the Gulf of Eilat",
+   "page": "https://en.wikipedia.org/wiki/Ezion-Geber"
   },
   "recPoImnA7S93jcHx": {
    "title": "Gilead",
@@ -291,6 +360,42 @@
     "credit": "Own work",
     "w": 330,
     "h": 185
+   }
+  },
+  "recSx0USOwA2fisi6": {
+   "title": "Bethoron",
+   "summary": "Bethoron, also Beth-Horon, were two neighboring towns in ancient Israel, situated on the Gibeon–Aijalon road. They served as strategic points along the road, guarding the \"ascent of Bethoron\". While the Hebrew Bible sometimes distinguishes between the two towns—Upper and Lower Bethoron—it often refers to both simply as Bethoron. The towns are mentioned in the Bible and in other ancient sources: Upper Bethoron appears in Joshua 16:5, Lower Bethoron in Joshua 16:3, both in 1 Chronicles 7:24, and the ascent in I Maccabees 3:16.",
+   "desc": "Biblical town",
+   "page": "https://en.wikipedia.org/wiki/Bethoron"
+  },
+  "recTdeFWjvLAXs0t3": {
+   "title": "Valley of Rephaim",
+   "summary": "The Valley of Rephaim is a valley descending southwest from Jerusalem to Nahal Sorek below. It is an ancient route from the coastal plain to the Judean Hills, probably named after the legendary race of giants. Emek Refaim, the German Colony in Jerusalem, takes its name from this valley.",
+   "desc": "Valley southwest of Jerusalem, Israel",
+   "page": "https://en.wikipedia.org/wiki/Valley_of_Rephaim",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg/330px-NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "recTzP6VykOhwetgm": {
+   "title": "Zorah",
+   "summary": "Zorah or Tzorah, was a biblical town in the Judaean Foothills. It has been identified with the former village of Sar'a, now often referred to as Tel Tzora.",
+   "desc": "Ancient town mentioned in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Zorah",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Mosaic_floor_at_Zorah.jpg/330px-Mosaic_floor_at_Zorah.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Mosaic_floor_at_Zorah.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Davidbena",
+    "credit": "Own work",
+    "w": 330,
+    "h": 248
    }
   },
   "recUn6eVJDoG4xI0j": {
@@ -358,6 +463,21 @@
    "summary": "Jericho is a city in the West Bank, Palestine, and the capital of the Jericho Governorate. The city is located in the Jordan Valley, with the Jordan River to the east and Jerusalem to the west.",
    "desc": "Palestinian city in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Jericho"
+  },
+  "recdiq65RtvGagXOn": {
+   "title": "Eshtaol",
+   "summary": "Eshtaol is a moshav in central Israel, and a biblical location mentioned in the Books of Joshua and Judges and in the first Book of Chronicles. Located 6 km (4 mi) north of the city of Beit Shemesh, it falls under the jurisdiction of Mateh Yehuda Regional Council. In 2024, it had a population of 1,112.",
+   "desc": "Moshav in Jerusalem, Israel",
+   "page": "https://en.wikipedia.org/wiki/Eshtaol",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/EshtaolFeb282022.jpg/330px-EshtaolFeb282022.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:EshtaolFeb282022.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
+    "credit": "Own work",
+    "w": 330,
+    "h": 132
+   }
   },
   "recdjDOceY7iCq93A": {
    "title": "Ashkelon",
@@ -430,6 +550,12 @@
     "w": 330,
     "h": 228
    }
+  },
+  "recjQ3pJ2xDBU6gtE": {
+   "title": "Daraa",
+   "summary": "Daraa is a city in southwestern Syria 13 kilometres (8.1 mi) north of the Jordan–Syria border. It is the capital of Daraa Governorate in the Hauran region. Located 90 kilometres (56 mi) south of Damascus on the Damascus–Amman highway, it serves as a waystation for travelers. Nearby localities include Umm al-Mayazen and Nasib to the southeast, al-Naimah to the east, Ataman to the north, al-Yaduda to the northwest, and ar-Ramtha in Jordan to the southwest.",
+   "desc": "City in southwestern Syria",
+   "page": "https://en.wikipedia.org/wiki/Daraa"
   },
   "recmL1lWBqWP3mAq3": {
    "title": "Galilee",
@@ -530,6 +656,12 @@
     "h": 220
    }
   },
+  "recrpaouE7oxrv5jy": {
+   "title": "Mount Hermon",
+   "summary": "Mount Hermon is a mountain cluster constituting the southern end of the Anti-Lebanon Mountains. Its summit straddles the border between Syria and Lebanon and at the elevation of 2,814 m (9,232 ft), is the highest point in Syria and the Israeli-occupied Golan Heights.",
+   "desc": "Mountain range in Syria and Lebanon",
+   "page": "https://en.wikipedia.org/wiki/Mount_Hermon"
+  },
   "recsX4et9ux7g07Zg": {
    "title": "Negev",
    "summary": "The Negev or Naqab is the name for a desert and semidesert area in southern Israel. Today, it forms the bulk of the Southern District of Israel, whose largest city and administrative capital is Beersheba, in the north of the Negev. At its southern end lie the Gulf of Aqaba and the resort city and port of Eilat. It contains several development towns, including Dimona, Arad, and Mitzpe Ramon, as well as a number of small Bedouin towns, including Rahat, Tel Sheva, and Lakiya. There are also several kibbutzim, including Revivim and Sde Boker; the latter became the home of Israel's first prime minister, David Ben-Gurion, after his retirement from politics.",
@@ -545,11 +677,32 @@
     "h": 220
    }
   },
+  "rectQcNZqgNSFBmfm": {
+   "title": "Cilicia",
+   "summary": "Cilicia is a geographical region of southern Anatolia in West Asia, extending inland from the northeastern coasts of the Mediterranean Sea. Cilicia borders Pamphylia to the west, Lycaonia and Cappadocia to the north, Commagene to the north-east, Syria to the east and the Mediterranean Sea to the south. Cilicia has a population ranging over six million, concentrated mostly at the Cilician plain. The region includes the provinces of Mersin, Adana, Osmaniye, and Hatay.",
+   "desc": "Geographical region in Turkey",
+   "page": "https://en.wikipedia.org/wiki/Cilicia",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Roman_Empire_-_Cilicia_%28125_AD%29.svg/330px-Roman_Empire_-_Cilicia_%28125_AD%29.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Roman_Empire_-_Cilicia_%28125_AD%29.svg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Milenioscuro",
+    "credit": "Own work",
+    "w": 330,
+    "h": 274
+   }
+  },
   "rectrAkGtrZH5LMp8": {
    "title": "Beersheba",
    "summary": "Beersheba, officially Be'er-Sheva, is the largest city in the Negev desert of southern Israel. Often referred to as the \"Capital of the Negev\", it is the centre of the fourth-most populous metropolitan area in Israel, the eighth-most populous Israeli city with a population of 223,587, and the second-largest city in the area, with a total area of 117,500 dunams.",
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Beersheba"
+  },
+  "recw2errRDhNUlkXl": {
+   "title": "Timnah",
+   "summary": "Timnath or Timnah was a Philistine city in Canaan that is mentioned in the Hebrew Bible in Judges 14 and in connection with Samson. Modern archaeologists identify the ancient site with a tell lying on a flat, alluvial plain, located in the Sorek Valley ca. 7 kilometres (4.3 mi) north-west of Beit Shemesh, near moshav Tal Shahar in Israel, known in Hebrew as Tel Batash or Teluliot Batashi (plural), and in Arabic as Tell Butashi or Teleilat Batashi (plural). The site is not to be confused with either the as yet unidentified Timna from the hill country of Judah, nor with the southern copper-smelting site of Timna in the Arabah near Eilat.",
+   "desc": "Biblical city in the Sorek Valley of central Israel",
+   "page": "https://en.wikipedia.org/wiki/Timnah"
   },
   "recwFUncFiNWPsPWN": {
    "title": "Dan (ancient city)",
@@ -577,6 +730,12 @@
     "w": 330,
     "h": 248
    }
+  },
+  "recyS1I7gkQt8hvRD": {
+   "title": "Ti'inik",
+   "summary": "Ti'inik, also transliterated Ti’innik, or Ta'anakh/Taanach, is a Palestinian village, located 13 km northwest of the city of Jenin in the northern West Bank.",
+   "desc": "Municipality type D in Jenin, Palestine",
+   "page": "https://en.wikipedia.org/wiki/Ti'inik"
   },
   "reczPjeq0UdahiRrn": {
    "title": "Zion",
