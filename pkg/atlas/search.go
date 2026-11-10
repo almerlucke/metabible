@@ -32,19 +32,22 @@ type SearchHit struct {
 func (a *Atlas) buildSearch() {
 	for _, p := range a.People {
 		l := strings.ToLower(p.Name)
+		if p.Orig != "" {
+			l += " " + strings.ToLower(p.Orig)
+		}
 		if p.AlsoCall != "" {
 			l += " " + strings.ToLower(p.AlsoCall)
 		}
 		a.nameIdx = append(a.nameIdx, searchEntry{Type: "person", ID: p.ID, Label: p.Name, HasY: p.Y0 != 0 || p.Y1 != 0, Y: p.Y0, URL: "/person/" + p.ID, Lower: l, W: p.Verses})
 	}
 	for _, p := range a.Places {
-		a.nameIdx = append(a.nameIdx, searchEntry{Type: "place", ID: p.ID, Label: p.Name, Aux: p.Kind, URL: "/place/" + p.ID, Lower: strings.ToLower(p.Name), W: p.Verses})
+		a.nameIdx = append(a.nameIdx, searchEntry{Type: "place", ID: p.ID, Label: p.Name, Aux: p.Kind, URL: "/place/" + p.ID, Lower: strings.TrimSpace(strings.ToLower(p.Name + " " + p.Orig)), W: p.Verses})
 	}
 	for _, e := range a.Events {
 		a.nameIdx = append(a.nameIdx, searchEntry{Type: "event", ID: e.ID, Label: e.Title, Aux: e.Date, URL: "/atlas?event=" + e.ID, Lower: strings.ToLower(e.Title), W: 20})
 	}
 	for _, b := range a.Books {
-		a.nameIdx = append(a.nameIdx, searchEntry{Type: "book", ID: b.ID, Label: b.Name, Aux: b.Testament, URL: "/book/" + b.ID, Lower: strings.ToLower(b.Name), W: 100000})
+		a.nameIdx = append(a.nameIdx, searchEntry{Type: "book", ID: b.ID, Label: b.Name, Aux: b.Testament, URL: "/book/" + b.ID, Lower: strings.ToLower(strings.Join(a.allBookNames(b), " ")), W: 100000})
 	}
 }
 

@@ -54,27 +54,34 @@ func writeJSON(w http.ResponseWriter, r *http.Request, v any) {
 	_ = json.NewEncoder(w).Encode(v)
 }
 
+// viewed runs a handler on the atlas as seen in the visitor's language (local names of people and places).
+func (a *Atlas) viewed(h func(*Atlas, http.ResponseWriter, *http.Request)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		h(a.View(i18n.FromContext(r.Context())), w, r)
+	}
+}
+
 // Mount registers all /api/atlas routes.
 func (a *Atlas) Mount(mux *http.ServeMux) {
-	mux.HandleFunc("GET /api/atlas/world", a.handleWorld)
-	mux.HandleFunc("GET /api/atlas/people", a.handlePeople)
-	mux.HandleFunc("GET /api/atlas/journeys", a.handleJourneys)
-	mux.HandleFunc("GET /api/atlas/journey/{id}", a.handlePersonJourney)
-	mux.HandleFunc("GET /api/atlas/cosmos", a.handleCosmos)
-	mux.HandleFunc("GET /api/atlas/story", a.handleStory)
-	mux.HandleFunc("GET /api/atlas/validate", a.handleValidate)
-	mux.HandleFunc("GET /api/atlas/compare", a.handleCompare)
-	mux.HandleFunc("GET /export/journey/{file}", a.handleExport)
-	mux.HandleFunc("GET /api/atlas/progress-index", a.handleProgressIndex)
-	mux.HandleFunc("GET /api/atlas/themes", a.handleThemes)
-	mux.HandleFunc("GET /api/atlas/theme/{id}", a.handleTheme)
-	mux.HandleFunc("GET /api/atlas/relation", a.handleRelation)
-	mux.HandleFunc("GET /api/atlas/migration", a.handleMigration)
-	mux.HandleFunc("GET /api/atlas/canon", a.handleCanon)
-	mux.HandleFunc("GET /api/atlas/word", a.handleWord)
-	mux.HandleFunc("GET /api/atlas/search", a.handleSearch)
-	mux.HandleFunc("GET /api/atlas/peek/{kind}/{id}", a.handlePeek)
-	mux.HandleFunc("GET /api/atlas/person/{id}", a.handlePerson)
+	mux.HandleFunc("GET /api/atlas/world", a.viewed((*Atlas).handleWorld))
+	mux.HandleFunc("GET /api/atlas/people", a.viewed((*Atlas).handlePeople))
+	mux.HandleFunc("GET /api/atlas/journeys", a.viewed((*Atlas).handleJourneys))
+	mux.HandleFunc("GET /api/atlas/journey/{id}", a.viewed((*Atlas).handlePersonJourney))
+	mux.HandleFunc("GET /api/atlas/cosmos", a.viewed((*Atlas).handleCosmos))
+	mux.HandleFunc("GET /api/atlas/story", a.viewed((*Atlas).handleStory))
+	mux.HandleFunc("GET /api/atlas/validate", a.viewed((*Atlas).handleValidate))
+	mux.HandleFunc("GET /api/atlas/compare", a.viewed((*Atlas).handleCompare))
+	mux.HandleFunc("GET /export/journey/{file}", a.viewed((*Atlas).handleExport))
+	mux.HandleFunc("GET /api/atlas/progress-index", a.viewed((*Atlas).handleProgressIndex))
+	mux.HandleFunc("GET /api/atlas/themes", a.viewed((*Atlas).handleThemes))
+	mux.HandleFunc("GET /api/atlas/theme/{id}", a.viewed((*Atlas).handleTheme))
+	mux.HandleFunc("GET /api/atlas/relation", a.viewed((*Atlas).handleRelation))
+	mux.HandleFunc("GET /api/atlas/migration", a.viewed((*Atlas).handleMigration))
+	mux.HandleFunc("GET /api/atlas/canon", a.viewed((*Atlas).handleCanon))
+	mux.HandleFunc("GET /api/atlas/word", a.viewed((*Atlas).handleWord))
+	mux.HandleFunc("GET /api/atlas/search", a.viewed((*Atlas).handleSearch))
+	mux.HandleFunc("GET /api/atlas/peek/{kind}/{id}", a.viewed((*Atlas).handlePeek))
+	mux.HandleFunc("GET /api/atlas/person/{id}", a.viewed((*Atlas).handlePerson))
 }
 
 func (a *Atlas) handleWorld(w http.ResponseWriter, r *http.Request) {

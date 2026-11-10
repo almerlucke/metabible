@@ -66,7 +66,7 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 		_, _ = w.Write(og.Render(t, s))
 	})
 	mux.HandleFunc("GET /gallery", func(w http.ResponseWriter, r *http.Request) {
-		items := a.AllGallery()
+		items := a.View(lang(r)).AllGallery()
 		var eng, ppl, plc int
 		for _, it := range items {
 			switch it.Kind {
@@ -81,21 +81,21 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 		templ.Handler(pages.GalleryPage(items, eng, ppl, plc)).ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /credits", func(w http.ResponseWriter, r *http.Request) {
-		images, texts := a.Credits()
+		images, texts := a.View(lang(r)).Credits()
 		templ.Handler(pages.CreditsPage(images, texts)).ServeHTTP(w, r)
 	})
 
 	// browse pages
 	mux.HandleFunc("GET /books", func(w http.ResponseWriter, r *http.Request) {
-		templ.Handler(pages.BooksPage(a.BooksBrowse(i18n.FromContext(r.Context())))).ServeHTTP(w, r)
+		templ.Handler(pages.BooksPage(a.BooksBrowse(lang(r)))).ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /events", func(w http.ResponseWriter, r *http.Request) {
-		templ.Handler(pages.EventsPage(a.EventsTimeline(i18n.FromContext(r.Context())))).ServeHTTP(w, r)
+		templ.Handler(pages.EventsPage(a.View(lang(r)).EventsTimeline(lang(r)))).ServeHTTP(w, r)
 	})
 	mux.Handle("GET /people", templ.Handler(pages.PeoplePage()))
 	mux.Handle("GET /places", templ.Handler(pages.PlacesPage()))
 	mux.HandleFunc("GET /concordance", func(w http.ResponseWriter, r *http.Request) {
-		res := a.Concordance(r.URL.Query().Get("search"), r.URL.Query().Get("book"), 400, i18n.FromContext(r.Context()))
+		res := a.Concordance(r.URL.Query().Get("search"), r.URL.Query().Get("book"), 400, lang(r))
 		templ.Handler(pages.ConcordancePage(res)).ServeHTTP(w, r)
 	})
 
@@ -108,27 +108,30 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 		templ.Handler(c).ServeHTTP(w, r)
 	}
 	mux.HandleFunc("GET /person/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.PersonDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).PersonDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.PersonPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /place/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.PlaceDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).PlaceDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.PlacePage(d), d != nil)
 	})
 	mux.HandleFunc("GET /event/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.EventDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).EventDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.EventPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /verse/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.VerseDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).VerseDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.VersePage(d), d != nil)
 	})
 	mux.HandleFunc("GET /chapter/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.ChapterDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).ChapterDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.ChapterPage(d), d != nil)
 	})
 	mux.HandleFunc("GET /book/{id}", func(w http.ResponseWriter, r *http.Request) {
-		d := a.BookDossier(r.PathValue("id"), i18n.FromContext(r.Context()))
+		d := a.View(lang(r)).BookDossier(r.PathValue("id"), lang(r))
 		detail(w, r, pages.BookPage(d), d != nil)
 	})
 }
+
+// lang is the language of the request.
+func lang(r *http.Request) string { return i18n.FromContext(r.Context()) }

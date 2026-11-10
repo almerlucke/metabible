@@ -647,3 +647,55 @@ func TestDutchBookNames(t *testing.T) {
 		t.Error("BooksIn must copy, not rename the shared books")
 	}
 }
+
+func TestDutchNames(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	if nl == a {
+		t.Fatal("no Dutch view")
+	}
+	if a.View("en") != a || a.View("xx") != a {
+		t.Error("languages without a name table must use the atlas itself")
+	}
+	byName := func(v *Atlas, name string) *Person {
+		for _, p := range v.People {
+			if p.Name == name && p.Verses > 20 {
+				return p
+			}
+		}
+		return nil
+	}
+	if byName(a, "Isaac") == nil || byName(nl, "Izak") == nil || byName(nl, "Isaac") != nil {
+		t.Error("Isaac should be Izak in the Dutch view only")
+	}
+	var jer *Place
+	for _, p := range nl.Places {
+		if p.Orig == "Jerusalem" {
+			jer = p
+		}
+	}
+	if jer == nil || jer.Name != "Jeruzalem" || nl.PlaceByID[jer.ID] != jer || a.PlaceByID[jer.ID].Name != "Jerusalem" {
+		t.Errorf("Jerusalem: %+v", jer)
+	}
+	// the English name still finds the person
+	found := false
+	for _, h := range nl.Search("isaac", 10, "nl") {
+		if h.Label == "Izak" {
+			found = true
+		}
+	}
+	if !found {
+		t.Error("searching the English name in Dutch should find Izak")
+	}
+	if hits := nl.Search("jeruzalem", 3, "nl"); len(hits) == 0 || hits[0].Label != "Jeruzalem" {
+		t.Errorf("Dutch place search: %+v", hits)
+	}
+	d := nl.PersonDossier(byName(nl, "Izak").ID, "nl")
+	if d.P.Name != "Izak" || d.Father.Name != "Abraham" {
+		t.Errorf("dossier: %q father %v", d.P.Name, d.Father)
+	}
+	// a view must not share caches with the base
+	if nl.Story("nl") == a.Story("en") {
+		t.Error("story shared between views")
+	}
+}

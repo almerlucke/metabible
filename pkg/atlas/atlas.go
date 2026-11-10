@@ -19,6 +19,7 @@ import (
 type Place struct {
 	ID      string   `json:"id"`
 	Name    string   `json:"n"`
+	Orig    string   `json:"-"` // the source name, when Name is a translation
 	Lat     float64  `json:"lat"`
 	Lng     float64  `json:"lng"`
 	Kind    string   `json:"k"`
@@ -37,6 +38,7 @@ type Place struct {
 type Person struct {
 	ID       string   `json:"id"`
 	Name     string   `json:"n"`
+	Orig     string   `json:"-"` // the source name, when Name is a translation
 	Gender   string   `json:"g,omitempty"`
 	Y0       int      `json:"y0"`
 	Y1       int      `json:"y1"`
@@ -117,7 +119,29 @@ type Group struct {
 	Members []string `json:"-"`
 }
 
+// lazy holds what is worked out on first use. It is a pointer so that a per-language view
+// of the atlas (see View) starts with empty caches of its own.
+type lazy struct {
+	migOnce    sync.Once
+	mig        *Migration
+	storyMu    sync.Mutex
+	stories    map[string]*Story
+	cosmosOnce sync.Once
+	cosmos     *Cosmos
+	progMu     sync.Mutex
+	prog       map[string]*ProgressIndex
+	bookMu     sync.Mutex
+	bookCache  map[string][]*Book
+	themeOnce  sync.Once
+	themeIdx   map[string][]int
+	themeInfos []ThemeInfo
+	famOnce    sync.Once
+	fam        map[string][]famEdge
+}
+
 type Atlas struct {
+	*lazy
+
 	Places      []*Place
 	People      []*Person
 	Events      []*Event
@@ -135,30 +159,18 @@ type Atlas struct {
 	GroupIdx    map[string]int
 	Journeys    []*Journey
 
-	migOnce    sync.Once
-	mig        *Migration
-	storyMu    sync.Mutex
-	stories    map[string]*Story
-	cosmosOnce sync.Once
-	cosmos     *Cosmos
 	lowerText  []string
 	bibles     map[string]map[string]string
 	lowerBible map[string][]string
 	nameIdx    []searchEntry
+	names      map[string]*nameTable // spellings of people and places per language (data/names)
+	views      *viewSet
+	base       *Atlas // set on a per-language view
 
 	tr            Translator
 	Enrich        *Enrichment
 	artFixes      []artFix
-	progMu        sync.Mutex
-	prog          map[string]*ProgressIndex
-	bookMu        sync.Mutex
-	bookCache     map[string][]*Book
 	bookLangs     []string // languages with translated book names, for typing a reference in any of them
-	themeOnce     sync.Once
-	themeIdx      map[string][]int
-	themeInfos    []ThemeInfo
-	famOnce       sync.Once
-	fam           map[string][]famEdge
 	artByEvent    map[string][]Art
 	artByPerson   map[string][]Art
 	chapterVerses map[string][]*Verse
@@ -337,6 +349,8 @@ type rawPeriod struct {
 // Load reads the json files in dir (data/json) and the curated journeys file.
 func Load(dir string, journeysFile string) (*Atlas, error) {
 	a := &Atlas{
+		lazy:      &lazy{},
+		views:     &viewSet{m: map[string]*Atlas{}},
 		PlaceByID: map[string]*Place{}, PersonByID: map[string]*Person{},
 		EventByID: map[string]*Event{}, BookByID: map[string]*Book{},
 		VerseByID: map[string]*Verse{}, VerseByOsis: map[string]*Verse{}, verseByVID: map[string]*Verse{},
@@ -581,6 +595,7 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 		a.lowerText[i] = strings.ToLower(v.Text)
 	}
 	a.loadBibles(dir)
+	a.loadNames(dir)
 	a.buildSearch()
 
 	if journeysFile != "" {

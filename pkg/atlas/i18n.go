@@ -24,14 +24,8 @@ func (a *Atlas) SetTranslations(t Translator) {
 			a.bookLangs = append(a.bookLangs, c)
 		}
 	}
-	// a book is found by its name in any language
-	for i := range a.nameIdx {
-		if e := &a.nameIdx[i]; e.Type == "book" {
-			if b := a.BookByID[e.ID]; b != nil {
-				e.Lower = strings.ToLower(strings.Join(a.allBookNames(b), " "))
-			}
-		}
-	}
+	a.nameIdx = nil
+	a.buildSearch() // books are found by their name in any language
 }
 
 // tx translates a key; without a translator (tests of the bare data layer) the key is returned.

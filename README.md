@@ -85,7 +85,12 @@ remembered in a cookie; the browser's language is used the first time).
   Verse pages, the reading view, concordance, search, hover cards, story and journeys follow the language; a translated verse page
   also shows the King James text with its person and place links. A translation is plain text (no inline links).
 - Bible book names are keys too (`book.<OSIS>`), and a reference can be typed in any language (`Richteren 3:4`, `Judges 3:4`).
-- Still English everywhere: the dictionary descriptions of people and places (Easton), people/place names, and image titles. Translating those is separate work (a name table).
+- **People and place names:** `data/names/<code>.json` maps an id to its spelling in that language's Bible
+  (`go run ./cmd/names -lang nl` writes it by aligning each name with the verses it occurs in; `-report` lists the
+  doubtful ones). Names of several words ("Mount of Olives", "Daughter of Pharaoh") are put together with the glue
+  words in `data/names/<code>.glue.json`, which also holds hand-written overrides. Whatever is not in the table keeps
+  its English name. In code, `atlas.View(lang)` is the atlas with those names; handlers and pages use it.
+- Still English everywhere: the dictionary descriptions of people and places (Easton), event titles, and image titles. Translating those is separate work (a name table).
 
 ## Code map
 
