@@ -15,11 +15,13 @@ templ atlasHead(title string, immersive bool) {
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="color-scheme" content="dark"/>
 		<title>{ title } · MetaBible</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com"/>
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap"/>
+		<meta property="og:site_name" content="MetaBible"/>
+		<meta property="og:title" content={ title + " · MetaBible" }/>
+		<meta property="og:description" content="Explore the Bible on a 3D map, through time, and through its people."/>
+		<meta name="description" content="Explore the Bible on a 3D map, through time, and through its people."/>
+		<link rel="stylesheet" href="/assets/vendor/fonts/fonts.css"/>
 		<link rel="stylesheet" href="/assets/css/metabible.css"/>
-		<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+		<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.js","three/addons/":"/assets/vendor/three/addons/"}}</script>
 		{ children... }
 	</head>
 }
@@ -28,12 +30,14 @@ templ topNav(active string) {
 	<nav class="mb-nav">
 		<a class="mb-brand" href="/">METABIBLE</a>
 		<div class="links">
+			<a href="/story" class={ templ.KV("on", active == "story") }>Story</a>
 			<a href="/atlas" class={ templ.KV("on", active == "atlas") }>Time Atlas</a>
 			<a href="/journeys" class={ templ.KV("on", active == "journeys") }>Journeys</a>
 			<a href="/tree" class={ templ.KV("on", active == "tree") }>Family</a>
 			<a href="/cosmos" class={ templ.KV("on", active == "cosmos") }>Cosmos</a>
 			<a href="/canon" class={ templ.KV("on", active == "canon") }>Canon</a>
 			<a href="/lifespans" class={ templ.KV("on", active == "lifespans") }>Lifespans</a>
+			<a href="/migrations" class={ templ.KV("on", active == "migrations") }>Migrations</a>
 		</div>
 		<span class="sep"></span>
 		<div class="links secondary">
@@ -67,8 +71,8 @@ templ immersive(title string, active string, headExtra templ.Component) {
 }
 
 templ mapLibreHead() {
-	<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"/>
-	<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+	<link rel="stylesheet" href="/assets/vendor/maplibre/maplibre-gl.css"/>
+	<script src="/assets/vendor/maplibre/maplibre-gl.js"></script>
 }
 
 templ noHead() {
@@ -87,7 +91,7 @@ templ HomePage(s HomeStats) {
 					<div class="mb-tag">an interactive atlas of scripture</div>
 					<h1>METABIBLE</h1>
 					<p class="lead">Four thousand years, three thousand people, one thousand places. Walk the routes, follow the families, watch the story move across the map.</p>
-					<a class="mb-btn" href="/atlas?play=1" style="font-size:1rem;padding:.7rem 1.6rem">▶ Begin the story</a>
+					<a class="mb-btn" href="/story?play=1" style="font-size:1rem;padding:.7rem 1.6rem">▶ Begin the story</a>
 					<div class="mb-stats">
 						<div><b>{ fmt.Sprint(s.Verses) }</b>verses</div>
 						<div><b>{ fmt.Sprint(s.People) }</b>people</div>
@@ -95,11 +99,13 @@ templ HomePage(s HomeStats) {
 						<div><b>{ fmt.Sprint(s.Events) }</b>events</div>
 					</div>
 					<div class="mb-cards">
+						<a class="mb-card" href="/story"><div class="ic">📖</div><b>The Story</b><span>The whole Bible in order: era by era, event by event, with the verses, the map and an optional read-aloud.</span></a>
 						<a class="mb-card" href="/atlas"><div class="ic">⏳</div><b>Time Atlas</b><span>Scrub from 4004 BC to AD 100 and watch events light up across a 3D relief map.</span></a>
 						<a class="mb-card" href="/journeys"><div class="ic">🧭</div><b>Journeys</b><span>Abraham, the Exodus, David, Jesus, Paul — animated routes with the verses beside them.</span></a>
 						<a class="mb-card" href="/tree"><div class="ic">🌳</div><b>Family Tree</b><span>From Adam to Jesus. Find how any two people in the Bible are related.</span></a>
 						<a class="mb-card" href="/cosmos"><div class="ic">✨</div><b>Cosmos</b><span>A 3D constellation of every person and place, with time running upward.</span></a>
 						<a class="mb-card" href="/canon"><div class="ic">📜</div><b>Canon</b><span>All 66 books as ribbons: who appears where, which books share people, and where a word lives.</span></a>
+						<a class="mb-card" href="/migrations"><div class="ic">🔥</div><b>Peoples &amp; Places</b><span>Heatmaps of where the text is, century by century, and a trail for each tribe.</span></a>
 						<a class="mb-card" href="/lifespans"><div class="ic">⌛</div><b>Who Was Alive?</b><span>Pick any year and see who was alive, who they overlapped with.</span></a>
 					</div>
 				</div>
@@ -158,5 +164,22 @@ templ LifespansPage() {
 	@immersive("Who Was Alive?", "lifespans", noHead()) {
 		<div id="lifespans" class="mb-fill"></div>
 		<script type="module" src="/assets/js/atlas/lifespans.js"></script>
+	}
+}
+
+templ StoryPage() {
+	@immersive("The Story", "story", mapLibreHead()) {
+		<div id="map" class="mb-fill"></div>
+		<div id="sera" class="mb-panel"></div>
+		<div id="scard" class="mb-panel"></div>
+		<script type="module" src="/assets/js/atlas/story.js"></script>
+	}
+}
+
+templ MigrationsPage() {
+	@immersive("Peoples & Places", "migrations", mapLibreHead()) {
+		<div id="map" class="mb-fill"></div>
+		<div id="mpanel" class="mb-panel mb-scroll"></div>
+		<script type="module" src="/assets/js/atlas/migrations.js"></script>
 	}
 }

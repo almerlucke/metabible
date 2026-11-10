@@ -3,6 +3,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+import { copyLink } from './share.js';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtYear = (y) => (y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`);
@@ -145,6 +146,7 @@ function pick() {
 
 function select(i, fly) {
   sel = i;
+  history.replaceState(null, '', i >= 0 ? '/cosmos?id=' + c.ids[i] : '/cosmos');
   if (i < 0) { selLines.visible = false; ring.visible = false; $('cinfo').style.display = 'none'; applyFilters(); return; }
   const pts = []; for (const [j] of adj[i]) pts.push(c.x[i], c.y[i], c.z[i], c.x[j], c.y[j], c.z[j]);
   selLines.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pts), 3)); selLines.visible = true;
@@ -180,7 +182,9 @@ $('cpanel').innerHTML = `<h3>Cosmos</h3>
   <label class="chk"><input type="checkbox" id="c-web" checked> Connections</label>
   <label class="chk"><input type="checkbox" id="c-rot" checked> Slow rotation</label>
   <div style="margin-top:.5rem" class="mb-muted">Time window: <b id="c-range">4100 BC – AD 100</b></div>
+  <button class="mb-btn" id="cshare" style="width:100%;margin:.6rem 0">🔗 Copy link</button>
   <input type="range" id="c-y0" min="-4100" max="100" value="-4100" step="10" style="width:100%"><input type="range" id="c-y1" min="-4100" max="100" value="100" step="10" style="width:100%">`;
+$('cshare').onclick = () => copyLink(location.href, $('cshare'));
 $('c-color').onchange = (e) => { colorMode = e.target.value; recolor(); };
 $('c-people').onchange = (e) => { filt.people = e.target.checked; applyFilters(); };
 $('c-places').onchange = (e) => { filt.places = e.target.checked; applyFilters(); };

@@ -3,6 +3,7 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtYear = (y) => { y = Math.round(y); return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`; };
 const qs = new URLSearchParams(location.search);
+import { copyLink, setQuery } from './share.js';
 
 const [pd, world] = await Promise.all([fetch('/api/atlas/people').then((r) => r.json()), fetch('/api/atlas/world').then((r) => r.json())]);
 const eras = world.eras, groups = pd.groups;
@@ -83,6 +84,7 @@ function draw() {
 }
 
 function panel() {
+  setQuery({ year: Math.round(year), person: sel ? sel.id : '' });
   const p = $('lpanel');
   const aliveNow = all.filter(alive).sort((a, b) => b.vc - a.vc);
   const era = eras.find((e) => year >= e.from && year < e.to) || eras[eras.length - 1];
@@ -97,7 +99,9 @@ function panel() {
   } else {
     html += `<div class="mb-tag" style="margin:.8rem 0 .3rem">Most prominent then</div>` + aliveNow.slice(0, 16).map((x) => `<a class="mb-chip c" href="#" data-id="${x.id}" style="border-color:${groupColor(x.gr)}66">${esc(x.n)}</a>`).join('');
   }
+  html += '<div style="margin-top:.9rem"><button class="mb-btn" id="lshare" style="width:100%">🔗 Copy link</button></div>';
   p.innerHTML = html;
+  $('lshare').onclick = () => copyLink(location.href, $('lshare'));
   p.querySelectorAll('a.c').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); choose(byId.get(a.dataset.id)); }));
   const c = $('lclear'); if (c) c.onclick = (e) => { e.preventDefault(); sel = null; panel(); draw(); };
 }

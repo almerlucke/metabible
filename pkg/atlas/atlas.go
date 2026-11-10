@@ -135,6 +135,10 @@ type Atlas struct {
 	GroupIdx    map[string]int
 	Journeys    []*Journey
 
+	migOnce    sync.Once
+	mig        *Migration
+	storyOnce  sync.Once
+	story      *Story
 	cosmosOnce sync.Once
 	cosmos     *Cosmos
 	lowerText  []string

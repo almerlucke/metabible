@@ -44,7 +44,7 @@ export function createMap(container, { center = [35.2, 32], zoom = 5, pitch = 50
     attributionControl: { compact: true },
     style: {
       version: 8,
-      glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
+      glyphs: '/assets/vendor/glyphs/{fontstack}/{range}.pbf',
       sources: {
         base: { type: 'raster', tiles: bm.tiles, tileSize: 256, maxzoom: bm.maxzoom, attribution: bm.attribution },
         dem2: { type: 'raster-dem', tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'], encoding: 'terrarium', tileSize: 256, maxzoom: 12 },

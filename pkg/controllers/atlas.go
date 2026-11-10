@@ -15,6 +15,8 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 
 	stats := pages.HomeStats{Verses: len(a.Verses), People: len(a.People), Places: len(a.Places), Events: len(a.Events)}
 	mux.Handle("GET /{$}", templ.Handler(pages.HomePage(stats)))
+	mux.Handle("GET /migrations", templ.Handler(pages.MigrationsPage()))
+	mux.Handle("GET /story", templ.Handler(pages.StoryPage()))
 	mux.Handle("GET /atlas", templ.Handler(pages.AtlasPage()))
 	mux.Handle("GET /journeys", templ.Handler(pages.JourneysPage()))
 	mux.Handle("GET /tree", templ.Handler(pages.TreePage("")))

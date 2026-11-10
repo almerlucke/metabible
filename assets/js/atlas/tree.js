@@ -1,4 +1,5 @@
 // Family tree: ancestors above, descendants below, click to refocus, find the path between any two people.
+import { copyLink } from './share.js';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtYear = (y) => (y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`);
@@ -199,11 +200,13 @@ function showPath(a, b) {
   const el = $('pathinfo');
   if (!path) { el.innerHTML = '<p class="mb-muted">No family connection recorded between them.</p>'; return; }
   mode = 'path'; pathNodes = path; renderPath(path);
+  history.replaceState(null, '', `/tree/${a}?to=${b}`);
   el.innerHTML = `<p style="margin:.6rem 0 .3rem"><b>${esc(byId.get(a).n)}</b> → <b>${esc(byId.get(b).n)}</b><br><span class="mb-muted">${describe(path)}</span></p>
     <ol class="plist">${path.map((s) => `<li><a class="t" data-id="${s.id}" href="/tree/${s.id}">${esc(byId.get(s.id).n)}</a>${s.via ? `<small> ${s.via === 'up' ? '(parent of previous)' : s.via === 'down' ? '(child of previous)' : '(married)'}</small>` : ''}</li>`).join('')}</ol>
-    <button class="mb-btn" id="pback">Back to tree</button>`;
+    <button class="mb-btn" id="pback">Back to tree</button> <button class="mb-btn" id="pshare">🔗 Copy link</button>`;
   el.querySelectorAll('a.t').forEach((x) => x.addEventListener('click', (e) => { e.preventDefault(); setFocus(x.dataset.id, true); }));
   $('pback').onclick = () => setFocus(focus, false);
+  $('pshare').onclick = () => copyLink(location.href, $('pshare'));
 }
 function hookSearch(input, box, pick) {
   let t;
@@ -220,4 +223,7 @@ function hookSearch(input, box, pick) {
 addEventListener('popstate', () => { const m = location.pathname.match(/\/tree\/(.+)$/); if (m && byId.has(m[1])) setFocus(m[1], false); });
 addEventListener('resize', () => { if (mode === 'tree') renderTree(); });
 
-setFocus(byId.has(startId) ? startId : people[0].id, false);
+const first = byId.has(startId) ? startId : people[0].id;
+await setFocus(first, false);
+const toId = new URLSearchParams(location.search).get('to');
+if (toId && byId.has(toId)) showPath(first, toId);

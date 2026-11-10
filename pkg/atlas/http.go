@@ -59,6 +59,8 @@ func (a *Atlas) Mount(mux *http.ServeMux) {
 	mux.HandleFunc("GET /api/atlas/journeys", a.handleJourneys)
 	mux.HandleFunc("GET /api/atlas/journey/{id}", a.handlePersonJourney)
 	mux.HandleFunc("GET /api/atlas/cosmos", a.handleCosmos)
+	mux.HandleFunc("GET /api/atlas/story", a.handleStory)
+	mux.HandleFunc("GET /api/atlas/migration", a.handleMigration)
 	mux.HandleFunc("GET /api/atlas/canon", a.handleCanon)
 	mux.HandleFunc("GET /api/atlas/word", a.handleWord)
 	mux.HandleFunc("GET /api/atlas/search", a.handleSearch)
@@ -228,4 +230,14 @@ func (a *Atlas) handleWord(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Cache-Control", "no-store")
 	writeJSON(w, r, map[string]any{"q": q, "total": total, "books": counts})
+}
+
+func (a *Atlas) handleStory(w http.ResponseWriter, r *http.Request) {
+	a.storyOnce.Do(func() { a.story = a.Story() })
+	writeJSON(w, r, a.story)
+}
+
+func (a *Atlas) handleMigration(w http.ResponseWriter, r *http.Request) {
+	a.migOnce.Do(func() { a.mig = a.Migration() })
+	writeJSON(w, r, a.mig)
 }

@@ -1,6 +1,7 @@
 // Journeys: animated routes with narration. Curated tours plus derived itineraries for any person.
 /* global maplibregl */
 import { createMap, setBasemap, FONT, esc, fmtYear, arc, ease } from './map.js';
+import { copyLink } from './share.js';
 
 const $ = (id) => document.getElementById(id);
 const qs = new URLSearchParams(location.search);
@@ -112,7 +113,12 @@ function open(j) {
   drawProgress(-1); setHead(null);
   map.fitBounds(bounds(all), { padding: PAD(), pitch: 45, bearing: 0, duration: 2200, maxZoom: 8 });
   renderCard();
-  history.replaceState(null, '', j.id.startsWith('person-') ? '?person=' + j.person : '?j=' + j.id);
+  syncUrl();
+}
+function syncUrl() {
+  if (!cur) return;
+  const base = cur.id.startsWith('person-') ? '?person=' + cur.person : '?j=' + cur.id;
+  history.replaceState(null, '', base + (idx >= 0 ? '&s=' + (idx + 1) : ''));
 }
 function stop() { playing = false; token++; if (headAnim) cancelAnimationFrame(headAnim); renderControls(); }
 
@@ -138,7 +144,7 @@ async function goTo(i, animate) {
   } else if (i >= 0) {
     map.easeTo({ center: [cur.stops[i].lng, cur.stops[i].lat], zoom: Math.max(map.getZoom(), 6.2), pitch: 55, duration: 1400 });
   }
-  idx = i; drawProgress(i);
+  idx = i; syncUrl(); drawProgress(i);
   setHead(i >= 0 ? [cur.stops[i].lng, cur.stops[i].lat] : null);
   renderCard();
   if (playing && my === token) {
@@ -157,7 +163,7 @@ function renderCard() {
   const el = $('jstep'); el.style.display = 'block';
   const n = cur.stops.length;
   const prog = `<div class="prog">${cur.stops.map((s, i) => `<i class="${i <= idx ? 'on' : ''}${i === idx ? ' cur' : ''}" data-i="${i}" title="${esc(s.n)}" style="--c:${cur.color}"></i>`).join('')}</div>`;
-  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button></div>`;
+  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button><button class="mb-btn" id="jshare" style="margin-left:auto">🔗 Share</button></div>`;
   if (idx < 0) {
     el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">${cur.era ? esc(cur.era) + ' · ' : ''}${n} stops · ${cur.km.toLocaleString()} km</div>
       <h2>${esc(cur.title)}</h2><div class="mb-muted" style="margin-bottom:.4rem">${esc(cur.sub || cur.subtitle || '')}</div>
@@ -171,6 +177,7 @@ function renderCard() {
       ${s.tx ? `<div class="mb-verse">“${esc(s.tx)}”</div>` : ''}
       ${s.vid ? `<a class="ref" href="/verse/${s.vid}">${esc(s.lab || s.ref)} →</a>` : ''}${ctl}${prog}`;
   }
+  $('jshare').onclick = () => copyLink(location.href, $('jshare'), '🔗 Share');
   $('jprev').onclick = () => { stop(); goTo(idx - 1, false); };
   $('jnext').onclick = () => { stop(); goTo(idx + 1, true); };
   $('jplay').onclick = () => { if (playing) stop(); else { playing = true; renderControls(); goTo(idx < 0 ? 0 : (idx >= n - 1 ? 0 : idx + 1), idx >= 0 && idx < n - 1); } };
@@ -188,7 +195,8 @@ addEventListener('keydown', (e) => {
 function boot() {
   renderList();
   const jid = qs.get('j'), pid = qs.get('person');
-  if (pid) openPerson(pid);
-  else { const j = curated.find((x) => x.id === jid) || curated[0]; open(j); if (qs.get('play')) { playing = true; goTo(0, false); } }
+  const stopNo = +(qs.get('s') || 0);
+  if (pid) openPerson(pid).then(() => { if (stopNo) goTo(stopNo - 1, false); });
+  else { const j = curated.find((x) => x.id === jid) || curated[0]; open(j); if (stopNo) goTo(stopNo - 1, false); else if (qs.get('play')) { playing = true; goTo(0, false); } }
 }
 void setBasemap;

@@ -1,6 +1,7 @@
 // Time Atlas: scrub or play 4004 BC → AD 100 over a 3D relief map.
 /* global maplibregl */
 import { createMap, setBasemap, setTerrain, BASEMAPS, kindColorExpr, FONT, esc, fmtYear, arc } from './map.js';
+import { copyLink, debounce } from './share.js';
 
 const T0 = -4100, T1 = 100, BIN = 10;
 const $ = (id) => document.getElementById(id);
@@ -163,12 +164,24 @@ $('layers').innerHTML = `
   <label class="chk"><input type="checkbox" id="t-events" checked> Event rings</label>
   <label class="chk"><input type="checkbox" id="t-follow" checked> Auto-camera</label>
   <div class="row" style="margin-top:.5rem"><input id="psearch" class="mb-input" placeholder="Follow a person…" autocomplete="off"></div>
-  <div id="psres"></div><div id="pcur"></div>`;
+  <div id="psres"></div><div id="pcur"></div>
+  <button class="mb-btn" id="ashare" style="margin-top:.6rem;width:100%">🔗 Copy link to this view</button>`;
 $('timeline').innerHTML = `
   <button class="mb-btn icon" id="play" title="Play / pause (space)">▶</button>
   <div class="speeds">${[0.5, 1, 2, 4].map((x) => `<button class="mb-btn sp${x === 1 ? ' on' : ''}" data-s="${x}">${x}×</button>`).join('')}</div>
   <div class="tl-wrap"><canvas id="tl"></canvas><div id="tltip"></div></div>`;
 function syncLayers() { $('t-follow').checked = follow; }
+// the URL always describes the current view, so it can be shared as-is
+let followedId = null;
+function viewUrl() {
+  const q = new URLSearchParams();
+  q.set('year', Math.round(year));
+  if (ready) { const c = map.getCenter(); q.set('c', [c.lng.toFixed(3), c.lat.toFixed(3), map.getZoom().toFixed(2), Math.round(map.getPitch()), Math.round(map.getBearing())].join(',')); }
+  if (followedId) q.set('person', followedId);
+  return location.pathname + '?' + q.toString();
+}
+const syncUrl = debounce(() => history.replaceState(null, '', viewUrl()), 400);
+$('ashare').onclick = () => copyLink(location.origin + viewUrl(), $('ashare'), '🔗 Copy link to this view');
 
 $('bm').onchange = (e) => setBasemap(map, e.target.value);
 $('t-terrain').onchange = (e) => setTerrain(map, e.target.checked);
@@ -274,7 +287,7 @@ async function followPerson(id) {
   const j = await fetch('/api/atlas/journey/' + id).then((r) => (r.ok ? r.json() : null));
   const p = peopleData.people.find((x) => x.id === id);
   if (!j || !map.getSource('route')) return;
-  personInfo = p ? { y0: p.y0, y1: p.y1, name: p.n } : null;
+  personInfo = p ? { y0: p.y0, y1: p.y1, name: p.n } : null; followedId = id; syncUrl();
   const stops = j.stops.filter((x) => x.lat != null);
   // route line is revealed by year through the 'y' property on each segment
   const segs = [];
@@ -287,7 +300,7 @@ async function followPerson(id) {
   map.setFilter('route', ['<=', ['get', 'y'], year]);
   map.getSource('routepts').setData({ type: 'FeatureCollection', features: stops.map((x) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [x.lng, x.lat] }, properties: { y: x.y, n: x.n } })) });
   $('pcur').innerHTML = `<div class="mb-chip" style="color:#7df9ff;border-color:#7df9ff">Following ${esc(j.title)} · ${stops.length} stops <a href="#" id="pclear">✕</a></div> <a class="mb-chip" href="/journeys?person=${id}">Open journey →</a>`;
-  $('pclear').onclick = (e) => { e.preventDefault(); personInfo = null; $('pcur').innerHTML = ''; map.getSource('route').setData(empty); map.getSource('routepts').setData(empty); drawTl(); };
+  $('pclear').onclick = (e) => { e.preventDefault(); personInfo = null; followedId = null; syncUrl(); $('pcur').innerHTML = ''; map.getSource('route').setData(empty); map.getSource('routepts').setData(empty); drawTl(); };
   if (p) { setS(yearToS(Math.max(T0, p.y0))); }
   if (stops.length) map.fitBounds(stops.reduce((b, x) => b.extend([x.lng, x.lat]), new maplibregl.LngLatBounds([stops[0].lng, stops[0].lat], [stops[0].lng, stops[0].lat])), { padding: 120, maxZoom: 7, pitch: 50, duration: 2200 });
   drawTl();
@@ -296,6 +309,7 @@ async function followPerson(id) {
 // ---------------------------------------------------------------- driver
 function setS(v) { s = Math.min(1, Math.max(0, v)); year = sToYear(s); applyYear(); }
 function applyYear(force) {
+  syncUrl();
   const e = eraAt(year);
   const yb = $('yearbox');
   yb.querySelector('.yr').textContent = fmtYear(year);
@@ -373,6 +387,9 @@ function boot() {
   }
   if (person) followPerson(person);
   if (qs.get('play')) { setS(0); setPlaying(true); }
+  const cam = qs.get('c');
+  if (cam) { const [lng, lat, z, p, b] = cam.split(',').map(Number); follow = false; syncLayers(); map.jumpTo({ center: [lng, lat], zoom: z, pitch: p, bearing: b }); }
+  map.on('moveend', syncUrl);
 }
 requestAnimationFrame(loop);
 // the canvas needs layout before the first size
