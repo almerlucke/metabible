@@ -5,7 +5,269 @@
   "Wikimedia Commons": "https://commons.wikimedia.org (per-file free licenses, recorded with each image)",
   "Wikipedia text": "https://en.wikipedia.org (CC BY-SA 4.0)"
  },
- "places": {},
+ "places": {
+  "rec81f3wE4gATsRRE": {
+   "title": "Bethlehem",
+   "summary": "Bethlehem is a city in the West Bank, Palestine, located about ten kilometres south of Jerusalem, and the capital of the Bethlehem Governorate. It had a population of 28,591 people, as of 2017. The city's economy is strongly linked to tourism, especially during the Christmas period, when Christians embark on a pilgrimage to the Church of the Nativity, which is revered as the location of the birth of Jesus.",
+   "desc": "City in the West Bank, Palestine",
+   "page": "https://en.wikipedia.org/wiki/Bethlehem",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Church_of_the_Nativity_%287703592746%29.jpg/330px-Church_of_the_Nativity_%287703592746%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Church_of_the_Nativity_%287703592746%29.jpg",
+    "license": "CC BY 2.0",
+    "artist": "Neil Ward",
+    "credit": "Church of the Nativity",
+    "w": 330,
+    "h": 219
+   }
+  },
+  "recAalC2QoLT7cJKN": {
+   "title": "Judea",
+   "summary": "Judea or Judaea is a mountainous region of the Levant. Traditionally dominated by the city of Jerusalem, it is now part of Israel and the West Bank. The name is derived from the Hebrew name Yehudah, and was used during the Babylonian, Persian, Hellenistic, and Roman periods. Under the Hasmoneans, the Herodians, and the Romans, the term was applied to an area larger than the Judea of earlier periods. In the aftermath of the Bar Kokhba revolt, the Roman province of Judaea was renamed Syria Palaestina.",
+   "desc": "Region in the Levant",
+   "page": "https://en.wikipedia.org/wiki/Judea"
+  },
+  "recCXgnK86jc1U9IB": {
+   "title": "Lebanon",
+   "summary": "Lebanon, officially the Lebanese Republic, is a country in the Levant region of West Asia. Situated at the crossroads of the Mediterranean Basin and the Arabian Peninsula, it is bordered by Syria to the north and east, Israel to the south, and the Mediterranean Sea to the west; Cyprus lies a short distance from the coastline. Lebanon has a population of more than five million and an area of 10,452 square kilometres (4,036 sq mi). Beirut is the country's capital and largest city.",
+   "desc": "Country in West Asia",
+   "page": "https://en.wikipedia.org/wiki/Lebanon"
+  },
+  "recDWNfN3f6E04V4m": {
+   "title": "Gath (city)",
+   "summary": "Gath or Gat was one of the five cities of the Philistine pentapolis during the Iron Age. It was located in northeastern Philistia, close to the border with Judah. Gath is often mentioned in the Hebrew Bible and its existence is confirmed by Egyptian inscriptions. Already of significance during the Bronze Age, the city is believed to be mentioned in the El-Amarna letters as Gimti/Gintu, ruled by the two Shuwardata and 'Abdi-Ashtarti. Another Gath, known as Ginti-kirmil also appears in the Amarna letters.",
+   "desc": "Ancient city and archaeological site",
+   "page": "https://en.wikipedia.org/wiki/Gath_(city)"
+  },
+  "recEP3QZ3HUmIkv4Q": {
+   "title": "Samaria",
+   "summary": "Samaria, the Hellenized form of the Hebrew name Shomron, is used as a historical and biblical name for the central region of the Land of Israel. It is bordered by Judea to the south, Galilee to the north, the Jordan River to the east, and the Mediterranean Sea to the west. The region is known in Arabic under two names, Samirah, and Mount Nablus.",
+   "desc": "Region of ancient Israel",
+   "page": "https://en.wikipedia.org/wiki/Samaria"
+  },
+  "recJK76HLZSOzxTWW": {
+   "title": "Bethel",
+   "summary": "Bethel was an ancient Israelite city and sacred space that is frequently mentioned in the Hebrew Bible.",
+   "desc": "Ancient Israelite city mentioned in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Bethel",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Bethel_MET_DP116361.jpg/330px-Bethel_MET_DP116361.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Bethel_MET_DP116361.jpg",
+    "license": "CC0",
+    "artist": "Francis Frith",
+    "credit": "This file was donated to Wikimedia Commons as part of a project by the Metropolitan Museum of Art. See the Image and Data Resources Open Access Policy",
+    "w": 330,
+    "h": 249
+   }
+  },
+  "recJSfVnIcPibY6aX": {
+   "title": "Hebron",
+   "summary": "Hebron is a city in the southern West Bank, Palestine, and the capital of the Hebron Governorate, which is the largest in the West Bank. It is located 30 kilometers (19 mi) south of Jerusalem. The population inside in the city limits is 201,063, while the adjacent metropolitan area within the governorate is home to over 700,000 people. Hebron spans across an area of 74.1 square kilometers (28.6 sq mi). It is the third largest city in the country after Gaza and East Jerusalem. Hebron is often considered one of the Four Holy Cities in Judaism. It is also venerated in Christianity and Islam.",
+   "desc": "City in the West Bank, Palestine",
+   "page": "https://en.wikipedia.org/wiki/Hebron"
+  },
+  "recL1WV82pXaRBQ59": {
+   "title": "Jerusalem",
+   "summary": "Jerusalem is a city in the Southern Levant, on a plateau in the Judaean Mountains between the Mediterranean and the Dead Sea. It is one of the oldest cities in the world and is considered a holy city to the three major Abrahamic religions: Judaism, Christianity and Islam. Both Israel and Palestine claim Jerusalem as their capital city; Israel maintains its primary governmental institutions there, while Palestine ultimately foresees it as its seat of power. Neither claim is widely recognised internationally.",
+   "desc": "City in the Southern Levant",
+   "page": "https://en.wikipedia.org/wiki/Jerusalem"
+  },
+  "recPoImnA7S93jcHx": {
+   "title": "Gilead",
+   "summary": "Gilead or Gilad is the ancient, historic, biblical name of the mountainous northern part of the region of Transjordan, present-day Jordan. The region is bounded in the west by the Jordan River, in the north by the deep ravine of the river Yarmouk and the region of Bashan, and in the southwest by what were known during antiquity as the \"plains of Moab\", with no definite boundary to the east. In some cases, \"Gilead\" is used in the Bible to refer to all the region east of the Jordan River. Gilead is situated in modern-day Jordan, corresponding roughly to the Irbid, Ajloun, Jerash and Balqa Governorates.",
+   "desc": "Northern part of the region of Transjordan, also the name of several biblical figures",
+   "page": "https://en.wikipedia.org/wiki/Gilead"
+  },
+  "recPt1Ig1xZkj2YWS": {
+   "title": "Shilo (Israeli settlement)",
+   "summary": "Shilo is an Israeli settlement in the northern West Bank. Located 45 kilometres north of Jerusalem on Route 60 and organised as a religious community settlement, it is neighboured by the Israeli settlements of Eli and Maale Levona and the Palestinian villages Sinjil, Turmus Ayya and Qaryut, and falls under the jurisdiction of Mateh Binyamin Regional Council.",
+   "desc": "Israeli settlement in the West Bank",
+   "page": "https://en.wikipedia.org/wiki/Shilo_(Israeli_settlement)",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Shiloh_%281%29.jpg/330px-Shiloh_%281%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Shiloh_%281%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Avi1111 dr. avishai teicher",
+    "credit": "Own work",
+    "w": 330,
+    "h": 248
+   }
+  },
+  "recR67sC02MfTx4al": {
+   "title": "Damascus",
+   "summary": "Damascus is the capital and largest city of Syria. It is the oldest capital city in the world. Known colloquially in Syria as aš-Šām and dubbed, poetically, the \"City of Jasmine\", Damascus is a major cultural center of the Levant and the Arab world.",
+   "desc": "Capital city of Syria",
+   "page": "https://en.wikipedia.org/wiki/Damascus",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg/330px-Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg",
+    "license": "CC BY 4.0",
+    "artist": "Vyacheslav Argenberg",
+    "credit": "Own work",
+    "w": 330,
+    "h": 185
+   }
+  },
+  "recUn6eVJDoG4xI0j": {
+   "title": "Moab",
+   "summary": "Moab was an ancient Levantine kingdom whose territory is today located in southern Jordan. The land is mountainous and lies alongside much of the eastern shore of the Dead Sea. The existence of the Kingdom of Moab is attested to by numerous archaeological findings, most notably the Mesha Stele, which describes the Moabite victory over an unnamed son of King Omri of Israel, an episode also noted in 2 Kings 3. The Moabite capital was Dibon. According to the Hebrew Bible, Moab was often in conflict with its Israelite neighbours to the west.",
+   "desc": "Ancient kingdom East of the Dead Sea",
+   "page": "https://en.wikipedia.org/wiki/Moab",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kingdoms_around_Israel_830_map.svg/330px-Kingdoms_around_Israel_830_map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Kingdoms_around_Israel_830_map.svg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Kingdoms_of_Israel_and_Judah_map_830.svg: *Oldtidens_Israel_\u0026_Judea.svg: FinnWikiNo derivative work: Richardprins (talk) derivative work: Richardprins (talk)",
+    "credit": ".mw-parser-output .messagebox{margin:4px 0;width:auto;border-collapse:collapse;border:2px solid var(--border-color-progressive,#6485d1);background-color:var(--background-color-neutral-subtle,#fbfcff);color:var(--color-base,#202122);box-sizing:border-box;border-inline-start-width:8px}.mw-parser-output .messagebox.mbox-small{font-size:88%;line-height:1.25em}.mw-parser-output .mbox-warning,.mw-parser-output .mbox-speedy{border:2px solid var(--border-color-error,#b22222);background:var(--background-color-error-subtle,#ffdbdb);border-inline-start-width:8px}.mw-parser-output .mbox-serious,.mw-parser-output .mbox-delete,.mw-parser-output .mbox-stop{border:2px solid var(--border-color-error,#b22222);border-inline-start-width:8px}.mw-parser-output .mbox-issue,.mw-parser-output .mbox-content{border:2px solid #f28500;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-query,.mw-parser-output .mbox-style{border:2px solid #f4c430;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-shit{border:2px solid #960;border-inline-start-width:8px}.mw-parser-output .mbox-license{border:2px solid #88a;border-inline-start-width:initial}.mw-parser-output .mbox-legal{border:2px solid var(--border-color-notice,#666);background:var(--background-color-base,#fff);border-inline-start-width:8px}.mw-parser-output .mbox-honor{border:2px solid #ca3;background:var(--background-color-warning-subtle,#fcf4db);border-inline-start-width:8px}.mw-parser-output .mbox-growth{border:2px solid #8d4;background:var(--background-color-success-subtle,#d5fdf4);border-inline-start-width:8px}.mw-parser-output .mbox-move{border:2px solid #93c;border-inline-start-width:8px}.mw-parser-output .mbox-protection,.mw-parser-output .mbox-message{border:2px solid var(--border-color-base,#aaa);border-inline-start-width:8px}.mw-parser-output .messagebox .mbox-text{border:none;padding:0.25em 0.9em;width:100%}.mw-parser-output .messagebox .mbox-image{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0.9em;padding-inline-end:0;text-align:center}.mw-parser-output .messagebox .mbox-imageright{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0;padding-inline-end:0.9em;text-align:center}.mw-parser-output .messagebox .mbox-empty-cell{border:none;padding:0;width:1px}.mw-parser-output .messagebox .mbox-invalid-type{text-align:center}@media(min-width:720px){.mw-parser-output .messagebox{margin:4px 10%}.mw-parser-output .messagebox.mbox-small{clear:right;float:right;margin:4px 0 4px 1em;width:238px}}body.skin--responsive .mw-parser-output table.messagebox img{max-width:none!important}References for this description (or part of this) or for the depiction in the file are not provided. Relevant discussion may be found on the talk page.Kingdoms_of_Israel_and_Judah_map_830.svg",
+    "w": 330,
+    "h": 394
+   }
+  },
+  "recUySlrBva4ffoVs": {
+   "title": "Shechem",
+   "summary": "Shechem, also spelled Sichem and other variants, was an ancient city in the Southern Levant. Described in ancient Egyptian inscriptions from the 19th century BC as a part of Retjenu, it is also recorded as a Canaanite city in the 14th century BC Amarna letters.",
+   "desc": "Biblical city in the West Bank",
+   "page": "https://en.wikipedia.org/wiki/Shechem",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Tell_Balata.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "TrickyH",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "recYsXWjhw6FUqHLY": {
+   "title": "Gibeon (ancient city)",
+   "summary": "Gibeon was a Canaanite and later an Israelite city, which was located north of Jerusalem. According to Joshua 11:19, the pre-Israelite-conquest inhabitants, the Gibeonites, were Hivites; according to 2 Samuel 21:2, they were Amorites, there can be also expected that they were a mingled people, since the city of Jerusalem has her nativity disclosed in Ezekiel 16:3. The remains of Gibeon are located in the southern portion of the Arab-majority village of al-Jib in Area C of the West Bank.",
+   "desc": "Biblical-era city north of Jerusalem",
+   "page": "https://en.wikipedia.org/wiki/Gibeon_(ancient_city)"
+  },
+  "recabsaJkxxtgdUSt": {
+   "title": "Heshbon",
+   "summary": "Heshbon were at least two different ancient towns located east of the Jordan River in what is now the Kingdom of Jordan, historically within the territories of ancient Ammon.",
+   "desc": "Ancient Middle Eastern town",
+   "page": "https://en.wikipedia.org/wiki/Heshbon"
+  },
+  "recdMHFSmu222VnJG": {
+   "title": "Jericho",
+   "summary": "Jericho is a city in the West Bank, Palestine, and the capital of the Jericho Governorate. The city is located in the Jordan Valley, with the Jordan River to the east and Jerusalem to the west.",
+   "desc": "Palestinian city in the West Bank",
+   "page": "https://en.wikipedia.org/wiki/Jericho"
+  },
+  "recdm9AlLF01lFAfP": {
+   "title": "Gilgal",
+   "summary": "Gilgal, also known as Galgala or Galgalatokai of the 12 Stones, is the name of one or more places in the Hebrew Bible. Gilgal is mentioned 39 times, in particular in the Book of Joshua, as the place where the Israelites camped after crossing the Jordan River.",
+   "desc": "Biblical place",
+   "page": "https://en.wikipedia.org/wiki/Gilgal"
+  },
+  "recedRWoiFNdeGFm4": {
+   "title": "Ai (Canaan)",
+   "summary": "The Ai was a city in Canaan, mentioned in the Hebrew Bible. According to the Book of Joshua, it was conquered by the Israelites, headed by Joshua, during their conquest of Canaan.",
+   "desc": "Canaanite city",
+   "page": "https://en.wikipedia.org/wiki/Ai_(Canaan)"
+  },
+  "recfrXyxhuYOczKTm": {
+   "title": "Egypt",
+   "summary": "Egypt, officially the Arab Republic of Egypt, is a country spanning the northeast corner of Africa and southwest corner of Asia via the Sinai Peninsula. It is bordered by the Mediterranean Sea to the north, Palestine and Israel to the northeast, the Red Sea to the east, Sudan and the Sahara to the south, and Libya to the west. The Gulf of Aqaba in the northeast separates Egypt from Jordan and Saudi Arabia. Cairo is the capital, largest city, and leading cultural centre, while Alexandria is the second-largest city and an important hub of industry and tourism.",
+   "desc": "Country in North Africa",
+   "page": "https://en.wikipedia.org/wiki/Egypt"
+  },
+  "recmL1lWBqWP3mAq3": {
+   "title": "Galilee",
+   "summary": "Galilee is a region located in northern Israel and southern Lebanon consisting of two parts: the Upper Galilee and the Lower Galilee. Other sub-regions are the Western Galilee and the Galilee Panhandle.",
+   "desc": "Region in northern Israel",
+   "page": "https://en.wikipedia.org/wiki/Galilee",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Lower_Galilee_map.svg/330px-Lower_Galilee_map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Lower_Galilee_map.svg",
+    "license": "CC BY 3.0",
+    "artist": "Dolní_Galilea.svg: Daniel Baránek derivative work: TheCuriousGnome (talk)",
+    "credit": "Dolní_Galilea.svg",
+    "w": 330,
+    "h": 271
+   }
+  },
+  "recmRfnw4XzPBH9jc": {
+   "title": "Nazareth",
+   "summary": "Nazareth is the largest city in the Northern District of Israel. In 2024 its population was 75,704. Known as \"the Arab capital of Israel\", Nazareth serves as a cultural, political, religious, economic and commercial center for the Arab citizens of Israel. The inhabitants are predominantly Arabs, of whom 69% are Muslim and 31% Christian. The city commands immense religious significance, deriving from its status as the hometown of Jesus, who is the central figure of Christianity and considered a prophet in Islam and the Baháʼí Faith.",
+   "desc": "Largest city in the Northern District of Israel",
+   "page": "https://en.wikipedia.org/wiki/Nazareth",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg/330px-Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Israel_photo_gallery",
+    "credit": "Nazareth_Panorama_Dafna Tal_IMOT",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "reco9Wc4YyNXZq43z": {
+   "title": "Tyre, Lebanon",
+   "summary": "Tyre is a city in Lebanon, and one of the oldest continuously inhabited cities in the world. It was one of the earliest Phoenician metropolises and the legendary birthplace of Europa, her brothers Cadmus and Phoenix, and Carthage's founder Dido (Elissa). The city has many ancient sites, including the Tyre Hippodrome, and was added as a whole to the list of UNESCO World Heritage Sites in 1984. The historian Ernest Renan described it as \"a city of ruins, built out of ruins\".",
+   "desc": "City in Lebanon",
+   "page": "https://en.wikipedia.org/wiki/Tyre%2C_Lebanon",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg/330px-SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "RomanDeckert",
+    "credit": "Own work",
+    "w": 330,
+    "h": 248
+   }
+  },
+  "recpqKANUDcRgN4HU": {
+   "title": "Babylon",
+   "summary": "Babylon was an ancient city located on the lower Euphrates river in southern Mesopotamia, within modern-day Hillah, Iraq, about 85 kilometres south of modern-day Baghdad. Babylon functioned as the main cultural and political centre of the Akkadian-speaking region of Babylonia. Its rulers established two important empires in antiquity, the 19th–16th century BC Old Babylonian Empire, and the 7th–6th century BC Neo-Babylonian Empire. Babylon also served as a regional capital of other empires, such as the Achaemenid Empire. Babylon was one of the most important urban centres of the ancient Near East until its decline during the Hellenistic period.",
+   "desc": "Ancient Mesopotamian city in Iraq",
+   "page": "https://en.wikipedia.org/wiki/Babylon"
+  },
+  "recsX4et9ux7g07Zg": {
+   "title": "Negev",
+   "summary": "The Negev or Naqab is the name for a desert and semidesert area in southern Israel. Today, it forms the bulk of the Southern District of Israel, whose largest city and administrative capital is Beersheba, in the north of the Negev. At its southern end lie the Gulf of Aqaba and the resort city and port of Eilat. It contains several development towns, including Dimona, Arad, and Mitzpe Ramon, as well as a number of small Bedouin towns, including Rahat, Tel Sheva, and Lakiya. There are also several kibbutzim, including Revivim and Sde Boker; the latter became the home of Israel's first prime minister, David Ben-Gurion, after his retirement from politics.",
+   "desc": "Desert in southern Israel",
+   "page": "https://en.wikipedia.org/wiki/Negev",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/NahalHavarimNov212022_03.jpg/330px-NahalHavarimNov212022_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:NahalHavarimNov212022_03.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
+  "rectrAkGtrZH5LMp8": {
+   "title": "Beersheba",
+   "summary": "Beersheba, officially Be'er-Sheva, is the largest city in the Negev desert of southern Israel. Often referred to as the \"Capital of the Negev\", it is the centre of the fourth-most populous metropolitan area in Israel, the eighth-most populous Israeli city with a population of 223,587, and the second-largest city in the area, with a total area of 117,500 dunams.",
+   "desc": "City in Israel",
+   "page": "https://en.wikipedia.org/wiki/Beersheba"
+  },
+  "recxiSg5QZWkj9Hy3": {
+   "title": "Sidon",
+   "summary": "Sidon, or Saida, is the third-largest city in Lebanon. It is located on the Mediterranean coast in the South Governorate, of which it is the capital. Tyre, to the south, and the Lebanese capital of Beirut, to the north, are each about 40 kilometres away. Sidon has a population of about 80,000 within the city limits, while its metropolitan area has more than a quarter-million inhabitants.",
+   "desc": "Capital city of South Governorate, Lebanon",
+   "page": "https://en.wikipedia.org/wiki/Sidon",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg/330px-View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg",
+    "license": "CC BY 4.0",
+    "artist": "Vyacheslav Argenberg",
+    "credit": "Own work",
+    "w": 330,
+    "h": 248
+   }
+  },
+  "reczPjeq0UdahiRrn": {
+   "title": "Zion",
+   "summary": "Zion is a placename in the Tanakh, often used as a synonym for Jerusalem as well as for the Land of Israel as a whole.",
+   "desc": "Synonym for Jerusalem or Israel",
+   "page": "https://en.wikipedia.org/wiki/Zion"
+  }
+ },
  "people": {},
  "art": [
   {
