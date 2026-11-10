@@ -35,11 +35,6 @@
       "note": "The expulsion is told in the account of the Fall, not in the creation of Adam and Eve."
     },
     {
-      "title": "Adam and Eve expelled from Paradise",
-      "event": "recj3SioaPwrDtpGT",
-      "note": "Same scene."
-    },
-    {
       "title": "Jesus converses with the learned ones",
       "event": "rec8FDMhG6menTpse",
       "note": "Jesus among the teachers is the boy in the Temple (Luke 2), not the presentation."
@@ -48,6 +43,11 @@
       "title": "Cain and Abel Offering their Sacrifices",
       "event": "",
       "note": "Their offerings come before the killing; shown with the people instead of the event."
+    },
+    {
+      "title": "Adam and Eve expelled from Paradise",
+      "duplicate": true,
+      "note": "The same engraving as \"Adam and Eve Driven out of Eden\", scanned differently; the automatic check could not tell."
     }
   ]
 }

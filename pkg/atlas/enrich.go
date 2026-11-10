@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -47,6 +48,36 @@ type Enrichment struct {
 	Art       []Art                `json:"art"`
 }
 
+// dropDuplicates removes pictures that data/art-duplicates.json (made by cmd/arthash) lists as copies of another.
+func dropDuplicates(art []Art, dupFile string) ([]Art, error) {
+	b, err := os.ReadFile(dupFile)
+	if errors.Is(err, os.ErrNotExist) {
+		return art, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	var d struct {
+		Duplicates []struct {
+			Title string `json:"title"`
+		} `json:"duplicates"`
+	}
+	if err := json.Unmarshal(b, &d); err != nil {
+		return nil, err
+	}
+	skip := map[string]bool{}
+	for _, x := range d.Duplicates {
+		skip[x.Title] = true
+	}
+	var out []Art
+	for _, x := range art {
+		if !skip[x.Title] {
+			out = append(out, x)
+		}
+	}
+	return out, nil
+}
+
 func (a *Atlas) loadEnrichment(file string) error {
 	b, err := os.ReadFile(file)
 	if errors.Is(err, os.ErrNotExist) {
@@ -59,9 +90,26 @@ func (a *Atlas) loadEnrichment(file string) error {
 	if err := json.Unmarshal(b, &en); err != nil {
 		return err
 	}
+	var err2 error
+	if en.Art, err2 = dropDuplicates(en.Art, filepath.Join(filepath.Dir(file), "art-duplicates.json")); err2 != nil {
+		return err2
+	}
+	var kept []Art
+	for _, art := range en.Art {
+		drop := false
+		for _, f := range a.artFixes {
+			if f.Duplicate && f.Title != "" && strings.Contains(strings.ToLower(art.Title), strings.ToLower(f.Title)) {
+				drop = true
+			}
+		}
+		if !drop {
+			kept = append(kept, art)
+		}
+	}
+	en.Art = kept
 	for i := range en.Art {
 		for _, f := range a.artFixes {
-			if f.Title != "" && strings.Contains(strings.ToLower(en.Art[i].Title), strings.ToLower(f.Title)) {
+			if !f.Duplicate && f.Title != "" && strings.Contains(strings.ToLower(en.Art[i].Title), strings.ToLower(f.Title)) {
 				if f.Event != "" && a.EventByID[f.Event] == nil {
 					return fmt.Errorf("corrections: art fix points at unknown event %s", f.Event)
 				}

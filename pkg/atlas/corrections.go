@@ -28,7 +28,9 @@ type eventFix struct {
 type artFix struct {
 	Title string `json:"title"` // case-insensitive part of the picture's title
 	Event string `json:"event"`
-	Note  string `json:"note"`
+	// Duplicate drops the picture altogether (use when it is the same engraving as another one).
+	Duplicate bool   `json:"duplicate"`
+	Note      string `json:"note"`
 }
 
 type corrections struct {

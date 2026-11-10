@@ -1,6 +1,7 @@
 package atlas
 
 import (
+	"os"
 	"strings"
 	"sync"
 	"testing"
@@ -385,9 +386,27 @@ func TestCorrectionsApplied(t *testing.T) {
 	}
 	if a.Enrich != nil {
 		for _, art := range a.Enrich.Art {
+			if strings.Contains(strings.ToLower(art.Title), "expelled from paradise") {
+				t.Errorf("duplicate engraving should have been dropped: %q", art.Title)
+			}
 			if strings.Contains(strings.ToLower(art.Title), "driven out of eden") && art.Event != "recj3SioaPwrDtpGT" {
 				t.Errorf("art fix not applied to %q: event %q", art.Title, art.Event)
 			}
 		}
+	}
+}
+
+func TestDropDuplicates(t *testing.T) {
+	dir := t.TempDir()
+	f := dir + "/art-duplicates.json"
+	if err := os.WriteFile(f, []byte(`{"duplicates":[{"title":"B","of":"A","distance":2}]}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	got, err := dropDuplicates([]Art{{Image: Image{Title: "A"}}, {Image: Image{Title: "B"}}, {Image: Image{Title: "C"}}}, f)
+	if err != nil || len(got) != 2 || got[0].Title != "A" || got[1].Title != "C" {
+		t.Errorf("got %+v, %v", got, err)
+	}
+	if same, _ := dropDuplicates([]Art{{}}, dir+"/missing.json"); len(same) != 1 {
+		t.Error("a missing file means no duplicates")
 	}
 }
