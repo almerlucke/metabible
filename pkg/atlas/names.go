@@ -26,6 +26,19 @@ func (a *Atlas) loadNames(dir string) {
 	files, _ := filepath.Glob(filepath.Join(dir, "..", "names", "*.json"))
 	a.names = map[string]*nameTable{}
 	a.titles = map[string]map[string]string{}
+	a.easton = map[string]map[string]string{}
+	efiles, _ := filepath.Glob(filepath.Join(dir, "..", "easton", "*.json"))
+	for _, f := range efiles {
+		base := filepath.Base(f)
+		if strings.Count(base, ".") != 1 { // nl.sample.json is a preview
+			continue
+		}
+		raw, err := os.ReadFile(f)
+		m := map[string]string{}
+		if err == nil && json.Unmarshal(raw, &m) == nil && len(m) > 0 {
+			a.easton[strings.TrimSuffix(base, ".json")] = m
+		}
+	}
 	tfiles, _ := filepath.Glob(filepath.Join(dir, "..", "titles", "*.json"))
 	for _, f := range tfiles {
 		raw, err := os.ReadFile(f)
@@ -59,7 +72,8 @@ func (a *Atlas) View(lang string) *Atlas {
 		return a.base.View(lang)
 	}
 	nt, titles := a.names[lang], a.titles[lang]
-	if nt == nil && titles == nil {
+	dict := a.easton[lang]
+	if nt == nil && titles == nil && dict == nil {
 		return a
 	}
 	if nt == nil {
@@ -81,6 +95,9 @@ func (a *Atlas) View(lang string) *Atlas {
 		if n := nt.People[p.ID]; n != "" {
 			c.Orig, c.Name = p.Name, n
 		}
+		if d := dict[p.ID]; d != "" {
+			c.Dict, c.DictMT = d, true
+		}
 		v.People[i] = &c
 		v.PersonByID[c.ID] = &c
 	}
@@ -90,6 +107,9 @@ func (a *Atlas) View(lang string) *Atlas {
 		c := *p
 		if n := nt.Places[p.ID]; n != "" {
 			c.Orig, c.Name = p.Name, n
+		}
+		if d := dict[p.ID]; d != "" {
+			c.Dict, c.DictMT = d, true
 		}
 		v.Places[i] = &c
 		v.PlaceByID[c.ID] = &c

@@ -703,3 +703,6 @@ details.gallery figure.art { margin: 0; }
 /* the King James text shown under a translated verse */
 .altver { margin: 0.9rem 0 0; color: var(--muted, #9aa); font-size: 0.95rem; line-height: 1.6; max-width: 62ch; }
 .altver .mb-tag { margin-right: 0.5rem; }
+
+/* a note under machine-translated text */
+.mt-note { margin: 0.6rem 0 0; color: var(--muted, #9aa); font-size: 0.8rem; font-style: italic; }

@@ -744,3 +744,33 @@ func TestDutchEventTitles(t *testing.T) {
 		t.Errorf("only %d lifespan events flagged", lives)
 	}
 }
+
+func TestDutchDictionary(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	translated := 0
+	for i, p := range nl.People {
+		if p.DictMT {
+			translated++
+			if a.People[i].DictMT {
+				t.Fatalf("%s: dictionary text not separated from the source", p.Name)
+			}
+			// links to verses survive
+			if strings.Count(p.Dict, "](/verse/") != strings.Count(a.People[i].Dict, "](/verse/") {
+				t.Fatalf("%s: verse links changed", p.Name)
+			}
+		}
+	}
+	if translated < 1000 {
+		t.Errorf("only %d people have a translated description", translated)
+	}
+	for _, p := range nl.People {
+		if p.Verses > 100 && p.DictMT {
+			d := nl.PersonDossier(p.ID, "nl")
+			if !d.DictMT || d.Dict == "" {
+				t.Errorf("%s: dossier lacks the translated text", p.Name)
+			}
+			break
+		}
+	}
+}

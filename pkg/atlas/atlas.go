@@ -30,6 +30,7 @@ type Place struct {
 	HasGeo  bool     `json:"-"`
 	Comment string   `json:"-"`
 	Dict    string   `json:"-"`
+	DictMT  bool     `json:"-"` // Dict is a machine translation
 	Vs      []string `json:"-"`
 	Born    []string `json:"-"`
 	Died    []string `json:"-"`
@@ -52,6 +53,7 @@ type Person struct {
 	Disambig string   `json:"dis,omitempty"`
 	Verses   int      `json:"vc"`
 	Dict     string   `json:"-"`
+	DictMT   bool     `json:"-"` // Dict is a machine translation
 	AlsoCall string   `json:"-"`
 	Vs       []string `json:"-"`
 	Events   []string `json:"-"`
@@ -167,6 +169,7 @@ type Atlas struct {
 	nameIdx    []searchEntry
 	names      map[string]*nameTable        // spellings of people and places per language (data/names)
 	titles     map[string]map[string]string // event titles per language (data/titles)
+	easton     map[string]map[string]string // translated dictionary texts per language (data/easton)
 	views      *viewSet
 	base       *Atlas // set on a per-language view
 

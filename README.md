@@ -93,7 +93,11 @@ remembered in a cookie; the browser's language is used the first time).
 - **Event titles:** `data/titles/<code>.json` maps an event id to its title (the Dutch file is made by
   `python3 cmd/names/titles_nl.py`: Birth/Lifetime/Death titles from the name table, the rest translated by hand).
   Missing titles keep the English one.
-- Still English everywhere: the dictionary descriptions of people and places (Easton) and image titles. Translating those is separate work (a name table).
+- **Dictionary descriptions:** `data/easton/<code>.json` maps a person or place id to the Easton text in that language
+  (`python3 cmd/easton/translate.py nl`: offline machine translation with CTranslate2 and an open OPUS-MT model, see the
+  script's header for the setup; links to verses are kept, book abbreviations localised). The site tells the reader the
+  text is machine-translated. Missing entries keep the English text.
+- Still English everywhere: image titles and the person/place links inside the King James text. Translating those is separate work (a name table).
 
 ## Code map
 

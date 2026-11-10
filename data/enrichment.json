@@ -1412,17 +1412,47 @@
    "desc": "Biblical monarch of ancient Israel",
    "page": "https://en.wikipedia.org/wiki/Solomon"
   },
+  "rec0lXwCB3xvWjTVN": {
+   "title": "Zerubbabel",
+   "summary": "Zerubbabel, also spelled or Zorobabel, was a governor of the Achaemenid Empire's province of Judea and the grandson of Jeconiah, penultimate king of Judah.",
+   "desc": "Biblical figure; governor of the Achaemenid province of Yehud",
+   "page": "https://en.wikipedia.org/wiki/Zerubbabel"
+  },
   "rec0rm6yYA4YUQrkh": {
    "title": "Judah (son of Jacob)",
    "summary": "Judah was, according to the Book of Genesis, the fourth of the six sons of Jacob and Leah and the founder of the Tribe of Judah of the Israelites. By extension, he is indirectly the eponym of the Kingdom of Judah, the land of Judea, and the word Jew.",
    "desc": "Biblical figure and son of Jacob and Leah",
    "page": "https://en.wikipedia.org/wiki/Judah_(son_of_Jacob)"
   },
+  "rec10srs5ydaLS7CM": {
+   "title": "Hivites",
+   "summary": "The Hivites were one group of descendants of Canaan, son of Ham, according to the Generations of Noah in the Book of Genesis 10:17. A variety of proposals have been made, but beyond the references in the Hebrew Bible to Hivites in Canaan, no consensus has been reached about their precise historical identity.",
+   "desc": "Group of descendants of Canaan",
+   "page": "https://en.wikipedia.org/wiki/Hivites"
+  },
+  "rec1KxZ8I6FX57Q0T": {
+   "title": "Rahab",
+   "summary": "Rahab was a prostitute from Jericho during the Israelite conquest of Canaan. In the Book of Joshua of the Hebrew Bible, she is credited with aiding the Israelites by hiding two spies who had been sent by Joshua to scout the city before the Israelite assault. Her actions led to the fall of Jericho, during which Israelite fighters killed every Canaanite inhabitant of the city.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Rahab"
+  },
+  "rec1Mcw3l21ibjdOf": {
+   "title": "Izhar",
+   "summary": "According to the Torah, Izhar was the father of Korah, Nepheg, and Zichri, and was a son of Kohath and grandson of Levi, consequently being the brother of Amram and uncle of Aaron, Miriam, and Moses. No further details of his life are given by the Bible, and according to some biblical scholars the genealogy for Levi's descendants is actually an aetiological myth, reflecting popular perception of the connections between different Levite factions.",
+   "desc": "Figure in the Torah",
+   "page": "https://en.wikipedia.org/wiki/Izhar"
+  },
   "rec1S6Nkd3KyN5heV": {
    "title": "Balaam",
    "summary": "Balaam, son of Beor, was, according to the Bible, a gentile prophet and diviner who lived in Pethor, a place identified with the ancient city of Pitru, thought to have been located between the region of Iraq and northern Syria in what is now southeastern Turkey. According to chapters 22–24 of the Book of Numbers, he was hired by King Balak of Moab to curse Israel, but instead he blessed the Israelites, as dictated by God. Subsequently, the plan to entice the Israelites into idol worship and sexual immorality is attributed to him. Balaam is also mentioned in the Book of Micah, the Second Epistle of Peter, the Book of Jude, and the Book of Revelation.",
    "desc": "Prophet in the Book of Numbers",
    "page": "https://en.wikipedia.org/wiki/Balaam"
+  },
+  "rec1SNN05dlR3SG96": {
+   "title": "Ahijah",
+   "summary": "Ahijah is a name of several biblical individuals:Ahijah the Shilonite, the Biblical prophet who divided the Kingdoms of Israel and Judah. One of the sons of Bela. In AV (KJV) called \"Ahiah.\" One of the five sons of Jerahmeel, who was great-grandson of Judah. A Pelonite, one of David's heroes ; called also Eliam. A Levite having charge of the sacred treasury in the temple. One of Solomon's secretaries. Son of Ahitub, Ichabod's brother; the same probably as Ahimelech, who was High Priest at Nob in the reign of Saul and at Shiloh, where the Tabernacle was set up.",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Ahijah"
   },
   "rec1YbscOE9IyJ5ey": {
    "title": "Manasseh of Judah",
@@ -1436,11 +1466,56 @@
    "desc": "Biblical figure and Israelite monarch",
    "page": "https://en.wikipedia.org/wiki/David"
   },
+  "rec1jHj7xGKocQO5m": {
+   "title": "Og",
+   "summary": "Og was, according to the Hebrew Bible and other sources, an Amorite king of Bashan who was slain along with his army by Moses and his men at the battle of Edrei. In Arabic literature he is referred to as ʿŪj ibn ʿAnāq, Anaq being a daughter of Adam in Islamic tradition.",
+   "desc": "Amorite king; Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Og",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg/330px-The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg",
+    "license": "CC BY-SA 3.0 igo",
+    "artist": "Khalili Collections",
+    "credit": "Khalili Collections",
+    "w": 330,
+    "h": 557
+   }
+  },
+  "rec2LyU5fsvL5DWDi": {
+   "title": "Nadab and Abihu",
+   "summary": "In the biblical books of Exodus, Leviticus and Numbers, Nadab and Avihu were the two oldest sons of Aaron. According to Leviticus 10, they offered a sacrifice with \"foreign fire\" before Yahweh, disobeying his instructions, and were immediately consumed by fire.",
+   "desc": "Sons of Aaron",
+   "page": "https://en.wikipedia.org/wiki/Nadab_and_Abihu"
+  },
+  "rec2OlshepuMiuLDJ": {
+   "title": "Nathan (prophet)",
+   "summary": "Nathan is a prophet in the Hebrew Bible. His actions are described in the Books of Samuel, Kings, and Chronicles.",
+   "desc": "Prophet in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Nathan_(prophet)"
+  },
   "rec3HzZknu1HOvNci": {
    "title": "Issachar",
    "summary": "Issachar was, according to the Book of Genesis, Jacob's ninth son, the fifth of the six sons of Jacob and Leah, and the founder of the Israelite Tribe of Issachar. However, some Biblical scholars view this as an eponymous metaphor providing an aetiology of the connectedness of the tribe to others in the Israelite confederation.",
    "desc": "Biblical figure and son of Jacob and Leah",
    "page": "https://en.wikipedia.org/wiki/Issachar"
+  },
+  "rec3LAlubKgbPw9H9": {
+   "title": "John Mark",
+   "summary": "John Mark is named in the Acts of the Apostles as an assistant accompanying Paul and Barnabas on their missionary journeys. Traditionally he is regarded as identical with Mark the Evangelist, the traditional writer of the Gospel of Mark.",
+   "desc": "Biblical saint",
+   "page": "https://en.wikipedia.org/wiki/John_Mark"
+  },
+  "rec3iMYLIVkttjae6": {
+   "title": "Dathan",
+   "summary": "Dathan was an Israelite mentioned in the Old Testament as a participant of the Exodus.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Dathan"
+  },
+  "rec3lckuDNdMQOXXU": {
+   "title": "Rabshakeh",
+   "summary": "Rabshakeh is a title meaning \"chief of the princes/cup-bearers\" in the Semitic Akkadian and Aramaic languages. The title was given to the chief cup-bearer or the vizier of the Akkadian, Assyrian and Babylonian royal courts in ancient Mesopotamia, and revived by the Assyrians as a military rank during World War I.",
+   "desc": "Assyrian officer",
+   "page": "https://en.wikipedia.org/wiki/Rabshakeh"
   },
   "rec3qiPi8JN2h86Mj": {
    "title": "Moab",
@@ -1457,11 +1532,47 @@
     "h": 394
    }
   },
+  "rec48avi3AS18d5V6": {
+   "title": "Bathsheba",
+   "summary": "Bathsheba was an Israelite queen consort. According to the Hebrew Bible, she was the wife of Uriah the Hittite and later of David, with whom she had all of her five children. Her status as the mother of Solomon, who succeeded David as monarch, made her the Gebirah (גְּבִירָה) of the Kingdom of Israel.",
+   "desc": "Biblical figure and wife of David",
+   "page": "https://en.wikipedia.org/wiki/Bathsheba"
+  },
+  "rec4EUmldD378UeiV": {
+   "title": "Shaphan",
+   "summary": "Shaphan, son of Azaliah, is the name of a scribe or court secretary mentioned several times in the Hebrew Bible.",
+   "desc": "Scribe or court secretary mentioned in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Shaphan"
+  },
   "rec4gpLE6cs55ADcI": {
    "title": "Laban (Bible)",
    "summary": "Laban, also known as Laban the Aramean, was a figure in the Book of Genesis in the Hebrew Bible. He was the brother of Rebekah, the woman who married Isaac and bore Jacob. Laban welcomed his nephew and set him the stipulation of seven years' labour before he permitted him to marry his daughter Rachel. Laban tricked Jacob into marrying his elder daughter Leah instead. Jacob then took Rachel as his second wife, on condition of serving an additional seven years' labour.",
    "desc": "Biblical figure",
    "page": "https://en.wikipedia.org/wiki/Laban_(Bible)"
+  },
+  "rec4y48gZDv5QeEH2": {
+   "title": "Micah (prophet)",
+   "summary": "According to the Hebrew Bible, Micah was a prophet of Yahweh and is traditionally regarded as the author of the Book of Micah. He is considered one of the Twelve Minor Prophets of the Hebrew Bible and is depicted as a contemporary of the prophets Isaiah, Amos and Hosea. Micah is described as having been from Moresheth-Gath, in southwest Judah and prophesying during the reigns of kings Jotham, Ahaz, and Hezekiah of the southern Kingdom of Judah in the 8th century BC.",
+   "desc": "Prophet in Judaism and Christianity",
+   "page": "https://en.wikipedia.org/wiki/Micah_(prophet)"
+  },
+  "rec5IfTXcDLvx6ba1": {
+   "title": "Daughters of Zelophehad",
+   "summary": "The Daughters of Zelophehad were five sisters – Mahlah, Noah, Hoglah, Milcah, and Tirzah – mentioned in the biblical Book of Numbers. They lived during the Israelites' Exodus from Egypt as they prepared to enter the Promised Land and who raised before the Israelite community the legal case of a woman's right and obligation to inherit property in the absence of a male heir in the family. Zelophehad, a man of the Tribe of Manasseh, had five daughters but no sons, and therefore no male heirs.",
+   "desc": "Figures mentioned in the Biblical Book of Numbers",
+   "page": "https://en.wikipedia.org/wiki/Daughters_of_Zelophehad"
+  },
+  "rec5LjGfCEP8klGHt": {
+   "title": "Manasseh of Judah",
+   "summary": "Manasseh was the fourteenth king of the Kingdom of Judah. He was the oldest of the sons of Hezekiah and Hephzibah. He became king at the age of 12 and reigned for 55 years.",
+   "desc": "Fourteenth king of the Kingdom of Judah",
+   "page": "https://en.wikipedia.org/wiki/Manasseh_of_Judah"
+  },
+  "rec5NX8uW1K4csGEj": {
+   "title": "Eliphaz",
+   "summary": "Eliphaz was the first-born son of Esau and his wife Adah. He had six sons, of whom Omar was the firstborn, and the others were Teman, Zepho, Gatam, Kenaz and finally Amalek, who was born to his concubine Timna. The people of Amalek were the ancestral enemy of the Israelite people.",
+   "desc": "Character from the Book of Genesis",
+   "page": "https://en.wikipedia.org/wiki/Eliphaz"
   },
   "rec5naIzF29A8wJIP": {
    "title": "Zedekiah",
@@ -1469,11 +1580,89 @@
    "desc": "Biblical figure; last monarch of the Kingdom of Judah",
    "page": "https://en.wikipedia.org/wiki/Zedekiah"
   },
+  "rec66ZgSDIRu3dVtZ": {
+   "title": "Ziba (biblical figure)",
+   "summary": "Ziba (ציבא) is a man in 2 Samuel in the Hebrew Bible. He was a servant of Saul, and then later of Saul's grandson, Mephibosheth.",
+   "desc": "Man in 2 Samuel in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Ziba_(biblical_figure)"
+  },
+  "rec6D4qakD8wceZv8": {
+   "title": "Mephibosheth",
+   "summary": "Mephibosheth, also known as Meribaal or Miphibosheth, was the son of Jonathan and thus a grandson of Saul, the first king of the United Monarchy of ancient Israel and Judah. He is mentioned in the biblical Books of Samuel.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Mephibosheth"
+  },
+  "rec6OMKxWHWy6KHjE": {
+   "title": "Deborah",
+   "summary": "According to the Book of Judges, Deborah was a prophetess of Judaism, the fourth Judge of pre-monarchic Israel and the only female judge mentioned in the Hebrew Bible. Many scholars contend that the phrase, \"a woman of Lappidoth\", as translated from biblical Hebrew in Judges 4:4 denotes her marital status as the wife of Lapidoth. Alternatively, \"lappid\" translates as \"torch\" or \"lightning\", therefore the phrase, \"woman of Lappidoth\" could be referencing Deborah as a \"fiery woman\".",
+   "desc": "Prophetess in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Deborah"
+  },
+  "rec6l8j9BdrS5fiDM": {
+   "title": "Elihu (biblical figure)",
+   "summary": "Elihu is a critic of Job and his three friends in the Hebrew Bible's Book of Job. He is said to have been the son of Barachel and a descendant of Buz, who may have been from the line of Abraham.",
+   "desc": "Biblical figure associated with Job",
+   "page": "https://en.wikipedia.org/wiki/Elihu_(biblical_figure)"
+  },
+  "rec7Cfhlvp1bRWunV": {
+   "title": "Neriah",
+   "summary": "Neriah is the son of Mahseiah, and the father of Baruch and Seraiah ben Neriah. He is mentioned in the Book of Jeremiah of the Hebrew Bible.",
+   "desc": "Biblical figure, father of Baruch and Seraiah",
+   "page": "https://en.wikipedia.org/wiki/Neriah"
+  },
+  "rec83PZfB7PGjHMh0": {
+   "title": "Ahaziah",
+   "summary": "Ahaziah was the name of two kings mentioned in the Hebrew Bible:Ahaziah of Israel Ahaziah of Judah",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Ahaziah"
+  },
+  "rec894DFEhD0nzF6w": {
+   "title": "Amnon",
+   "summary": "Amnon was, in the Hebrew Bible, the oldest son of King David and his second wife, Ahinoam of Jezreel. He was born in Hebron during his father's reign in Judah. He was the heir apparent to the throne of Israel until he was assassinated by his paternal half-brother Absalom to avenge the rape of Absalom's sister Tamar.",
+   "desc": "Prince of Israel",
+   "page": "https://en.wikipedia.org/wiki/Amnon"
+  },
+  "rec8DcmmtcH3rQDP8": {
+   "title": "Uzzah",
+   "summary": "Uzzah, was an Israelite whose death is associated with touching the Ark of the Covenant. The account of Uzzah appears in 2 Samuel 6:3–8 and 1 Chronicles 13:7–11.",
+   "desc": "Biblical figure who died from touching the Ark of the Covenant",
+   "page": "https://en.wikipedia.org/wiki/Uzzah"
+  },
+  "rec8NKLzx7ea62SiE": {
+   "title": "Jehoiada",
+   "summary": "Jehoiada in the Hebrew Bible, was a prominent priest in the kingdom of Judah during the reigns of Ahaziah, Athaliah, and Joash. Jehoiada became the brother-in-law of King Ahaziah as a result of his marriage with princess Jehosheba. Both Jehosheba and Ahaziah were children of King Jehoram of Judah. Ahaziah died a year after assuming the throne, which was then usurped by his mother Athaliah, who ordered the execution of all members of the royal family.",
+   "desc": "Priest in Judah in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Jehoiada"
+  },
+  "rec8lYNa5C3L0QjP7": {
+   "title": "Abiram",
+   "summary": "Abiram, also spelled Abiron, is the name of two people in the Old Testament.One was a member of the Tribe of Reuben, the son of Eliab, who, along with his brother Dathan, joined Korah in the conspiracy against Moses and Aaron. He and all the conspirators, with their families and possessions, were swallowed up by the ground. The second was the eldest son of Hiel the Bethelite, who perished prematurely in consequence of his father's undertaking to rebuild Jericho.",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Abiram"
+  },
   "rec91wntVnuliHv7E": {
    "title": "Ahab",
    "summary": "Ahab was the 7th king of Israel, the son and successor of King Omri, and the husband of Jezebel of Sidon. He is depicted in the Hebrew Bible as a Baal worshipper, though some modern scholars question this, and is criticized for causing moral decline in Israel.",
    "desc": "Biblical King of Israel (c. 874 – c. 853 BC)",
    "page": "https://en.wikipedia.org/wiki/Ahab"
+  },
+  "rec95raiD3sLuptbO": {
+   "title": "Judas Iscariot",
+   "summary": "Judas Iscariot was, according to Christianity's four canonical gospels, one of the original Twelve Apostles of Jesus Christ. Judas betrayed Jesus to the Sanhedrin in the Garden of Gethsemane in exchange for thirty pieces of silver, by kissing him on the cheek and addressing him as \"Rabbi\" to reveal his identity to the crowd who had come to arrest him. In modern times, his name is often used synonymously with betrayal, treason, or hatred.",
+   "desc": "Disciple and betrayer of Jesus",
+   "page": "https://en.wikipedia.org/wiki/Judas_Iscariot"
+  },
+  "rec9C2DCAjPXuMVoL": {
+   "title": "Naomi (biblical figure)",
+   "summary": "Naomi is Ruth's mother-in-law in the Hebrew Bible in the Book of Ruth. The name derives from the Hebrew word na’im, meaning \"good, pleasant, lovely, winsome.\"",
+   "desc": "Ruth's mother-in-law in the Book of Ruth",
+   "page": "https://en.wikipedia.org/wiki/Naomi_(biblical_figure)"
+  },
+  "rec9Sy4iYcg3oeO3t": {
+   "title": "Zechariah (Hebrew prophet)",
+   "summary": "Zechariah was a person in the Hebrew Bible traditionally considered the author of the Book of Zechariah, the eleventh of the Twelve Minor Prophets.",
+   "desc": "Biblical prophet",
+   "page": "https://en.wikipedia.org/wiki/Zechariah_(Hebrew_prophet)"
   },
   "rec9lplwEhGgkXdOn": {
    "title": "Jesse (biblical figure)",
@@ -1481,11 +1670,50 @@
    "desc": "Biblical figure; father of the Israelite king David",
    "page": "https://en.wikipedia.org/wiki/Jesse_(biblical_figure)"
   },
+  "recAgyv9RNNafnPAg": {
+   "title": "Hezron",
+   "summary": "Hezron is a name which occurs several times in the Hebrew Bible.",
+   "desc": "Figure in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Hezron"
+  },
+  "recAvic4lwr61PtLX": {
+   "title": "Sheba",
+   "summary": "Sheba, or Saba, was an ancient South Arabian kingdom that existed in Yemen before 275 CE. It likely began its existence between c. 1000 BCE and c. 800 BCE. Its inhabitants were the Sabaeans, who, as a people, were indissociable from the kingdom itself for much of the 1st millennium BCE. Modern historians agree that the heartland of the Sabaean civilization was located in the region around Marib and Sirwah. In some periods, they expanded to much of modern Yemen and even parts of the Horn of Africa, particularly Eritrea and Ethiopia. The kingdom's native language was Sabaic, which was a variety of Old South Arabian.",
+   "desc": "Ancient South Arabian kingdom",
+   "page": "https://en.wikipedia.org/wiki/Sheba",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Yemen_100_BC.svg/330px-Yemen_100_BC.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Yemen_100_BC.svg",
+    "license": "CC BY-SA 3.0",
+    "artist": "User:Schreiber",
+    "credit": "by User:Schreiber",
+    "w": 330,
+    "h": 308
+   }
+  },
+  "recBIyeVoVt4IinM1": {
+   "title": "Zechariah (Hebrew prophet)",
+   "summary": "Zechariah was a person in the Hebrew Bible traditionally considered the author of the Book of Zechariah, the eleventh of the Twelve Minor Prophets.",
+   "desc": "Biblical prophet",
+   "page": "https://en.wikipedia.org/wiki/Zechariah_(Hebrew_prophet)"
+  },
   "recBOUtTncbBlfEn9": {
    "title": "Benjamin",
    "summary": "Benjamin was the younger of the two sons of Jacob and Rachel, and Jacob's twelfth and youngest son overall in Jewish, Christian and Islamic tradition. He was also considered the progenitor of the Israelite Tribe of Benjamin. Unlike Rachel's first son, Joseph, Benjamin was born in Canaan according to biblical narrative.",
    "desc": "Biblical figure and son of Jacob and Rachel",
    "page": "https://en.wikipedia.org/wiki/Benjamin"
+  },
+  "recBshoEF7PEnjaAy": {
+   "title": "Baasha of Israel",
+   "summary": "Baasha was the third king of the northern Israelite Kingdom of Israel. He was the son of Ahijah of the Tribe of Issachar. Baasha's story is told in 1 Kings 15:16–16:7.",
+   "desc": "Third king of Israel",
+   "page": "https://en.wikipedia.org/wiki/Baasha_of_Israel"
+  },
+  "recCLJAZbd4JtoMv6": {
+   "title": "Leah",
+   "summary": "Leah appears in the Hebrew Bible as one of the two wives of the Israelite patriarch Jacob. She was Jacob's first wife and the elder sister of his second wife, Rachel. Jacob was tricked into marrying Leah by her father, Laban, and subsequently married Rachel. The narrative stated that Leah was \"hated\" [by Jacob], or at any rate loved less than her sister.",
+   "desc": "Biblical matriarch",
+   "page": "https://en.wikipedia.org/wiki/Leah"
   },
   "recCNBE1sRdiZd1js": {
    "title": "Mordecai",
@@ -1493,11 +1721,47 @@
    "desc": "Biblical figure",
    "page": "https://en.wikipedia.org/wiki/Mordecai"
   },
+  "recCQlDLuGURuOOBb": {
+   "title": "Sisera",
+   "summary": "Sisera was commander of the Canaanite army of King Jabin of Hazor, who is mentioned in Judges 4–5 of the Hebrew Bible. After being defeated by the forces of the Israelite tribes of Zebulun and Naphtali under the command of Barak and Deborah, Sisera was killed by Jael, who hammered a tent peg into his temple while he slept.",
+   "desc": "Biblical army commander",
+   "page": "https://en.wikipedia.org/wiki/Sisera"
+  },
+  "recCWY7OHg1GzDtTq": {
+   "title": "Chemosh",
+   "summary": "Chemosh is a Canaanite deity worshipped by Ancient Semitic-speaking peoples who occupied the region known as Moab, in modern-day Jordan east of the Dead Sea, during the Levantine Bronze and Iron Ages.",
+   "desc": "God of the Moabites, mentioned in Bible",
+   "page": "https://en.wikipedia.org/wiki/Chemosh"
+  },
+  "recD5yp1lrQTH1DZp": {
+   "title": "Boaz",
+   "summary": "Son of Biblical Salmon, father of Biblical Obed.",
+   "desc": "Biblical figure, husband of Ruth, ancestor of David",
+   "page": "https://en.wikipedia.org/wiki/Boaz"
+  },
+  "recDDzG65U8UNAY4h": {
+   "title": "Jonah",
+   "summary": "Jonah or Jonas was a Jewish prophet from Gath-hepher in the Northern Kingdom of Israel around the 8th century BCE according to the Hebrew Bible. He is the central figure of the Book of Jonah, one of the minor prophets, which details his reluctance in delivering the judgment of God to the city of Nineveh in the Neo-Assyrian Empire. After he is swallowed by a large sea creature and then released, he returns to the divine mission.",
+   "desc": "Biblical and Quranic prophet",
+   "page": "https://en.wikipedia.org/wiki/Jonah"
+  },
   "recDggWlQNbxJLalN": {
    "title": "Gad (prophet)",
    "summary": "Gad was a seer or prophet mentioned in the Hebrew Bible and the writings of Jewish historian Josephus. He was one of the personal prophets of King David of Israel and, according to the Talmudic tradition, some of his writings are believed to be included in the Books of Samuel. He is first mentioned in 1 Samuel 22:5 telling David to return from refuge in Moab to the forest of Hereth in the land of Judah.",
    "desc": "Seer or prophet mentioned in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Gad_(prophet)"
+  },
+  "recDncefA67SnXVsu": {
+   "title": "Arpachshad",
+   "summary": "Arpachshad, alternatively spelled Arphaxad or Arphacsad, was one of the five sons of Shem, the son of Noah in the Hebrew Bible mentioned in the Generations of Noah in the Book of Genesis and in 1 Chronicles 1:17-18. His brothers were Elam, Asshur, Lud and Aram; he is an ancestor of Abraham. He is said in Genesis 11:10 to have been born two years after the Flood, when Shem was 100.",
+   "desc": "In the Bible, son of Shem, the son of Noah",
+   "page": "https://en.wikipedia.org/wiki/Arpachshad"
+  },
+  "recDz78J2GRUtxKWi": {
+   "title": "Barabbas",
+   "summary": "According to the New Testament, Barabbas or Jesus Barabbas was a Jewish bandit who was imprisoned by the Roman occupation in Jerusalem, only to be chosen over Jesus of Nazareth by a crowd of Judean citizens and Passover pilgrims to be pardoned by Roman governor Pontius Pilate at the Passover feast.",
+   "desc": "Figure mentioned in the New Testament",
+   "page": "https://en.wikipedia.org/wiki/Barabbas"
   },
   "recE9nWKk1vLR7zi1": {
    "title": "Baal",
@@ -1511,11 +1775,122 @@
    "desc": "Third son of the Israelite king David",
    "page": "https://en.wikipedia.org/wiki/Absalom"
   },
+  "recEg9i0J2MgmkZr8": {
+   "title": "Abijah of Judah",
+   "summary": "Abijam was, according to the Hebrew Bible, the fourth king of the House of David and the second of the Kingdom of Judah. He was the son of Rehoboam and the grandson of Solomon. The Books of Chronicles refer to him as Abijah.",
+   "desc": "Second King of Judah in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Abijah_of_Judah"
+  },
+  "recFivkpgt7rlJWwz": {
+   "title": "Zerah",
+   "summary": "Zerah or Zerach, also spelled as Zarah or Zarach, refers to several people in the Hebrew Bible.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Zerah"
+  },
+  "recG8NRH2B0gUJ5K4": {
+   "title": "Ahimelech",
+   "summary": "Ahimelech was an Israelite priest and served as the grand priest of the town of Nob. In the Book of Samuel, he was described as the son of Ahitub and father of Abiathar, but described as the son of Abiathar in 2 Samuel 8:17 and in four places in 1 Chronicles. He descended from Aaron's son Ithamar and the High Priest of Israel Eli. In 1 Chronicles 18:16 his name is Abimelech according to the Masoretic Text, and is probably the same as Ahiah.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Ahimelech",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg/330px-Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg",
+    "license": "Public domain",
+    "artist": "Arent de Gelder",
+    "credit": "http://www.getty.edu/art/gettyguide/artObjectDetails?artobj=771\u0026handle=li",
+    "w": 330,
+    "h": 226
+   }
+  },
+  "recGZnbyXQu695xNR": {
+   "title": "Hushai",
+   "summary": "Hushai (hus'-sha-i) or Chusai was a friend of David and a spy according to the Hebrew Bible. During Absalom's rebellion, as described in the Second Book of Samuel, he agrees to act as an advisor to Absalom to sabotage his plans while secretly sending information to David. It was on his advice that Absalom did not immediately pursue the retreating David, thus giving David time to regroup and gather his forces. Hushai's sabotage helped to ensure Absalom's rapid defeat.",
+   "desc": "Friend of David and spy in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Hushai"
+  },
   "recGc4mBQC3rOkQ8m": {
    "title": "Canaan (son of Ham)",
    "summary": "Canaan, according to the Book of Genesis in the Hebrew Bible, was a son of Ham and grandson of Noah, as well as the father of the Canaanites.",
    "desc": "Biblical figure",
    "page": "https://en.wikipedia.org/wiki/Canaan_(son_of_Ham)"
+  },
+  "recGpetgbThAidJR4": {
+   "title": "Ben-hadad",
+   "summary": "Benhadad, Ben Hadad, Ben-hadad or Benadad, may refer to:Any king of Aram-Damascus. Hadad was the name of the senior Aramean deity. Particular kings of Aram-Damascus: Ben-Hadad I, king of Aram Damascus between 885 BCE and 865 BCE Hadadezer, king of Aram Damascus at the time of the battle of Qarqar against the Assyrian king Shalmaneser III in 853 BCE. Also known as Adad-Idri (Assyr.) and possibly the same as Bar-Hadad II (Aram.); Ben-Hadad II (Heb.). Ben-Hadad III, king of Aram Damascus and son and successor of Hazael. His succession is mentioned in II Kings 13:3, 24.",
+   "desc": "Surname list",
+   "page": "https://en.wikipedia.org/wiki/Ben-hadad"
+  },
+  "recH5aFqTzpwfDSRi": {
+   "title": "Lot (biblical person)",
+   "summary": "Lot was a notable figure mentioned in the biblical Book of Genesis, chapters 11–14 and 19 and other scriptures. Important events in his life recorded in Genesis include his journey with his uncle Abraham; and his flight from the annihilation of Sodom and Gomorrah, during which his wife became a pillar of salt. He is regarded as the parental ancestor of Ammonites and Moabites, the enemies of Israelites.",
+   "desc": "Person mentioned in the Book of Genesis and the Quran",
+   "page": "https://en.wikipedia.org/wiki/Lot_(biblical_person)"
+  },
+  "recH7JpZUIqyGxHkt": {
+   "title": "Ram (biblical figure)",
+   "summary": "Ram is a figure in the Hebrew Bible. He is the son of Hezron and ancestor of David. His genealogical lineage and descendants are recorded in 1 Chronicles 2:9-10 and at the Book of Ruth 4:19. In the New Testament, his name is given as \"Aram\" and \"Arni\".",
+   "desc": "Minor figure in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Ram_(biblical_figure)"
+  },
+  "recH9ECLXz8IgSUgF": {
+   "title": "Eli (biblical figure)",
+   "summary": "Eli was, according to the Book of Samuel, a priest and a judge of the Israelites in the city of Shiloh, ancient Israel. When Hannah came to Shiloh to pray for a son, Eli initially accused her of drunkenness, but when she protested her innocence, Eli wished her well. Hannah's eventual child, Samuel, was raised by Eli in the tabernacle. When Eli failed to rein in the abusive behavior of his own sons, God promised to punish his family, which resulted in the death of Eli's sons at the Battle of Aphek where the Ark of the Covenant was also captured. When Eli heard the news of the captured Ark, he fell from his seat, broke his neck, and died.",
+   "desc": "High priest of Shiloh in ancient Israel",
+   "page": "https://en.wikipedia.org/wiki/Eli_(biblical_figure)"
+  },
+  "recHaU4Mr8rb7oFGZ": {
+   "title": "Amasa",
+   "summary": "Amasa or Amessai is a person mentioned in the Hebrew Bible. His mother was Abigail, a sister of King David. Hence, Amasa was a nephew of David, and cousin of Joab, David's military commander, as well as a cousin of Absalom, David's son. David calls him \"my bone and my flesh\".",
+   "desc": "Biblical nephew of King David and military commander of Israel",
+   "page": "https://en.wikipedia.org/wiki/Amasa"
+  },
+  "recI3I2hTyt8KI5kr": {
+   "title": "Rechab",
+   "summary": "Rechab is the name of three men in the Bible:",
+   "desc": "Name of various Biblical figures",
+   "page": "https://en.wikipedia.org/wiki/Rechab"
+  },
+  "recIkDyjqErbTqdt0": {
+   "title": "Peleg",
+   "summary": "Peleg is mentioned in the Hebrew Bible as one of the two sons of Eber, an ancestor of the Ishmaelites and the Israelites, according to the Generations of Noah in Genesis 10–11 and 1 Chronicles 1.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Peleg"
+  },
+  "recIkMEqklOO7bpg8": {
+   "title": "Jeshua",
+   "summary": "Jeshua (יֵשׁ֡וּעַ), a variant of Yehoshua, may refer to:Yeshua or Jeshua, a Hebrew name mentioned in several places in the Jewish Tanakh Joshua the High Priest at the time of Ezra",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Jeshua"
+  },
+  "recIo7V1LEn9xfvcc": {
+   "title": "Jephthah",
+   "summary": "Jephthah appears in the Book of Judges as a judge who presided over Israel for a period of six years. According to Judges, he lived in Gilead. His father's name is also given as Gilead, and, as his mother is described as a prostitute, this may indicate that his father might have been any of the men of that area. Jephthah led the Israelites in battle against Ammon and, in exchange for defeating the Ammonites, made a vow to sacrifice whatever would come out of the door of his house first. When his daughter was the first to come out of the house, he immediately regretted the vow, which bound him to sacrifice his daughter to God. Jephthah carried out his vow.",
+   "desc": "Judge of ancient Israel",
+   "page": "https://en.wikipedia.org/wiki/Jephthah"
+  },
+  "recIugPvqGMSEmfHN": {
+   "title": "Barak",
+   "summary": "Barak was a ruler of Ancient Israel. As military commander in the biblical Book of Judges, Barak, with Deborah, from the Tribe of Ephraim, the prophet and fourth Judge of pre-monarchic Israel, defeated the Canaanite armies led by Sisera.",
+   "desc": "Israelite military commander in the biblical Book of Judges",
+   "page": "https://en.wikipedia.org/wiki/Barak"
+  },
+  "recJRZ55dvZRRb0mg": {
+   "title": "Jezebel",
+   "summary": "Jezebel was the daughter of Ithobaal I of Tyre and the wife of Ahab, King of Israel, according to the Book of Kings of the Hebrew Bible.",
+   "desc": "Biblical figure; Phoenician princess and wife of Ahab",
+   "page": "https://en.wikipedia.org/wiki/Jezebel"
+  },
+  "recJphRu1f6lh8d1e": {
+   "title": "Ephron",
+   "summary": "Ephron is a Jewish surname. Notable people with the surname include:Ephron, Hittite who sold a cave to Abraham according to the Bible A family of American writers: Henry Ephron (1911–1992), father Phoebe Ephron (1914–1971), mother Amy Ephron, daughter Delia Ephron, daughter Hallie Ephron, daughter, sometimes writes as G. H. Ephron Nora Ephron (1941–2012), daughter Theron Ephron Catlin (1878–1960), American politician from Missouri",
+   "desc": "Surname list",
+   "page": "https://en.wikipedia.org/wiki/Ephron"
+  },
+  "recKCifIYcTXovrF4": {
+   "title": "Ezra",
+   "summary": "Ezra is the main character of the Book of Ezra. According to the Hebrew Bible, he was an important Jewish scribe and priest in the early Second Temple period. In the Greek Septuagint, the name is rendered as Ésdrās, from which the Latin name Esdras comes. \"Ezra\" is probably a shortened Aramaic form of the Hebrew name עֲזַרְיָהוּ, meaning \"Yah helps\".",
+   "desc": "Figure in early Jewish history",
+   "page": "https://en.wikipedia.org/wiki/Ezra"
   },
   "recKGwJpH24g67ZTm": {
    "title": "Elisha",
@@ -1528,6 +1903,30 @@
    "summary": "Job is the central figure of the Book of Job in the Bible. In Islam, Job is also considered a prophet.",
    "desc": "Biblical figure",
    "page": "https://en.wikipedia.org/wiki/Job_(biblical_figure)"
+  },
+  "recL9x2FrJ8IWdGFA": {
+   "title": "Achan (biblical figure)",
+   "summary": "Achan, the son of Carmi, a descendant of Zimri, the son of Zerah, of the tribe of Judah, is a figure who appears in the Book of Joshua in the Hebrew Bible in connection with the fall of Jericho and conquest of Ai. By combining the narrative of the books of Joshua and 1 Chronicles, we can reconstruct his genealogy as: Achan, the son of Carmi, the son of Zabdi, the son of Zerah, the son of (Zimri), the son of Zerah, the son of Judah.",
+   "desc": "Biblical character (Joshua 7); executed by stoning",
+   "page": "https://en.wikipedia.org/wiki/Achan_(biblical_figure)"
+  },
+  "recLWdpsJvt4MWqTe": {
+   "title": "Shishak",
+   "summary": "Shishak, also spelled Shishaq or Susac, was, according to the Hebrew Bible, a pharaoh of Egypt who sacked Jerusalem in the 10th century BC. He is usually identified with the pharaoh Shoshenq I.",
+   "desc": "Egyptian pharaoh mentioned in the Hebrew Bible, identified with Shoshenq I",
+   "page": "https://en.wikipedia.org/wiki/Shishak"
+  },
+  "recLeCDZ3zDUeKqGW": {
+   "title": "Shealtiel",
+   "summary": "Shealtiel, transliterated in Greek as Salathiel, was the son of Jehoiachin, king of Judah. The Gospel of Matthew 1:12 also list Shealtiel as the son of Jeconiah. Jeconiah, Shealtiel, as well as most of the royal house and elite of the kingdom, were exiled to Babylon by order of Nebuchadnezzar II of Babylon after the first siege of Jerusalem in 597 BC. During the Babylonian captivity, Shealtiel was regarded as the second Exilarch, following his father.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Shealtiel"
+  },
+  "recLggPghs0fnCfHB": {
+   "title": "Methuselah",
+   "summary": "Methuselah was a biblical patriarch and a figure in Judaism, Christianity, and Islam. He is claimed to have lived to 969 years of age, the longest lifespan claimed in the Bible. According to the Book of Genesis, Methuselah was the son of Enoch, the father of Lamech, and the grandfather of Noah. Elsewhere in the Bible, Methuselah is mentioned in genealogies in 1 Chronicles and the Gospel of Luke.",
+   "desc": "Longest-lived Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Methuselah"
   },
   "recLuZtSmAO6erIsc": {
    "title": "Joshua",
@@ -1543,6 +1942,36 @@
     "w": 330,
     "h": 411
    }
+  },
+  "recM30yMa9NH5DOVq": {
+   "title": "Moloch",
+   "summary": "Moloch, Molech, or Molek is a word which appears in the Hebrew Bible several times, primarily in the Book of Leviticus. The Greek Septuagint translates many of these instances as \"their king\", but maintains the word or name Moloch in others, including one additional time in the Book of Amos where the Hebrew text does not attest the name. The Bible strongly condemns practices that are associated with Moloch, which are heavily implied to include child sacrifice.",
+   "desc": "Canaanite deity or form of human sacrifice",
+   "page": "https://en.wikipedia.org/wiki/Moloch"
+  },
+  "recM8puJim5xv2bHw": {
+   "title": "Pharaohs in the Bible",
+   "summary": "The Bible makes reference to various pharaohs of Egypt. These include unnamed pharaohs in events described in the Torah, as well as several later named pharaohs, some of whom were historical or can be identified with historical pharaohs.",
+   "desc": "Pharaohs mentioned in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Pharaohs_in_the_Bible"
+  },
+  "recMIpVUk92YKxyNs": {
+   "title": "Adonijah",
+   "summary": "According to 2 Samuel, Adonijah was the fourth son of King David. His mother was Haggith as recorded in the book of 2 Samuel 3:4. Adonijah was born at Hebron during the long conflict between David and the House of Saul. In 1 Kings, he briefly proclaimed himself king of Israel during the terminal illness of his father David, before peacefully ceding the throne to his brother Solomon.",
+   "desc": "Fourth son of the Israelite king David",
+   "page": "https://en.wikipedia.org/wiki/Adonijah"
+  },
+  "recMUZkUfOwBiZ3jk": {
+   "title": "Perez (son of Judah)",
+   "summary": "Perez, also written as Pharez/Peretz, was the son of Tamar and her father-in-law Judah, and the twin of Zerah, according to the Book of Genesis. The twins were conceived after Tamar tricked her father-in-law Judah into having sexual intercourse with her by disguising herself as a prostitute. The name is transliterated to English as both \"Perez\" and \"Pharez\" (KJV). Perez, in Hebrew means \"breach or burst forth\" and is named after the narrative of his birth as recorded in Genesis 38:29. According to Ethiopian tradition, Perez became a king of Persia.",
+   "desc": "Biblical figure; son of Judah and twin brother of Zerah",
+   "page": "https://en.wikipedia.org/wiki/Perez_(son_of_Judah)"
+  },
+  "recN6jpLG2OGhtemf": {
+   "title": "Ham (Genesis)",
+   "summary": "Ham, according to the Table of Nations in the Book of Genesis, was either the second or the youngest son of Noah, and the father of Cush, Mizraim, Phut and Canaan.",
+   "desc": "Biblical figure, son of Noah",
+   "page": "https://en.wikipedia.org/wiki/Ham_(Genesis)"
   },
   "recNOn1RcB3sCzCnh": {
    "title": "Josiah",
@@ -1565,11 +1994,41 @@
     "h": 490
    }
   },
+  "recNRf3uss32ZuTw7": {
+   "title": "Naaman",
+   "summary": "Naaman the Aramean was a commander of the armies of Hadadezer, the king of Aram-Damascus, in the time of Jehoram, King of Northern Israel (Samaria).",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Naaman"
+  },
   "recNlVijtEIdQhAIm": {
    "title": "Hezekiah",
    "summary": "Hezekiah was the son of Ahaz and the thirteenth king of Judah. He is described as \"the best-attested figure in biblical history,\" due to the extensive documentation of his reign in biblical texts and external sources. His reign was marked by his significant religious reforms and his revolt against the Assyrian Empire. He witnessed the destruction of the northern Kingdom of Israel by the Assyrians under Sargon II in c. 722 BCE and later faced the Assyrian siege of Jerusalem by King Sennacherib in 701 BCE.",
    "desc": "King of Judah",
    "page": "https://en.wikipedia.org/wiki/Hezekiah"
+  },
+  "recO6jj8WG1gFfhIR": {
+   "title": "Jeconiah",
+   "summary": "Jeconiah, also known as Coniah and as Jehoiachin, was the nineteenth and penultimate king of Judah who was dethroned by the King of Babylon, Nebuchadnezzar II in the 6th century BCE and was taken into captivity. He was the son and successor of King Jehoiakim, and the grandson of King Josiah. Most of what is known about Jeconiah is found in the Hebrew Bible. Records of Jeconiah's existence have been found in Iraq, such as the Jehoiachin's Rations Tablets. These tablets were excavated near the Ishtar Gate in Babylon and dated to c. 592 BCE. Written in cuneiform, they mention Jeconiah and his five sons as recipients of food rations in Babylon.",
+   "desc": "Biblical figure; 19th monarch of the Kingdom of Judah",
+   "page": "https://en.wikipedia.org/wiki/Jeconiah"
+  },
+  "recOCbR2kuXoxyvkq": {
+   "title": "Shem",
+   "summary": "Shem is one of the sons of Noah in the Bible.",
+   "desc": "Biblical figure, son of Noah",
+   "page": "https://en.wikipedia.org/wiki/Shem"
+  },
+  "recOEXTM57COt0tET": {
+   "title": "Gad (prophet)",
+   "summary": "Gad was a seer or prophet mentioned in the Hebrew Bible and the writings of Jewish historian Josephus. He was one of the personal prophets of King David of Israel and, according to the Talmudic tradition, some of his writings are believed to be included in the Books of Samuel. He is first mentioned in 1 Samuel 22:5 telling David to return from refuge in Moab to the forest of Hereth in the land of Judah.",
+   "desc": "Seer or prophet mentioned in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Gad_(prophet)"
+  },
+  "recOXtCZgcG7YobCm": {
+   "title": "Ithamar",
+   "summary": "In the Bible, Ithamar was the fourth son of Aaron the High Priest. Following the construction of the Tabernacle, he was responsible for recording an inventory to ensure that the constructed Tabernacle and its contents conformed to the vision given by God to Moses on Mount Sinai.",
+   "desc": "High Priest of Israel; son of Aaron",
+   "page": "https://en.wikipedia.org/wiki/Ithamar"
   },
   "recOdl9oB4UWmbiqP": {
    "title": "Pharaohs in the Bible",
@@ -1577,11 +2036,68 @@
    "desc": "Pharaohs mentioned in the Bible",
    "page": "https://en.wikipedia.org/wiki/Pharaohs_in_the_Bible"
   },
+  "recOoGi8gNVJEpNqY": {
+   "title": "Joshua",
+   "summary": "Joshua, also known as Yehoshua, Jehoshua, or Josue, was Moses' assistant in the books of Exodus and Numbers, and later succeeded Moses as leader of the Israelite tribes in the Book of Joshua of the Hebrew Bible. His name was Hoshea the son of Nun, of the tribe of Ephraim, but Moses called him \"Yehoshua\", the name by which he is commonly known in English. According to the Bible, he was born in Egypt prior to the Exodus.",
+   "desc": "Central figure in the Hebrew Bible's Book of Joshua",
+   "page": "https://en.wikipedia.org/wiki/Joshua",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg/330px-Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg",
+    "license": "Public domain",
+    "artist": "Didier Descouens",
+    "credit": "Own work",
+    "w": 330,
+    "h": 411
+   }
+  },
+  "recP6fsKEckt8QTDh": {
+   "title": "Abishai (biblical figure)",
+   "summary": "Abishai was a military leader under the biblical King David. He was the eldest son of David's sister, Zeruiah. According to Josephus his father was called Suri. The meaning of his name is \"Father of a gift\". He was the brother of Joab and Asahel.",
+   "desc": "General and military leader",
+   "page": "https://en.wikipedia.org/wiki/Abishai_(biblical_figure)"
+  },
+  "recPDRskzPNTboSMu": {
+   "title": "Phinehas",
+   "summary": "According to the Hebrew Bible, Phinehas was a priest during the Exodus. The grandson of Aaron and son of Eleazar, the High Priests, he distinguished himself as a youth at Shittim with his zeal against the heresy of Peor.",
+   "desc": "Biblical priest and prophet who opposed the heresy of Peor",
+   "page": "https://en.wikipedia.org/wiki/Phinehas"
+  },
+  "recPVllpeWF3SaHJQ": {
+   "title": "Gaal (biblical figure)",
+   "summary": "Gaal (Hebrew:גַּעַל) is a minor biblical character, introduced in the 9th chapter of Judges in the Hebrew Bible as the son of Ebed or Eved, or the son of a slave. His story is told in Judges 9:26–41.",
+   "desc": "Minor biblical character in Judges 9",
+   "page": "https://en.wikipedia.org/wiki/Gaal_(biblical_figure)"
+  },
+  "recPXwhg9FEPcFmK7": {
+   "title": "Martha",
+   "summary": "Martha is a biblical figure described in the Gospels of Luke and John. Together with her siblings Lazarus and Mary of Bethany, she is described as living in the village of Bethany near Jerusalem and witnessing Jesus resurrecting her brother, Lazarus.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Martha"
+  },
+  "recQj11G0vIoqJYid": {
+   "title": "Heth (Bible)",
+   "summary": "Heth is, according to Genesis 10:15, the second son of Canaan, who is son of Ham, son of Noah. Heth is the ancestor of the Biblical Hethites, second of the twelve Canaanite nations descended from his sons, who lived near Hebron.",
+   "desc": "Christian religious figure",
+   "page": "https://en.wikipedia.org/wiki/Heth_(Bible)"
+  },
+  "recQkQ6wN9kIVFY94": {
+   "title": "Jeduthun",
+   "summary": "Jeduthun - lauder; praising - the name of two men in the Bible.A Levite of the family of Merari, and one of the three masters of music appointed by David. His office was generally to preside over the music of the temple service. Jeduthun's name stands at the head of Psalms 39, 62 and 77, indicating probably that they were to be sung by his choir. Jeduthun and Heman were responsible for the sounding of the trumpets and cymbals and for the playing of the other instruments for sacred song.. A Levite whose son or descendant Obed-Edom was a gatekeeper at the time David brought the Ark of the Covenant to Jerusalem.",
+   "desc": "Either of two biblical figures",
+   "page": "https://en.wikipedia.org/wiki/Jeduthun"
+  },
   "recQoq4AXnZxZhOFh": {
    "title": "Ahaz",
    "summary": "Ahaz an abbreviation of Jehoahaz II, \"Yahweh has held\" was the twelfth king of Judah, and the son and successor of Jotham. Ahaz was 20 when he became king of Judah and reigned for 16 years.",
    "desc": "12th king of Judah",
    "page": "https://en.wikipedia.org/wiki/Ahaz"
+  },
+  "recRMsfahAI4RmTZe": {
+   "title": "Jotham",
+   "summary": "Jotham or Yotam was the eleventh king of Judah, and son of Uzziah and Jerusha, daughter of Zadok. Jotham was 25 years old when he began his reign, and he reigned for 16 years. Edwin R. Thiele concluded that his reign commenced as a coregency with his father, which lasted for 11 years. Because his father Uzziah was afflicted with tzaraath after he went into the Temple to burn incense, Jotham became governor of the palace and the land at that time, i.e. coregent, while his father lived in a separate house as a leper.",
+   "desc": "11th king of Judah (c.740–732 BCE)",
+   "page": "https://en.wikipedia.org/wiki/Jotham"
   },
   "recRVq3v1aG0UAtsg": {
    "title": "Jehoiakim",
@@ -1601,11 +2117,23 @@
    "desc": "Biblical Jewish queen of Persia and Medes",
    "page": "https://en.wikipedia.org/wiki/Esther"
   },
+  "recSo7V3yW4zpZBLM": {
+   "title": "Silas",
+   "summary": "Silas or Silvanus was a leading member of the Early Christian community, who according to the New Testament accompanied Paul the Apostle on his second missionary journey.",
+   "desc": "1st century AD Christian saint and bishop",
+   "page": "https://en.wikipedia.org/wiki/Silas"
+  },
   "recT2Tm2K5XORGnbx": {
    "title": "Rachel",
    "summary": "Rachel was a Hebrew Bible figure, one of the Israelite matriarchs, the favorite of Jacob's two wives, and the mother of Joseph and Benjamin, two of the twelve progenitors of the tribes of Israel. Rachel's father was Laban. Her older sister was Leah, Jacob's first wife. Her aunt Rebecca was Jacob's mother. Rachel's eldest son Joseph became a prominent figure in Israelite tradition. This pre-eminence emerges in the story of Joseph, who prepared the way in Egypt for his family's exile there.",
    "desc": "Hebrew Bible matriarch",
    "page": "https://en.wikipedia.org/wiki/Rachel"
+  },
+  "recT2bBHUbJYLIUdu": {
+   "title": "Abimelech",
+   "summary": "Abimelech was the generic name given to all Philistine kings in the Hebrew Bible from the time of Abraham until that of King David. In particlular, Abimelech, king of Gerar, features in relation to Abraham and his wife/sister Sarah in Genesis 20, and to Isaac and Rebekah in Genesis 26. In the Book of Judges, Abimelech, son of Gideon, of the Tribe of Manasseh, is proclaimed king of Shechem after the death of his father.",
+   "desc": "Name given to Philistine kings in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Abimelech"
   },
   "recT5VXFTSilSlzVX": {
    "title": "Pharaohs in the Bible",
@@ -1619,11 +2147,35 @@
    "desc": "Biblical figure, son of Levi",
    "page": "https://en.wikipedia.org/wiki/Merari"
   },
+  "recTIBe3HYxgnmy9D": {
+   "title": "Jonadab",
+   "summary": "Jonadab is a figure in the Hebrew Bible, appearing in 2 Samuel 13. He is described in verse 3 as the son of Shimeah, who was the brother of David, making Jonadab a cousin to Amnon as well as his friend. He is called \"very wise\", usually translated as \"very shrewd\" (NIV) or \"very crafty\" (ESV).",
+   "desc": "Character in 2 Samuel; son of Shimeah",
+   "page": "https://en.wikipedia.org/wiki/Jonadab"
+  },
   "recTMYikvzJ27cDlA": {
    "title": "Nebuchadnezzar II",
    "summary": "Nebuchadnezzar II, more faithfully spelled Nebuchadrezzar II, meaning \"Nabu, watch over my heir\", was the second king of the Neo-Babylonian Empire, ruling from the death of his father Nabopolassar in 605 BC to his own death in 562 BC. Often titled Nebuchadnezzar the Great, he is regarded as the empire's greatest king, famous for his military campaigns in the Levant and their role in Jewish history, and for his construction projects in his capital of Babylon. Ruling for 43 years, Nebuchadnezzar was the longest-reigning king of the Neo-Babylonian dynasty. By the time of his death, he was among the most powerful rulers in the world.",
    "desc": "King of Babylon from 605 to 562 BC",
    "page": "https://en.wikipedia.org/wiki/Nebuchadnezzar_II"
+  },
+  "recTZgz0tupblV0YE": {
+   "title": "Gehazi",
+   "summary": "Gehazi, Geichazi, or Giezi (Douay-Rheims) is a figure found in the Books of Kings in the Hebrew Bible.",
+   "desc": "Biblical figure (Second Book of Kings)",
+   "page": "https://en.wikipedia.org/wiki/Gehazi"
+  },
+  "recUA9Fc2yoNk8c5d": {
+   "title": "Barnabas",
+   "summary": "Barnabas, born Joseph (Ἰωσήφ) or Joses (Ἰωσής), was a prominent Christian disciple, identified as an apostle in Acts 14:14. According to Acts 4:36, he was a Cypriot Levite. He undertook missionary journeys as a companion of Paul the Apostle, evangelizing among the \"God-fearing\" Gentiles who attended synagogues in some of the Hellenized cities of Anatolia. He participated in the Council of Jerusalem.",
+   "desc": "Early Christian disciple and bishop",
+   "page": "https://en.wikipedia.org/wiki/Barnabas"
+  },
+  "recUDLYiodtPKHuXc": {
+   "title": "Nahshon",
+   "summary": "In the Hebrew Bible, Nahshon was a tribal leader of the Judahites during the wilderness wanderings of the Book of Numbers. In the King James Version, the name is spelled Naashon, and is within modern Rabbinical contexts often transliterated as Nachshon.",
+   "desc": "Judahite tribal leader",
+   "page": "https://en.wikipedia.org/wiki/Nahshon"
   },
   "recUQWSZuOecG4z1Q": {
    "title": "Esau",
@@ -1631,11 +2183,77 @@
    "desc": "Older son of Isaac in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Esau"
   },
+  "recUgHX8TjNBQ3aXd": {
+   "title": "Ruth (biblical figure)",
+   "summary": "Ruth was the great-grandmother of David, after whom the Book of Ruth is named. She was a Moabite woman who married an Israelite, Mahlon. After the death of all the male members of her family, she stayed with her mother-in-law, Naomi, and moved to Judah with her, where Ruth won the love and protection of a wealthy relative, Boaz, through her kindness.",
+   "desc": "Protagonist of the Book of Ruth in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Ruth_(biblical_figure)"
+  },
+  "recUipM9EEsnFSZI0": {
+   "title": "Stephen",
+   "summary": "Stephen or Steven is an English male first name. It is particularly significant to Christians, as it belonged to Saint Stephen, an early disciple and deacon who, according to the Book of Acts, was stoned to death; he is widely regarded as the first martyr of the Christian Church.",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Stephen",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Stephen_%28Carlo_Crivelli%29.jpg/330px-Saint_Stephen_%28Carlo_Crivelli%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Saint_Stephen_%28Carlo_Crivelli%29.jpg",
+    "license": "Public domain",
+    "artist": "Carlo Crivelli",
+    "credit": "National Gallery, London",
+    "w": 330,
+    "h": 505
+   }
+  },
+  "recUt3VRWj3MN5Pg0": {
+   "title": "Dagon",
+   "summary": "Dagon or Dagan was a god worshipped in ancient Syria, across the middle of the Euphrates, with primary temples located in Tuttul and Terqa, though many attestations of his cult come from cities such as Mari and Emar as well. In settlements situated in the upper Euphrates area, he was regarded as the \"father of gods\" similar to Mesopotamian Enlil or Hurrian Kumarbi, as well as a lord of the land, a god of prosperity, and a source of royal legitimacy. A large number of theophoric names, both masculine and feminine, attests that he was a popular deity.",
+   "desc": "Bronze Age god in ancient Syria",
+   "page": "https://en.wikipedia.org/wiki/Dagon"
+  },
+  "recV4ujd4P2vfpd2D": {
+   "title": "Herod Antipas",
+   "summary": "Herod Antipas, was a 1st-century Herodian ruler of Galilee and Perea, in the time of the Herodian Tetrarchy. He bore the title of tetrarch and is referred to as both \"Herod the Tetrarch\" and \"King Herod\" in the New Testament. He was a son of Herod the Great and a grandson of Antipater the Idumaean. Known for his role in the executions of John the Baptist and Jesus of Nazareth, his name is often associated with tyranny and persecution.",
+   "desc": "1st-century AD tetrarch of Galilee and Perea (r. 1–39)",
+   "page": "https://en.wikipedia.org/wiki/Herod_Antipas",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Herod_Antipas_medal.svg/330px-Herod_Antipas_medal.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Herod_Antipas_medal.svg",
+    "license": "Public domain",
+    "artist": "Georges Reverdy",
+    "credit": "Rouillé, Guillaume (1553) Promptuarium Iconum Insigniorum pars secunda, Lyon: Apud Gulielmum Rovillium, p. 8 OCLC: 716696497.",
+    "w": 330,
+    "h": 330
+   }
+  },
   "recVMHzYdllgvTo09": {
    "title": "Noah",
    "summary": "Noah appears as the last of the Antediluvian patriarchs in the traditions of Abrahamic religions. His story appears in the Hebrew Bible, the Quran and Baha'i writings, and extracanonically.",
    "desc": "Biblical prophet known for building an ark",
    "page": "https://en.wikipedia.org/wiki/Noah"
+  },
+  "recVRtBEdN8mgLhHN": {
+   "title": "Matthew the Apostle",
+   "summary": "Matthew the Apostle was one of the twelve apostles of Jesus. According to many Christian traditions, he was also one of the four Evangelists as author of the Gospel of Matthew, and thus is also known as Matthew the Evangelist. The gospel, one of the three synoptics, contains the complete Sermon on the Mount and the Beatitudes.",
+   "desc": "Apostle of Jesus",
+   "page": "https://en.wikipedia.org/wiki/Matthew_the_Apostle"
+  },
+  "recVSSxnkwRcwBSAD": {
+   "title": "Shimei",
+   "summary": "Shimei is the name of a number of persons referenced in the Hebrew Bible and Rabbinical literature.The second son of Gershon and grandson of Levi. The family of the Shimeites, as a branch of the tribe of Levi, is mentioned in Numbers 3:18, 21; 1 Chronicles 23:7, 10, 11 ; and in Zechariah 12:13. In the New Testament the name occurs in Luke 3:26, spelled Semei in the King James Version.",
+   "desc": "Name in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Shimei"
+  },
+  "recVrmSzvxPuuzQ3v": {
+   "title": "Manoah",
+   "summary": "Manoah is a figure from the Book of Judges 13:1-23 and 14:2-4 of the Hebrew Bible. His name means \"rest\". He is the father of the judge Samson.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Manoah"
+  },
+  "recVua5TkKSl3y6Ol": {
+   "title": "Caleb",
+   "summary": "Caleb is a figure who appears in the Hebrew Bible as a representative of the Tribe of Judah during the Israelites' journey to the Promised Land.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Caleb"
   },
   "recVuseK2cy7CXlve": {
    "title": "Jeremiah",
@@ -1643,11 +2261,23 @@
    "desc": "Biblical prophet",
    "page": "https://en.wikipedia.org/wiki/Jeremiah"
   },
+  "recWNVpNGdTSb2lAK": {
+   "title": "Uzziel",
+   "summary": "According to the Torah, Uzziel was the father of Mishael, Elzaphan, and Zithri, and was a son of Kohath and grandson of Levi, consequently being the brother of Amram and uncle of Aaron, Miriam, and Moses. Uzziel is portrayed in the text as the founder of the Uzzielite faction of Levites; however, despite Uzziel supposedly being Kohath's son, and Elzaphan's father, on some occasions the Book of Chronicles treats the Uzzielites as being quite distinct from the descendants of Kohath, and from those of Elzaphan.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Uzziel"
+  },
   "recWbF7K0mK6Cjo7U": {
    "title": "Haman",
    "summary": "Haman is the main antagonist in the Book of Esther, who according to the Hebrew Bible was an official in the court of the Persian empire under King Ahasuerus, commonly identified as Xerxes I but traditionally equated with Artaxerxes I or Artaxerxes II. His epithet, Agagite, indicates that Haman was a descendant of Agag, the king of the Amalekites. Some commentators interpret this descent to be symbolic, due to his similar personality.",
    "desc": "Villain in the Book of Esther",
    "page": "https://en.wikipedia.org/wiki/Haman"
+  },
+  "recWgOKa1tH3WAtfR": {
+   "title": "Ish-bosheth",
+   "summary": "Ish-Bosheth, also called Eshbaal was, according to the Hebrew Bible, the son of Saul who, after his father's death, ascended to the throne and reigned for two years.",
+   "desc": "Biblical figure and Israelite monarch",
+   "page": "https://en.wikipedia.org/wiki/Ish-bosheth"
   },
   "recX02UfwuM8OP0p3": {
    "title": "Abner",
@@ -1655,11 +2285,23 @@
    "desc": "Biblical character",
    "page": "https://en.wikipedia.org/wiki/Abner"
   },
+  "recX0LVuxaIsDqO6p": {
+   "title": "Vashti",
+   "summary": "Vashti was a queen of Persia and the first wife of Persian king Ahasuerus in the Book of Esther, a book included within the Tanakh and the Old Testament which is read on the Jewish holiday of Purim. She was either executed or banished for her refusal to appear at the king's banquet to show her beauty as Ahasuerus wished, and was succeeded as queen by Esther, a Jew. That refusal might be better understood due to the Jewish tradition that she was ordered to appear naked. In the Midrash, Vashti is described as beautiful but wicked and vain; she is viewed as an independent-minded heroine in feminist theological interpretations of the Purim story.",
+   "desc": "Character in the Book of Esther; queen of Persia",
+   "page": "https://en.wikipedia.org/wiki/Vashti"
+  },
   "recX9MMADoVI2CSP1": {
    "title": "Saint Peter",
    "summary": "Saint Peter, also known as Peter the Apostle, Simon Peter, or Cephas, was one of the Twelve Apostles of Jesus and one of the first leaders of the early Christian Church. He appears repeatedly and prominently in all four New Testament gospels, as well as the Acts of the Apostles. Catholic and Orthodox tradition treats Peter as the first bishop of Rome and also as the first bishop of Antioch. According to Christian tradition, Peter was crucified upside down in Rome under Emperor Nero.",
    "desc": "Apostle of Jesus",
    "page": "https://en.wikipedia.org/wiki/Saint_Peter"
+  },
+  "recXBYSWubfkpqNQm": {
+   "title": "Terah",
+   "summary": "Terah, also spelled Terach, was a biblical figure in the Book of Genesis. He is listed as the son of Nahor and father of the patriarch Abraham. As such, he is a descendant of Shem's son Arpachshad. Terah is mentioned in Genesis 11:24–32, Joshua 24:2, and 1 Chronicles 1:17–27 in the Hebrew Bible, and in Luke 3:34 in the New Testament.",
+   "desc": "Figure in the Hebrew Bible; son of Nahor",
+   "page": "https://en.wikipedia.org/wiki/Terah"
   },
   "recXhPherZAxvXTS4": {
    "title": "Jeroboam",
@@ -1667,11 +2309,67 @@
    "desc": "Biblical figure and monarch",
    "page": "https://en.wikipedia.org/wiki/Jeroboam"
   },
+  "recY1VRV4iLUcCvU1": {
+   "title": "Micah (prophet)",
+   "summary": "According to the Hebrew Bible, Micah was a prophet of Yahweh and is traditionally regarded as the author of the Book of Micah. He is considered one of the Twelve Minor Prophets of the Hebrew Bible and is depicted as a contemporary of the prophets Isaiah, Amos and Hosea. Micah is described as having been from Moresheth-Gath, in southwest Judah and prophesying during the reigns of kings Jotham, Ahaz, and Hezekiah of the southern Kingdom of Judah in the 8th century BC.",
+   "desc": "Prophet in Judaism and Christianity",
+   "page": "https://en.wikipedia.org/wiki/Micah_(prophet)"
+  },
+  "recYR95Wl2gTyPZHl": {
+   "title": "Benaiah",
+   "summary": "Benaiah is a common name in the Hebrew Bible.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Benaiah"
+  },
+  "recYS0HXBlTsRDtlc": {
+   "title": "Cyrus the Great in the Bible",
+   "summary": "Cyrus the Great, who founded the Achaemenid Empire in 550 BC and ruled it until his death in 530 BC, is the subject of much praise in the Hebrew Bible. He is noted for his role in conquering the Neo-Babylonian Empire and thereafter liberating the Jewish people from the Babylonian captivity, which had begun after the fall of the Kingdom of Judah in 587 BC.",
+   "page": "https://en.wikipedia.org/wiki/Cyrus_the_Great_in_the_Bible"
+  },
+  "recYqSnSPlrNvnE1m": {
+   "title": "Cain and Abel",
+   "summary": "In the biblical Book of Genesis, Cain and Abel are the first two sons of Adam and Eve. Cain, the firstborn, was a farmer, and his brother Abel was a shepherd. The brothers made sacrifices, each from his own fields, to God. God had regard for Abel's offering, but had no regard for Cain's. Cain killed Abel, and upon God's enquiry, responded with \"Am I my brother's keeper?\". God judged it murder, cursing Cain and sentencing him to a life of transience, but gave him the Mark of Cain to protect him so that he is not killed by others. Cain then dwelt in the land of Nod, where he built a city and fathered the line of descendants beginning with Enoch.",
+   "desc": "First two sons of Adam and Eve",
+   "page": "https://en.wikipedia.org/wiki/Cain_and_Abel",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg/330px-Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg",
+    "license": "Public domain",
+    "artist": "Peter Paul Rubens",
+    "credit": "The Courtauld Institute of Art, London",
+    "w": 330,
+    "h": 454
+   }
+  },
+  "recYyeczKVbq0DLzk": {
+   "title": "Jehoiada",
+   "summary": "Jehoiada in the Hebrew Bible, was a prominent priest in the kingdom of Judah during the reigns of Ahaziah, Athaliah, and Joash. Jehoiada became the brother-in-law of King Ahaziah as a result of his marriage with princess Jehosheba. Both Jehosheba and Ahaziah were children of King Jehoram of Judah. Ahaziah died a year after assuming the throne, which was then usurped by his mother Athaliah, who ordered the execution of all members of the royal family.",
+   "desc": "Priest in Judah in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Jehoiada"
+  },
   "recZ6YiBydClBiVVJ": {
    "title": "Zebulun",
    "summary": "Zebulun was, according to the Books of Genesis and Numbers, Jacob's tenth son, the last of the six sons of Jacob and Leah, and the founder of the Israelite tribe of Zebulun. With Leah as a matriarch, biblical scholars believe the tribe to have been regarded by the text's authors as a part of the original Israelite confederation.",
    "desc": "Biblical figure and son of Jacob and Leah",
    "page": "https://en.wikipedia.org/wiki/Zebulun"
+  },
+  "recZBfXD2bxyCKO6f": {
+   "title": "Zephaniah",
+   "summary": "Zephaniah is the name of several people in the Hebrew Bible; the most prominent being the prophet who prophesied in the days of Josiah, king of Judah and is attributed a book bearing his name among the Twelve Minor Prophets. His name is commonly transliterated Sophonias in Bibles translated from the Vulgate or Septuagint. The name might mean \"Yahweh has hidden/protected,\" or \"Yah lies in wait\". The church father Jerome interpreted the name to mean \"the watchman of the Lord\".",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Zephaniah"
+  },
+  "recZOriotFt9GIf6b": {
+   "title": "Uzziah",
+   "summary": "Uzziah, also known as Azariah, was the tenth king of the ancient Kingdom of Judah, and one of Amaziah's sons. Uzziah was 16 when he became king of Judah and reigned for 52 years. The first 24 years of his reign were as a co-regent with his father, Amaziah.",
+   "desc": "10th king of Judah",
+   "page": "https://en.wikipedia.org/wiki/Uzziah"
+  },
+  "recZUByYaXzjYwBDp": {
+   "title": "Eliakim, son of Hilkiah",
+   "summary": "Eliakim was the son of Hilkiah. He succeeded Shebna to become royal steward or prime minister for King Hezekiah of Judah, according to the Hebrew Bible.",
+   "desc": "Biblical character, son of Hilkiah",
+   "page": "https://en.wikipedia.org/wiki/Eliakim%2C_son_of_Hilkiah"
   },
   "recZsS2Zu0zIDwqdv": {
    "title": "Samuel",
@@ -1679,11 +2377,44 @@
    "desc": "Biblical prophet and seer",
    "page": "https://en.wikipedia.org/wiki/Samuel"
   },
+  "recZtcxs57c7NXXlg": {
+   "title": "Pekah",
+   "summary": "Pekah was the eighteenth and penultimate king of Israel. He was a captain in the army of king Pekahiah of Israel, whom he killed to become king. Pekah was the son of Remaliah.",
+   "desc": "18th and penultimate king of Israel",
+   "page": "https://en.wikipedia.org/wiki/Pekah"
+  },
+  "recZzpkHckkrMHT0h": {
+   "title": "Naboth",
+   "summary": "Naboth was a citizen of Jezreel. According to the Book of Kings in the Hebrew Bible, he was executed by Jezebel, the queen of Israel, so that her husband Ahab could possess his vineyard.",
+   "desc": "Biblical character in the Book of Kings",
+   "page": "https://en.wikipedia.org/wiki/Naboth",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg/330px-Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg",
+    "license": "CC0",
+    "artist": "Rijksmuseum",
+    "credit": "http://hdl.handle.net/10934/RM0001.COLLECT.146485",
+    "w": 330,
+    "h": 410
+   }
+  },
+  "recaK8xpsOSVcWMc2": {
+   "title": "Jabin",
+   "summary": "Jabin is a Biblical name meaning 'discerner', or 'the wise'. It may refer to:A king of Hazor at the time of the entrance of Israel into Canaan, whose overthrow and that of the northern chiefs with whom he had entered into a confederacy against Joshua was the crowning act in the conquest of the land. The Battle of the Waters of Merom, fought at Lake Hula, was the last of Joshua's battles of which we have any record. Here for the first time the Israelites encountered the iron chariots and horses of the Canaanites. The Israelites killed him and everyone in his city along with all the people in the cities of Madon, Shimron, Achshaph, Debir, and Anab. They then destroyed Hazor by fire.",
+   "desc": "Kings of Hazor mentioned in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Jabin"
+  },
   "recbHLkz06CSe3C4K": {
    "title": "Elijah",
    "summary": "Elijah was a prophet and miracle worker who lived in the northern kingdom of Israel during the reign of King Ahab, according to the Books of Kings in the Hebrew Bible.",
    "desc": "Biblical prophet",
    "page": "https://en.wikipedia.org/wiki/Elijah"
+  },
+  "recbO7tUz8fk12ExW": {
+   "title": "Hur (Bible)",
+   "summary": "Hur was a companion of Moses and Aaron in the Hebrew Bible. He was a member of the Tribe of Judah. His identity remains unclear in the Torah itself, but it is elaborated in rabbinical commentary.",
+   "desc": "Biblical character; companion of Moses and Aaron (Exod. 17:10–12)",
+   "page": "https://en.wikipedia.org/wiki/Hur_(Bible)"
   },
   "recc4xDKjSwM1pH12": {
    "title": "Daniel (biblical figure)",
@@ -1700,17 +2431,65 @@
     "h": 223
    }
   },
+  "reccN1xlFTOq0eIxu": {
+   "title": "Bethuel",
+   "summary": "Bethuel, in the Hebrew Bible, was an Aramean man, the youngest son of Nahor and Milcah, the nephew of Abraham, and the father of Laban and Rebecca.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Bethuel"
+  },
+  "recca9oZ4wL4Gg4SK": {
+   "title": "Meshech",
+   "summary": "In the Bible, Meshech or Mosoch is named as a son of Japheth in Genesis 10:2 and 1 Chronicles 1:5.",
+   "desc": "Biblical figure, son of Japheth (Genesis 10)",
+   "page": "https://en.wikipedia.org/wiki/Meshech"
+  },
   "reccdFYIq50NyxNej": {
    "title": "Abraham",
    "summary": "Abraham is widely revered as a foundational legendary figure among adherents of the eponymous Abrahamic religions. In Judaism, he is the ethnic ancestor and first Hebrew patriarch who began the covenantal relationship between the Jewish people and God; in Christianity, he is regarded as the forebear of Jesus and the spiritual ancestor of all Christians; and in Islam, he is a link in the chain of Islamic prophets that begins with Adam and culminates in Muhammad. Abraham is revered in all other Abrahamic religions, such as the Baháʼí Faith and the Druze faith. He is regarded as the common forefather of both the Arab people through his son Ishmael and the Jewish people through his son Isaac.",
    "desc": "Namesake of the Abrahamic religions",
    "page": "https://en.wikipedia.org/wiki/Abraham"
   },
+  "recclamlHQiKUuV8K": {
+   "title": "Jonadab",
+   "summary": "Jonadab is a figure in the Hebrew Bible, appearing in 2 Samuel 13. He is described in verse 3 as the son of Shimeah, who was the brother of David, making Jonadab a cousin to Amnon as well as his friend. He is called \"very wise\", usually translated as \"very shrewd\" (NIV) or \"very crafty\" (ESV).",
+   "desc": "Character in 2 Samuel; son of Shimeah",
+   "page": "https://en.wikipedia.org/wiki/Jonadab"
+  },
+  "reccpdazfRa8RGKt6": {
+   "title": "Abel",
+   "summary": "Abel is a biblical figure in the Book of Genesis within the Abrahamic religions. Born as the second son of Adam and Eve, the first two humans created by God, he was a shepherd who offered his firstborn flock to God as a religious offering. God accepted Abel's offering but not that of his older brother Cain, leading Cain to kill Abel out of jealousy; some later interpretations suggest that Cain may have slain him with a stone. This act marked the first death in biblical history, making Abel the first murder victim.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Abel"
+  },
   "recdIZxgxO61iLEXm": {
    "title": "Levi",
    "summary": "Levi was, according to the Book of Genesis, the third of the six sons of Jacob and Leah, and the founder of the Israelite Tribe of Levi and the great-grandfather of Aaron, Moses and Miriam. Certain religious and political functions were reserved for the Levites.",
    "desc": "Biblical figure and son of Jacob and Leah",
    "page": "https://en.wikipedia.org/wiki/Levi"
+  },
+  "recdUEBr1HD0OmXeR": {
+   "title": "Caleb",
+   "summary": "Caleb is a figure who appears in the Hebrew Bible as a representative of the Tribe of Judah during the Israelites' journey to the Promised Land.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Caleb"
+  },
+  "recdZn27T4U42O0LH": {
+   "title": "Hazael",
+   "summary": "Hazael was a king of Aram-Damascus mentioned in the Bible. Under his reign, Aram-Damascus became an empire that ruled over large parts of contemporary Syria and historical Palestine. While he was likely born in the greater Damascus region of today, his place of birth is unknown, with both Bashan and the Beqaa Valley being favoured by different historians.",
+   "desc": "King of Aram-Damascus",
+   "page": "https://en.wikipedia.org/wiki/Hazael"
+  },
+  "recdvASnxGfjfmvDM": {
+   "title": "Seth",
+   "summary": "Seth is the third son of Adam and Eve in the Abrahamic religions. The Hebrew Bible names two of his siblings as Cain and Abel. According to Genesis 4:25, Seth was born after the event of Cain's murder of Abel, and Eve believed that God had appointed him as a replacement for Abel.",
+   "desc": "Third son of Adam and Eve",
+   "page": "https://en.wikipedia.org/wiki/Seth"
+  },
+  "rece4MdvDF2ule9OY": {
+   "title": "Korah",
+   "summary": "Korah, son of Izhar, is an individual who appears in the Biblical Book of Numbers of the Old Testament, known for leading a rebellion against Moses. Some older English translations, as well as the Douay–Rheims Bible, spell the name Core, and many Eastern European translations have \"Korak\" or \"Korey\".",
+   "desc": "Biblical personage",
+   "page": "https://en.wikipedia.org/wiki/Korah"
   },
   "receruzYNFLuIW0Kn": {
    "title": "Amaziah",
@@ -1724,6 +2503,21 @@
    "desc": "Biblical prophet and son of Hanani",
    "page": "https://en.wikipedia.org/wiki/Jehu_(prophet)"
   },
+  "recfDNqHzhyepDV2z": {
+   "title": "Shechem",
+   "summary": "Shechem, also spelled Sichem and other variants, was an ancient city in the Southern Levant. Described in ancient Egyptian inscriptions from the 19th century BC as a part of Retjenu, it is also recorded as a Canaanite city in the 14th century BC Amarna letters.",
+   "desc": "Biblical city in the West Bank",
+   "page": "https://en.wikipedia.org/wiki/Shechem",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Tell_Balata.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "TrickyH",
+    "credit": "Own work",
+    "w": 330,
+    "h": 220
+   }
+  },
   "recgkFqZovgbr3pAi": {
    "title": "Jesus",
    "summary": "Jesus, also known as Jesus Christ, Jesus of Nazareth, and by various other names and titles, was a Jewish preacher and religious leader active in the Roman province of Judaea during the 1st century. He is the central figure of Christianity, the world's largest religion. Most branches of Christianity consider Jesus the incarnation of God the Son and the awaited Messiah or Christ. Accounts of Jesus's life are contained in the Gospels, especially the four canonical Gospels of the New Testament.",
@@ -1736,11 +2530,44 @@
    "desc": "Christian apostle and missionary (c. 5 – c. 64/65)",
    "page": "https://en.wikipedia.org/wiki/Paul_the_Apostle"
   },
+  "rechDI5vmWFtiVmYq": {
+   "title": "Jared",
+   "summary": "Jared is a given name of Biblical derivation.",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Jared"
+  },
+  "rechGwqMPGYsNy5xT": {
+   "title": "Ahaziah",
+   "summary": "Ahaziah was the name of two kings mentioned in the Hebrew Bible:Ahaziah of Israel Ahaziah of Judah",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Ahaziah"
+  },
+  "rechXwK5tLNyMXgrM": {
+   "title": "Zebah and Zalmunna",
+   "summary": "Zebah and Zalmunna were the two kings who led the vast host of the Midianites who invaded the land of Israel, and over whom Gideon gained a great and decisive victory. Zebah and Zalmunna had succeeded in escaping across the Jordan River with a remnant of the Midianite host, but were overtaken at Karkor, probably in the Hauran, and routed by Gideon. The kings were taken alive and brought back across the Jordan; and confessing that they had personally taken part in the killing of Gideon's brothers, they were put to death.",
+   "desc": "Kings mentioned in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Zebah_and_Zalmunna",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg",
+    "license": "Public domain",
+    "artist": "Hieronymus Wierix / After Marten van Cleve",
+    "credit": "http://hdl.handle.net/10934/RM0001.COLLECT.332508",
+    "w": 330,
+    "h": 422
+   }
+  },
   "rechda7WMDuW1jBTq": {
    "title": "Sarah",
    "summary": "Sarah is a biblical matriarch, prophet, and major figure in Abrahamic religions. While different Abrahamic faiths portray her differently, Judaism, Christianity, and Islam all depict her character similarly, as that of a pious woman, renowned for her hospitality and beauty, the wife of Abraham, and the mother of Isaac.",
    "desc": "Biblical matriarch",
    "page": "https://en.wikipedia.org/wiki/Sarah"
+  },
+  "rechjMXjFfG41iAfc": {
+   "title": "Caiaphas",
+   "summary": "Joseph ben Caiaphas was a High Priest of Israel during the first century. In the New Testament, the Gospels of Matthew, Luke and John indicate he was an organizer of the plot to kill Jesus. He is portrayed as presiding over the Sanhedrin trial of Jesus. The primary sources for Caiaphas' life are the New Testament and the writings of the historian Josephus. The latter recorded that Caiaphas was made high priest by the Roman procurator Valerius Gratus after Simon ben Camithus had been deposed.",
+   "desc": "First-century Jewish high priest",
+   "page": "https://en.wikipedia.org/wiki/Caiaphas"
   },
   "reci5XsSfPw9RZWBA": {
    "title": "Joab",
@@ -1760,6 +2587,18 @@
    "desc": "Israelite prophet",
    "page": "https://en.wikipedia.org/wiki/Isaiah"
   },
+  "recj26MAojx8FuOsa": {
+   "title": "Enoch",
+   "summary": "Enoch is a biblical figure and patriarch prior to Noah's flood. He is the son of Jared and father of Methuselah.",
+   "desc": "Biblical figure prior to Noah's flood",
+   "page": "https://en.wikipedia.org/wiki/Enoch"
+  },
+  "recjLXb7c8RjZDfMS": {
+   "title": "Zeruiah",
+   "summary": "Zeruiah was a sister of King David. According to both the Hebrew Bible and the Babylonian Talmud, Zeruiah was a daughter of Jesse and sister of Abigail, to whom reference is made in 1 Chronicles and 2 Samuel. Zeruiah had three sons, Abishai, Joab, and Asahel, David's nephews, all of whom were soldiers in David's army.",
+   "desc": "Sister of David",
+   "page": "https://en.wikipedia.org/wiki/Zeruiah"
+  },
   "recjMT68aIzFLh6cQ": {
    "title": "Saul",
    "summary": "Saul was a monarch of ancient Israel and Judah and the first king of the United Monarchy according to the Hebrew Bible and Old Testament. His reign, traditionally placed in the late eleventh century BC, marked the transition of the Israelites from a scattered tribal society ruled by various judges to organized statehood.",
@@ -1772,11 +2611,101 @@
    "desc": "Prophet in Abrahamic religions",
    "page": "https://en.wikipedia.org/wiki/Moses"
   },
+  "recjOvYXbQXPhGpBN": {
+   "title": "Hoshea",
+   "summary": "Hoshea was the nineteenth and last king of the northern Kingdom of Israel and son of Elah. William F. Albright dated his reign to 732–721 BCE, while Edwin R. Thiele offered the dates 732–723 BCE.",
+   "desc": "19th and last King of Northern Israel",
+   "page": "https://en.wikipedia.org/wiki/Hoshea"
+  },
+  "recjQ5QgUAAMyIAmE": {
+   "title": "Shebna",
+   "summary": "Shebna was the royal steward in the reign of king Hezekiah of Judah, according to the Hebrew Bible.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Shebna"
+  },
   "recjU9TzJTjllYnUJ": {
    "title": "Gideon",
    "summary": "Gideon also named Jerubbaal and Jerubbesheth was an Israelite shopeṭ (\"judge\"), military leader, and prophet whose calling and victory over the Midianites is described in Judges 6–8 in the Hebrew Bible.",
    "desc": "Character in the biblical Book of Judges",
    "page": "https://en.wikipedia.org/wiki/Gideon"
+  },
+  "recjqxIrJX2UB8DdR": {
+   "title": "Michal",
+   "summary": "Michal was, according to the Books of Samuel, a princess of the United Kingdom of Israel. The younger daughter of King Saul, she was the first wife of David, who later became king: first of Judah, then of all Israel, making her queen consort of Israel.",
+   "desc": "Hebrew Bible character",
+   "page": "https://en.wikipedia.org/wiki/Michal"
+  },
+  "recjwefZcKPa9FN7N": {
+   "title": "Hannah (biblical figure)",
+   "summary": "Hannah is one of the wives of Elkanah mentioned in the First Book of Samuel. According to the Hebrew Bible, she was the mother of Samuel.",
+   "desc": "Biblical prophetess, traditional author of the Song of Hannah, mother of Samuel",
+   "page": "https://en.wikipedia.org/wiki/Hannah_(biblical_figure)"
+  },
+  "recjyWBYEzNaB2uZC": {
+   "title": "Athaliah",
+   "summary": "Athaliah was the daughter of King Ahab and Queen Jezebel of Israel; she was queen consort of Judah as the wife of King Jehoram, a descendant of King David, and was later queen regnant c. 841–835 BC.",
+   "desc": "Queen regnant of Judah",
+   "page": "https://en.wikipedia.org/wiki/Athaliah"
+  },
+  "reck3OffwMr5WIKJi": {
+   "title": "Ishmael",
+   "summary": "In the biblical Book of Genesis, Ishmael was the first son of Abraham. His mother was Hagar, the handmaiden of Abraham's wife Sarah. He died at the age of 137.",
+   "desc": "Figure in the Abrahamic religions",
+   "page": "https://en.wikipedia.org/wiki/Ishmael"
+  },
+  "reck40BPIsL4eOuMr": {
+   "title": "Omri",
+   "summary": "Omri was the sixth king of Israel. He was a successful military campaigner who extended the northern kingdom of Israel. Other monarchs from the House of Omri are Ahab, Ahaziah, Joram, and Athaliah. Like his predecessor, king Zimri, who ruled for only seven days, Omri is the second king mentioned in the Bible without a statement of his tribal origin. One possibility, though unproven, is that he was of the tribe of Issachar.",
+   "desc": "Biblical King of Israel",
+   "page": "https://en.wikipedia.org/wiki/Omri"
+  },
+  "reck4FOoejZddGY7H": {
+   "title": "Ahasuerus",
+   "summary": "Ahasuerus is a name applied in the Hebrew Bible to three rulers of Ancient Persia and to a Babylonian official first appearing in the Tanakh in the Book of Esther and later in the Book of Tobit. It is derived from either \"Xerxes\" or \"Artaxerxes;\" both are names of multiple Achaemenid dynasty Persian kings.",
+   "desc": "Name of various rulers in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Ahasuerus"
+  },
+  "reckJ4vuXzqDbTrMP": {
+   "title": "Thomas the Apostle",
+   "summary": "Thomas the Apostle also known as Didymus, was one of the Twelve Apostles of Jesus according to the New Testament. Thomas is commonly known as \"doubting Thomas\" because he initially doubted the resurrection of Jesus when he was told of it ; he later confessed his faith on seeing the places where the wounds appeared still fresh on the holy body of Jesus after the Crucifixion of Jesus.",
+   "desc": "Apostle of Jesus",
+   "page": "https://en.wikipedia.org/wiki/Thomas_the_Apostle"
+  },
+  "reckVW6qsLQZJbasF": {
+   "title": "Pekah",
+   "summary": "Pekah was the eighteenth and penultimate king of Israel. He was a captain in the army of king Pekahiah of Israel, whom he killed to become king. Pekah was the son of Remaliah.",
+   "desc": "18th and penultimate king of Israel",
+   "page": "https://en.wikipedia.org/wiki/Pekah"
+  },
+  "reckcSleXhZyNw9hI": {
+   "title": "Abigail",
+   "summary": "Abigail was an Israelite woman in the Hebrew Bible married to Nabal; she married the future King David after Nabal's death. Abigail was David's third wife, after Ahinoam and Saul's daughter, Michal, whom Saul later married to Palti, son of Laish, when David went into hiding.",
+   "desc": "Wife of King David in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Abigail"
+  },
+  "recklAsmU2Bd8lfCZ": {
+   "title": "Book of Baruch",
+   "summary": "The Book of Baruch is a deuterocanonical book of the Bible, used in many Christian traditions, such as Catholic and Orthodox churches. In Judaism and Protestant Christianity, it is considered not to be part of the canon, with the Protestant Bibles categorizing it as part of the Biblical apocrypha. The book is named after Baruch ben Neriah, the prophet Jeremiah's scribe who is mentioned at Baruch 1:1, and has been presumed to be the author of the whole work.",
+   "desc": "Deuterocanonical book of the Bible in some Christian traditions",
+   "page": "https://en.wikipedia.org/wiki/Book_of_Baruch"
+  },
+  "reclPYWgWZWK5ccsg": {
+   "title": "Amoz",
+   "summary": "Amoz, also known as Amotz, was the father of the prophet Isaiah, mentioned in Isaiah 1:1; 2:1 and 13:1, and in II Kings 19:2, 20; 20:1. The word \"amoz\" means strong.",
+   "desc": "Father of Isaiah",
+   "page": "https://en.wikipedia.org/wiki/Amoz"
+  },
+  "reclqqQjQ1vEw7Rz1": {
+   "title": "Ahikam",
+   "summary": "Ahikam was one of the five whom, according to the Hebrew Bible, Josiah sent to consult the prophetess Huldah in connection with the discovery of the book of the law.",
+   "desc": "Hebrew Bible character",
+   "page": "https://en.wikipedia.org/wiki/Ahikam"
+  },
+  "reclrP11qLpXRCROa": {
+   "title": "Zimri (king)",
+   "summary": "Zimri, was the fifth king of Israel. His reign lasted only seven days. William F. Albright has dated his reign to 876 BCE, while E. R. Thiele offers the date 885 BCE. His story is told in 1 Kings, Chapter 16.",
+   "desc": "King of Israel (Northern Kingdom)",
+   "page": "https://en.wikipedia.org/wiki/Zimri_(king)"
   },
   "recmAUAIwW85ajksn": {
    "title": "Naphtali",
@@ -1784,11 +2713,71 @@
    "desc": "Biblical figure, son of Jacob and his concubine Bilhah",
    "page": "https://en.wikipedia.org/wiki/Naphtali"
   },
+  "recmCYRmiSdCy63Fc": {
+   "title": "Reu",
+   "summary": "Reu or Ragau, according to Genesis in the Hebrew Bible, was the son of Peleg and the father of Serug, thus being Abraham's great-great-grandfather and the ancestor of the Israelites and Ishmaelites.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Reu"
+  },
+  "reco5AjdpK6pP1m0n": {
+   "title": "Enos (biblical figure)",
+   "summary": "Enos or Enosh is a figure in the Book of Genesis in the Hebrew Bible. He is described as the first son of Seth who figures in the Generations of Adam, and is also referred to within the genealogies of 1 Chronicles.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Enos_(biblical_figure)"
+  },
+  "reco9eoVJ4n0TOQNx": {
+   "title": "Javan",
+   "summary": "Javan was the fourth son of Noah's son Japheth according to the \"Generations of Noah\" in the Hebrew Bible. Josephus states the traditional belief that this individual was the ancestor of the Greeks.",
+   "desc": "Son of Japheth and father of the Greeks according to the Bible",
+   "page": "https://en.wikipedia.org/wiki/Javan"
+  },
   "recoJAyYl3Qele6ey": {
    "title": "Balak",
    "summary": "Balak was a king of Moab described in the Book of Numbers in the Hebrew Bible, where his dealings with the prophet and Midianite sorcerer Balaam are recounted. Balak tried to engage Balaam for the purpose of cursing the migrating Israelites. The story of Balak is detailed in Numbers 22–24, Judges 11:25, and Micah 6:5. According to Numbers 22:2, and Joshua 24:9, Balak was the son of Zippor.",
    "desc": "Biblical character",
    "page": "https://en.wikipedia.org/wiki/Balak"
+  },
+  "recon2L7e7FUrd0zD": {
+   "title": "Achish",
+   "summary": "Achish is a name used in the Hebrew Bible for two Philistine rulers of Gath. It is perhaps only a general title of royalty, applicable to the Philistine kings. The two kings of Gath, which most scholars identify as Tell es-Safi, are:The monarch, described as \"Achish the king of Gath\", with whom David sought refuge when he fled from Saul. He is called Abimelech, meaning \"father of the king\", in the superscription of Psalm 34. It was probably this same king, or his son with the same name, described as \"Achish, the son of Maoch\", to whom David reappeared a second time at the head of a band of 600 warriors.",
+   "desc": "Biblical character (First Book of Samuel)",
+   "page": "https://en.wikipedia.org/wiki/Achish"
+  },
+  "recorTh9mzZLSgrB5": {
+   "title": "Anak",
+   "summary": "Anak is a figure in the Hebrew Bible. His descendants are mentioned in narratives concerning the conquest of Canaan by the Israelites. According to the Book of Numbers, Anak was a forefather of the Anakim, a Rephaite tribe according to Deuteronomy 2:11. In their report, ten of the twelve Israelite spies associated the Anakim with the Nephilim of Genesis 6:1–4.",
+   "desc": "Figure in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Anak"
+  },
+  "recoxUPwUPGU1IP9X": {
+   "title": "Apollos",
+   "summary": "Apollos was a 1st-century Alexandrian Jewish Christian mentioned several times in the New Testament. A contemporary and colleague of Paul the Apostle, he played an important role in the early development of the churches of Ephesus and Corinth.",
+   "desc": "1st-century Alexandrian Jewish Christian",
+   "page": "https://en.wikipedia.org/wiki/Apollos"
+  },
+  "recp3sTywycVRJFZt": {
+   "title": "Amalek",
+   "summary": "Amalek was a nation described in the Hebrew Bible as a staunch enemy of the Israelites. The name \"Amalek\" can refer to the nation's founder, a grandson of Esau; his descendants, the Amalekites; or the territories of Amalek, which they inhabited.",
+   "desc": "Nation described in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Amalek"
+  },
+  "recpvMKljbEMuiK9e": {
+   "title": "Andrew the Apostle",
+   "summary": "Andrew the Apostle was an apostle of Jesus. According to the New Testament, he was a fisherman and one of the Twelve Apostles chosen by Jesus.",
+   "desc": "Apostle of Jesus",
+   "page": "https://en.wikipedia.org/wiki/Andrew_the_Apostle"
+  },
+  "recpvlXkEN7EVeDZn": {
+   "title": "Abiathar",
+   "summary": "Abiathar, in the Hebrew Bible, is a son of Ahimelech or Ahijah, High Priest at Nob, the fourth in descent from Eli and the last of Eli's House to be a High Priest.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Abiathar"
+  },
+  "recqDQWQP9P7218TS": {
+   "title": "Uriah (prophet)",
+   "summary": "Uriah is a prophet and martyr mentioned in the Book of Jeremiah.",
+   "desc": "Biblical prophet, son of Shemaiah",
+   "page": "https://en.wikipedia.org/wiki/Uriah_(prophet)"
   },
   "recqIoG1fkaNWJ1y0": {
    "title": "Isaac",
@@ -1802,11 +2791,53 @@
    "desc": "Biblical figure; first monarch of the Kingdom of Judah",
    "page": "https://en.wikipedia.org/wiki/Rehoboam"
   },
+  "recrRAVkDKZCXTSl7": {
+   "title": "Phinehas",
+   "summary": "According to the Hebrew Bible, Phinehas was a priest during the Exodus. The grandson of Aaron and son of Eleazar, the High Priests, he distinguished himself as a youth at Shittim with his zeal against the heresy of Peor.",
+   "desc": "Biblical priest and prophet who opposed the heresy of Peor",
+   "page": "https://en.wikipedia.org/wiki/Phinehas"
+  },
+  "recrbd7DEzjHDamsf": {
+   "title": "Kehath",
+   "summary": "According to the Torah, Kehath or Kohath was the second of the sons of Levi and the patriarchal founder of the Kehathites, one of the four main divisions of the Levites in biblical times. In some apocryphal texts, such as the Testament of Levi and the Book of Jubilees, Levi's wife, Kehath's mother, is Milkah, a daughter of Aram.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Kehath"
+  },
+  "recrmgFbC93CpVLsa": {
+   "title": "Shimei",
+   "summary": "Shimei is the name of a number of persons referenced in the Hebrew Bible and Rabbinical literature.The second son of Gershon and grandson of Levi. The family of the Shimeites, as a branch of the tribe of Levi, is mentioned in Numbers 3:18, 21; 1 Chronicles 23:7, 10, 11 ; and in Zechariah 12:13. In the New Testament the name occurs in Luke 3:26, spelled Semei in the King James Version.",
+   "desc": "Name in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Shimei"
+  },
   "recsU2ZSdzBvDqzgI": {
    "title": "Jacob",
    "summary": "Jacob, later given the name Israel, is the third Hebrew patriarch in Judaism and an important figure in the Abrahamic religions. He first appears in the Torah, where he is described in the Book of Genesis as a son of Isaac and Rebecca. Accordingly, alongside his older fraternal twin brother Esau, Jacob's paternal grandparents are Abraham and Sarah and his maternal grandfather is Bethuel, whose wife is not mentioned. He is said to have bought Esau's birthright and, with his mother's help, deceived his aging father to bless him instead of Esau.",
    "desc": "Biblical patriarch, son of Isaac",
    "page": "https://en.wikipedia.org/wiki/Jacob"
+  },
+  "recsgTN9HO1wPR5qb": {
+   "title": "Micaiah",
+   "summary": "Micaiah, son of Imlah, is a prophet in the Hebrew Bible. He is one of the four disciples of Elijah.",
+   "desc": "Biblical prophet, disciple of Elijah",
+   "page": "https://en.wikipedia.org/wiki/Micaiah"
+  },
+  "recsyU2HqpyE9PeTo": {
+   "title": "Jehoram",
+   "summary": "Jehoram was the name of several individuals in the Tanakh. The female version of this name is Athaliah.The son of Toi, King of Hamath who was sent by his father to congratulate David on the occasion of his victory over Hadadezer Jehoram of Israel or Joram, King of Israel Jehoram of Judah or Joram, King of Judah A Levite of the family of Gershom A priest sent by Jehoshaphat to instruct the people in Judah",
+   "desc": "Name list",
+   "page": "https://en.wikipedia.org/wiki/Jehoram"
+  },
+  "rect0HgZKMJNmCSiU": {
+   "title": "Amos (prophet)",
+   "summary": "Amos was one of the Twelve Minor Prophets of the Hebrew Bible and Christian Old Testament. According to the Bible, Amos was the older contemporary of Hosea and Isaiah and was active c. 760–755 BC during the rule of kings Jeroboam II of Israel and Uzziah of the Kingdom of Judah and is portrayed as being from the southern Kingdom of Judah yet preaching in the northern Kingdom of Israel (Samaria). The prophet is characterized as speaking against an increased disparity between the wealthy and the poor with themes of justice, God's omnipotence, and divine judgment. The Book of Amos is attributed to him.",
+   "desc": "Hebrew prophet",
+   "page": "https://en.wikipedia.org/wiki/Amos_(prophet)"
+  },
+  "rectAKOMFVWfGYUGW": {
+   "title": "Nun (biblical figure)",
+   "summary": "Nun, in the Hebrew Bible, was a man from the Tribe of Ephraim, grandson of Ammihud, son of Elishama, and father of Joshua.",
+   "desc": "Man in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Nun_(biblical_figure)"
   },
   "rectGDQCkKqZ6LgGB": {
    "title": "Asher",
@@ -1814,17 +2845,80 @@
    "desc": "Biblical figure and son of Jacob and Zilpah",
    "page": "https://en.wikipedia.org/wiki/Asher"
   },
+  "recthlE4FTgDZvDef": {
+   "title": "Dinah",
+   "summary": "In the Hebrew Bible’s Book of Genesis, Dinah was the seventh child and only named daughter of Leah and the Israelite patriarch, Jacob. An account of her rape by Shechem, son of a Canaanite or Hivite prince, and the subsequent revenge taken by Dinah's brothers Simeon and Levi, commonly referred to as the rape of Dinah, is told in Genesis 34.",
+   "desc": "Daughter of Jacob in Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Dinah"
+  },
+  "rectkXUkoQk15fBk0": {
+   "title": "Saint Titus",
+   "summary": "Titus was an early Christian missionary and church leader, a companion and disciple of Paul the Apostle, mentioned in several of the Pauline epistles including the Epistle to Titus. He is believed to be a Gentile converted to Christianity by Paul and, according to tradition, he was consecrated as Bishop of the Island of Crete.",
+   "desc": "Greek saint",
+   "page": "https://en.wikipedia.org/wiki/Saint_Titus"
+  },
   "recto9z3tEOnLjVOi": {
    "title": "Reuben (son of Jacob)",
    "summary": "Reuben or Reuven was the first of the six sons of Jacob and Leah, according to the Book of Genesis. He was a disappointment to Jacob and lost the pre-eminent position which should have been his as Jacob's firstborn. He was the founder of the Israelite Tribe of Reuben.",
    "desc": "Biblical figure and son of Jacob and Leah",
    "page": "https://en.wikipedia.org/wiki/Reuben_(son_of_Jacob)"
   },
+  "rectvs8PWInJwhM9K": {
+   "title": "Zebedee",
+   "summary": "Zebedee, according to the synoptic gospels, was the father of James and John, two apostles of Jesus. The gospels also suggest that he was the husband of Salome; whereas Mark 15:40 names the women present at the crucifixion as \"Mary Magdalene, and Mary the mother of James and of Joses, and Salome,\" the parallel passage in Matthew 27:56 has \"Mary Magdalene, and Mary the mother of James and Joses, and the mother of Zebedee's children.\" The Catholic Encyclopedia concludes that the Salome of Mark 15:40 is probably identical with the mother of the sons of Zebedee in Matthew.",
+   "desc": "Father of James and John, two disciples of Jesus",
+   "page": "https://en.wikipedia.org/wiki/Zebedee"
+  },
+  "recu1NkHTdTZhdbo7": {
+   "title": "Milcah",
+   "summary": "Milcah was the daughter of Haran and the wife of Nahor, according to the genealogies of Genesis. She is identified as the mother of Bethuel and grandmother of Rebecca and Laban in biblical tradition, and some texts of the Midrash have identified her as Sarah's sister.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Milcah"
+  },
+  "recu8J5n677Bmu6qP": {
+   "title": "Cush (Bible)",
+   "summary": "Cush or Kush, according to the Hebrew Bible, was the oldest son of Ham and a grandson of Noah. He was the brother of Mizraim, Phut, and Canaan. Cush was the father of Nimrod and Havilah.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Cush_(Bible)"
+  },
   "recuAalSpGhVahIhx": {
    "title": "Midian",
    "summary": "Midian was a geographical region in the Tabuk Province of modern-day Saudi Arabia, mentioned in the Hebrew Bible and Quran. William G. Dever states that biblical Midian was in the \"northwest Arabian Peninsula, on the east shore of the Gulf of Aqaba on the Red Sea\", an area which contained at least 14 inhabited sites during the Late Bronze and early Iron Ages. The Hebrew Bible refers to Midian, a son of Abraham and his wife Keturah, and lists his immediate descendants, the \"Midianites\".",
    "desc": "Place mentioned in the Hebrew Bible and Quran",
    "page": "https://en.wikipedia.org/wiki/Midian"
+  },
+  "recuAr93KELnhw1t2": {
+   "title": "Shadrach, Meshach, and Abednego",
+   "summary": "Shadrach, Meshach, and Abednego are figures from chapter 3 of the biblical Book of Daniel. In the narrative, the three Jewish men are thrown into a fiery furnace by Nebuchadnezzar II, King of Babylon for refusing to bow to the king's image. The three are preserved from harm, and the king sees four men walking in the flames, \"the fourth ... like a son of God\". They are first mentioned in Daniel 1, where alongside Daniel they are brought to Babylon to study Chaldean Aramaic language and literature with a view to serving at the King's court, and their Hebrew names are replaced with Babylonian names.",
+   "desc": "Characters in the Book of Daniel",
+   "page": "https://en.wikipedia.org/wiki/Shadrach%2C_Meshach%2C_and_Abednego"
+  },
+  "recucD2O1lew9zZg3": {
+   "title": "Zebah and Zalmunna",
+   "summary": "Zebah and Zalmunna were the two kings who led the vast host of the Midianites who invaded the land of Israel, and over whom Gideon gained a great and decisive victory. Zebah and Zalmunna had succeeded in escaping across the Jordan River with a remnant of the Midianite host, but were overtaken at Karkor, probably in the Hauran, and routed by Gideon. The kings were taken alive and brought back across the Jordan; and confessing that they had personally taken part in the killing of Gideon's brothers, they were put to death.",
+   "desc": "Kings mentioned in the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Zebah_and_Zalmunna",
+   "image": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "page": "https://commons.wikimedia.org/wiki/File:Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg",
+    "license": "Public domain",
+    "artist": "Hieronymus Wierix / After Marten van Cleve",
+    "credit": "http://hdl.handle.net/10934/RM0001.COLLECT.332508",
+    "w": 330,
+    "h": 422
+   }
+  },
+  "recudNaaadFm2BdYm": {
+   "title": "Haggai",
+   "summary": "Haggai or Aggeus was a Hebrew prophet active during the building of the Second Temple in Jerusalem, one of the twelve minor prophets in the Hebrew Bible, and the author or subject of the Book of Haggai. He is known for his prophecy in 520 BC, commanding the Jews to rebuild the Temple. He was the first of three post-exilic prophets from the Neo-Babylonian Exile of the House of Judah, who belonged to the period of Jewish history which began after the return from captivity in Babylon. His name means \"my holidays\".",
+   "desc": "Hebrew prophet",
+   "page": "https://en.wikipedia.org/wiki/Haggai"
+  },
+  "recukYvuhVi3jljKz": {
+   "title": "Queen of Sheba",
+   "summary": "The Queen of Sheba, named Bilqis in Arabic and Makeda in Geʽez, is a figure first mentioned in the Hebrew Bible. In the original story, she brings a caravan of valuable gifts for Solomon, the fourth King of Israel and Judah. This account has undergone extensive elaborations in Judaism, Ethiopian Christianity, and Islam. It has consequently become the subject of one of the most widespread and fertile cycles of legends in West Asia and Northeast Africa, as well as in other regions where the Abrahamic religions have had a significant impact.",
+   "desc": "Historical figure in the Abrahamic religions",
+   "page": "https://en.wikipedia.org/wiki/Queen_of_Sheba"
   },
   "recv0dAY2ULzJ687g": {
    "title": "Aaron",
@@ -1838,17 +2932,107 @@
    "desc": "Apostle of Jesus (6–100)",
    "page": "https://en.wikipedia.org/wiki/John_the_Apostle"
   },
+  "recvERj933nJGf61T": {
+   "title": "Gedaliah",
+   "summary": "Gedaliah was a person from the Bible who was a governor of Yehud province. He was also the son of Ahikam, who saved the prophet Jeremiah.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Gedaliah"
+  },
+  "recvV3hxT3VINGuwx": {
+   "title": "Ishmael",
+   "summary": "In the biblical Book of Genesis, Ishmael was the first son of Abraham. His mother was Hagar, the handmaiden of Abraham's wife Sarah. He died at the age of 137.",
+   "desc": "Figure in the Abrahamic religions",
+   "page": "https://en.wikipedia.org/wiki/Ishmael"
+  },
+  "recvZksoA0NmFrYZ7": {
+   "title": "Miriam",
+   "summary": "Miriam is described in the Hebrew Bible as the daughter of Amram and Jochebed, and the older sister of Moses and Aaron. She was a prophetess and first appears in the Book of Exodus.",
+   "desc": "Sister of Moses and Aaron",
+   "page": "https://en.wikipedia.org/wiki/Miriam"
+  },
+  "recwPUzr2MyOjkyLd": {
+   "title": "Ahitophel",
+   "summary": "Ahitophel, Achitofel, or Ahithophel, according to the Hebrew Bible, was a counselor of King David and a man greatly renowned for his wisdom. During Absalom's attempt to usurp the throne, he deserted David and supported Absalom, whom he then turned to as an advisor. To counteract Ahitophel's counsel, the fleeing David sent his friend Hushai back to Absalom. Seeing that his advice against David had not been followed due to Hushai's influence, Ahithophel surmised that the revolt would fail, returned to his hometown of Giloh, and hanged himself. He was buried in \"the sepulcher of his fathers\".",
+   "desc": "Biblical counselor of King David",
+   "page": "https://en.wikipedia.org/wiki/Ahitophel"
+  },
   "recwcML6FMulTblKH": {
    "title": "Samson",
    "summary": "Samson was the last of the judges of the ancient Israelites mentioned in the Book of Judges and one of the last leaders who \"judged\" the twelve tribes of Israel before the institution of the monarchy. He is sometimes regarded as an Israelite version of the popular Near Eastern folk hero archetype also embodied by the Sumerian Gilgamesh and Enkidu, as well as the Greek Heracles. Samson was given superhuman powers by God in the form of extreme strength.",
    "desc": "Important character from the Book of Judges of the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Samson"
   },
+  "recwqt4vhH8t9M6lf": {
+   "title": "Pharaohs in the Bible",
+   "summary": "The Bible makes reference to various pharaohs of Egypt. These include unnamed pharaohs in events described in the Torah, as well as several later named pharaohs, some of whom were historical or can be identified with historical pharaohs.",
+   "desc": "Pharaohs mentioned in the Bible",
+   "page": "https://en.wikipedia.org/wiki/Pharaohs_in_the_Bible"
+  },
   "recwqzXQjpmdyyW9y": {
    "title": "Dan (son of Jacob)",
    "summary": "According to the Book of Genesis, Dan was Jacob's fifth son and the first of the two sons of Jacob and Bilhah. His mother, Bilhah, was Rachel's handmaid, who became one of Jacob's concubines. In the biblical narrative, he is the founder of the Israelite Tribe of Dan. He was the father of Hushim, according to Genesis 46:23, and Samson was a descendant of Dan.",
    "desc": "Biblical figure and the fifth son of Jacob through his concubine Bilhah",
    "page": "https://en.wikipedia.org/wiki/Dan_(son_of_Jacob)"
+  },
+  "recwrDYUkCdyU3t85": {
+   "title": "Asaph (biblical figure)",
+   "summary": "Asaph is the name of three men from the Hebrew Bible.Asaph, the father of Joah The articles related to the son of Berachiah and descendant of Kohath refer to the same person: Asaph, son of Berachiah the Gershonite. Together with Heman, the grandson of the Israelite prophet Samuel, he and his male descendants were set aside by King David to worship God in song and music. He authored Psalm 50, and Psalms 73 to 83. Asaph, a Levite descendant of Kohath Asaph, the keeper of the king's forest under the Persian king Artaxerxes I Longimanus",
+   "desc": "Multiple men from the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Asaph_(biblical_figure)"
+  },
+  "recx0o0Q5Ekmf6zFv": {
+   "title": "Gershon",
+   "summary": "According to the Torah, Gershon was the eldest of the sons of Levi, and the patriarchal founder of the Gershonites, one of the four main divisions among the Levites in biblical times. The Gershonites were charged with the care of the outer tabernacle including components such as the tent and its covering, screens, doors, and hangings. Biblical scholars regard the name as being essentially the same as \"Gershom\", which appears to mean \"a sojourner there\", and it is Gershom rather than Gershon who is sometimes listed in the Book of Chronicles as a founder of one of the principal Levite factions. The Torah names Gershon's sons as Libni and Shimei.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Gershon"
+  },
+  "recx7usC4ShQ2PH7M": {
+   "title": "Hebron (biblical figure)",
+   "summary": "According to the Torah, Hebron was a son of Kohath and grandson of Levi, consequently being the brother of Amram and uncle of Aaron, Miriam, and Moses. Hebron is portrayed in the text as the founder of the Hebronite clan of Levites; however, on some occasions, the Book of Chronicles treats the Hebronites as being distinct from the descendants of Kohath.",
+   "desc": "Patriarch: son of Kohath and grandson of Levi",
+   "page": "https://en.wikipedia.org/wiki/Hebron_(biblical_figure)"
+  },
+  "recxCpuPqJTTZalKd": {
+   "title": "Gilead",
+   "summary": "Gilead or Gilad is the ancient, historic, biblical name of the mountainous northern part of the region of Transjordan, present-day Jordan. The region is bounded in the west by the Jordan River, in the north by the deep ravine of the river Yarmouk and the region of Bashan, and in the southwest by what were known during antiquity as the \"plains of Moab\", with no definite boundary to the east. In some cases, \"Gilead\" is used in the Bible to refer to all the region east of the Jordan River. Gilead is situated in modern-day Jordan, corresponding roughly to the Irbid, Ajloun, Jerash and Balqa Governorates.",
+   "desc": "Northern part of the region of Transjordan, also the name of several biblical figures",
+   "page": "https://en.wikipedia.org/wiki/Gilead"
+  },
+  "recxH9O2y9AMy6TDM": {
+   "title": "Shelah (son of Judah)",
+   "summary": "According to the Bible, Shelah/Shela was the third son of Judah, and was born at Chezib, which can be identified with an unknown town in the vicinity of Mareshah.",
+   "desc": "Biblical figure; third son of Judah",
+   "page": "https://en.wikipedia.org/wiki/Shelah_(son_of_Judah)"
+  },
+  "recxJQqsngI2rJbuw": {
+   "title": "Jael",
+   "summary": "Jael or Yael is a heroine of the Bible who aids the Israelites in their war with King Jabin of the city of Hazor in Canaan by killing Sisera, the commander of Jabin's army. This episode is depicted in chapters 4 and 5 of the Book of Judges. According to that account, after Sisera's defeat by the Israelite leader Barak in the Battle of Mount Tabor, he seeks refuge in the tent of Jael, who kills him by driving a tent peg through his skull near the great tree in Zaanaim near Kedesh.",
+   "desc": "Biblical figure",
+   "page": "https://en.wikipedia.org/wiki/Jael"
+  },
+  "recxj2mVzk0u300vz": {
+   "title": "Menahem",
+   "summary": "Menahem or Menachem was the sixteenth king of the northern Israelite Kingdom of Israel. He was the son of Gadi, and the founder of the dynasty known as the House of Gadi or House of Menahem.",
+   "desc": "Biblical character",
+   "page": "https://en.wikipedia.org/wiki/Menahem"
+  },
+  "recxkR6HLJD0xWE6R": {
+   "title": "Jeroboam",
+   "summary": "Jeroboam I, frequently cited Jeroboam son of Nebat, was the first king of the northern Kingdom of Israel following a revolt of the ten tribes against Rehoboam that put an end to the United Monarchy. According to the book of 1 Kings, he reigned for 22 years and \"there was war continually between Rehoboam and Jeroboam\". Jeroboam also fought Abijam son of Rehoboam king of Judah. Jeroboam is often described as \"doing evil in the sight of the Lord\".",
+   "desc": "Biblical figure and monarch",
+   "page": "https://en.wikipedia.org/wiki/Jeroboam"
+  },
+  "recxxH0xyhQyXuyh2": {
+   "title": "Jethro (biblical figure)",
+   "summary": "In the Hebrew Bible, Jethro was Moses's father-in-law, a Kenite shepherd and priest of Midian, sometimes called Reuel. In Exodus, Moses's father-in-law is initially referred to as \"Reuel\" but afterwards as \"Jethro\". He was also identified as the father of Hobab in Numbers 10:29, though Judges 4:11 identifies him as Hobab.",
+   "desc": "Biblical and Quranic character",
+   "page": "https://en.wikipedia.org/wiki/Jethro_(biblical_figure)"
+  },
+  "recy4HxEvjwgHmL9G": {
+   "title": "Heman the Ezrahite",
+   "summary": "Heman the Ezrahite is the author of Psalm 88 in the Hebrew Bible, according to the Psalm's colophon.",
+   "desc": "Author of part of the Hebrew Bible",
+   "page": "https://en.wikipedia.org/wiki/Heman_the_Ezrahite"
   },
   "recyDlo13a3T5DDGh": {
    "title": "Eleazar",
@@ -1862,11 +3046,35 @@
    "desc": "Fourth king of the Kingdom of Judah",
    "page": "https://en.wikipedia.org/wiki/Jehoshaphat"
   },
+  "recyOsE7tW60nOWh3": {
+   "title": "Ehud",
+   "summary": "Ehud ben‑Gera is described in the biblical Book of Judges chapter 3 as a judge who was sent by God to deliver the Israelites from Moabite domination. He is described as being left-handed and a member of the Tribe of Benjamin.",
+   "desc": "Israelite described in the biblical Book of Judges",
+   "page": "https://en.wikipedia.org/wiki/Ehud"
+  },
   "recyWfFMHv6ZLJkxq": {
    "title": "Sihon",
    "summary": "Sihon was an Amorite king mentioned in the Hebrew Bible, king of Ashtaroth, who refused to let the Israelites pass through his country. Chronicled in Numbers, he was defeated by Moses and the Israelites at the battle of Jahaz. He and Og were said to be the two kings Moses defeated on the east side of the Jordan river.",
    "desc": "Amorite king mentioned in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Sihon"
+  },
+  "recya4tTkl2NXT35H": {
+   "title": "Japheth",
+   "summary": "Japheth was one of the three sons of Noah in the Book of Genesis. In the narrative of the Hebrew Bible, he plays a role in the story of Noah's drunkenness and the curse of Ham, and subsequently in the Table of Nations, he is named as the ancestor of the peoples of the Aegean Sea, Anatolia, Caucasus, Greece, and elsewhere in Eurasia. In medieval and early modern European tradition, he was considered to be the progenitor of the European peoples.",
+   "desc": "Biblical figure, son of Noah",
+   "page": "https://en.wikipedia.org/wiki/Japheth"
+  },
+  "recyuyvniLPCMOZyl": {
+   "title": "Cainan",
+   "summary": "Cainan is mentioned in the Septuagint, the Greek translation of the Book of Genesis, the Book of Jubilees and the genealogy of Jesus given in Luke 3:36 in the New Testament. He is described as a son of Arpachshad and father of Salah, who lived in the time between Noah and Abraham.",
+   "desc": "Biblical figure omitted from the Masoretic genealogies",
+   "page": "https://en.wikipedia.org/wiki/Cainan"
+  },
+  "reczabgSpj7QAzpHQ": {
+   "title": "Sennacherib",
+   "summary": "Sennacherib was the king of the Neo-Assyrian Empire from 705 BC until his assassination in 681 BC. The second king of the Sargonid dynasty, Sennacherib is one of the most famous Assyrian kings for the role he plays in the Hebrew Bible, which describes his campaign in the Levant. Other events of his reign include his destruction of the city of Babylon in 689 BC and his renovation and expansion of the last great Assyrian capital, Nineveh.",
+   "desc": "King of the Neo-Assyrian Empire, 705–681 BC",
+   "page": "https://en.wikipedia.org/wiki/Sennacherib"
   },
   "reczuS92gSUORr83E": {
    "title": "Pontius Pilate",

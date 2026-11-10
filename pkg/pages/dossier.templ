@@ -170,6 +170,9 @@ templ PersonPage(d *atlas.PersonDossier) {
 						<section>
 							<h2>{ t(ctx, "ui.about") }</h2>
 							<div class="prose">@templ.Raw(d.Dict)</div>
+							if d.DictMT {
+								<p class="mt-note">{ t(ctx, "ui.mt.note") }</p>
+							}
 						</section>
 					}
 					if len(d.Gallery) > 0 {
@@ -288,6 +291,9 @@ templ PlacePage(d *atlas.PlaceDossier) {
 						<section>
 							<h2>{ t(ctx, "ui.about") }</h2>
 							<div class="prose">@templ.Raw(d.Dict)</div>
+							if d.DictMT {
+								<p class="mt-note">{ t(ctx, "ui.mt.note") }</p>
+							}
 						</section>
 					}
 					if len(d.Events) > 0 {

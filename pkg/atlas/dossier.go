@@ -237,6 +237,7 @@ type PersonDossier struct {
 	Siblings   []Ref
 	Children   []Ref
 	Dict       string
+	DictMT     bool // Dict is a machine translation
 	Events     []EventRef
 	Verses     []BookVerses
 	VerseCount int
@@ -255,7 +256,7 @@ func (a *Atlas) PersonDossier(id, lang string) *PersonDossier {
 	if p == nil {
 		return nil
 	}
-	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), Wiki: a.wikiPerson(id), Aliases: splitAliases(p.AlsoCall, p.Name)}
+	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), DictMT: p.DictMT, Wiki: a.wikiPerson(id), Aliases: splitAliases(p.AlsoCall, p.Name)}
 	if arts := a.artByPerson[id]; len(arts) > 0 {
 		d.Art = arts[:min(len(arts), 24)]
 		d.Gallery = a.ArtGallery(d.Art)
@@ -355,6 +356,7 @@ func refOrNil(r []Ref) *Ref {
 type PlaceDossier struct {
 	P          *Place
 	Dict       string
+	DictMT     bool // Dict is a machine translation
 	Comment    string
 	Kind       string
 	Events     []EventRef
@@ -376,7 +378,7 @@ func (a *Atlas) PlaceDossier(id, lang string) *PlaceDossier {
 	if p == nil {
 		return nil
 	}
-	d := &PlaceDossier{P: p, Dict: Rich(p.Dict), Comment: p.Comment, Kind: strings.TrimSpace(p.Kind + " " + p.Sub), FirstYear: p.Y0, LastYear: p.Y1, Wiki: a.wikiPlace(id)}
+	d := &PlaceDossier{P: p, Dict: Rich(p.Dict), DictMT: p.DictMT, Comment: p.Comment, Kind: strings.TrimSpace(p.Kind + " " + p.Sub), FirstYear: p.Y0, LastYear: p.Y1, Wiki: a.wikiPlace(id)}
 	d.WikiPhoto = a.WikiPhotoItem("place", id, p.Name, d.Wiki)
 	d.Events = eventRefs(a.placeEvents[id])
 	d.Born, d.Died = a.personRefs(p.Born), a.personRefs(p.Died)
