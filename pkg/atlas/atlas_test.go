@@ -210,7 +210,7 @@ func TestDossiersDoNotPanic(t *testing.T) {
 			}
 		}
 	}
-	if len(a.BooksBrowse()) == 0 || len(a.EventsTimeline("en")) == 0 {
+	if len(a.BooksBrowse("en")) == 0 || len(a.EventsTimeline("en")) == 0 {
 		t.Error("browse data empty")
 	}
 }
@@ -370,7 +370,7 @@ func TestExportAndProgress(t *testing.T) {
 	if strings.Contains(gpx(&Journey{Title: "A & <B>", Stops: []Stop{{Name: "x<y"}}}), "<B>") {
 		t.Error("xml must be escaped")
 	}
-	p := a.ProgressIndex()
+	p := a.ProgressIndex("en")
 	if len(p.Books) != 66 || len(p.Places) < 500 {
 		t.Errorf("progress index: books=%d places=%d", len(p.Books), len(p.Places))
 	}
@@ -612,5 +612,38 @@ func TestDutchBible(t *testing.T) {
 	}
 	if covered < 30000 {
 		t.Errorf("only %d verses differ from KJV", covered)
+	}
+}
+
+func TestDutchBookNames(t *testing.T) {
+	a := load(t)
+	b := a.findBook("richteren")
+	if b == nil || b.Name != "Judges" {
+		t.Fatalf("Dutch book name not understood: %+v", b)
+	}
+	if got := a.BookName(b, "nl"); got != "Richteren" {
+		t.Errorf("BookName = %q", got)
+	}
+	if got := a.BookName(b, "en"); got != "Judges" {
+		t.Errorf("English changed: %q", got)
+	}
+	hits := a.Search("Openbaring 1:1", 5, "nl")
+	if len(hits) == 0 || !strings.HasPrefix(hits[0].Label, "Openbaring") {
+		t.Errorf("reference in Dutch: %+v", hits)
+	}
+	hits = a.Search("psalmen", 5, "nl")
+	if len(hits) == 0 || hits[0].Label != "Psalmen" {
+		t.Errorf("book search in Dutch: %+v", hits)
+	}
+	if got := a.verseLabel(a.VerseByOsis["john.3.16"], "nl"); got != "Johannes 3:16" {
+		t.Errorf("label = %q", got)
+	}
+	for _, b := range a.BooksIn("nl") {
+		if b.Name == "" {
+			t.Fatal("empty name")
+		}
+	}
+	if a.BooksIn("nl")[18].Name != "Psalmen" || a.Books[18].Name != "Psalms" {
+		t.Error("BooksIn must copy, not rename the shared books")
 	}
 }

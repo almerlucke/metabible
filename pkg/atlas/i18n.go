@@ -12,10 +12,27 @@ type Translator interface {
 	T(lang, key string, kv ...any) string
 	Plural(lang, key string, n int, kv ...any) string
 	Raw(lang, key string) (string, bool)
+	Codes() []string
 }
 
 // SetTranslations lets the data layer build texts (relationship stories, era introductions…) in the visitor's language.
-func (a *Atlas) SetTranslations(t Translator) { a.tr = t }
+func (a *Atlas) SetTranslations(t Translator) {
+	a.tr = t
+	a.bookLangs = nil
+	for _, c := range t.Codes() {
+		if c != i18n.Default {
+			a.bookLangs = append(a.bookLangs, c)
+		}
+	}
+	// a book is found by its name in any language
+	for i := range a.nameIdx {
+		if e := &a.nameIdx[i]; e.Type == "book" {
+			if b := a.BookByID[e.ID]; b != nil {
+				e.Lower = strings.ToLower(strings.Join(a.allBookNames(b), " "))
+			}
+		}
+	}
+}
 
 // tx translates a key; without a translator (tests of the bare data layer) the key is returned.
 func (a *Atlas) tx(lang, key string, kv ...any) string {

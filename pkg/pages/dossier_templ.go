@@ -2857,9 +2857,9 @@ func VersePage(d *atlas.VerseDossier) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var150 string
-			templ_7745c5c3_Var150, templ_7745c5c3_Err = templ.JoinStringErrs(d.Book.Name)
+			templ_7745c5c3_Var150, templ_7745c5c3_Err = templ.JoinStringErrs(bookName(ctx, d.Book))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 439, Col: 54}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 439, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var150))
 			if templ_7745c5c3_Err != nil {
@@ -3353,9 +3353,9 @@ func ChapterPage(d *atlas.ChapterDossier) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var178 string
-			templ_7745c5c3_Var178, templ_7745c5c3_Err = templ.JoinStringErrs(d.Book.Name)
+			templ_7745c5c3_Var178, templ_7745c5c3_Err = templ.JoinStringErrs(bookName(ctx, d.Book))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 508, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 508, Col: 83}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var178))
 			if templ_7745c5c3_Err != nil {
@@ -3368,7 +3368,7 @@ func ChapterPage(d *atlas.ChapterDossier) templ.Component {
 			var templ_7745c5c3_Var179 string
 			templ_7745c5c3_Var179, templ_7745c5c3_Err = templ.JoinStringErrs(locDate(ctx, d.Years))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 508, Col: 106}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 508, Col: 116}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var179))
 			if templ_7745c5c3_Err != nil {
@@ -3379,9 +3379,9 @@ func ChapterPage(d *atlas.ChapterDossier) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var180 string
-			templ_7745c5c3_Var180, templ_7745c5c3_Err = templ.JoinStringErrs(d.Book.Name)
+			templ_7745c5c3_Var180, templ_7745c5c3_Err = templ.JoinStringErrs(bookName(ctx, d.Book))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 509, Col: 21}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 509, Col: 31}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var180))
 			if templ_7745c5c3_Err != nil {
@@ -3394,7 +3394,7 @@ func ChapterPage(d *atlas.ChapterDossier) templ.Component {
 			var templ_7745c5c3_Var181 string
 			templ_7745c5c3_Var181, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(d.Num))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 509, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 509, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var181))
 			if templ_7745c5c3_Err != nil {
@@ -3731,7 +3731,7 @@ func ChapterPage(d *atlas.ChapterDossier) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = classic(fmt.Sprintf("%s %d", d.Book.Name, d.Num), "", withMap()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var173), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = classic(fmt.Sprintf("%s %d", bookName(ctx, d.Book), d.Num), "", withMap()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var173), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -3804,9 +3804,9 @@ func BookPage(d *atlas.BookDossier) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var203 string
-			templ_7745c5c3_Var203, templ_7745c5c3_Err = templ.JoinStringErrs(d.B.Name)
+			templ_7745c5c3_Var203, templ_7745c5c3_Err = templ.JoinStringErrs(bookName(ctx, d.B))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 567, Col: 18}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 567, Col: 28}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var203))
 			if templ_7745c5c3_Err != nil {
@@ -3913,9 +3913,9 @@ func BookPage(d *atlas.BookDossier) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var211 string
-				templ_7745c5c3_Var211, templ_7745c5c3_Err = templ.JoinStringErrs(t(ctx, "ui.chapter.tip", "book", d.B.Name, "n", c.Num, "people", c.People, "places", c.Places))
+				templ_7745c5c3_Var211, templ_7745c5c3_Err = templ.JoinStringErrs(t(ctx, "ui.chapter.tip", "book", bookName(ctx, d.B), "n", c.Num, "people", c.People, "places", c.Places))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 571, Col: 170}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `pkg/pages/dossier.templ`, Line: 571, Col: 180}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var211))
 				if templ_7745c5c3_Err != nil {
@@ -4117,7 +4117,7 @@ func BookPage(d *atlas.BookDossier) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = classic(d.B.Name, "", nil).Render(templ.WithChildren(ctx, templ_7745c5c3_Var200), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = classic(bookName(ctx, d.B), "", nil).Render(templ.WithChildren(ctx, templ_7745c5c3_Var200), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

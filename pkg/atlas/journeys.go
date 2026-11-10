@@ -114,7 +114,7 @@ func loadJourneys(a *Atlas, file string) ([]*Journey, error) {
 				if v, ok := a.VerseByOsis[strings.ToLower(s.Ref)]; ok {
 					st.VerseID = v.ID
 					st.Text = v.Text // KJV; JourneysFor swaps it per language
-					st.Label = a.verseLabel(v)
+					st.Label = a.verseLabel(v, i18n.Default)
 					if st.Year == 0 {
 						st.Year = v.Year
 					}
@@ -163,7 +163,7 @@ func (a *Atlas) PersonJourney(id, lang string) *Journey {
 			}
 			last = plid
 			j.Stops = append(j.Stops, Stop{Place: plid, Name: pl.Name, Lat: pl.Lat, Lng: pl.Lng, Year: v.Year,
-				Ref: v.Osis, Label: a.verseLabel(v), VerseID: v.ID, Text: a.VerseIn(v, lang), Kind: pl.Kind})
+				Ref: v.Osis, Label: a.verseLabel(v, lang), VerseID: v.ID, Text: a.VerseIn(v, lang), Kind: pl.Kind})
 		}
 	}
 	if len(j.Stops) > 250 {
@@ -202,6 +202,9 @@ func (a *Atlas) JourneysFor(lang string) []*Journey {
 			st.Note = a.trOr(lang, fmt.Sprintf("journey.%s.stop.%d.note", j.ID, k), st.Note)
 			if st.VerseID != "" {
 				st.Text = a.verseText(st.VerseID, lang, st.Text)
+				if v := a.VerseByID[st.VerseID]; v != nil {
+					st.Label = a.verseLabel(v, lang)
+				}
 			}
 			c.Stops[k] = st
 		}

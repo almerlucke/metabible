@@ -116,11 +116,25 @@ type ProgressIndex struct {
 
 // ProgressIndex lets the browser work out, from the chapters a reader has finished,
 // which places they have met and which centuries they have covered.
-func (a *Atlas) ProgressIndex() *ProgressIndex {
+func (a *Atlas) ProgressIndex(lang string) *ProgressIndex {
+	a.progMu.Lock()
+	defer a.progMu.Unlock()
+	if p, ok := a.prog[lang]; ok {
+		return p
+	}
+	if a.prog == nil {
+		a.prog = map[string]*ProgressIndex{}
+	}
+	idx := a.buildProgressIndex(lang)
+	a.prog[lang] = idx
+	return idx
+}
+
+func (a *Atlas) buildProgressIndex(lang string) *ProgressIndex {
 	idx := &ProgressIndex{}
 	pidx := map[string]int{}
 	for _, b := range a.Books {
-		pb := ProgressBook{ID: b.ID, Name: b.Name, Testament: b.Testament}
+		pb := ProgressBook{ID: b.ID, Name: a.BookName(b, lang), Testament: b.Testament}
 		for _, c := range b.Chapters {
 			pc := ProgressChapter{ID: c.ID, Num: c.Num}
 			seen := map[string]bool{}

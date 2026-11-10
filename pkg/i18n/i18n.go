@@ -70,6 +70,15 @@ func MustLoad() *Bundle {
 // Has reports whether a language is available.
 func (b *Bundle) Has(code string) bool { _, ok := b.langs[code]; return ok }
 
+// Codes lists the language codes.
+func (b *Bundle) Codes() []string {
+	var out []string
+	for _, l := range b.Langs() {
+		out = append(out, l.Code)
+	}
+	return out
+}
+
 // Langs lists the languages, English first.
 func (b *Bundle) Langs() []Lang {
 	var out []Lang

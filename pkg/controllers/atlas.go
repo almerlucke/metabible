@@ -86,7 +86,9 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 	})
 
 	// browse pages
-	mux.Handle("GET /books", templ.Handler(pages.BooksPage(a.BooksBrowse())))
+	mux.HandleFunc("GET /books", func(w http.ResponseWriter, r *http.Request) {
+		templ.Handler(pages.BooksPage(a.BooksBrowse(i18n.FromContext(r.Context())))).ServeHTTP(w, r)
+	})
 	mux.HandleFunc("GET /events", func(w http.ResponseWriter, r *http.Request) {
 		templ.Handler(pages.EventsPage(a.EventsTimeline(i18n.FromContext(r.Context())))).ServeHTTP(w, r)
 	})

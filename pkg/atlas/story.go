@@ -98,7 +98,7 @@ func (a *Atlas) Story(lang string) *Story {
 		}
 		s.Text = trunc(strings.Join(parts, " "), 420)
 		if len(vs) > 0 {
-			s.Ref, s.VerseID = a.verseLabel(vs[0]), vs[0].ID
+			s.Ref, s.VerseID = a.verseLabel(vs[0], lang), vs[0].ID
 		}
 
 		for i, id := range e.Places {

@@ -84,8 +84,8 @@ remembered in a cookie; the browser's language is used the first time).
   [open-bibles](https://github.com/seven1m/open-bibles) Zefania file). Verses a translation lacks fall back to the King James text.
   Verse pages, the reading view, concordance, search, hover cards, story and journeys follow the language; a translated verse page
   also shows the King James text with its person and place links. A translation is plain text (no inline links).
-- Still English everywhere: the dictionary descriptions of people and places (Easton), Bible book names and
-  people/place names, and image titles. Translating those is separate work (a name table).
+- Bible book names are keys too (`book.<OSIS>`), and a reference can be typed in any language (`Richteren 3:4`, `Judges 3:4`).
+- Still English everywhere: the dictionary descriptions of people and places (Easton), people/place names, and image titles. Translating those is separate work (a name table).
 
 ## Code map
 

@@ -387,7 +387,7 @@ func (a *Atlas) topByCount(ids []string, limit int) []string {
 func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 	r := &CompareResult{Kind: kind}
 	for _, b := range a.Books {
-		r.BookNames = append(r.BookNames, b.Name)
+		r.BookNames = append(r.BookNames, a.BookName(b, lang))
 	}
 	switch kind {
 	case "person":
@@ -441,7 +441,7 @@ func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 						best = o
 					}
 				}
-				r.QuoteVerse, r.QuoteText, r.QuoteLabel = best.ID, a.VerseIn(best, lang), a.verseLabel(best)
+				r.QuoteVerse, r.QuoteText, r.QuoteLabel = best.ID, a.VerseIn(best, lang), a.verseLabel(best, lang)
 			}
 		}
 		r.Story = a.personStory(lang, r, pa, pb)

@@ -150,7 +150,7 @@ func (a *Atlas) handlePerson(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		if v := a.VerseByID[id]; v != nil {
-			verses = append(verses, map[string]string{"id": v.ID, "l": a.verseLabel(v), "t": a.VerseIn(v, i18n.FromContext(r.Context()))})
+			verses = append(verses, map[string]string{"id": v.ID, "l": a.verseLabel(v, i18n.FromContext(r.Context())), "t": a.VerseIn(v, i18n.FromContext(r.Context()))})
 		}
 	}
 	writeJSON(w, r, map[string]any{"id": p.ID, "text": trunc(plain(p.Dict), 600), "verses": verses})
@@ -208,7 +208,7 @@ func (a *Atlas) handleCanon(w http.ResponseWriter, r *http.Request) {
 	if len(arcs) > 400 {
 		arcs = arcs[:400]
 	}
-	writeJSON(w, r, map[string]any{"books": a.Books, "arcs": arcs})
+	writeJSON(w, r, map[string]any{"books": a.BooksIn(i18n.FromContext(r.Context())), "arcs": arcs})
 }
 
 func (a *Atlas) handleWord(w http.ResponseWriter, r *http.Request) {
@@ -314,6 +314,5 @@ func (a *Atlas) handleTheme(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Atlas) handleProgressIndex(w http.ResponseWriter, r *http.Request) {
-	a.progOnce.Do(func() { a.prog = a.ProgressIndex() })
-	writeJSON(w, r, a.prog)
+	writeJSON(w, r, a.ProgressIndex(i18n.FromContext(r.Context())))
 }

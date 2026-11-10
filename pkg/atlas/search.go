@@ -78,12 +78,17 @@ func (a *Atlas) findBook(name string) *Book {
 	}
 	var best *Book
 	for _, b := range a.Books {
-		bn := strings.ToLower(strings.ReplaceAll(b.Name, " ", ""))
-		if bn == n || strings.ToLower(b.Short) == n || strings.ToLower(b.Osis) == n {
+		if strings.ToLower(b.Short) == n || strings.ToLower(b.Osis) == n {
 			return b
 		}
-		if best == nil && strings.HasPrefix(bn, n) {
-			best = b
+		for _, name := range a.allBookNames(b) {
+			bn := strings.ToLower(strings.ReplaceAll(name, " ", ""))
+			if bn == n {
+				return b
+			}
+			if best == nil && strings.HasPrefix(bn, n) {
+				best = b
+			}
 		}
 	}
 	return best
@@ -103,12 +108,12 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 				vn, _ := strconv.Atoi(m[3])
 				osis := fmt.Sprintf("%s.%d.%d", b.Osis, ch, vn)
 				if v, ok := a.VerseByOsis[strings.ToLower(osis)]; ok {
-					hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", b.Name, ch, vn), trunc(a.VerseIn(v, lang), 80), "/verse/" + v.ID})
+					hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", a.BookName(b, lang), ch, vn), trunc(a.VerseIn(v, lang), 80), "/verse/" + v.ID})
 				}
 			} else {
 				for _, c := range b.Chapters {
 					if c.Num == ch {
-						hits = append(hits, SearchHit{"chapter", c.ID, fmt.Sprintf("%s %d", b.Name, ch), a.tx(lang, "sub.chapter"), "/chapter/" + c.ID})
+						hits = append(hits, SearchHit{"chapter", c.ID, fmt.Sprintf("%s %d", a.BookName(b, lang), ch), a.tx(lang, "sub.chapter"), "/chapter/" + c.ID})
 					}
 				}
 			}
@@ -147,7 +152,11 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 		if len(hits) >= limit {
 			break
 		}
-		hits = append(hits, SearchHit{s.e.Type, s.e.ID, s.e.Label, a.subFor(lang, s.e), s.e.URL})
+		label := s.e.Label
+		if s.e.Type == "book" {
+			label = a.BookName(a.BookByID[s.e.ID], lang)
+		}
+		hits = append(hits, SearchHit{s.e.Type, s.e.ID, label, a.subFor(lang, s.e), s.e.URL})
 	}
 
 	if len(q) >= 4 && len(hits) < limit {
@@ -158,7 +167,7 @@ func (a *Atlas) Search(q string, limit int, lang string) []SearchHit {
 				b := a.BookByID[v.Book]
 				bn := ""
 				if b != nil {
-					bn = b.Name
+					bn = a.BookName(b, lang)
 				}
 				hits = append(hits, SearchHit{"verse", v.ID, fmt.Sprintf("%s %d:%d", bn, a.ChapterNum[v.Chapter], v.Num), trunc(a.VerseIn(v, lang), 90), "/verse/" + v.ID})
 				n++
@@ -197,12 +206,12 @@ type Peek struct {
 	Links [][2]string `json:"links,omitempty"`
 }
 
-func (a *Atlas) verseLabel(v *Verse) string {
+func (a *Atlas) verseLabel(v *Verse, lang string) string {
 	b := a.BookByID[v.Book]
 	if b == nil {
 		return v.Osis
 	}
-	return fmt.Sprintf("%s %d:%d", b.Name, a.ChapterNum[v.Chapter], v.Num)
+	return fmt.Sprintf("%s %d:%d", a.BookName(b, lang), a.ChapterNum[v.Chapter], v.Num)
 }
 
 func (a *Atlas) PeekFor(kind, id, lang string) *Peek {
@@ -248,7 +257,7 @@ func (a *Atlas) PeekFor(kind, id, lang string) *Peek {
 		if v == nil {
 			return nil
 		}
-		pk := &Peek{Type: "verse", Title: a.verseLabel(v), Text: a.VerseIn(v, lang)}
+		pk := &Peek{Type: "verse", Title: a.verseLabel(v, lang), Text: a.VerseIn(v, lang)}
 		pk.Facts = append(pk.Facts, a.tx(lang, "peek.verse.counts", "p", a.txn(lang, "count.person", len(v.People)), "l", a.txn(lang, "count.place", len(v.Places))))
 		return pk
 	case "book":
@@ -256,13 +265,13 @@ func (a *Atlas) PeekFor(kind, id, lang string) *Peek {
 		if b == nil {
 			return nil
 		}
-		return &Peek{Type: "book", Title: b.Name, Sub: a.lookup(lang, "div", b.Div) + " · " + a.lookup(lang, "testament", b.Testament),
+		return &Peek{Type: "book", Title: a.BookName(b, lang), Sub: a.lookup(lang, "div", b.Div) + " · " + a.lookup(lang, "testament", b.Testament),
 			Facts: []string{a.tx(lang, "peek.book.counts", "c", a.txn(lang, "count.chapter", len(b.Chapters)), "v", a.txn(lang, "count.verse", b.Verses))}}
 	case "chapter":
 		for _, b := range a.Books {
 			for _, c := range b.Chapters {
 				if c.ID == id {
-					return &Peek{Type: "chapter", Title: fmt.Sprintf("%s %d", b.Name, c.Num),
+					return &Peek{Type: "chapter", Title: fmt.Sprintf("%s %d", a.BookName(b, lang), c.Num),
 						Facts: []string{a.tx(lang, "peek.chapter.counts", "v", a.txn(lang, "count.verse", c.Verses), "p", a.txn(lang, "count.person", c.People), "l", a.txn(lang, "count.place", c.Places))}}
 				}
 			}

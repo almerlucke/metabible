@@ -2,6 +2,7 @@ package atlas
 
 import (
 	"encoding/json"
+	"github.com/almerlucke/metabible/pkg/i18n"
 	"html"
 	"os"
 	"path/filepath"
@@ -79,4 +80,49 @@ func (a *Atlas) themeMark(v *Verse, stems []string, lang string) string {
 		return highlightStems(v.Text, stems)
 	}
 	return html.EscapeString(a.VerseIn(v, lang))
+}
+
+// BookName is the name of a book in the language (the source name when there is none).
+func (a *Atlas) BookName(b *Book, lang string) string {
+	if b == nil {
+		return ""
+	}
+	if lang == i18n.Default || a.tr == nil {
+		return b.Name
+	}
+	return a.trOr(lang, "book."+b.Osis, b.Name)
+}
+
+// BooksIn is the list of books with names in the language, for the JSON APIs.
+func (a *Atlas) BooksIn(lang string) []*Book {
+	if lang == i18n.Default || a.tr == nil {
+		return a.Books
+	}
+	a.bookMu.Lock()
+	defer a.bookMu.Unlock()
+	if out, ok := a.bookCache[lang]; ok {
+		return out
+	}
+	out := make([]*Book, len(a.Books))
+	for i, b := range a.Books {
+		c := *b
+		c.Name = a.BookName(b, lang)
+		out[i] = &c
+	}
+	if a.bookCache == nil {
+		a.bookCache = map[string][]*Book{}
+	}
+	a.bookCache[lang] = out
+	return out
+}
+
+// allBookNames lists a book's name in every language, so a reference can be typed in any of them.
+func (a *Atlas) allBookNames(b *Book) []string {
+	names := []string{b.Name}
+	for _, lang := range a.bookLangs {
+		if n := a.BookName(b, lang); n != b.Name {
+			names = append(names, n)
+		}
+	}
+	return names
 }

@@ -436,7 +436,7 @@ templ VersePage(d *atlas.VerseDossier) {
 		<article class="dossier verse">
 			<header class="hero">
 				<div class="mb-tag">
-					<a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> ·
+					<a href={ href("book", d.Book.ID) }>{ bookName(ctx, d.Book) }</a> ·
 					<a href={ href("chapter", d.ChapterID) }>{ t(ctx, "ui.chapter") } { fmt.Sprint(d.ChapterNum) }</a> · { locDate(ctx, d.Year) }
 				</div>
 				<h1>{ d.Label }</h1>
@@ -502,11 +502,11 @@ templ VersePage(d *atlas.VerseDossier) {
 // ---------------------------------------------------------------- chapter (reading view)
 
 templ ChapterPage(d *atlas.ChapterDossier) {
-	@classic(fmt.Sprintf("%s %d", d.Book.Name, d.Num), "", withMap()) {
+	@classic(fmt.Sprintf("%s %d", bookName(ctx, d.Book), d.Num), "", withMap()) {
 		<div class={ "reader", templ.KV("no-map", len(d.Map.Points) == 0) } data-chapter={ d.ID }>
 			<div class="text">
-				<div class="mb-tag"><a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> · { locDate(ctx, d.Years) }</div>
-				<h1>{ d.Book.Name } { fmt.Sprint(d.Num) }</h1>
+				<div class="mb-tag"><a href={ href("book", d.Book.ID) }>{ bookName(ctx, d.Book) }</a> · { locDate(ctx, d.Years) }</div>
+				<h1>{ bookName(ctx, d.Book) } { fmt.Sprint(d.Num) }</h1>
 				<div class="actions">
 					if d.Prev != "" {
 						<a class="mb-btn" href={ href("chapter", d.Prev) }>◀ { d.PrevLabel }</a>
@@ -560,15 +560,15 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 // ---------------------------------------------------------------- book
 
 templ BookPage(d *atlas.BookDossier) {
-	@classic(d.B.Name, "", nil) {
+	@classic(bookName(ctx, d.B), "", nil) {
 		<article class="dossier">
 			<header class="hero">
 				<div class="mb-tag">{ divName(ctx, d.B.Div) } · { testamentName(ctx, d.B.Testament) }</div>
-				<h1>{ d.B.Name }</h1>
+				<h1>{ bookName(ctx, d.B) }</h1>
 				<p class="mb-muted">{ count(ctx, "chapter", len(d.B.Chapters)) } · { count(ctx, "verse", d.B.Verses) } · { count(ctx, "person", d.PeopleN) } · { count(ctx, "place", d.PlacesN) }</p>
 				<div class="skyline" title={ t(ctx, "ui.people.per.chapter") }>
 					for _, c := range d.Chapters {
-						<a href={ href("chapter", c.ID) } style={ heatStyle(c.Heat) } title={ t(ctx, "ui.chapter.tip", "book", d.B.Name, "n", c.Num, "people", c.People, "places", c.Places) }></a>
+						<a href={ href("chapter", c.ID) } style={ heatStyle(c.Heat) } title={ t(ctx, "ui.chapter.tip", "book", bookName(ctx, d.B), "n", c.Num, "people", c.People, "places", c.Places) }></a>
 					}
 				</div>
 				<div class="actions">

@@ -149,8 +149,11 @@ type Atlas struct {
 	tr            Translator
 	Enrich        *Enrichment
 	artFixes      []artFix
-	progOnce      sync.Once
-	prog          *ProgressIndex
+	progMu        sync.Mutex
+	prog          map[string]*ProgressIndex
+	bookMu        sync.Mutex
+	bookCache     map[string][]*Book
+	bookLangs     []string // languages with translated book names, for typing a reference in any of them
 	themeOnce     sync.Once
 	themeIdx      map[string][]int
 	themeInfos    []ThemeInfo

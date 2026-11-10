@@ -150,7 +150,7 @@ func (a *Atlas) Theme(id, lang string) *ThemeDetail {
 	bookIdx := map[string]int{}
 	for i, b := range a.Books {
 		bookIdx[b.ID] = i
-		d.BookNames = append(d.BookNames, b.Name)
+		d.BookNames = append(d.BookNames, a.BookName(b, lang))
 	}
 	d.Books = make([]int, len(a.Books))
 	for _, e := range a.LocalEras(lang) {
@@ -207,7 +207,7 @@ func (a *Atlas) Theme(id, lang string) *ThemeDetail {
 			continue
 		}
 		seenBook[v.Book]++
-		d.Sample = append(d.Sample, ThemeHit{v.ID, a.verseLabel(v), a.themeMark(v, def.Stems, lang)})
+		d.Sample = append(d.Sample, ThemeHit{v.ID, a.verseLabel(v, lang), a.themeMark(v, def.Stems, lang)})
 		if len(d.Sample) >= 14 {
 			break
 		}

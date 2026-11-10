@@ -88,7 +88,7 @@ type EventRef struct {
 }
 
 func (a *Atlas) verseRef(v *Verse, lang string) VerseRef {
-	return VerseRef{ID: v.ID, Label: a.verseLabel(v), Excerpt: trunc(a.VerseIn(v, lang), 110)}
+	return VerseRef{ID: v.ID, Label: a.verseLabel(v, lang), Excerpt: trunc(a.VerseIn(v, lang), 110)}
 }
 
 func (a *Atlas) groupVerses(ids []string, limit int, lang string) ([]BookVerses, int) {
@@ -106,7 +106,7 @@ func (a *Atlas) groupVerses(ids []string, limit int, lang string) ([]BookVerses,
 			continue
 		}
 		if len(out) == 0 || out[len(out)-1].BookID != b.ID {
-			out = append(out, BookVerses{Book: b.Name, BookID: b.ID})
+			out = append(out, BookVerses{Book: a.BookName(b, lang), BookID: b.ID})
 		}
 		g := &out[len(out)-1]
 		if limit <= 0 || len(g.Verses) < limit {
@@ -514,7 +514,7 @@ func (a *Atlas) EventDossier(id, lang string) *EventDossier {
 	}
 	sort.Slice(vs, func(i, j int) bool { return vs[i].VID < vs[j].VID })
 	for _, v := range vs {
-		d.Verses = append(d.Verses, EventVerse{v.ID, a.verseLabel(v), a.VerseIn(v, lang)})
+		d.Verses = append(d.Verses, EventVerse{v.ID, a.verseLabel(v, lang), a.VerseIn(v, lang)})
 	}
 	for i, o := range a.Events {
 		if o.ID == id {
@@ -571,7 +571,7 @@ func (a *Atlas) VerseDossier(id, lang string) *VerseDossier {
 	if b == nil {
 		return nil
 	}
-	d := &VerseDossier{V: v, Book: b, ChapterID: v.Chapter, ChapterNum: a.ChapterNum[v.Chapter], Label: a.verseLabel(v), HTML: a.richIn(v, lang), Year: FormatYear(v.Year)}
+	d := &VerseDossier{V: v, Book: b, ChapterID: v.Chapter, ChapterNum: a.ChapterNum[v.Chapter], Label: a.verseLabel(v, lang), HTML: a.richIn(v, lang), Year: FormatYear(v.Year)}
 	if a.HasBible(lang) && a.VerseIn(v, lang) != v.Text {
 		d.Alt = RichInline(mdOf(v))
 	}
@@ -679,10 +679,10 @@ func (a *Atlas) ChapterDossier(id, lang string) *ChapterDossier {
 	for i, c := range b.Chapters {
 		if c.ID == id {
 			if i > 0 {
-				d.Prev, d.PrevLabel = b.Chapters[i-1].ID, fmt.Sprintf("%s %d", b.Name, b.Chapters[i-1].Num)
+				d.Prev, d.PrevLabel = b.Chapters[i-1].ID, fmt.Sprintf("%s %d", a.BookName(b, lang), b.Chapters[i-1].Num)
 			}
 			if i < len(b.Chapters)-1 {
-				d.Next, d.NextLabel = b.Chapters[i+1].ID, fmt.Sprintf("%s %d", b.Name, b.Chapters[i+1].Num)
+				d.Next, d.NextLabel = b.Chapters[i+1].ID, fmt.Sprintf("%s %d", a.BookName(b, lang), b.Chapters[i+1].Num)
 			}
 		}
 	}
@@ -784,10 +784,10 @@ func (a *Atlas) BookDossier(id, lang string) *BookDossier {
 	for i, o := range a.Books {
 		if o.ID == id {
 			if i > 0 {
-				d.Prev = &Ref{ID: a.Books[i-1].ID, Name: a.Books[i-1].Name}
+				d.Prev = &Ref{ID: a.Books[i-1].ID, Name: a.BookName(a.Books[i-1], lang)}
 			}
 			if i < len(a.Books)-1 {
-				d.Next = &Ref{ID: a.Books[i+1].ID, Name: a.Books[i+1].Name}
+				d.Next = &Ref{ID: a.Books[i+1].ID, Name: a.BookName(a.Books[i+1], lang)}
 			}
 		}
 	}

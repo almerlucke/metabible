@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/almerlucke/metabible/pkg/atlas"
 	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
@@ -148,4 +149,15 @@ func durText(ctx context.Context, days int) string {
 		return tn(ctx, "duration.month", days/30)
 	}
 	return tn(ctx, "duration.day", days)
+}
+
+// bookName is a book's name in the request's language.
+func bookName(ctx context.Context, b *atlas.Book) string {
+	if bundle == nil {
+		return b.Name
+	}
+	if s, ok := bundle.Raw(langOf(ctx), "book."+b.Osis); ok {
+		return s
+	}
+	return b.Name
 }

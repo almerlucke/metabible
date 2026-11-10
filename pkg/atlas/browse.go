@@ -24,7 +24,7 @@ type BookGroup struct {
 	Books     []BookCard
 }
 
-func (a *Atlas) BooksBrowse() []BookGroup {
+func (a *Atlas) BooksBrowse(lang string) []BookGroup {
 	var out []BookGroup
 	for _, b := range a.Books {
 		if len(out) == 0 || out[len(out)-1].Div != b.Div {
@@ -38,7 +38,7 @@ func (a *Atlas) BooksBrowse() []BookGroup {
 			}
 		}
 		pe, pl := map[string]bool{}, map[string]bool{}
-		bc := BookCard{ID: b.ID, Name: b.Name, Chapters: len(b.Chapters), Verses: b.Verses}
+		bc := BookCard{ID: b.ID, Name: a.BookName(b, lang), Chapters: len(b.Chapters), Verses: b.Verses}
 		for _, c := range b.Chapters {
 			bc.Heat = append(bc.Heat, float64(c.People)/float64(maxPe))
 			bc.CIDs = append(bc.CIDs, c.ID)
@@ -240,7 +240,7 @@ func (a *Atlas) Concordance(q, bookID string, limit int, lang string) *ConcResul
 			continue
 		}
 		if len(res.Hits) < limit {
-			res.Hits = append(res.Hits, ConcHit{ID: v.ID, Label: a.verseLabel(v), HTML: highlight(a.VerseIn(v, lang), terms)})
+			res.Hits = append(res.Hits, ConcHit{ID: v.ID, Label: a.verseLabel(v, lang), HTML: highlight(a.VerseIn(v, lang), terms)})
 		} else {
 			res.Capped = true
 		}
@@ -252,7 +252,7 @@ func (a *Atlas) Concordance(q, bookID string, limit int, lang string) *ConcResul
 		}
 	}
 	for _, b := range a.Books {
-		res.Books = append(res.Books, ConcBook{ID: b.ID, Name: b.Name, Count: counts[b.ID], Pct: float64(counts[b.ID]) / float64(max)})
+		res.Books = append(res.Books, ConcBook{ID: b.ID, Name: a.BookName(b, lang), Count: counts[b.ID], Pct: float64(counts[b.ID]) / float64(max)})
 	}
 	res.Shown = len(res.Hits)
 	return res
