@@ -98,6 +98,11 @@ map.on('load', () => {
     paint: { 'line-color': '#f5c451', 'line-opacity': 0.5, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.8, 8, 2], 'line-dasharray': [2, 2] } });
   map.addLayer({ id: 'route', type: 'line', source: 'route', layout: { 'line-cap': 'round', 'line-join': 'round' },
     paint: { 'line-color': '#7df9ff', 'line-width': 3, 'line-opacity': 0.9, 'line-blur': 0.5 } });
+  // places not yet reached stay as faint ghosts so the map is never empty; they light up when the story arrives
+  map.addLayer({ id: 'place-ghost', type: 'circle', source: 'places', filter: ['>', ['get', 'y0'], year],
+    paint: { 'circle-color': '#cfd6f5', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 1.8, 8, 3.4], 'circle-opacity': 0.4 } });
+  map.addLayer({ id: 'place-new', type: 'circle', source: 'places', filter: ['all', ['<=', ['get', 'y0'], year], ['>', ['get', 'y0'], year - 30]],
+    paint: { 'circle-color': '#fff3b0', 'circle-radius': ['interpolate', ['linear'], ['zoom'], 3, 9, 8, 20], 'circle-opacity': 0.5, 'circle-blur': 0.9 } });
   map.addLayer({ id: 'place-dots', type: 'circle', source: 'places', filter: ['<=', ['get', 'y0'], year],
     paint: {
       'circle-color': kindColorExpr(),
@@ -248,8 +253,8 @@ function flyToEvent(e, force) {
   if (!pl.length || !ready) return;
   const lngs = pl.map((p) => p.lng), lats = pl.map((p) => p.lat);
   const spread = Math.max(Math.max(...lngs) - Math.min(...lngs), Math.max(...lats) - Math.min(...lats));
-  const zoom = spread > 8 ? 4.3 : spread > 3 ? 5.4 : spread > 0.8 ? 6.6 : 7.6;
-  map.easeTo({ center: [(Math.min(...lngs) + Math.max(...lngs)) / 2, (Math.min(...lats) + Math.max(...lats)) / 2], zoom, pitch: 55, bearing: ((e.y * 7) % 40) - 20, duration: force ? 1800 : 2600, essential: true });
+  const zoom = spread > 8 ? 4.3 : spread > 3 ? 5.0 : spread > 0.8 ? 5.6 : 6.0; // stay wide enough to see the surrounding places
+  map.easeTo({ center: [(Math.min(...lngs) + Math.max(...lngs)) / 2, (Math.min(...lats) + Math.max(...lats)) / 2], zoom, pitch: 48, bearing: ((e.y * 7) % 40) - 20, duration: force ? 1800 : 2600, essential: true });
   lastFly = performance.now();
 }
 
@@ -299,6 +304,8 @@ function applyYear(force) {
   yb.querySelector('.cnt').textContent = `${idx + 1} of ${events.length} events · ${placesSoFar(year)} places`;
   if (ready) {
     map.setFilter('place-dots', ['<=', ['get', 'y0'], year]);
+    map.setFilter('place-ghost', ['>', ['get', 'y0'], year]);
+    map.setFilter('place-new', ['all', ['<=', ['get', 'y0'], year], ['>', ['get', 'y0'], year - 30]]);
     for (const [id, vcMin] of [['l1', 60], ['l2', 12], ['l3', 0]]) map.setFilter('place-' + id, ['all', ['<=', ['get', 'y0'], year], ['>=', ['get', 'vc'], vcMin]]);
     map.setFilter('event-dots', ['<=', ['get', 'y'], year]);
     map.setFilter('chains', ['<=', ['get', 'y'], year]);

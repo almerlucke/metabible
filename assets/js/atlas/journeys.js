@@ -20,7 +20,7 @@ const compare = new Set();
 map.on('load', () => {
   for (const id of ['cmp', 'done', 'all', 'stops', 'head']) map.addSource(id, { type: 'geojson', data: empty });
   map.addLayer({ id: 'cmp', type: 'line', source: 'cmp', layout: { 'line-cap': 'round' }, paint: { 'line-color': ['get', 'color'], 'line-width': 2.5, 'line-opacity': 0.8 } });
-  map.addLayer({ id: 'all', type: 'line', source: 'all', paint: { 'line-color': ['get', 'color'], 'line-width': 2, 'line-opacity': 0.35, 'line-dasharray': [1.5, 2.5] } });
+  map.addLayer({ id: 'all', type: 'line', source: 'all', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['get', 'color'], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 2, 8, 3.5], 'line-opacity': 0.7 } });
   map.addLayer({ id: 'done-glow', type: 'line', source: 'done', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['get', 'color'], 'line-width': 10, 'line-opacity': 0.25, 'line-blur': 6 } });
   map.addLayer({ id: 'done', type: 'line', source: 'done', layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': ['get', 'color'], 'line-width': 3.5 } });
   map.addLayer({ id: 'stops', type: 'circle', source: 'stops', paint: {
