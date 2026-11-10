@@ -30,6 +30,8 @@ type Place struct {
 	Comment string   `json:"-"`
 	Dict    string   `json:"-"`
 	Vs      []string `json:"-"`
+	Born    []string `json:"-"`
+	Died    []string `json:"-"`
 }
 
 type Person struct {
@@ -50,6 +52,9 @@ type Person struct {
 	AlsoCall string   `json:"-"`
 	Vs       []string `json:"-"`
 	Events   []string `json:"-"`
+	Disambig string   `json:"-"`
+	BirthPl  string   `json:"-"`
+	DeathPl  string   `json:"-"`
 }
 
 type Event struct {
@@ -78,6 +83,7 @@ type Verse struct {
 	VID     string
 	Num     int
 	Text    string
+	Rich    string
 	People  []string
 	Places  []string
 	Events  []string
@@ -133,6 +139,12 @@ type Atlas struct {
 	cosmos     *Cosmos
 	lowerText  []string
 	nameIdx    []searchEntry
+
+	chapterVerses map[string][]*Verse
+	chapterBook   map[string]*Book
+	personEvents  map[string][]*Event
+	placeEvents   map[string][]*Event
+	eventSucc     map[string][]*Event
 }
 
 var yearRe = regexp.MustCompile(`^(-?\d+)(?:-(\d+)-(\d+))?`)
@@ -216,6 +228,8 @@ type rawPlace struct {
 	Verses      []string `json:"verses"`
 	Comment     string   `json:"comment"`
 	Dict        string   `json:"dictText"`
+	Born        []string `json:"peopleBorn"`
+	Died        []string `json:"peopleDied"`
 }
 
 type rawPerson struct {
@@ -235,6 +249,9 @@ type rawPerson struct {
 	Dict      string   `json:"dictText"`
 	AlsoCall  string   `json:"alsoCalled"`
 	Events    []string `json:"events"`
+	Disambig  string   `json:"disambiguation"`
+	BirthPl   []string `json:"birthPlace"`
+	DeathPl   []string `json:"deathPlace"`
 }
 
 type rawEvent struct {
@@ -261,6 +278,7 @@ type rawVerse struct {
 	VID     string   `json:"verseId"`
 	Num     int      `json:"verseNum"`
 	Text    string   `json:"verseText"`
+	MdText  string   `json:"mdText"`
 	People  []string `json:"people"`
 	Places  []string `json:"places"`
 	Events  []string `json:"eventsDescribed"`
@@ -362,7 +380,7 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 	}
 
 	for _, v := range rverses {
-		vv := &Verse{ID: v.ID, Book: v.Book, Chapter: v.Chapter, Osis: v.Osis, VID: v.VID, Num: v.Num, Text: v.Text,
+		vv := &Verse{ID: v.ID, Book: v.Book, Chapter: v.Chapter, Osis: v.Osis, VID: v.VID, Num: v.Num, Text: v.Text, Rich: v.MdText,
 			People: v.People, Places: v.Places, Events: v.Events, Year: v.Year}
 		a.Verses = append(a.Verses, vv)
 		a.VerseByID[vv.ID] = vv
@@ -390,7 +408,7 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 		lng, e2 := strconv.ParseFloat(p.Lng, 64)
 		pl := &Place{ID: p.ID, Name: p.Display, Lat: lat, Lng: lng, Kind: p.FeatureType, Sub: p.SubType,
 			HasGeo: e1 == nil && e2 == nil, Verses: len(p.Verses), Y0: y0[p.ID], Y1: y1[p.ID],
-			Comment: p.Comment, Dict: p.Dict, Vs: p.Verses}
+			Comment: p.Comment, Dict: p.Dict, Vs: p.Verses, Born: p.Born, Died: p.Died}
 		a.Places = append(a.Places, pl)
 		a.PlaceByID[pl.ID] = pl
 	}
@@ -398,7 +416,13 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 	for _, p := range rpeople {
 		pe := &Person{ID: p.ID, Name: p.Display, Gender: p.Gender, Y0: p.MinYear, Y1: p.MaxYear,
 			Father: p.Father, Mother: p.Mother, Partners: p.Partners, Children: p.Children,
-			Verses: len(p.Verses), Dict: p.Dict, AlsoCall: p.AlsoCall, Vs: p.Verses, Events: p.Events}
+			Verses: len(p.Verses), Dict: p.Dict, AlsoCall: p.AlsoCall, Vs: p.Verses, Events: p.Events, Disambig: p.Disambig}
+		if len(p.BirthPl) > 0 {
+			pe.BirthPl = p.BirthPl[0]
+		}
+		if len(p.DeathPl) > 0 {
+			pe.DeathPl = p.DeathPl[0]
+		}
 		if len(p.BirthYear) > 0 {
 			if y, ok := periodYear[p.BirthYear[0]]; ok {
 				yy := y
@@ -496,6 +520,31 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 				b.Chapters[i].Places = len(s.places)
 				b.Chapters[i].Events = len(s.events)
 			}
+		}
+	}
+
+	a.chapterVerses = map[string][]*Verse{}
+	a.chapterBook = map[string]*Book{}
+	for _, v := range a.Verses {
+		a.chapterVerses[v.Chapter] = append(a.chapterVerses[v.Chapter], v)
+	}
+	for _, b := range a.Books {
+		for _, c := range b.Chapters {
+			a.chapterBook[c.ID] = b
+		}
+	}
+	a.personEvents = map[string][]*Event{}
+	a.placeEvents = map[string][]*Event{}
+	a.eventSucc = map[string][]*Event{}
+	for _, e := range a.Events {
+		for _, id := range e.People {
+			a.personEvents[id] = append(a.personEvents[id], e)
+		}
+		for _, id := range e.Places {
+			a.placeEvents[id] = append(a.placeEvents[id], e)
+		}
+		for _, id := range e.Pred {
+			a.eventSucc[id] = append(a.eventSucc[id], e)
 		}
 	}
 

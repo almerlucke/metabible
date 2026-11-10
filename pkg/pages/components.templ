@@ -1,102 +1,21 @@
 package pages
 
-import (
-    "fmt"
-    "github.com/almerlucke/metabible/pkg/models"
-)
+import "strings"
 
+// mainContainer wraps the list pages (books, people, places, events, concordance)
+// in the shared top bar and page frame.
 templ mainContainer(title string) {
-	<main class="container">
-    <header class="container">
-        <nav>
-            <ul>
-                <li><h1>{title}</h1></li>
-            </ul>
-            <ul>
-                <li><a href="/atlas">Atlas</a></li>
-                <li><a href="/journeys">Journeys</a></li>
-                <li><a href="/tree">Family</a></li>
-                <li><a href="/cosmos">Cosmos</a></li>
-                <li><a href="/canon">Canon</a></li>
-                <li><a href="/books">Books</a></li>
-                <li><a href="/people">People</a></li>
-                <li><a href="/places">Places</a></li>
-                <li><a href="/events">Events</a></li>
-                <li><a href="/concordance">Concordance</a></li>
-            </ul>
-        </nav>
-    </header>
-        { children... }
-    </main>
+	@topNav(strings.ToLower(title))
+	<main class="mb-page list">
+		<h1 class="mb-display" style="color: var(--mb-gold2)">{ title }</h1>
+		{ children... }
+	</main>
+	<script src="/assets/js/site/site.js"></script>
 }
 
+// head renders the shared <head> for the list pages.
 templ head(title string) {
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="color-scheme" content="light dark">
-        <title>{title}</title>
-        <script src="/assets/js/htmx/htmx.min.js" type="application/javascript"></script>
-        <script type="module" src="https://md-block.verou.me/md-block.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap">
-        <link rel="stylesheet" href="/assets/pico/css/pico.min.css">
-        <link rel="stylesheet" href="/assets/css/metabible.css">
-        <script src="/assets/js/site/site.js"></script>
-        { children... }
-    </head>
-}
-
-templ navArticle(titleComponent templ.Component, link string, prev string, next string) {
-    <article>
-        <header>
-            <nav>
-                <ul>
-                    <li><h1>
-                        @titleComponent
-                    </h1></li>
-                </ul>
-                <ul>
-                    <li><h4>
-                    if prev != "" {
-                        <a href={templ.SafeURL(fmt.Sprintf(link, prev))}>&lt; Prev</a>
-                    } else {
-                        <a disabled aria-disabled="true" class="secondary">&lt; Prev</a>
-                    }
-                    </h4></li>
-                    <li><h4>
-                     if next != "" {
-                        <a href={templ.SafeURL(fmt.Sprintf(link, next))}>Next &gt;</a>
-                     } else {
-                        <a disabled aria-disabled="true" class="secondary">Next &gt;</a>
-                     }
-                    </h4></li>
-                </ul>
-            </nav>
-        </header>
-        { children... }
-    </article>
-}
-
-templ article(title string) {
-    <article>
-        <header><h1>{title}</h1></header>
-        { children... }
-    </article>
-}
-
-templ verseTitleComponent(book *models.Book, chapter *models.Chapter, verse *models.Verse) {
-    <a href={templ.SafeURL(fmt.Sprintf("/book/%s", book.ID))}>{book.BookName}</a>
-    <a href={templ.SafeURL(fmt.Sprintf("/chapter/%s", chapter.ID))}>{fmt.Sprintf("%d", chapter.ChapterNum)}</a>.{fmt.Sprintf("%d", verse.VerseNum)}
-}
-
-templ chapterTitleComponent(book *models.Book, chapter *models.Chapter) {
-    <a href={templ.SafeURL(fmt.Sprintf("/book/%s", book.ID))}>{book.BookName}</a> {fmt.Sprintf("%d", chapter.ChapterNum)}
-}
-
-templ bookTitleComponent(book *models.Book) {
-    {book.BookName}
-}
-
-templ eventTitleComponent(title string) {
-    {title}
+	@atlasHead(title, false) {
+		{ children... }
+	}
 }

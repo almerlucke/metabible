@@ -37,11 +37,11 @@ templ topNav(active string) {
 		</div>
 		<span class="sep"></span>
 		<div class="links secondary">
-			<a href="/books">Books</a>
-			<a href="/people">People</a>
-			<a href="/places">Places</a>
-			<a href="/events">Events</a>
-			<a href="/concordance">Concordance</a>
+			<a href="/books" class={ templ.KV("on", active == "books") }>Books</a>
+			<a href="/people" class={ templ.KV("on", active == "people") }>People</a>
+			<a href="/places" class={ templ.KV("on", active == "places") }>Places</a>
+			<a href="/events" class={ templ.KV("on", active == "events") }>Events</a>
+			<a href="/concordance" class={ templ.KV("on", active == "concordance") }>Concordance</a>
 		</div>
 		<span class="grow"></span>
 		<button class="mb-kbd" data-mb-search type="button">Search <kbd>Ctrl K</kbd></button>

@@ -7,11 +7,9 @@ import (
 	"github.com/almerlucke/metabible/pkg/atlas"
 	"github.com/almerlucke/metabible/pkg/controllers"
 	"github.com/almerlucke/metabible/pkg/models"
-	"github.com/almerlucke/metabible/pkg/pages"
 	"github.com/almerlucke/metabible/pkg/store"
 	"log"
 	"net/http"
-	"regexp"
 	"time"
 )
 
@@ -54,30 +52,6 @@ func seed(st *store.Store, ctx context.Context) {
 	}
 }
 
-type Handler struct {
-	st         *store.Store
-	verseRegex *regexp.Regexp
-}
-
-func NewHandler(st *store.Store) *Handler {
-	return &Handler{
-		st:         st,
-		verseRegex: regexp.MustCompile(`[0-9]?[a-z]+#(.+\.[0-9]+\.[0-9]+)`),
-	}
-}
-
-func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
-	places, err := h.st.GetAllPlaces(ctx)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	pages.Index(places).Render(r.Context(), w)
-}
-
 func main() {
 	cfg := config.MustLoad("config/dev.json")
 
@@ -106,11 +80,6 @@ func main() {
 	mux.Handle("/places", &controllers.PlacesPageController{Store: st})
 	mux.Handle("/events", &controllers.EventsPageController{Store: st})
 	mux.Handle("/concordance", &controllers.ConcordancePageController{Store: st})
-	mux.Handle("/place/{id}", &controllers.PlacePageController{Store: st})
-	mux.Handle("/person/{id}", &controllers.PersonPageController{Store: st})
-	mux.Handle("/verse/{id}", &controllers.VersePageController{Store: st})
-	mux.Handle("/chapter/{id}", &controllers.ChapterPageController{Store: st})
-	mux.Handle("/book/{id}", &controllers.BookPageController{Store: st})
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", mux)

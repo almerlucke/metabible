@@ -34,12 +34,13 @@ export const kindColorExpr = () => ['match', ['get', 'k'],
 
 export const FONT = ['Open Sans Regular', 'Arial Unicode MS Regular'];
 
-export function createMap(container, { center = [35.2, 32], zoom = 5, pitch = 50, bearing = 0, basemap = 'satellite', terrain = true } = {}) {
+export function createMap(container, { center = [35.2, 32], zoom = 5, pitch = 50, bearing = 0, basemap = 'satellite', terrain = true, cooperative = false, controls = true } = {}) {
   const bm = BASEMAPS[basemap];
   const map = new maplibregl.Map({
     container,
     center, zoom, pitch, bearing,
     maxPitch: 75,
+    cooperativeGestures: cooperative,
     attributionControl: { compact: true },
     style: {
       version: 8,
@@ -56,7 +57,7 @@ export function createMap(container, { center = [35.2, 32], zoom = 5, pitch = 50
       sky: { 'sky-color': '#07102a', 'horizon-color': '#27355f', 'fog-color': '#0a0e1f', 'sky-horizon-blend': 0.6, 'horizon-fog-blend': 0.8, 'fog-ground-blend': 0.9 },
     },
   });
-  map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
+  if (controls) map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
   map.on('style.load', () => { if (terrain) map.setTerrain({ source: 'dem', exaggeration: 1.6 }); });
   return map;
 }
