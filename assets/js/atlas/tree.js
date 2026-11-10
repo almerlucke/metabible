@@ -85,7 +85,9 @@ function nodeEl(p, x, y, cls, delay) {
     <text x="14" y="17" font-size="12.5" fill="#f3ecd6" font-weight="600">${esc(p.n.length > 17 ? p.n.slice(0, 16) + '…' : p.n)}</text>
     <text x="14" y="31" font-size="9.5" fill="#9a9fb5">${esc(yrs)}${p.g === 'Female' ? ' ♀' : p.g === 'Male' ? ' ♂' : ''}</text>
     <title>${esc(p.n)}</title>`;
+  g.setAttribute('tabindex', '0'); g.setAttribute('role', 'link'); g.setAttribute('aria-label', `${p.n}${yrs ? ', ' + yrs : ''}. Press Enter to focus the tree on them.`);
   g.addEventListener('click', () => { setFocus(p.id, true); });
+  g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setFocus(p.id, true); } });
   return g;
 }
 function edgePath(ax, ay, bx, by) { const my = (ay + by) / 2; return `M${ax} ${ay} C${ax} ${my}, ${bx} ${my}, ${bx} ${by}`; }

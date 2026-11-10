@@ -20,6 +20,29 @@ After editing a `.templ` file run `templ generate`.
 go test ./pkg/...   # data layer + every route
 ```
 
+### Data checks and corrections
+
+On startup the server logs how many errors and warnings the data check found; the details are at
+`/api/atlas/validate`. `go test` fails on any *error* (dangling references, impossible dates).
+Known errors in the source data are fixed in `data/corrections.json` (people's birth/death years,
+event dates), each with a note on why, so the cleaned JSON stays untouched.
+
+### Open content
+
+`go run ./cmd/enrich` fetches Wikipedia summaries and photographs (Wikimedia Commons, free licenses
+only) for the most prominent people and places, plus Gustave Doré's public-domain engravings matched
+to events and people, into `data/enrichment.json` with the author and license of everything. It is
+polite (a few requests per second at most, honours `Retry-After`, sends no personal data) and resumes
+where it stopped. If the file is missing the site simply has no photos.
+
+### Other
+
+- Journeys download as GPX or KML (`/export/journey/<id>.gpx`).
+- Pages print cleanly (maps and controls hidden).
+- The site is an installable app (`/assets/manifest.webmanifest`) and keeps working offline for pages
+  already visited; bump `VERSION` in `assets/sw.js` when static assets change.
+- Links shared from the site show a generated preview card (`/og.png`).
+
 ## What is where
 
 | Page | Route | What it does |
@@ -32,17 +55,23 @@ go test ./pkg/...   # data layer + every route
 | Canon | `/canon` | Book skyline, shared-people arcs, word tide |
 | Lifespans | `/lifespans` | Who was alive when; `?year=&person=` |
 | Migrations | `/migrations` | Heatmap of where the text is per century, plus a trail per tribe; `?b=&mode=&g=` |
+| Compare | `/compare` | Two people or places side by side, with a generated story of how they connect; `?kind=&a=&b=` |
+| Themes | `/themes` | Follow an idea (covenant, exile, prayer, water…) across books, eras and the map; `?t=` |
+| Quiz | `/quiz` | A daily round of five questions made from the data, or a random one |
+| My reading | `/progress` | Chapters you have read, places met, time covered. Kept in your browser only; export/import as JSON |
 | Browse | `/books` `/people` `/places` `/events` `/concordance` | Filterable lists |
+| Credits | `/credits` | Sources and licenses, including every image |
 | Dossiers | `/person/{id}` `/place/{id}` `/event/{id}` `/verse/{id}` `/chapter/{id}` `/book/{id}` | Detail pages. Chapters are a reading view whose map follows the verse in view |
 
-Press **Ctrl-K** (or `/`) anywhere to search people, places, events, books and verse references
+Press **P** for a full-screen presentation mode (Esc leaves it), and **Ctrl-K** (or `/`) anywhere to search people, places, events, books and verse references
 (`John 3:16`). Hovering a link to a person, place, verse, book or chapter shows a peek card.
 
 ## Code map
 
 - `pkg/atlas` loads the JSON and builds the indexes, the dossier/browse view models and the
   JSON API under `/api/atlas/*` (`world`, `people`, `journeys`, `journey/{id}`, `cosmos`, `canon`,
-  `word`, `search`, `peek/{kind}/{id}`, `story`, `migration`).
+  `word`, `search`, `peek/{kind}/{id}`, `story`, `migration`, `compare`, `relation`, `themes`, `theme/{id}`,
+  `progress-index`, `validate`).
 - `pkg/controllers/atlas.go` registers every page and API route.
 - `pkg/pages/*.templ` are the page templates (`atlas.templ` shell and immersive pages,
   `dossier.templ`, `browse.templ`).
@@ -52,6 +81,11 @@ Press **Ctrl-K** (or `/`) anywhere to search people, places, events, books and v
   network access the site needs is for map tiles and elevation data (Esri, CARTO, AWS terrain tiles).
 - `data/journeys.json` holds the hand-written tours. Add one there; each stop needs a name,
   coordinates and a verse reference (`Gen.12.1`), and is checked at startup.
+
+## License
+
+The data and everything derived from it follow the source's license, Creative Commons
+Attribution-ShareAlike 4.0 (Theographic). Wikipedia text is CC BY-SA 4.0 as well. See `/credits`.
 
 ## Notes on the data
 

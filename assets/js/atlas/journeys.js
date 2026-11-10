@@ -163,7 +163,7 @@ function renderCard() {
   const el = $('jstep'); el.style.display = 'block';
   const n = cur.stops.length;
   const prog = `<div class="prog">${cur.stops.map((s, i) => `<i class="${i <= idx ? 'on' : ''}${i === idx ? ' cur' : ''}" data-i="${i}" title="${esc(s.n)}" style="--c:${cur.color}"></i>`).join('')}</div>`;
-  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button><button class="mb-btn" id="jshare" style="margin-left:auto">🔗 Share</button></div>`;
+  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button><button class="mb-btn" id="jshare" style="margin-left:auto">🔗 Share</button><a class="mb-btn" href="/export/journey/${cur.id}.gpx" download title="Download for a GPS app">⬇ GPX</a><a class="mb-btn" href="/export/journey/${cur.id}.kml" download title="Download for Google Earth">⬇ KML</a></div>`;
   if (idx < 0) {
     el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">${cur.era ? esc(cur.era) + ' · ' : ''}${n} stops · ${cur.km.toLocaleString()} km</div>
       <h2>${esc(cur.title)}</h2><div class="mb-muted" style="margin-bottom:.4rem">${esc(cur.sub || cur.subtitle || '')}</div>

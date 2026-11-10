@@ -91,6 +91,9 @@ func TestParseTermsAndWordMatch(t *testing.T) {
 	if indexWord("one and loved", "love", 0) < 0 {
 		t.Error("'love' should match the start of 'loved'")
 	}
+	if got := highlight("He loved them", []string{"love"}); got != "He <mark>loved</mark> them" {
+		t.Errorf("whole-word highlight = %q", got)
+	}
 	if got := highlight("Love one another", []string{"love"}); got != "<mark>Love</mark> one another" {
 		t.Errorf("highlight = %q", got)
 	}
@@ -251,5 +254,140 @@ func TestMigrationAndStory(t *testing.T) {
 	}
 	if len(st.Steps) != len(a.Events)+len(st.Eras) {
 		t.Errorf("steps = %d, want %d", len(st.Steps), len(a.Events)+len(st.Eras))
+	}
+}
+
+func TestFamilyAndRelations(t *testing.T) {
+	a := load(t)
+	find := func(name string) *Person {
+		var best *Person
+		for _, p := range a.People {
+			if p.Name == name && (best == nil || p.Verses > best.Verses) {
+				best = p
+			}
+		}
+		if best == nil {
+			t.Fatalf("%s not found", name)
+		}
+		return best
+	}
+	abraham, jacob, esau, adam, jesus := find("Abraham"), find("Jacob (Israel)"), find("Esau (Edom)"), find("Adam"), find("Jesus Christ")
+	if r := a.FamilyPath(abraham.ID, jacob.ID); r == nil || r.Label != "grandson" {
+		t.Errorf("Abraham -> Jacob: %+v", r)
+	}
+	if r := a.FamilyPath(jacob.ID, esau.ID); r == nil || r.Label != "brother" {
+		t.Errorf("Jacob -> Esau: %+v", r)
+	}
+	if r := a.FamilyPath(adam.ID, jesus.ID); r == nil || len(r.Steps) < 30 {
+		t.Errorf("Adam -> Jesus should be a long chain: %+v", r)
+	}
+	if a.FamilyPath(abraham.ID, abraham.ID) != nil {
+		t.Error("no path to oneself")
+	}
+	cmp := a.Compare("person", abraham.ID, jacob.ID)
+	if cmp == nil || cmp.SharedCount == 0 || len(cmp.Story) < 3 || cmp.Relation == nil {
+		t.Errorf("compare people: %+v", cmp)
+	}
+	if a.Compare("place", a.Places[0].ID, a.Places[1].ID) == nil {
+		t.Error("compare places returned nil")
+	}
+	if a.Compare("nope", "x", "y") != nil {
+		t.Error("unknown kind should be nil")
+	}
+}
+
+func TestRelationLabel(t *testing.T) {
+	cases := []struct {
+		order         string
+		u, d, s       int
+		gender, label string
+	}{
+		{"u", 1, 0, 0, "Male", "father"},
+		{"uu", 2, 0, 0, "Female", "grandmother"},
+		{"uuuuu", 5, 0, 0, "Male", "great-great-great-grandfather"},
+		{"uuuuuuu", 7, 0, 0, "Male", "5th-great-grandfather"},
+		{"dd", 0, 2, 0, "Male", "grandson"},
+		{"ud", 1, 1, 0, "Female", "sister"},
+		{"udd", 1, 2, 0, "Male", "nephew"},
+		{"uud", 2, 1, 0, "Female", "aunt"},
+		{"uudd", 2, 2, 0, "", "1st cousin"},
+		{"uuudd", 3, 2, 0, "", "1st cousin 1× removed"},
+		{"s", 0, 0, 1, "Female", "wife"},
+	}
+	for _, c := range cases {
+		if got := relationLabel(c.order, c.u, c.d, c.s, c.gender); got != c.label {
+			t.Errorf("%s: got %q, want %q", c.order, got, c.label)
+		}
+	}
+}
+
+func TestThemes(t *testing.T) {
+	a := load(t)
+	list := a.Themes()
+	if len(list) < 15 {
+		t.Fatalf("themes: %d", len(list))
+	}
+	for _, th := range list {
+		if th.Verses < 20 {
+			t.Errorf("theme %s matches only %d verses", th.ID, th.Verses)
+		}
+		d := a.Theme(th.ID)
+		if d == nil || len(d.Sample) == 0 || len(d.Books) != len(a.Books) {
+			t.Errorf("theme %s detail incomplete", th.ID)
+		}
+	}
+	if a.Theme("nope") != nil {
+		t.Error("unknown theme should be nil")
+	}
+	if !matchStem("a good wife", "wife$") || matchStem("housewife", "wife$") || !matchStem("he forgave them", "forgav") && !matchStem("he forgave them", "forgave") {
+		t.Error("stem matching")
+	}
+}
+
+func TestExportAndProgress(t *testing.T) {
+	a := load(t)
+	j := a.journeyByKey("exodus")
+	if j == nil {
+		t.Fatal("exodus journey missing")
+	}
+	g := gpx(j)
+	if !strings.Contains(g, "<rte>") || strings.Count(g, "<wpt") != len(j.Stops) || !strings.Contains(g, "Mount Sinai") {
+		t.Errorf("gpx looks wrong")
+	}
+	k := kml(j)
+	if !strings.Contains(k, "<LineString>") || strings.Count(k, "<Placemark>") != len(j.Stops)+1 {
+		t.Errorf("kml looks wrong")
+	}
+	if strings.Contains(gpx(&Journey{Title: "A & <B>", Stops: []Stop{{Name: "x<y"}}}), "<B>") {
+		t.Error("xml must be escaped")
+	}
+	p := a.ProgressIndex()
+	if len(p.Books) != 66 || len(p.Places) < 500 {
+		t.Errorf("progress index: books=%d places=%d", len(p.Books), len(p.Places))
+	}
+	n := 0
+	for _, b := range p.Books {
+		n += len(b.Chapters)
+	}
+	if n != 1189 {
+		t.Errorf("chapters = %d, want 1189", n)
+	}
+}
+
+func TestCorrectionsApplied(t *testing.T) {
+	a := load(t)
+	j := a.PersonByID["recsyU2HqpyE9PeTo"] // Jehoram of Judah
+	if j == nil || j.Born == nil || *j.Born != -884 || j.Died == nil || *j.Died != -844 {
+		t.Errorf("Jehoram corrections not applied: %+v", j)
+	}
+	if s := a.PersonByID["recwcML6FMulTblKH"]; s == nil || s.Born != nil { // Samson: bad birth year cleared
+		t.Errorf("Samson birth year should be cleared")
+	}
+	if a.Enrich != nil {
+		for _, art := range a.Enrich.Art {
+			if strings.Contains(strings.ToLower(art.Title), "driven out of eden") && art.Event != "recj3SioaPwrDtpGT" {
+				t.Errorf("art fix not applied to %q: event %q", art.Title, art.Event)
+			}
+		}
 	}
 }

@@ -187,10 +187,14 @@ func highlight(text string, terms []string) string {
 			if i < 0 {
 				break
 			}
-			for k := i; k < i+len(t); k++ {
+			end := i + len(t)
+			for end < len(lower) && isLetter(lower[end]) { // highlight the whole word: love -> loved
+				end++
+			}
+			for k := i; k < end; k++ {
 				mark[k] = true
 			}
-			from = i + len(t)
+			from = end
 		}
 	}
 	var b strings.Builder

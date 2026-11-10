@@ -243,6 +243,8 @@ type PersonDossier struct {
 	Map        MapConfig
 	HasMap     bool
 	TopPlaces  []Ref
+	Wiki       *WikiEntry
+	Art        []Art
 }
 
 func (a *Atlas) PersonDossier(id string) *PersonDossier {
@@ -250,7 +252,10 @@ func (a *Atlas) PersonDossier(id string) *PersonDossier {
 	if p == nil {
 		return nil
 	}
-	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict)}
+	d := &PersonDossier{P: p, Disambig: p.Disambig, Dict: Rich(p.Dict), Wiki: a.wikiPerson(id)}
+	if arts := a.artByPerson[id]; len(arts) > 0 {
+		d.Art = arts[:min(len(arts), 3)]
+	}
 	if p.Group > 0 && p.Group <= len(a.Groups) {
 		d.GroupName = a.Groups[p.Group-1].Name
 	}
@@ -357,6 +362,7 @@ type PlaceDossier struct {
 	FirstYear  int
 	LastYear   int
 	Map        MapConfig
+	Wiki       *WikiEntry
 }
 
 func (a *Atlas) PlaceDossier(id string) *PlaceDossier {
@@ -364,7 +370,7 @@ func (a *Atlas) PlaceDossier(id string) *PlaceDossier {
 	if p == nil {
 		return nil
 	}
-	d := &PlaceDossier{P: p, Dict: Rich(p.Dict), Comment: p.Comment, Kind: strings.TrimSpace(p.Kind + " " + p.Sub), FirstYear: p.Y0, LastYear: p.Y1}
+	d := &PlaceDossier{P: p, Dict: Rich(p.Dict), Comment: p.Comment, Kind: strings.TrimSpace(p.Kind + " " + p.Sub), FirstYear: p.Y0, LastYear: p.Y1, Wiki: a.wikiPlace(id)}
 	d.Events = eventRefs(a.placeEvents[id])
 	d.Born, d.Died = a.personRefs(p.Born), a.personRefs(p.Died)
 	d.Verses, d.VerseCount = a.groupVerses(p.Vs, 0)
@@ -444,6 +450,7 @@ type EventDossier struct {
 	Era          Era
 	Map          MapConfig
 	HasMap       bool
+	Art          []Art
 }
 
 func humanDuration(days int) string {
@@ -469,7 +476,7 @@ func (a *Atlas) EventDossier(id string) *EventDossier {
 	if e == nil {
 		return nil
 	}
-	d := &EventDossier{E: e, Duration: humanDuration(e.Days), Notes: e.Notes, Era: eraAt(int(e.Year))}
+	d := &EventDossier{E: e, Duration: humanDuration(e.Days), Notes: e.Notes, Era: eraAt(int(e.Year)), Art: a.artByEvent[id]}
 	for _, pid := range e.Pred {
 		if o := a.EventByID[pid]; o != nil {
 			d.Before = append(d.Before, EventRef{o.ID, o.Title, o.Date, o.Year})
@@ -541,6 +548,7 @@ type VerseDossier struct {
 	Year       string
 	Map        MapConfig
 	HasMap     bool
+	Art        []Art
 }
 
 func (a *Atlas) VerseDossier(id string) *VerseDossier {
@@ -576,6 +584,9 @@ func (a *Atlas) VerseDossier(id string) *VerseDossier {
 		}
 	}
 	d.Events = eventRefs(evs)
+	for _, e := range evs {
+		d.Art = append(d.Art, a.artByEvent[e.ID]...)
+	}
 	if pts := a.points(v.Places); len(pts) > 0 {
 		d.HasMap = true
 		d.Map = MapConfig{Points: pts, Zoom: 6, Pitch: 40, Link: "/atlas?year=" + fmt.Sprint(v.Year)}
@@ -598,6 +609,7 @@ type ReadVerse struct {
 	Places []string   `json:"pl,omitempty"`
 	Year   int        `json:"y"`
 	Events []EventRef `json:"-"`
+	Art    *Art       `json:"-"`
 }
 
 type ChapterDossier struct {
@@ -631,6 +643,15 @@ func (a *Atlas) ChapterDossier(id string) *ChapterDossier {
 			}
 		}
 		rv.Events = eventRefs(evs)
+		// an engraving is shown once, under the first verse of its event
+		for _, e := range evs {
+			if e.VerseID == v.ID {
+				if arts := a.artByEvent[e.ID]; len(arts) > 0 {
+					art := arts[0]
+					rv.Art = &art
+				}
+			}
+		}
 		d.Verses = append(d.Verses, rv)
 		placeIDs = append(placeIDs, v.Places...)
 		for _, p := range v.People {

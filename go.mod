@@ -1,13 +1,14 @@
 module github.com/almerlucke/metabible
 
-go 1.23.0
-
-toolchain go1.24.4
-
-require go.mongodb.org/mongo-driver v1.17.1
+go 1.26.0
 
 require (
-	github.com/a-h/templ v0.3.977 // indirect
+	github.com/a-h/templ v0.3.977
+	go.mongodb.org/mongo-driver v1.17.1
+	golang.org/x/image v0.48.0
+)
+
+require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
@@ -16,6 +17,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	golang.org/x/crypto v0.32.0 // indirect
-	golang.org/x/sync v0.16.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/sync v0.25.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 )

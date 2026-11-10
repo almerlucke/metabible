@@ -178,3 +178,56 @@ templ PlacesPage() {
 		<script type="module" src="/assets/js/atlas/places.js"></script>
 	}
 }
+
+// ---------------------------------------------------------------- credits
+
+templ CreditsPage(images []atlas.Credit, texts []atlas.Credit) {
+	@classic("Credits", "credits", nil) {
+		<div class="browse credits">
+			<div class="mb-tag">standing on open work</div>
+			<h1 class="mb-display">Credits &amp; licenses</h1>
+			<h2>Data</h2>
+			<ul>
+				<li><a href="https://github.com/robertrouse/theographic-metadata" rel="noopener">Theographic Bible Metadata</a>: people, places, events, periods and verse links, CC BY-SA 4.0. This site's cleaned copy and everything derived from it is shared under the same license.</li>
+				<li>Easton's Bible Dictionary (1897) supplies the descriptions of people and places. Public domain.</li>
+				<li>Verse text: King James Version. Public domain.</li>
+			</ul>
+			<h2>Open content</h2>
+			<ul>
+				<li>Summaries and photographs come from <a href="https://www.wikipedia.org" rel="noopener">Wikipedia</a> and <a href="https://commons.wikimedia.org" rel="noopener">Wikimedia Commons</a>. Text is CC BY-SA 4.0; each photograph carries its own free license, shown beneath it and listed below.</li>
+				<li>Engravings are by Gustave Doré (1832–1883), from <em>The Holy Bible</em> (1866). Public domain, via Wikimedia Commons.</li>
+			</ul>
+			<h2>Maps and software</h2>
+			<ul>
+				<li>Map imagery © Esri, Maxar, Earthstar Geographics and the GIS user community; night map © OpenStreetMap contributors © CARTO; elevation from the AWS Terrain Tiles (Mapzen, USGS, NASA and others).</li>
+				<li><a href="https://maplibre.org" rel="noopener">MapLibre GL JS</a> (BSD-3-Clause), <a href="https://threejs.org" rel="noopener">three.js</a> (MIT), Inter and Cinzel (SIL Open Font License), <a href="https://templ.guide" rel="noopener">templ</a> (MIT).</li>
+			</ul>
+			if len(images) > 0 {
+				<h2>Images ({ fmt.Sprint(len(images)) })</h2>
+				<details>
+					<summary>Show every image, author and license</summary>
+					<table class="credit-table">
+						for _, c := range images {
+							<tr>
+								<td><a href={ templ.SafeURL(c.Page) } rel="noopener">{ c.Title }</a></td>
+								<td>{ c.Artist }</td>
+								<td>{ c.License }</td>
+							</tr>
+						}
+					</table>
+				</details>
+			}
+			if len(texts) > 0 {
+				<h2>Wikipedia texts ({ fmt.Sprint(len(texts))})</h2>
+				<details>
+					<summary>Show every article used</summary>
+					<ul class="credit-list">
+						for _, c := range texts {
+							<li><a href={ templ.SafeURL(c.Page) } rel="noopener">{ c.Title }</a></li>
+						}
+					</ul>
+				</details>
+			}
+		</div>
+	}
+}

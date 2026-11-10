@@ -1,0 +1,53 @@
+{
+  "people": [
+    {
+      "id": "recsyU2HqpyE9PeTo",
+      "name": "Jehoram of Judah",
+      "birth": -884,
+      "death": -844,
+      "note": "Source had born 801 BC, died 843 BC (born after his own death). 2 Kgs 8:17: aged 32 at accession (852 BC), reigned 8 years."
+    },
+    {
+      "id": "rec83PZfB7PGjHMh0",
+      "name": "Ahaziah of Judah",
+      "birth": -866,
+      "death": -843,
+      "note": "Source had born 821 BC, died 843 BC, and so was born before his father. 2 Kgs 8:26: aged 22 at accession (844 BC), reigned 1 year."
+    },
+    {
+      "id": "recwcML6FMulTblKH",
+      "name": "Samson",
+      "birth": null,
+      "note": "Source had born 1089 BC, died 1100 BC. Judges gives no age, so the birth year is cleared rather than guessed."
+    },
+    {
+      "id": "recPXtuWYdjyghv7R",
+      "name": "Amram",
+      "birth": null,
+      "note": "Source had born 1570 BC, the same year as his son Moses and after Aaron (1573 BC). Cleared rather than guessed."
+    }
+  ],
+  "events": [],
+  "art": [
+    {
+      "title": "Adam and Eve Driven out of Eden",
+      "event": "recj3SioaPwrDtpGT",
+      "note": "The expulsion is told in the account of the Fall, not in the creation of Adam and Eve."
+    },
+    {
+      "title": "Adam and Eve expelled from Paradise",
+      "event": "recj3SioaPwrDtpGT",
+      "note": "Same scene."
+    },
+    {
+      "title": "Jesus converses with the learned ones",
+      "event": "rec8FDMhG6menTpse",
+      "note": "Jesus among the teachers is the boy in the Temple (Luke 2), not the presentation."
+    },
+    {
+      "title": "Cain and Abel Offering their Sacrifices",
+      "event": "",
+      "note": "Their offerings come before the killing; shown with the people instead of the event."
+    }
+  ]
+}

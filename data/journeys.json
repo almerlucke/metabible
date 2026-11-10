@@ -56,7 +56,7 @@
       {"name": "Valley of Elah", "lat": 31.69, "lng": 34.97, "ref": "1Sam.17.2", "note": "Saul and Israel are encamped in the Valley of Elah, facing the Philistines."},
       {"name": "Nob", "lat": 31.80, "lng": 35.24, "ref": "1Sam.21.1", "note": "Fleeing Saul, David comes to Nob, to Ahimelech the priest."},
       {"name": "Adullam", "lat": 31.65, "lng": 34.99, "ref": "1Sam.22.1", "note": "He escapes to the cave of Adullam; his brothers and four hundred men gather to him."},
-      {"name": "En Gedi", "lat": 31.46, "lng": 35.39, "ref": "1Sam.24.1", "note": "In the cave at En-gedi David spares Saul's life."},
+      {"name": "En Gedi", "link": "Engedi", "lat": 31.46, "lng": 35.39, "ref": "1Sam.24.1", "note": "In the cave at En-gedi David spares Saul's life."},
       {"name": "Ziklag", "lat": 31.38, "lng": 34.84, "ref": "1Sam.27.6", "note": "Achish gives him Ziklag, which belongs to the kings of Judah to this day."},
       {"name": "Hebron", "lat": 31.52, "lng": 35.10, "ref": "2Sam.2.4", "note": "The men of Judah anoint David king over Judah at Hebron."},
       {"name": "Jerusalem", "lat": 31.78, "lng": 35.23, "ref": "2Sam.5.7", "note": "David takes the stronghold of Zion: the city of David."}
@@ -83,7 +83,7 @@
       {"name": "Bethlehem", "lat": 31.70, "lng": 35.21, "ref": "Matt.2.1", "note": "Jesus is born in Bethlehem of Judea in the days of Herod the king."},
       {"name": "Memphis", "lat": 29.85, "lng": 31.25, "ref": "Matt.2.14", "note": "The family flees by night to Egypt."},
       {"name": "Nazareth", "lat": 32.70, "lng": 35.30, "ref": "Matt.2.23", "note": "They settle in a city called Nazareth."},
-      {"name": "Jordan", "lat": 31.84, "lng": 35.55, "ref": "Matt.3.13", "note": "Jesus comes from Galilee to the Jordan to be baptized by John."},
+      {"name": "Jordan", "link": "Jordan", "lat": 31.84, "lng": 35.55, "ref": "Matt.3.13", "note": "Jesus comes from Galilee to the Jordan to be baptized by John."},
       {"name": "Cana", "lat": 32.82, "lng": 35.30, "ref": "John.2.1", "note": "A wedding in Cana: water into wine."},
       {"name": "Capernaum", "lat": 32.88, "lng": 35.57, "ref": "Matt.4.13", "note": "He leaves Nazareth and makes his home in Capernaum by the sea."},
       {"name": "Sychar", "lat": 32.21, "lng": 35.28, "ref": "John.4.5", "note": "At Jacob's well in Samaria he talks with a woman at noon."},
@@ -104,7 +104,7 @@
       {"name": "Salamis", "lat": 35.18, "lng": 33.90, "ref": "Acts.13.5", "note": "They proclaim the word of God in the synagogues at Salamis."},
       {"name": "Paphos", "lat": 34.71, "lng": 32.57, "ref": "Acts.13.6", "note": "The proconsul Sergius Paulus believes."},
       {"name": "Perga", "lat": 36.96, "lng": 30.85, "ref": "Acts.13.13", "note": "Paul and his company sail to Perga; John Mark leaves them."},
-      {"name": "Antioch of Pisidia", "lat": 38.30, "lng": 31.19, "ref": "Acts.13.14", "note": "They go into the synagogue on the Sabbath."},
+      {"name": "Antioch of Pisidia", "link": "Antioch (Pisidia)", "lat": 38.30, "lng": 31.19, "ref": "Acts.13.14", "note": "They go into the synagogue on the Sabbath."},
       {"name": "Iconium", "lat": 37.87, "lng": 32.49, "ref": "Acts.14.1", "note": "A great number of both Jews and Greeks believe."},
       {"name": "Lystra", "lat": 37.60, "lng": 32.34, "ref": "Acts.14.8", "note": "A lame man is healed; Paul is stoned and left for dead."},
       {"name": "Derbe", "lat": 37.35, "lng": 33.36, "ref": "Acts.14.20", "note": "The next day he went on with Barnabas to Derbe."}

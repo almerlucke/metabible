@@ -43,6 +43,7 @@ type rawStop struct {
 	Note string  `json:"note"`
 	Year int     `json:"year"`
 	Sea  bool    `json:"sea"`
+	Link string  `json:"link"` // place name to link to when it is not exactly where the stop is
 }
 
 type rawJourney struct {
@@ -65,9 +66,9 @@ func haversine(lat1, lng1, lat2, lng2 float64) float64 {
 	return 2 * r * math.Asin(math.Sqrt(h))
 }
 
-func (a *Atlas) nearestPlace(name string, lat, lng float64) *Place {
+func (a *Atlas) nearestPlace(name string, lat, lng float64, maxKm float64) *Place {
 	var best *Place
-	bd := 120.0 // km
+	bd := maxKm
 	ln := strings.ToLower(name)
 	for _, p := range a.Places {
 		if !p.HasGeo {
@@ -99,7 +100,11 @@ func loadJourneys(a *Atlas, file string) ([]*Journey, error) {
 		j := &Journey{ID: r.ID, Title: r.Title, Subtitle: r.Subtitle, Intro: r.Intro, Color: r.Color, Person: r.Person, Era: r.Era}
 		for _, s := range r.Stops {
 			st := Stop{Name: s.Name, Lat: s.Lat, Lng: s.Lng, Note: s.Note, Year: s.Year, Ref: s.Ref, Sea: s.Sea}
-			if p := a.nearestPlace(s.Name, s.Lat, s.Lng); p != nil {
+			p := a.nearestPlace(s.Name, s.Lat, s.Lng, 120)
+			if p == nil && s.Link != "" {
+				p = a.nearestPlace(s.Link, s.Lat, s.Lng, 400)
+			}
+			if p != nil {
 				st.Place = p.ID
 				st.Kind = p.Kind
 			}

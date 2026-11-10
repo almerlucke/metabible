@@ -22,7 +22,9 @@ const N = c.ids.length;
 // ---------------------------------------------------------------- scene
 const host = $('cosmos');
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+// weaker devices get a lighter scene: no connection web, fewer background stars, no retina scaling
+const weak = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4 || matchMedia('(prefers-reduced-motion: reduce)').matches;
+renderer.setPixelRatio(weak ? 1 : Math.min(devicePixelRatio, 2));
 host.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05060f);
@@ -31,7 +33,7 @@ const camera = new THREE.PerspectiveCamera(55, 1, 0.5, 2000);
 camera.position.set(190, 10, 210);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, -40, 0); controls.enableDamping = true; controls.dampingFactor = 0.06;
-controls.autoRotate = true; controls.autoRotateSpeed = 0.35; controls.maxDistance = 600; controls.minDistance = 8;
+controls.autoRotate = !weak; controls.autoRotateSpeed = 0.35; controls.maxDistance = 600; controls.minDistance = 8;
 controls.addEventListener('start', () => { controls.autoRotate = false; $('c-rot').checked = false; });
 
 function resize() { const w = host.clientWidth, h = host.clientHeight; renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
@@ -39,7 +41,7 @@ addEventListener('resize', resize); resize();
 
 // background dust
 {
-  const g = new THREE.BufferGeometry(), n = 2500, p = new Float32Array(n * 3);
+  const g = new THREE.BufferGeometry(), n = weak ? 700 : 2500, p = new Float32Array(n * 3);
   for (let i = 0; i < n; i++) { const r = 300 + Math.random() * 600, t = Math.random() * 6.283, u = Math.acos(2 * Math.random() - 1); p[i * 3] = r * Math.sin(u) * Math.cos(t); p[i * 3 + 1] = r * Math.cos(u) * 0.8; p[i * 3 + 2] = r * Math.sin(u) * Math.sin(t); }
   g.setAttribute('position', new THREE.BufferAttribute(p, 3));
   scene.add(new THREE.Points(g, new THREE.PointsMaterial({ size: 1.2, color: 0x8892c8, transparent: true, opacity: 0.55, depthWrite: false, fog: false })));
@@ -179,8 +181,8 @@ $('cpanel').innerHTML = `<h3>Cosmos</h3>
   <div class="row" style="margin-top:.6rem"><label>Colour</label><select id="c-color" class="mb-input"><option value="era">By era</option><option value="tribe">By tribe</option><option value="type">People / places</option></select></div>
   <label class="chk"><input type="checkbox" id="c-people" checked> People</label>
   <label class="chk"><input type="checkbox" id="c-places" checked> Places</label>
-  <label class="chk"><input type="checkbox" id="c-web" checked> Connections</label>
-  <label class="chk"><input type="checkbox" id="c-rot" checked> Slow rotation</label>
+  <label class="chk"><input type="checkbox" id="c-web" ${weak ? "" : "checked"}> Connections</label>
+  <label class="chk"><input type="checkbox" id="c-rot" ${weak ? "" : "checked"}> Slow rotation</label>
   <div style="margin-top:.5rem" class="mb-muted">Time window: <b id="c-range">4100 BC – AD 100</b></div>
   <button class="mb-btn" id="cshare" style="width:100%;margin:.6rem 0">🔗 Copy link</button>
   <input type="range" id="c-y0" min="-4100" max="100" value="-4100" step="10" style="width:100%"><input type="range" id="c-y1" min="-4100" max="100" value="100" step="10" style="width:100%">`;
@@ -188,6 +190,7 @@ $('cshare').onclick = () => copyLink(location.href, $('cshare'));
 $('c-color').onchange = (e) => { colorMode = e.target.value; recolor(); };
 $('c-people').onchange = (e) => { filt.people = e.target.checked; applyFilters(); };
 $('c-places').onchange = (e) => { filt.places = e.target.checked; applyFilters(); };
+web.visible = !weak;
 $('c-web').onchange = (e) => { web.visible = e.target.checked; };
 $('c-rot').onchange = (e) => { controls.autoRotate = e.target.checked; };
 const onRange = () => { let a = +$('c-y0').value, b = +$('c-y1').value; if (a > b) [a, b] = [b, a]; filt.y0 = a; filt.y1 = b; $('c-range').textContent = `${fmtYear(a)} – ${fmtYear(b)}`; applyFilters(); };

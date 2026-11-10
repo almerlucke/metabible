@@ -19,6 +19,13 @@ templ atlasHead(title string, immersive bool) {
 		<meta property="og:title" content={ title + " · MetaBible" }/>
 		<meta property="og:description" content="Explore the Bible on a 3D map, through time, and through its people."/>
 		<meta name="description" content="Explore the Bible on a 3D map, through time, and through its people."/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:image" content={ ogImage(ctx, title) }/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="theme-color" content="#080a14"/>
+		<link rel="manifest" href="/assets/manifest.webmanifest"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32.png"/>
+		<link rel="apple-touch-icon" href="/assets/icons/icon-180.png"/>
 		<link rel="stylesheet" href="/assets/vendor/fonts/fonts.css"/>
 		<link rel="stylesheet" href="/assets/css/metabible.css"/>
 		<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.js","three/addons/":"/assets/vendor/three/addons/"}}</script>
@@ -27,7 +34,8 @@ templ atlasHead(title string, immersive bool) {
 }
 
 templ topNav(active string) {
-	<nav class="mb-nav">
+	<a class="skip" href="#main">Skip to content</a>
+	<nav class="mb-nav" aria-label="Main">
 		<a class="mb-brand" href="/">METABIBLE</a>
 		<div class="links">
 			<a href="/story" class={ templ.KV("on", active == "story") }>Story</a>
@@ -36,9 +44,18 @@ templ topNav(active string) {
 			<a href="/tree" class={ templ.KV("on", active == "tree") }>Family</a>
 			<a href="/cosmos" class={ templ.KV("on", active == "cosmos") }>Cosmos</a>
 			<a href="/canon" class={ templ.KV("on", active == "canon") }>Canon</a>
-			<a href="/lifespans" class={ templ.KV("on", active == "lifespans") }>Lifespans</a>
-			<a href="/migrations" class={ templ.KV("on", active == "migrations") }>Migrations</a>
 		</div>
+		<details class="more">
+			<summary class={ templ.KV("on", active == "lifespans" || active == "migrations" || active == "themes" || active == "compare" || active == "quiz" || active == "progress") }>More ▾</summary>
+			<div class="menu">
+				<a href="/lifespans">Lifespans</a>
+				<a href="/migrations">Migrations</a>
+				<a href="/themes">Themes</a>
+				<a href="/compare">Compare</a>
+				<a href="/quiz">Quiz</a>
+				<a href="/progress">My reading</a>
+			</div>
+		</details>
 		<span class="sep"></span>
 		<div class="links secondary">
 			<a href="/books" class={ templ.KV("on", active == "books") }>Books</a>
@@ -46,9 +63,11 @@ templ topNav(active string) {
 			<a href="/places" class={ templ.KV("on", active == "places") }>Places</a>
 			<a href="/events" class={ templ.KV("on", active == "events") }>Events</a>
 			<a href="/concordance" class={ templ.KV("on", active == "concordance") }>Concordance</a>
+			<a href="/credits" class={ templ.KV("on", active == "credits") }>Credits</a>
 		</div>
 		<span class="grow"></span>
-		<button class="mb-kbd" data-mb-search type="button">Search <kbd>Ctrl K</kbd></button>
+		<button class="mb-kbd" data-mb-search type="button" aria-label="Search">Search <kbd>Ctrl K</kbd></button>
+		<button class="mb-kbd" data-mb-present type="button" aria-label="Presentation mode" title="Presentation mode (P)">▣</button>
 	</nav>
 }
 
@@ -62,7 +81,7 @@ templ immersive(title string, active string, headExtra templ.Component) {
 		}
 		<body class="mb-immersive">
 			@topNav(active)
-			<div class="mb-stage">
+			<div class="mb-stage" id="main" role="main">
 				{ children... }
 			</div>
 			<script src="/assets/js/site/site.js"></script>
@@ -181,5 +200,54 @@ templ MigrationsPage() {
 		<div id="map" class="mb-fill"></div>
 		<div id="mpanel" class="mb-panel mb-scroll"></div>
 		<script type="module" src="/assets/js/atlas/migrations.js"></script>
+	}
+}
+
+templ ComparePage() {
+	@classic("Compare", "compare", nil) {
+		<div class="browse wide cmp">
+			<div class="mb-tag">side by side</div>
+			<h1 class="mb-display">Compare</h1>
+			<p class="mb-muted lead">Pick two people or two places. See when they lived, how they are related, where their stories meet, and a short story of the connection.</p>
+			<div id="cmpui"></div>
+			<div id="cmpout"></div>
+		</div>
+		<script type="module" src="/assets/js/atlas/compare.js"></script>
+	}
+}
+
+templ ThemesPage() {
+	@classic("Themes", "themes", withMap()) {
+		<div class="browse wide themes">
+			<div class="mb-tag">follow an idea through the text</div>
+			<h1 class="mb-display">Themes</h1>
+			<div class="thgrid">
+				<div id="thlist" class="thlist"></div>
+				<div id="thmain"></div>
+			</div>
+		</div>
+		<script type="module" src="/assets/js/atlas/themes.js"></script>
+	}
+}
+
+templ ProgressPage() {
+	@classic("My reading", "progress", withMap()) {
+		<div class="browse wide progress">
+			<div class="mb-tag">kept in this browser only</div>
+			<h1 class="mb-display">My reading</h1>
+			<div id="prog"></div>
+		</div>
+		<script type="module" src="/assets/js/atlas/progress.js"></script>
+	}
+}
+
+templ QuizPage() {
+	@classic("Quiz", "quiz", nil) {
+		<div class="browse quiz">
+			<div class="mb-tag">test what you know</div>
+			<h1 class="mb-display">Quiz</h1>
+			<div id="quiz"></div>
+		</div>
+		<script type="module" src="/assets/js/atlas/quiz.js"></script>
 	}
 }

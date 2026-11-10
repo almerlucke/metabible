@@ -60,6 +60,13 @@ func (a *Atlas) Mount(mux *http.ServeMux) {
 	mux.HandleFunc("GET /api/atlas/journey/{id}", a.handlePersonJourney)
 	mux.HandleFunc("GET /api/atlas/cosmos", a.handleCosmos)
 	mux.HandleFunc("GET /api/atlas/story", a.handleStory)
+	mux.HandleFunc("GET /api/atlas/validate", a.handleValidate)
+	mux.HandleFunc("GET /api/atlas/compare", a.handleCompare)
+	mux.HandleFunc("GET /export/journey/{file}", a.handleExport)
+	mux.HandleFunc("GET /api/atlas/progress-index", a.handleProgressIndex)
+	mux.HandleFunc("GET /api/atlas/themes", a.handleThemes)
+	mux.HandleFunc("GET /api/atlas/theme/{id}", a.handleTheme)
+	mux.HandleFunc("GET /api/atlas/relation", a.handleRelation)
 	mux.HandleFunc("GET /api/atlas/migration", a.handleMigration)
 	mux.HandleFunc("GET /api/atlas/canon", a.handleCanon)
 	mux.HandleFunc("GET /api/atlas/word", a.handleWord)
@@ -240,4 +247,53 @@ func (a *Atlas) handleStory(w http.ResponseWriter, r *http.Request) {
 func (a *Atlas) handleMigration(w http.ResponseWriter, r *http.Request) {
 	a.migOnce.Do(func() { a.mig = a.Migration() })
 	writeJSON(w, r, a.mig)
+}
+
+// handleValidate reports data problems found by Validate (for the maintainer).
+func (a *Atlas) handleValidate(w http.ResponseWriter, r *http.Request) {
+	issues := a.Validate()
+	if issues == nil {
+		issues = []Issue{}
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	writeJSON(w, r, issues)
+}
+
+func (a *Atlas) handleCompare(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+	res := a.Compare(q.Get("kind"), q.Get("a"), q.Get("b"))
+	if res == nil {
+		http.NotFound(w, r)
+		return
+	}
+	writeJSON(w, r, res)
+}
+
+// handleRelation returns the family path between two people.
+func (a *Atlas) handleRelation(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query()
+	rel := a.FamilyPath(q.Get("a"), q.Get("b"))
+	if rel == nil {
+		http.NotFound(w, r)
+		return
+	}
+	writeJSON(w, r, rel)
+}
+
+func (a *Atlas) handleThemes(w http.ResponseWriter, r *http.Request) {
+	writeJSON(w, r, a.Themes())
+}
+
+func (a *Atlas) handleTheme(w http.ResponseWriter, r *http.Request) {
+	t := a.Theme(r.PathValue("id"))
+	if t == nil {
+		http.NotFound(w, r)
+		return
+	}
+	writeJSON(w, r, t)
+}
+
+func (a *Atlas) handleProgressIndex(w http.ResponseWriter, r *http.Request) {
+	a.progOnce.Do(func() { a.prog = a.ProgressIndex() })
+	writeJSON(w, r, a.prog)
 }

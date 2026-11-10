@@ -144,6 +144,17 @@ type Atlas struct {
 	lowerText  []string
 	nameIdx    []searchEntry
 
+	Enrich        *Enrichment
+	artFixes      []artFix
+	progOnce      sync.Once
+	prog          *ProgressIndex
+	themeOnce     sync.Once
+	themeIdx      map[string][]int
+	themeInfos    []ThemeInfo
+	famOnce       sync.Once
+	fam           map[string][]famEdge
+	artByEvent    map[string][]Art
+	artByPerson   map[string][]Art
 	chapterVerses map[string][]*Verse
 	chapterBook   map[string]*Book
 	personEvents  map[string][]*Event
@@ -491,6 +502,13 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 		a.EventByID[ev.ID] = ev
 	}
 	sort.Slice(a.Events, func(i, j int) bool { return a.Events[i].Sort < a.Events[j].Sort })
+
+	if err := a.applyCorrections(filepath.Join(filepath.Dir(journeysFile), "corrections.json")); err != nil {
+		return nil, err
+	}
+	if err := a.loadEnrichment(filepath.Join(filepath.Dir(journeysFile), "enrichment.json")); err != nil {
+		return nil, fmt.Errorf("enrichment: %w", err)
+	}
 
 	// book / chapter statistics
 	type cs struct {

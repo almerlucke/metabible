@@ -18,7 +18,7 @@ templ classic(title string, active string, headExtra templ.Component) {
 		}
 		<body class="mb-classic">
 			@topNav(active)
-			<main class="mb-page">
+			<main class="mb-page" id="main">
 				{ children... }
 			</main>
 			<script src="/assets/js/site/site.js"></script>
@@ -37,6 +37,31 @@ templ miniMap(cfg atlas.MapConfig, class string) {
 }
 
 // ---------------------------------------------------------------- shared pieces
+
+templ wikiCard(w *atlas.WikiEntry) {
+	<div class="card wiki">
+		if w.Image != nil {
+			<figure class="pic">
+				<img src={ templ.SafeURL(w.Image.URL) } alt={ w.Title } loading="lazy"/>
+				<figcaption><a href={ templ.SafeURL(w.Image.Page) } rel="noopener">{ imgCredit(w.Image) }</a></figcaption>
+			</figure>
+		}
+		<div class="mb-tag">From Wikipedia</div>
+		if w.Desc != "" {
+			<div class="wdesc">{ w.Desc }</div>
+		}
+		<p>{ w.Summary }</p>
+		<a href={ templ.SafeURL(w.Page) } rel="noopener">Read more on Wikipedia →</a>
+		<small class="mb-muted"> · text CC BY-SA 4.0</small>
+	</div>
+}
+
+templ artFigure(a atlas.Art) {
+	<figure class="art">
+		<img src={ templ.SafeURL(a.URL) } alt={ a.Title } loading="lazy"/>
+		<figcaption>{ a.Title } — <a href={ templ.SafeURL(a.Page) } rel="noopener">{ artCredit(a) }</a></figcaption>
+	</figure>
+}
 
 templ chips(refs []atlas.Ref, kind string) {
 	for _, r := range refs {
@@ -131,6 +156,14 @@ templ PersonPage(d *atlas.PersonDossier) {
 							<div class="prose">@templ.Raw(d.Dict)</div>
 						</section>
 					}
+					if len(d.Art) > 0 {
+						<section>
+							<h2>In art</h2>
+							for _, a := range d.Art {
+								@artFigure(a)
+							}
+						</section>
+					}
 					if len(d.Events) > 0 {
 						<section>
 							<h2>Timeline</h2>
@@ -145,6 +178,9 @@ templ PersonPage(d *atlas.PersonDossier) {
 					}
 				</div>
 				<aside>
+					if d.Wiki != nil {
+						@wikiCard(d.Wiki)
+					}
 					if d.HasMap {
 						<div class="card">
 							<div class="mb-tag">Places in their story</div>
@@ -254,6 +290,9 @@ templ PlacePage(d *atlas.PlaceDossier) {
 					}
 				</div>
 				<aside>
+					if d.Wiki != nil {
+						@wikiCard(d.Wiki)
+					}
 					if len(d.People) > 0 {
 						<div class="card">
 							<div class="mb-tag">People named alongside</div>
@@ -309,6 +348,9 @@ templ EventPage(d *atlas.EventDossier) {
 			</header>
 			if d.HasMap {
 				@miniMap(d.Map, "wide")
+			}
+			for _, a := range d.Art {
+				@artFigure(a)
 			}
 			if len(d.Before) > 0 || len(d.After) > 0 {
 				<div class="chain">
@@ -405,6 +447,9 @@ templ VersePage(d *atlas.VerseDossier) {
 					</section>
 				</div>
 				<aside>
+					if len(d.Art) > 0 {
+						@artFigure(d.Art[0])
+					}
 					if d.HasMap {
 						<div class="card">
 							<div class="mb-tag">On the map</div>
@@ -439,7 +484,7 @@ templ VersePage(d *atlas.VerseDossier) {
 
 templ ChapterPage(d *atlas.ChapterDossier) {
 	@classic(fmt.Sprintf("%s %d", d.Book.Name, d.Num), "", withMap()) {
-		<div class={ "reader", templ.KV("no-map", len(d.Map.Points) == 0) }>
+		<div class={ "reader", templ.KV("no-map", len(d.Map.Points) == 0) } data-chapter={ d.ID }>
 			<div class="text">
 				<div class="mb-tag"><a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> · { d.Years }</div>
 				<h1>{ d.Book.Name } { fmt.Sprint(d.Num) }</h1>
@@ -463,9 +508,13 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 								<a class="evbadge" href={ href("event", e.ID) } title={ e.Date }>◆ { e.Title }</a>
 							}
 						</p>
+						if v.Art != nil {
+							@artFigure(*v.Art)
+						}
 					}
 				</div>
 				<div class="actions" style="margin-top:2rem">
+					<button class="mb-btn" id="readbtn" type="button"><span id="readbadge">Mark as read</span></button>
 					if d.Prev != "" {
 						<a class="mb-btn" href={ href("chapter", d.Prev) }>◀ { d.PrevLabel }</a>
 					}
@@ -482,6 +531,7 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 			}
 		</div>
 		@templ.JSONScript("readdata", d.ReadData())
+		<script src="/assets/js/site/progress-mark.js"></script>
 		if len(d.Map.Points) > 0 {
 			<script type="module" src="/assets/js/atlas/reader.js"></script>
 		}

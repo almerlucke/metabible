@@ -5,6 +5,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/almerlucke/metabible/pkg/atlas"
+	"github.com/almerlucke/metabible/pkg/og"
 	"github.com/almerlucke/metabible/pkg/pages"
 )
 
@@ -16,6 +17,10 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 	stats := pages.HomeStats{Verses: len(a.Verses), People: len(a.People), Places: len(a.Places), Events: len(a.Events)}
 	mux.Handle("GET /{$}", templ.Handler(pages.HomePage(stats)))
 	mux.Handle("GET /migrations", templ.Handler(pages.MigrationsPage()))
+	mux.Handle("GET /compare", templ.Handler(pages.ComparePage()))
+	mux.Handle("GET /themes", templ.Handler(pages.ThemesPage()))
+	mux.Handle("GET /progress", templ.Handler(pages.ProgressPage()))
+	mux.Handle("GET /quiz", templ.Handler(pages.QuizPage()))
 	mux.Handle("GET /story", templ.Handler(pages.StoryPage()))
 	mux.Handle("GET /atlas", templ.Handler(pages.AtlasPage()))
 	mux.Handle("GET /journeys", templ.Handler(pages.JourneysPage()))
@@ -26,6 +31,23 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 	mux.Handle("GET /cosmos", templ.Handler(pages.CosmosPage()))
 	mux.Handle("GET /canon", templ.Handler(pages.CanonPage()))
 	mux.Handle("GET /lifespans", templ.Handler(pages.LifespansPage()))
+
+	mux.HandleFunc("GET /og.png", func(w http.ResponseWriter, r *http.Request) {
+		t, s := r.URL.Query().Get("t"), r.URL.Query().Get("s")
+		if len([]rune(t)) > 120 {
+			t = string([]rune(t)[:120])
+		}
+		if len([]rune(s)) > 160 {
+			s = string([]rune(s)[:160])
+		}
+		w.Header().Set("Content-Type", "image/png")
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		_, _ = w.Write(og.Render(t, s))
+	})
+	mux.HandleFunc("GET /credits", func(w http.ResponseWriter, r *http.Request) {
+		images, texts := a.Credits()
+		templ.Handler(pages.CreditsPage(images, texts)).ServeHTTP(w, r)
+	})
 
 	// browse pages
 	mux.Handle("GET /books", templ.Handler(pages.BooksPage(a.BooksBrowse())))
