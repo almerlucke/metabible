@@ -97,7 +97,10 @@ remembered in a cookie; the browser's language is used the first time).
   (`python3 cmd/easton/translate.py nl`: offline machine translation with CTranslate2 and an open OPUS-MT model, see the
   script's header for the setup; links to verses are kept, book abbreviations localised). The site tells the reader the
   text is machine-translated. Missing entries keep the English text.
-- Still English everywhere: image titles and the person/place links inside the King James text. Translating those is separate work (a name table).
+- **Image titles:** `data/artwork/<code>.json` maps the cleaned English title of an engraving to its title in that
+  language (`python3 cmd/names/artwork_nl.py`). Photos of people and places are titled with the local name. The
+  credits page keeps the Commons file names, as they are the attribution.
+- Still English: the person/place links inside the King James text shown under a translated verse. Translating those is separate work (a name table).
 
 ## Code map
 

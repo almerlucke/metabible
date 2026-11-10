@@ -774,3 +774,33 @@ func TestDutchDictionary(t *testing.T) {
 		}
 	}
 }
+
+func TestDutchArtwork(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	seen := 0
+	for _, art := range a.Enrich.Art {
+		if _, ok := a.artwork["nl"][cleanArtTitle(art.Title)]; !ok {
+			t.Errorf("engraving %q has no Dutch title", art.Title)
+		}
+		seen++
+	}
+	if seen == 0 {
+		t.Skip("no enrichment data")
+	}
+	items := nl.AllGallery()
+	engr := 0
+	for _, it := range items {
+		if it.Kind == "engraving" {
+			engr++
+			for _, l := range it.Links {
+				if strings.HasPrefix(l.Label, "Event:") {
+					t.Errorf("English label in the Dutch gallery: %q", l.Label)
+				}
+			}
+		}
+	}
+	if engr == 0 {
+		t.Error("no engravings in the Dutch gallery")
+	}
+}

@@ -27,6 +27,15 @@ func (a *Atlas) loadNames(dir string) {
 	a.names = map[string]*nameTable{}
 	a.titles = map[string]map[string]string{}
 	a.easton = map[string]map[string]string{}
+	a.artwork = map[string]map[string]string{}
+	afiles, _ := filepath.Glob(filepath.Join(dir, "..", "artwork", "*.json"))
+	for _, f := range afiles {
+		raw, err := os.ReadFile(f)
+		m := map[string]string{}
+		if err == nil && json.Unmarshal(raw, &m) == nil && len(m) > 0 {
+			a.artwork[strings.TrimSuffix(filepath.Base(f), ".json")] = m
+		}
+	}
 	efiles, _ := filepath.Glob(filepath.Join(dir, "..", "easton", "*.json"))
 	for _, f := range efiles {
 		base := filepath.Base(f)
@@ -73,7 +82,7 @@ func (a *Atlas) View(lang string) *Atlas {
 	}
 	nt, titles := a.names[lang], a.titles[lang]
 	dict := a.easton[lang]
-	if nt == nil && titles == nil && dict == nil {
+	if nt == nil && titles == nil && dict == nil && a.artwork[lang] == nil {
 		return a
 	}
 	if nt == nil {
@@ -88,6 +97,7 @@ func (a *Atlas) View(lang string) *Atlas {
 	*v = *a
 	v.lazy = &lazy{}
 	v.base = a
+	v.lang = lang
 	v.People = make([]*Person, len(a.People))
 	v.PersonByID = make(map[string]*Person, len(a.People))
 	for i, p := range a.People {

@@ -170,6 +170,8 @@ type Atlas struct {
 	names      map[string]*nameTable        // spellings of people and places per language (data/names)
 	titles     map[string]map[string]string // event titles per language (data/titles)
 	easton     map[string]map[string]string // translated dictionary texts per language (data/easton)
+	artwork    map[string]map[string]string // engraving titles per language, by cleaned English title (data/artwork)
+	lang       string                       // the language of a per-language view (empty on the source atlas)
 	views      *viewSet
 	base       *Atlas // set on a per-language view
 

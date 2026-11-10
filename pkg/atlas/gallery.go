@@ -90,18 +90,40 @@ func cleanArtTitle(t string) string {
 	t = artSuffixRe.ReplaceAllString(t, "")
 	t = strings.TrimSpace(strings.Trim(t, "-–—,; "))
 	if t == "" {
-		return "Engraving"
+		return "Engraving" // artTitle translates it
 	}
 	r := []rune(t)
 	r[0] = unicode.ToUpper(r[0]) // by rune: titles can start with Greek or accented letters
 	return string(r)
 }
 
+// artTitle is the title of an engraving in the view's language.
+func (a *Atlas) artTitle(raw string) string {
+	t := cleanArtTitle(raw)
+	if a.lang != "" {
+		if nl, ok := a.artwork[a.lang][t]; ok {
+			return nl
+		}
+		if t == "Engraving" {
+			return a.tx(a.lang, "ui.engraving")
+		}
+	}
+	return t
+}
+
+// label is a fixed word of the gallery ("Event"), in the view's language.
+func (a *Atlas) label(key, english string) string {
+	if a.lang == "" {
+		return english
+	}
+	return a.tx(a.lang, key)
+}
+
 func (a *Atlas) artItem(art Art) GalleryItem {
-	it := GalleryItem{Thumb: sized(art.URL, 480), Full: sized(art.URL, 1280), Title: cleanArtTitle(art.Title), Page: art.Page, Credit: creditOf(art.Image, true), Kind: "engraving"}
+	it := GalleryItem{Thumb: sized(art.URL, 480), Full: sized(art.URL, 1280), Title: a.artTitle(art.Title), Page: art.Page, Credit: creditOf(art.Image, true), Kind: "engraving"}
 	if art.Event != "" {
 		if e := a.EventByID[art.Event]; e != nil {
-			it.Links = append(it.Links, GalleryLink{"Event: " + e.Title, "/event/" + e.ID})
+			it.Links = append(it.Links, GalleryLink{a.label("ui.gallery.event", "Event") + ": " + e.Title, "/event/" + e.ID})
 		}
 	}
 	for i, id := range art.People {
@@ -129,7 +151,7 @@ func (a *Atlas) wikiItem(kind, id, name string, w WikiEntry) *GalleryItem {
 		return nil
 	}
 	return &GalleryItem{Thumb: w.Image.URL, Full: sized(w.Image.URL, 1280), Title: name, Page: w.Image.Page, Credit: creditOf(*w.Image, false), Kind: kind,
-		Links: []GalleryLink{{name, "/" + kind + "/" + id}, {"Wikipedia: " + w.Title, w.Page}}}
+		Links: []GalleryLink{{name, "/" + kind + "/" + id}, {a.label("ui.gallery.wikipedia", "Wikipedia") + ": " + w.Title, w.Page}}}
 }
 
 // WikiPhotoItem is a single Wikipedia photo as a lightbox item.
