@@ -8,13 +8,13 @@
 
   // ---------- command palette ----------
   let pal, input, list, hits = [], sel = 0, timer, seq = 0;
-  const TYPE = { person: 'Person', place: 'Place', event: 'Event', book: 'Book', verse: 'Verse', chapter: 'Chapter' };
+  const TYPE = new Proxy({}, { get: (_, k) => window.tx('js.type.' + k) }); // labels in the page language
 
   function buildPalette() {
     pal = document.createElement('div');
     pal.id = 'mb-palette';
-    pal.setAttribute('role', 'dialog'); pal.setAttribute('aria-modal', 'true'); pal.setAttribute('aria-label', 'Search');
-    pal.innerHTML = '<div class="box"><input type="text" role="combobox" aria-expanded="true" aria-controls="mb-results" aria-label="Search" placeholder="Search people, places, events, books… or type John 3:16" autocomplete="off" spellcheck="false"><ul id="mb-results" role="listbox"></ul><div class="hint">↑↓ navigate · ↵ open · esc close</div></div>';
+    pal.setAttribute('role', 'dialog'); pal.setAttribute('aria-modal', 'true'); pal.setAttribute('aria-label', window.tx('js.palette.search'));
+    pal.innerHTML = '<div class="box"><input type="text" role="combobox" aria-expanded="true" aria-controls="mb-results" aria-label="' + window.tx('js.palette.search') + '" placeholder="' + window.tx('js.palette.placeholder') + '" autocomplete="off" spellcheck="false"><ul id="mb-results" role="listbox"></ul><div class="hint">' + window.tx('js.palette.hint') + '</div></div>';
     document.body.appendChild(pal);
     input = pal.querySelector('input');
     list = pal.querySelector('ul');
@@ -115,7 +115,7 @@
   function setPresent(on) {
     document.body.classList.toggle('present', on);
     let hint = document.querySelector('.present-hint');
-    if (!hint) { hint = document.createElement('button'); hint.className = 'present-hint'; hint.type = 'button'; hint.textContent = 'Exit presentation (Esc)'; hint.addEventListener('click', () => setPresent(false)); document.body.appendChild(hint); }
+    if (!hint) { hint = document.createElement('button'); hint.className = 'present-hint'; hint.type = 'button'; hint.textContent = window.tx('js.present.exit'); hint.addEventListener('click', () => setPresent(false)); document.body.appendChild(hint); }
     try { const u = new URL(location.href); if (on) u.searchParams.set('present', '1'); else u.searchParams.delete('present'); history.replaceState(null, '', u); } catch (e) { /* ignore */ }
     setTimeout(() => window.dispatchEvent(new Event('resize')), 60);
   }
@@ -132,7 +132,7 @@
   function labelThings() {
     document.querySelectorAll('button:not([aria-label])').forEach((b) => { if (!b.textContent.trim() && b.title) b.setAttribute('aria-label', b.title); });
     document.querySelectorAll('button.icon:not([aria-label])').forEach((b) => { if (b.title) b.setAttribute('aria-label', b.title); });
-    document.querySelectorAll('canvas:not([aria-label])').forEach((c) => { c.setAttribute('role', 'img'); c.setAttribute('aria-label', 'Interactive visualisation: ' + document.title.replace(/ · MetaBible$/, '')); });
+    document.querySelectorAll('canvas:not([aria-label])').forEach((c) => { c.setAttribute('role', 'img'); c.setAttribute('aria-label', window.tx('js.viz', { title: document.title.replace(/ · MetaBible$/, '') })); });
     document.querySelectorAll('input:not([aria-label]):not([type=hidden]):not([type=checkbox]):not([type=file])').forEach((i) => { const p = i.getAttribute('placeholder'); if (p && !i.labels.length) i.setAttribute('aria-label', p); });
   }
   let lt; const mo = new MutationObserver(() => { clearTimeout(lt); lt = setTimeout(labelThings, 200); });
@@ -148,10 +148,10 @@
   const lbEsc = esc;
   function lbBuild() {
     lb = document.createElement('div');
-    lb.id = 'mb-lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Image viewer');
-    lb.innerHTML = '<button class="x" type="button" aria-label="Close">✕</button><button class="nav prev" type="button" aria-label="Previous image">‹</button>' +
+    lb.id = 'mb-lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', window.tx('js.lb.label'));
+    lb.innerHTML = '<button class="x" type="button" aria-label="' + window.tx('js.lb.close') + '">✕</button><button class="nav prev" type="button" aria-label="' + window.tx('js.lb.prev') + '">‹</button>' +
       '<figure><img alt=""><figcaption><div class="t"></div><div class="c"></div><div class="links"></div></figcaption></figure>' +
-      '<button class="nav next" type="button" aria-label="Next image">›</button><div class="count"></div>';
+      '<button class="nav next" type="button" aria-label="' + window.tx('js.lb.next') + '">›</button><div class="count"></div>';
     document.body.appendChild(lb);
     lb.addEventListener('click', (e) => { if (e.target === lb || e.target.closest('.x')) lbClose(); else if (e.target.closest('.prev')) lbGo(-1); else if (e.target.closest('.next')) lbGo(1); });
   }
@@ -159,7 +159,7 @@
     const el = lbItems[lbIdx], d = el.dataset;
     const img = lb.querySelector('img'); img.alt = d.title || ''; img.removeAttribute('src'); img.src = d.full;
     lb.querySelector('.t').textContent = d.title || '';
-    lb.querySelector('.c').innerHTML = d.page ? `<a href="${lbEsc(d.page)}" target="_blank" rel="noopener">${lbEsc(d.credit || 'Source')}</a>` : lbEsc(d.credit || '');
+    lb.querySelector('.c').innerHTML = d.page ? `<a href="${lbEsc(d.page)}" target="_blank" rel="noopener">${lbEsc(d.credit || window.tx('js.lb.source'))}</a>` : lbEsc(d.credit || '');
     let links = []; try { links = JSON.parse(d.links || '[]'); } catch (e) { /* ignore */ }
     lb.querySelector('.links').innerHTML = links.map((l) => `<a class="mb-chip" href="${lbEsc(l.u)}"${/^https?:/.test(l.u) ? ' target="_blank" rel="noopener"' : ''}>${lbEsc(l.l)}</a>`).join('');
     lb.querySelector('.count').textContent = lbItems.length > 1 ? `${lbIdx + 1} / ${lbItems.length}` : '';
@@ -189,5 +189,41 @@
     const el = e.target.closest && e.target.closest('[data-lb][tabindex]');
     if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); lbOpen(el); }
   }, true);
+
+  // ---------- translations: window.t('js.key', {name: 'x'}) and friends ----------
+  const dict = window.MB_I18N || {};
+  const lang = window.MB_LANG || 'en';
+  window.mbLang = lang;
+  window.t = window.tx = function (key, vars) {
+    let s = dict[key];
+    if (s === undefined) return key;
+    if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]);
+    return s;
+  };
+  // counted texts: t.n('js.verses', 3) -> "3 verses" using js.verses.one / js.verses.other
+  window.tx.n = window.t.n = function (key, n, vars) { return window.t(key + (n === 1 ? '.one' : '.other'), Object.assign({ n: n.toLocaleString(lang) }, vars || {})); };
+  // place kinds (City, River…) in the page language
+  window.mbKind = function (k) {
+    if (!k) return k;
+    return String(k).split(' ').map((w) => { const v = dict['js.kind.' + w.toLowerCase()]; return v === undefined ? w : v; }).join(' ');
+  };
+  // "1446 BC" / "1446 v.Chr."
+  window.mbYear = function (y) {
+    y = Math.round(y);
+    return y < 0 ? `${-y} ${window.t('js.bc')}` : y === 0 ? `1 ${window.t('js.bc')}` : `${y} ${window.t('js.ad')}`;
+  };
+  // dates already written into server data in English ("1446 BC") follow the page language
+  window.mbDate = function (s) {
+    if (lang === 'en' || !s) return s;
+    return String(s).replace(/(\d+) BC\b/g, '$1 ' + window.t('js.bc')).replace(/(\d+) AD\b/g, '$1 ' + window.t('js.ad'));
+  };
+  // the language links keep the page you are on, including its query string
+  function langLinks() {
+    document.querySelectorAll('a[data-lang]').forEach((a) => {
+      const u = new URL(location.href); u.searchParams.set('lang', a.dataset.lang); a.href = u.pathname + u.search + u.hash;
+      a.addEventListener('click', () => { try { caches.keys().then((ks) => ks.filter((k) => k.indexOf('-data') > -1).forEach((k) => caches.delete(k))); } catch (e) { /* ignore */ } });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', langLinks);
 })();
 

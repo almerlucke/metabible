@@ -26,21 +26,21 @@ map.on('load', () => {
 });
 
 // ------------------------------------------------------------------ chrome
-$('sera').innerHTML = `<h3>The story</h3>` + eras.map((e) => `<button class="era" data-i="${e.start}" data-id="${e.id}" style="--c:${e.c}"><i></i><span>${esc(e.n)}</span><small>${esc(`${e.from < 0 ? -e.from + ' BC' : e.from + ' AD'}`)}</small></button>`).join('');
+$('sera').innerHTML = `<h3>${tx('js.story.the.story')}</h3>` + eras.map((e) => `<button class="era" data-i="${e.start}" data-id="${e.id}" style="--c:${e.c}"><i></i><span>${esc(e.n)}</span><small>${esc(mbYear(e.from))}</small></button>`).join('');
 $('sera').querySelectorAll('.era').forEach((b) => b.onclick = () => { stop(); go(+b.dataset.i); });
 $('scard').innerHTML = '<div class="prog" id="sprog"></div><div id="sbody"></div><div class="ctl" id="sctl"></div>';
 $('sprog').innerHTML = eras.map((e, k) => { const end = k + 1 < eras.length ? eras[k + 1].start : steps.length; return `<div class="seg" data-i="${e.start}" style="flex:${end - e.start};--c:${e.c}" title="${esc(e.n)}"><i></i></div>`; }).join('');
 $('sprog').querySelectorAll('.seg').forEach((s) => s.onclick = (ev) => { const r = s.getBoundingClientRect(); const e0 = eras.findIndex((e) => e.start === +s.dataset.i); const end = e0 + 1 < eras.length ? eras[e0 + 1].start : steps.length; stop(); go(Math.floor(+s.dataset.i + ((ev.clientX - r.left) / r.width) * (end - +s.dataset.i))); });
 const hasTTS = 'speechSynthesis' in window;
-$('sctl').innerHTML = `<button class="mb-btn icon" id="sprev" title="Previous (←)">◀</button><button class="mb-btn icon" id="splay" title="Play / pause (space)">▶</button><button class="mb-btn icon" id="snext" title="Next (→)">▶|</button>
+$('sctl').innerHTML = `<button class="mb-btn icon" id="sprev" title="${tx('js.story.previous')}">◀</button><button class="mb-btn icon" id="splay" title="${tx('js.atlas.play.pause.space')}">▶</button><button class="mb-btn icon" id="snext" title="${tx('js.story.next')}">▶|</button>
   <button class="mb-btn sp on" data-s="1">1×</button><button class="mb-btn sp" data-s="1.6">1.6×</button><button class="mb-btn sp" data-s="2.5">2.5×</button>
-  ${hasTTS ? '<button class="mb-btn" id="snar" title="Read aloud">🔊 Read aloud</button>' : ''}<span class="grow"></span><button class="mb-btn" id="sshare" title="Copy a link to this moment">🔗 Share</button><span class="mb-muted" id="scount"></span>`;
+  ${hasTTS ? `<button class="mb-btn" id="snar" title="${tx('js.story.readaloud')}">🔊 ${tx('js.story.readaloud')}</button>` : ''}<span class="grow"></span><button class="mb-btn" id="sshare" title="${tx('js.story.copy.a.link.to')}">${tx('js.journeys.share')}</button><span class="mb-muted" id="scount"></span>`;
 $('sprev').onclick = () => { stop(); go(idx - 1); };
 $('snext').onclick = () => { stop(); go(idx + 1); };
 $('splay').onclick = () => (playing ? stop() : start());
 document.querySelectorAll('.sp').forEach((b) => b.onclick = () => { speed = +b.dataset.s; document.querySelectorAll('.sp').forEach((x) => x.classList.toggle('on', x === b)); });
 if (hasTTS) $('snar').onclick = () => { narrate = !narrate; $('snar').classList.toggle('on', narrate); if (!narrate) speechSynthesis.cancel(); else if (playing) { clearTimeout(timer); speak(); } };
-$('sshare').onclick = async () => { const u = location.origin + '/story?s=' + idx; try { await navigator.clipboard.writeText(u); $('sshare').textContent = '✓ Copied'; } catch (e) { prompt('Copy this link', u); } setTimeout(() => { $('sshare').textContent = '🔗 Share'; }, 1800); };
+$('sshare').onclick = async () => { const u = location.origin + '/story?s=' + idx; try { await navigator.clipboard.writeText(u); $('sshare').textContent = tx('js.quiz.copied'); } catch (e) { prompt(tx('js.story.copyprompt'), u); } setTimeout(() => { $('sshare').textContent = tx('js.journeys.share'); }, 1800); };
 addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
   if (e.key === 'ArrowRight') { stop(); go(idx + 1); } else if (e.key === 'ArrowLeft') { stop(); go(idx - 1); } else if (e.code === 'Space') { e.preventDefault(); playing ? stop() : start(); }
@@ -117,13 +117,13 @@ function renderCard(s, i) {
   let h = '';
   if (s.kind === 'era') {
     const e = eraOf.get(s.era);
-    h = `<div class="mb-tag" style="color:${col}">Chapter ${eras.indexOf(e) + 1} of ${eras.length} · ${esc(s.dt)}</div><h2 class="eratitle">${esc(s.t)}</h2><p class="intro">${esc(s.tx)}</p>`;
+    h = `<div class="mb-tag" style="color:${col}">${tx('js.story.chapter', { i: eras.indexOf(e) + 1, n: eras.length })} · ${esc(mbDate(s.dt))}</div><h2 class="eratitle">${esc(s.t)}</h2><p class="intro">${esc(s.tx)}</p>`;
   } else {
-    h = `<div class="mb-tag" style="color:${col}">${esc(s.dt)} · ${esc(eraOf.get(s.era).n)}</div><h2><a href="/event/${s.id}">${esc(s.t)}</a></h2>` +
+    h = `<div class="mb-tag" style="color:${col}">${esc(mbDate(s.dt))} · ${esc(eraOf.get(s.era).n)}</div><h2><a href="/event/${s.id}">${esc(s.t)}</a></h2>` +
       (s.tx ? `<div class="mb-verse">“${esc(s.tx)}”</div>` : '') +
       (s.vid ? `<a class="ref" href="/verse/${s.vid}">${esc(s.ref)} →</a>` : '') +
       `<div class="chips">${(s.pl || []).map((p) => `<a class="mb-chip" href="/place/${p.id}">📍 ${esc(p.n)}</a>`).join('')}${(s.pe || []).map((p) => `<a class="mb-chip" href="/person/${p.id}">${esc(p.n)}</a>`).join('')}</div>` +
-      (s.bl ? `<div class="know"><b>${esc(s.blo)}</b> — ${esc(s.bl)} <a href="${s.blu}">more →</a></div>` : '');
+      (s.bl ? `<div class="know"><b>${esc(s.blo)}</b> — ${esc(s.bl)} <a href="${s.blu}">${tx('js.story.more')}</a></div>` : '');
   }
   $('sbody').innerHTML = h;
   $('scount').textContent = `${i + 1} / ${steps.length}`;

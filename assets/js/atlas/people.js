@@ -1,9 +1,9 @@
 // People browser: filter, sort and page through everyone in the text.
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtYear = (y) => { y = Math.round(y); return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`; };
-const ERAS = [['Primeval', -4100, -2100, '#9575cd'], ['Patriarchs', -2100, -1700, '#26a69a'], ['Exodus', -1700, -1400, '#ef6c00'], ['Judges', -1400, -1050, '#e5533d'],
-  ['Kingdom', -1050, -930, '#f5c451'], ['Divided Kingdom', -930, -586, '#7986cb'], ['Exile & Return', -586, -400, '#a1887f'], ['Between the Testaments', -400, -5, '#78909c'], ['Life of Jesus', -5, 33, '#ffe082'], ['The Early Church', 33, 100, '#4fc3f7']];
+const fmtYear = (y) => window.mbYear(y);
+const ERAS = [[tx('js.era.name.primeval'), -4100, -2100, '#9575cd'], [tx('js.era.name.patriarchs'), -2100, -1700, '#26a69a'], [tx('js.era.name.egypt'), -1700, -1400, '#ef6c00'], [tx('js.era.name.conquest'), -1400, -1050, '#e5533d'],
+  [tx('js.era.name.kingdom'), -1050, -930, '#f5c451'], [tx('js.era.name.divided'), -930, -586, '#7986cb'], [tx('js.era.name.exile'), -586, -400, '#a1887f'], [tx('js.era.name.silence'), -400, -5, '#78909c'], [tx('js.era.name.gospels'), -5, 33, '#ffe082'], [tx('js.era.name.church'), 33, 100, '#4fc3f7']];
 const eraOf = (y) => ERAS.findIndex((e) => y >= e[1] && y < e[2]);
 const pct = (y) => Math.min(100, Math.max(0, ((y + 4100) / 4200) * 100));
 const groupColor = (g) => (g ? `hsl(${(g * 47) % 360} 62% 58%)` : '#8f96b2');
@@ -25,7 +25,7 @@ const people = data.people.map((p) => {
 $('pgroup').innerHTML += groups.map((g, i) => `<option value="${i + 1}">${esc(g)}</option>`).join('');
 $('pera').innerHTML += ERAS.map((e, i) => `<option value="${i}">${e[0]}</option>`).join('');
 const letters = [...new Set(people.map((p) => p.n[0].toUpperCase()))].filter((l) => /[A-Z]/.test(l)).sort();
-$('paz').innerHTML = '<a href="#" data-l="" class="on">All</a>' + letters.map((l) => `<a href="#" data-l="${l}">${l}</a>`).join('');
+$('paz').innerHTML = '<a href="#" data-l="" class="on">' + tx('js.people.all') + '</a>' + letters.map((l) => `<a href="#" data-l="${l}">${l}</a>`).join('');
 let letter = '', shown = 0, list = [];
 const PAGE = 96;
 
@@ -41,17 +41,17 @@ function apply() {
 }
 function card(p) {
   const era = p.known ? ERAS[Math.max(0, eraOf(p.mid))] : null;
-  const life = era ? `<div class="mini-life"><i class="${p.exact ? 'exact' : ''}" style="left:${pct(p.lo)}%;width:${Math.max(1.2, pct(p.hi) - pct(p.lo))}%;background:${era[3]}"></i></div><div class="yrs">${fmtYear(p.lo)} – ${fmtYear(p.hi)}</div>` : '<div class="mini-life empty"></div><div class="yrs">no date</div>';
+  const life = era ? `<div class="mini-life"><i class="${p.exact ? 'exact' : ''}" style="left:${pct(p.lo)}%;width:${Math.max(1.2, pct(p.hi) - pct(p.lo))}%;background:${era[3]}"></i></div><div class="yrs">${fmtYear(p.lo)} – ${fmtYear(p.hi)}</div>` : '<div class="mini-life empty"></div><div class="yrs">' + tx('js.people.no.date') + '</div>';
   return `<a class="pcard" href="/person/${p.id}" style="--g:${groupColor(p.gr)}">
     <div class="nm">${esc(p.n)}</div>
     <div class="ds">${esc(p.dis || '')}</div>${life}
-    <div class="ft"><span>${p.gr ? esc(groups[p.gr - 1]) : ''}</span><span>${p.vc} verses</span></div></a>`;
+    <div class="ft"><span>${p.gr ? esc(groups[p.gr - 1]) : ''}</span><span>${tx.n('js.verses', p.vc)}</span></div></a>`;
 }
 function more() {
   const next = list.slice(shown, shown + PAGE);
   $('pgrid').insertAdjacentHTML('beforeend', next.map(card).join(''));
   shown += next.length;
-  $('pmore').innerHTML = shown < list.length ? `<button class="mb-btn" id="pmorebtn">Show more (${(list.length - shown).toLocaleString()} left)</button>` : '';
+  $('pmore').innerHTML = shown < list.length ? `<button class="mb-btn" id="pmorebtn">${tx('js.people.showmore', { n: (list.length - shown).toLocaleString(mbLang) })}</button>` : '';
   if ($('pmorebtn')) $('pmorebtn').onclick = more;
 }
 const io = new IntersectionObserver((en) => { if (en[0].isIntersecting && shown < list.length) more(); }, { rootMargin: '600px' });

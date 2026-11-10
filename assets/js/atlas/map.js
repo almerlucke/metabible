@@ -3,22 +3,22 @@
 
 export const BASEMAPS = {
   satellite: {
-    label: 'Satellite',
+    get label() { return window.tx ? window.tx('js.map.satellite') : 'Satellite'; },
     tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
     maxzoom: 17, attribution: 'Imagery © Esri, Maxar, Earthstar Geographics',
   },
   physical: {
-    label: 'Physical',
+    get label() { return window.tx ? window.tx('js.map.physical') : 'Physical'; },
     tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}'],
     maxzoom: 8, attribution: 'Tiles © Esri, US National Park Service',
   },
   topo: {
-    label: 'Topographic',
+    get label() { return window.tx ? window.tx('js.map.topographic') : 'Topographic'; },
     tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'],
     maxzoom: 17, attribution: 'Tiles © Esri',
   },
   dark: {
-    label: 'Night',
+    get label() { return window.tx ? window.tx('js.map.night') : 'Night'; },
     tiles: ['https://basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png'],
     maxzoom: 17, attribution: '© OpenStreetMap contributors © CARTO',
   },
@@ -82,6 +82,7 @@ export function setTerrain(map, on) {
 export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 export function fmtYear(y) {
+  if (window.mbYear) return window.mbYear(y); // follows the page language
   y = Math.round(y);
   return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`;
 }

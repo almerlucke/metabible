@@ -4,7 +4,7 @@ import { createMap, FONT, esc } from './map.js';
 
 const $ = (id) => document.getElementById(id);
 const idx = await fetch('/api/atlas/progress-index').then((r) => r.json());
-const fmt = (y) => { y = Math.round(y); return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`; };
+const fmt = (y) => window.mbYear(y);
 const pct = (y) => Math.min(100, Math.max(0, ((y + 4100) / 4200) * 100));
 
 function load() { try { return JSON.parse(localStorage.getItem('mb.progress')) || { read: {} }; } catch (e) { return { read: {} }; } }
@@ -22,25 +22,25 @@ function render() {
   const from = ys.length ? Math.min(...ys.map((c) => c.y0)) : null, to = ys.length ? Math.max(...ys.map((c) => c.y1)) : null;
 
   let h = `<div class="pstats">
-    <div><b>${done.length}</b><span>of ${all.length} chapters read</span></div>
-    <div><b>${Math.round((done.length / all.length) * 100)}%</b><span>of the Bible</span></div>
-    <div><b>${met.size}</b><span>places met</span></div>
-    <div><b>${from == null ? '—' : fmt(from) + ' – ' + fmt(to)}</b><span>time covered</span></div></div>`;
+    <div><b>${done.length}</b><span>${tx('js.progress.chaptersread', { n: all.length })}</span></div>
+    <div><b>${Math.round((done.length / all.length) * 100)}%</b><span>${tx('js.progress.of.the.bible')}</span></div>
+    <div><b>${met.size}</b><span>${tx('js.progress.places.met')}</span></div>
+    <div><b>${from == null ? '—' : fmt(from) + ' – ' + fmt(to)}</b><span>${tx('js.progress.time.covered')}</span></div></div>`;
   if (lastCh) h += `<p class="cont"><a class="mb-btn on" href="/chapter/${lastCh.id}">Continue: ${esc(lastCh.book.n)} ${lastCh.n} →</a></p>`;
-  else h += '<p class="mb-muted">Nothing yet. Open any chapter and read to the end, or press “Mark as read”, and it will appear here. Everything stays in this browser.</p>';
-  if (from != null) h += `<div class="cover" title="Time covered"><i style="left:${pct(from)}%;width:${Math.max(1, pct(to) - pct(from))}%"></i></div><div class="bblbl"><span>4100 BC</span><span>2000 BC</span><span>AD 100</span></div>`;
-  h += '<h3>Book by book</h3><div class="pbooks">' + idx.books.map((b) => {
+  else h += '<p class="mb-muted">' + tx('js.progress.nothing.yet.open.any') + '</p>';
+  if (from != null) h += `<div class="cover" title="${tx('js.progress.time.covered2')}"><i style="left:${pct(from)}%;width:${Math.max(1, pct(to) - pct(from))}%"></i></div><div class="bblbl"><span>${tx('js.migrations.4100.bc')}</span><span>${tx('js.migrations.2000.bc')}</span><span>${tx('js.progress.ad.100')}</span></div>`;
+  h += '<h3>' + tx('js.progress.book.by.book') + '</h3><div class="pbooks">' + idx.books.map((b) => {
     const n = b.ch.filter((c) => p.read[c.id]).length;
     return `<div class="pb"><a class="bn" href="/book/${b.id}">${esc(b.n)}</a><div class="cells">${b.ch.map((c) => `<a href="/chapter/${c.id}" class="${p.read[c.id] ? 'on' : ''}" title="${esc(b.n)} ${c.n}"></a>`).join('')}</div><small>${n}/${b.ch.length}</small></div>`;
   }).join('') + '</div>';
-  h += `<h3>Places you have met</h3><div id="pmap" class="mb-minimap wide"></div>
-    <h3>Keep or move your progress</h3><div class="actions"><button class="mb-btn" id="pexp">Download</button><label class="mb-btn">Import<input type="file" id="pimp" accept="application/json" hidden></label><button class="mb-btn" id="preset">Reset</button></div>
-    <p class="mb-muted">Your reading is stored only in this browser. Download it to keep a copy or move it to another device.</p>`;
+  h += `<h3>${tx('js.progress.places.you.have.met')}</h3><div id="pmap" class="mb-minimap wide"></div>
+    <h3>${tx('js.progress.keep.or.move.your')}</h3><div class="actions"><button class="mb-btn" id="pexp">${tx('js.progress.download')}</button><label class="mb-btn">${tx('js.progress.import')}<input type="file" id="pimp" accept="application/json" hidden></label><button class="mb-btn" id="preset">${tx('js.progress.reset')}</button></div>
+    <p class="mb-muted">${tx('js.progress.your.reading.is.stored')}</p>`;
   $('prog').innerHTML = h;
 
   $('pexp').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(load(), null, 1)], { type: 'application/json' })); a.download = 'metabible-reading.json'; a.click(); };
-  $('pimp').onchange = async (e) => { try { const j = JSON.parse(await e.target.files[0].text()); if (j && typeof j.read === 'object') { const cur = load(); cur.read = { ...cur.read, ...j.read }; cur.last = j.last || cur.last; save(cur); render(); } } catch (err) { alert('That file does not look like a MetaBible reading export.'); } };
-  $('preset').onclick = () => { if (confirm('Forget everything you have marked as read?')) { save({ read: {} }); render(); } };
+  $('pimp').onchange = async (e) => { try { const j = JSON.parse(await e.target.files[0].text()); if (j && typeof j.read === 'object') { const cur = load(); cur.read = { ...cur.read, ...j.read }; cur.last = j.last || cur.last; save(cur); render(); } } catch (err) { alert(tx('js.progress.badfile')); } };
+  $('preset').onclick = () => { if (confirm(tx('js.progress.confirm'))) { save({ read: {} }); render(); } };
   drawMap([...met].map((i) => idx.places[i]));
 }
 

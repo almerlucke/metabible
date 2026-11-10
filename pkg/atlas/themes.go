@@ -101,21 +101,40 @@ func (a *Atlas) themeMatches(d ThemeDef) (idx []int, strength []int) {
 	return
 }
 
-func (a *Atlas) themeList() []ThemeInfo {
+func (a *Atlas) themeList() {
 	a.themeOnce.Do(func() {
 		a.themeIdx = map[string][]int{}
 		for _, d := range themeDefs {
 			idx, _ := a.themeMatches(d)
 			a.themeIdx[d.ID] = idx
-			a.themeInfos = append(a.themeInfos, ThemeInfo{d.ID, d.Name, d.Blurb, len(idx)})
 		}
 	})
-	return a.themeInfos
 }
 
-func (a *Atlas) Themes() []ThemeInfo { return a.themeList() }
+func (a *Atlas) themeInfo(lang string, d ThemeDef) ThemeInfo {
+	name, blurb := d.Name, d.Blurb
+	if a.tr != nil {
+		if s, ok := a.tr.Raw(lang, "theme."+d.ID+".name"); ok {
+			name = s
+		}
+		if s, ok := a.tr.Raw(lang, "theme."+d.ID+".blurb"); ok {
+			blurb = s
+		}
+	}
+	return ThemeInfo{d.ID, name, blurb, len(a.themeIdx[d.ID])}
+}
 
-func (a *Atlas) Theme(id string) *ThemeDetail {
+// Themes lists the themes with their names in a language.
+func (a *Atlas) Themes(lang string) []ThemeInfo {
+	a.themeList()
+	out := make([]ThemeInfo, 0, len(themeDefs))
+	for _, d := range themeDefs {
+		out = append(out, a.themeInfo(lang, d))
+	}
+	return out
+}
+
+func (a *Atlas) Theme(id, lang string) *ThemeDetail {
 	a.themeList()
 	var def *ThemeDef
 	for i := range themeDefs {
@@ -127,14 +146,14 @@ func (a *Atlas) Theme(id string) *ThemeDetail {
 		return nil
 	}
 	idx := a.themeIdx[id]
-	d := &ThemeDetail{ThemeInfo: ThemeInfo{def.ID, def.Name, def.Blurb, len(idx)}}
+	d := &ThemeDetail{ThemeInfo: a.themeInfo(lang, *def)}
 	bookIdx := map[string]int{}
 	for i, b := range a.Books {
 		bookIdx[b.ID] = i
 		d.BookNames = append(d.BookNames, b.Name)
 	}
 	d.Books = make([]int, len(a.Books))
-	for _, e := range Eras {
+	for _, e := range a.LocalEras(lang) {
 		d.EraNames = append(d.EraNames, e.Name)
 	}
 	d.Eras = make([]int, len(Eras))

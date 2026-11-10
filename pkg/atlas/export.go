@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
+	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
 func xmlEsc(s string) string {
@@ -14,11 +16,11 @@ func xmlEsc(s string) string {
 	return b.String()
 }
 
-func (a *Atlas) journeyByKey(key string) *Journey {
+func (a *Atlas) journeyByKey(key, lang string) *Journey {
 	if strings.HasPrefix(key, "person-") {
-		return a.PersonJourney(strings.TrimPrefix(key, "person-"))
+		return a.PersonJourney(strings.TrimPrefix(key, "person-"), lang)
 	}
-	for _, j := range a.Journeys {
+	for _, j := range a.JourneysFor(lang) {
 		if j.ID == key {
 			return j
 		}
@@ -75,7 +77,7 @@ func (a *Atlas) handleExport(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	j := a.journeyByKey(key)
+	j := a.journeyByKey(key, i18n.FromContext(r.Context()))
 	if j == nil || len(j.Stops) == 0 {
 		http.NotFound(w, r)
 		return

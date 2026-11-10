@@ -18,15 +18,15 @@ async function select(id) {
   const d = await fetch('/api/atlas/theme/' + id).then((r) => r.json());
   const max = Math.max(1, ...d.books);
   const emax = Math.max(1, ...d.eras);
-  $('thhead').innerHTML = `<h2>${esc(d.n)}</h2><p class="lead2">${esc(d.b)} <span class="mb-muted">${d.vc.toLocaleString()} verses</span></p>
-    <div class="actions"><a class="mb-btn" href="/concordance?search=${encodeURIComponent((list.find((t) => t.id === id) || {}).n || '')}">Search the concordance</a><button class="mb-btn" id="thshare">🔗 Copy link</button></div>`;
+  $('thhead').innerHTML = `<h2>${esc(d.n)}</h2><p class="lead2">${esc(d.b)} <span class="mb-muted">${tx.n('js.verses', d.vc)}</span></p>
+    <div class="actions"><a class="mb-btn" href="/concordance?search=${encodeURIComponent((list.find((t) => t.id === id) || {}).n || '')}">${tx('js.themes.search.the.concordance')}</a><button class="mb-btn" id="thshare">${tx('js.compare.copy.link')}</button></div>`;
   $('thshare').onclick = () => copyLink(location.href, $('thshare'));
-  $('thbody').innerHTML = `<section><h3>Across the books</h3><div class="bookbars one" role="img" aria-label="Verses per book">${d.bookNames.map((n, i) => `<div class="bb" title="${esc(n)}: ${d.books[i]}"><i class="a" style="height:${(d.books[i] / max) * 100}%"></i></div>`).join('')}</div>
-      <div class="bblbl"><span>Genesis</span><span>Malachi</span><span>Matthew</span><span>Revelation</span></div></section>
-    <section><h3>Across the eras</h3><div class="erabars">${d.eraNames.map((n, i) => `<div class="eb"><span>${esc(n)}</span><div class="bar"><i style="width:${(d.eras[i] / emax) * 100}%"></i></div><small>${d.eras[i]}</small></div>`).join('')}</div></section>
-    <section><h3>Some verses</h3>${d.sample.map((v) => `<p class="quote"><a href="/verse/${v.id}">${esc(v.l)}</a> ${v.h}</p>`).join('')}</section>`;
-  $('thside').innerHTML = `<div class="card"><div class="mb-tag">Where it is named</div><div id="thmap" class="mb-minimap"></div></div>
-    <div class="card"><div class="mb-tag">People most often alongside</div><div class="chiprow">${d.people.map((p) => `<a class="mb-chip" href="/person/${p.ID || p.id}">${esc(p.Name || p.name)}</a>`).join('')}</div></div>`;
+  $('thbody').innerHTML = `<section><h3>${tx('js.themes.across.the.books')}</h3><div class="bookbars one" role="img" aria-label="${tx('js.themes.verses.per.book')}">${d.bookNames.map((n, i) => `<div class="bb" title="${esc(n)}: ${d.books[i]}"><i class="a" style="height:${(d.books[i] / max) * 100}%"></i></div>`).join('')}</div>
+      <div class="bblbl"><span>${tx('js.compare.genesis')}</span><span>${tx('js.compare.malachi')}</span><span>${tx('js.compare.matthew')}</span><span>${tx('js.compare.revelation')}</span></div></section>
+    <section><h3>${tx('js.themes.across.the.eras')}</h3><div class="erabars">${d.eraNames.map((n, i) => `<div class="eb"><span>${esc(n)}</span><div class="bar"><i style="width:${(d.eras[i] / emax) * 100}%"></i></div><small>${d.eras[i]}</small></div>`).join('')}</div></section>
+    <section><h3>${tx('js.themes.some.verses')}</h3>${d.sample.map((v) => `<p class="quote"><a href="/verse/${v.id}">${esc(v.l)}</a> ${v.h}</p>`).join('')}</section>`;
+  $('thside').innerHTML = `<div class="card"><div class="mb-tag">${tx('js.themes.where.it.is.named')}</div><div id="thmap" class="mb-minimap"></div></div>
+    <div class="card"><div class="mb-tag">${tx('js.themes.people.most.often.alongside')}</div><div class="chiprow">${d.people.map((p) => `<a class="mb-chip" href="/person/${p.ID || p.id}">${esc(p.Name || p.name)}</a>`).join('')}</div></div>`;
   drawMap(d);
 }
 function drawMap(d) {

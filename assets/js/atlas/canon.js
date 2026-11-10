@@ -10,17 +10,17 @@ const maxCh = Math.max(...books.map((b) => b.ch.length));
 
 const root = $('canon');
 root.innerHTML = `<div class="canon-wrap">
-  <div class="mb-tag">the whole canon at a glance</div><h1 class="mb-display" style="margin:.2rem 0 .3rem;color:var(--mb-gold2)">The Canon</h1>
-  <p class="mb-muted" style="max-width:720px">Every chapter of every book as one cell. Brightness shows how crowded the chapter is. Switch the lens to people, places or events, or type a word and watch where it lives.</p>
+  <div class="mb-tag">${tx('js.canon.the.whole.canon.at')}</div><h1 class="mb-display" style="margin:.2rem 0 .3rem;color:var(--mb-gold2)">${tx('js.canon.the.canon')}</h1>
+  <p class="mb-muted" style="max-width:720px">${tx('js.canon.every.chapter.of.every')}</p>
   <div class="canon-controls">
-    <div class="seg" id="lens"><button class="mb-btn on" data-m="pe">People</button><button class="mb-btn" data-m="pl">Places</button><button class="mb-btn" data-m="ev">Events</button><button class="mb-btn" data-m="v">Verses</button><button class="mb-btn" data-m="w">Word</button></div>
-    <input id="word" class="mb-input" placeholder="Type a word: love, mercy, Jerusalem…" style="max-width:280px">
+    <div class="seg" id="lens"><button class="mb-btn on" data-m="pe">${tx('js.canon.people')}</button><button class="mb-btn" data-m="pl">${tx('js.canon.places')}</button><button class="mb-btn" data-m="ev">${tx('js.canon.events')}</button><button class="mb-btn" data-m="v">${tx('js.canon.verses')}</button><button class="mb-btn" data-m="w">${tx('js.canon.word')}</button></div>
+    <input id="word" class="mb-input" placeholder="${tx('js.canon.type.a.word.love')}" style="max-width:280px">
     <span id="wordinfo" class="mb-muted"></span>
   </div>
   <div class="canon-legend" id="legend"></div>
   <div class="canvas-wrap"><canvas id="sky"></canvas></div>
-  <h2 class="mb-display" style="margin:2.2rem 0 .3rem;color:var(--mb-gold2)">Who connects the books?</h2>
-  <p class="mb-muted" style="max-width:720px">Arcs join books that share named people (ubiquitous names excluded). Hover a book to see its closest neighbours.</p>
+  <h2 class="mb-display" style="margin:2.2rem 0 .3rem;color:var(--mb-gold2)">${tx('js.canon.who.connects.the.books')}</h2>
+  <p class="mb-muted" style="max-width:720px">${tx('js.canon.arcs.join.books.that')}</p>
   <div class="canvas-wrap"><canvas id="arcs"></canvas></div><div id="arcinfo" class="mb-muted" style="min-height:2.6rem"></div>
 </div><div class="ctip" id="tip" style="position:fixed"></div>`;
 $('legend').innerHTML = divs.map((d) => `<span><i style="background:${divColor(d)}"></i>${esc(d)}</span>`).join('');
@@ -61,7 +61,7 @@ sky.addEventListener('mousemove', (e) => {
   if (!b || x < 0 || ci >= b.ch.length) { tip.style.display = 'none'; return; }
   const c = b.ch[ci];
   tip.style.display = 'block'; tip.style.left = e.clientX + 14 + 'px'; tip.style.top = e.clientY + 14 + 'px';
-  tip.innerHTML = `<b>${esc(b.n)} ${c.n}</b><br><span class="mb-muted">${c.v} verses · ${c.pe} people · ${c.pl} places · ${c.ev} events${wordCounts ? ` · “${esc($('word').value)}” ×${wordCounts[bi][ci]}` : ''}</span>`;
+  tip.innerHTML = `<b>${esc(b.n)} ${c.n}</b><br><span class="mb-muted">${tx.n('js.verses', c.v)} · ${tx.n('js.people', c.pe)} · ${tx.n('js.places', c.pl)} · ${tx.n('js.events', c.ev)}${wordCounts ? ` · “${esc($('word').value)}” ×${wordCounts[bi][ci]}` : ''}</span>`;
   sky.style.cursor = 'pointer';
 });
 sky.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
@@ -88,7 +88,7 @@ $('word').addEventListener('input', () => {
     // top chapter summary
     const flat = []; r.books.forEach((cs, bi) => cs.forEach((n, ci) => { if (n) flat.push([n, bi, ci]); }));
     flat.sort((a, b) => b[0] - a[0]);
-    $('wordinfo').innerHTML = `<b>${r.total.toLocaleString()}</b> occurrences · peak: ` + flat.slice(0, 3).map(([n, bi, ci]) => `<a href="/chapter/${books[bi].ch[ci].id}">${esc(books[bi].n)} ${books[bi].ch[ci].n}</a> (${n})`).join(', ');
+    $('wordinfo').innerHTML = `<b>${r.total.toLocaleString()}</b> ${tx('js.canon.occpeak')} ` + flat.slice(0, 3).map(([n, bi, ci]) => `<a href="/chapter/${books[bi].ch[ci].id}">${esc(books[bi].n)} ${books[bi].ch[ci].n}</a> (${n})`).join(', ');
     drawSky();
   }, 220);
 });
@@ -122,7 +122,7 @@ ac.addEventListener('mousemove', (e) => {
     if (best < 0) $('arcinfo').innerHTML = '';
     else {
       const rel = arcs.filter((a) => a.a === best || a.b === best).map((a) => [a.a === best ? a.b : a.a, a.s]).sort((a, b) => b[1] - a[1]).slice(0, 6);
-      $('arcinfo').innerHTML = `<b style="color:var(--mb-gold2)">${esc(books[best].n)}</b> shares most people with: ` + (rel.length ? rel.map(([i, s]) => `${esc(books[i].n)} (${s})`).join(' · ') : 'no other book strongly');
+      $('arcinfo').innerHTML = `<b style="color:var(--mb-gold2)">${esc(books[best].n)}</b> ${tx('js.canon.shares')} ` + (rel.length ? rel.map(([i, s]) => `${esc(books[i].n)} (${s})`).join(' · ') : tx('js.canon.nobook'));
     }
   }
   ac.style.cursor = best >= 0 ? 'pointer' : 'default';

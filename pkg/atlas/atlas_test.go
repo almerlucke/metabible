@@ -6,6 +6,8 @@ import (
 	"strings"
 	"sync"
 	"testing"
+
+	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
 var (
@@ -16,7 +18,12 @@ var (
 
 func load(t *testing.T) *Atlas {
 	t.Helper()
-	once.Do(func() { atl, lerr = Load("../../data/json", "../../data/journeys.json") })
+	once.Do(func() {
+		atl, lerr = Load("../../data/json", "../../data/journeys.json")
+		if lerr == nil {
+			atl.SetTranslations(i18n.MustLoad())
+		}
+	})
 	if lerr != nil {
 		t.Fatalf("load: %v", lerr)
 	}
@@ -119,11 +126,11 @@ func TestConcordance(t *testing.T) {
 
 func TestSearch(t *testing.T) {
 	a := load(t)
-	hits := a.Search("John 3:16", 10)
+	hits := a.Search("John 3:16", 10, "en")
 	if len(hits) == 0 || hits[0].Type != "verse" || hits[0].Label != "John 3:16" {
 		t.Fatalf("verse reference not resolved: %+v", hits)
 	}
-	hits = a.Search("abraham", 10)
+	hits = a.Search("abraham", 10, "en")
 	if len(hits) == 0 || hits[0].Label != "Abraham" || hits[0].Type != "person" {
 		t.Errorf("expected Abraham first: %+v", hits)
 	}
@@ -166,7 +173,7 @@ func TestJourneys(t *testing.T) {
 	if paul == nil {
 		t.Fatal("Paul not found")
 	}
-	if j := a.PersonJourney(paul.ID); j == nil || len(j.Stops) < 10 {
+	if j := a.PersonJourney(paul.ID, "en"); j == nil || len(j.Stops) < 10 {
 		t.Errorf("derived journey for Paul too short: %+v", j)
 	}
 }
@@ -242,7 +249,7 @@ func TestMigrationAndStory(t *testing.T) {
 			t.Fatalf("bad count triple %v", c)
 		}
 	}
-	st := a.Story()
+	st := a.Story("en")
 	if len(st.Eras) != len(Eras) && len(st.Eras) < 8 {
 		t.Errorf("story eras = %d", len(st.Eras))
 	}
@@ -274,26 +281,26 @@ func TestFamilyAndRelations(t *testing.T) {
 		return best
 	}
 	abraham, jacob, esau, adam, jesus := find("Abraham"), find("Jacob (Israel)"), find("Esau (Edom)"), find("Adam"), find("Jesus Christ")
-	if r := a.FamilyPath(abraham.ID, jacob.ID); r == nil || r.Label != "grandson" {
+	if r := a.FamilyPath(abraham.ID, jacob.ID, "en"); r == nil || r.Label != "grandson" {
 		t.Errorf("Abraham -> Jacob: %+v", r)
 	}
-	if r := a.FamilyPath(jacob.ID, esau.ID); r == nil || r.Label != "brother" {
+	if r := a.FamilyPath(jacob.ID, esau.ID, "en"); r == nil || r.Label != "brother" {
 		t.Errorf("Jacob -> Esau: %+v", r)
 	}
-	if r := a.FamilyPath(adam.ID, jesus.ID); r == nil || len(r.Steps) < 30 {
+	if r := a.FamilyPath(adam.ID, jesus.ID, "en"); r == nil || len(r.Steps) < 30 {
 		t.Errorf("Adam -> Jesus should be a long chain: %+v", r)
 	}
-	if a.FamilyPath(abraham.ID, abraham.ID) != nil {
+	if a.FamilyPath(abraham.ID, abraham.ID, "en") != nil {
 		t.Error("no path to oneself")
 	}
-	cmp := a.Compare("person", abraham.ID, jacob.ID)
+	cmp := a.Compare("person", abraham.ID, jacob.ID, "en")
 	if cmp == nil || cmp.SharedCount == 0 || len(cmp.Story) < 3 || cmp.Relation == nil {
 		t.Errorf("compare people: %+v", cmp)
 	}
-	if a.Compare("place", a.Places[0].ID, a.Places[1].ID) == nil {
+	if a.Compare("place", a.Places[0].ID, a.Places[1].ID, "en") == nil {
 		t.Error("compare places returned nil")
 	}
-	if a.Compare("nope", "x", "y") != nil {
+	if a.Compare("nope", "x", "y", "en") != nil {
 		t.Error("unknown kind should be nil")
 	}
 }
@@ -325,7 +332,7 @@ func TestRelationLabel(t *testing.T) {
 
 func TestThemes(t *testing.T) {
 	a := load(t)
-	list := a.Themes()
+	list := a.Themes("en")
 	if len(list) < 15 {
 		t.Fatalf("themes: %d", len(list))
 	}
@@ -333,12 +340,12 @@ func TestThemes(t *testing.T) {
 		if th.Verses < 20 {
 			t.Errorf("theme %s matches only %d verses", th.ID, th.Verses)
 		}
-		d := a.Theme(th.ID)
+		d := a.Theme(th.ID, "en")
 		if d == nil || len(d.Sample) == 0 || len(d.Books) != len(a.Books) {
 			t.Errorf("theme %s detail incomplete", th.ID)
 		}
 	}
-	if a.Theme("nope") != nil {
+	if a.Theme("nope", "en") != nil {
 		t.Error("unknown theme should be nil")
 	}
 	if !matchStem("a good wife", "wife$") || matchStem("housewife", "wife$") || !matchStem("he forgave them", "forgav") && !matchStem("he forgave them", "forgave") {
@@ -348,7 +355,7 @@ func TestThemes(t *testing.T) {
 
 func TestExportAndProgress(t *testing.T) {
 	a := load(t)
-	j := a.journeyByKey("exodus")
+	j := a.journeyByKey("exodus", "en")
 	if j == nil {
 		t.Fatal("exodus journey missing")
 	}
@@ -520,5 +527,51 @@ func TestSplitAliases(t *testing.T) {
 	}
 	if len(splitAliases("", "X")) != 0 {
 		t.Error("empty input has no aliases")
+	}
+}
+
+func TestDutch(t *testing.T) {
+	a := load(t)
+	var abraham, jacob *Person
+	for _, p := range a.People {
+		if p.Name == "Abraham" {
+			abraham = p
+		}
+		if p.Name == "Jacob (Israel)" {
+			jacob = p
+		}
+	}
+	rel := a.FamilyPath(abraham.ID, jacob.ID, "nl")
+	if rel == nil || rel.Label != "de kleinzoon" || !strings.Contains(rel.Phrase, "is de kleinzoon van Abraham") {
+		t.Errorf("dutch relation: %+v", rel)
+	}
+	cmp := a.Compare("person", abraham.ID, jacob.ID, "nl")
+	if cmp == nil || !strings.Contains(strings.Join(cmp.Story, " "), "v.Chr.") || strings.Contains(strings.Join(cmp.Story, " "), " BC") {
+		t.Errorf("dutch story should use v.Chr.: %v", cmp.Story)
+	}
+	st := a.Story("nl")
+	if !strings.HasPrefix(st.Eras[0].Name, "Oergeschiedenis") || !strings.Contains(st.Eras[0].Intro, "tuin") {
+		t.Errorf("dutch story era: %+v", st.Eras[0])
+	}
+	js := a.JourneysFor("nl")
+	if js[0].Title != "Abrahams roeping" || js[1].Stops[0].Name != "Rameses" || !strings.Contains(js[0].Stops[1].Note, "Haran") {
+		t.Errorf("dutch journey: %s / %+v", js[0].Title, js[1].Stops[0])
+	}
+	if a.JourneysFor("en")[0].Title != "Abraham's Calling" {
+		t.Error("english journeys unchanged")
+	}
+	if th := a.Themes("nl"); th[0].Name != "Verbond" {
+		t.Errorf("dutch themes: %v", th[0])
+	}
+	hits := a.Search("abraham", 3, "nl")
+	if len(hits) == 0 || !strings.HasPrefix(hits[0].Sub, "persoon") || !strings.Contains(hits[0].Sub, "v.Chr.") {
+		t.Errorf("dutch search sub: %+v", hits)
+	}
+	pk := a.PeekFor("person", abraham.ID, "nl")
+	if pk == nil || !strings.Contains(strings.Join(pk.Facts, " "), "verzen") {
+		t.Errorf("dutch peek: %+v", pk)
+	}
+	if got := a.locDate("nl", "1446 BC – 30 AD"); got != "1446 v.Chr. – 30 n.Chr." {
+		t.Errorf("locDate: %q", got)
 	}
 }

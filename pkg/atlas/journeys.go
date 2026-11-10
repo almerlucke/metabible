@@ -6,6 +6,8 @@ import (
 	"math"
 	"os"
 	"strings"
+
+	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
 type Stop struct {
@@ -133,12 +135,12 @@ func loadJourneys(a *Atlas, file string) ([]*Journey, error) {
 // PersonJourney derives an itinerary from the places mentioned in the verses a
 // person appears in, in canonical order. It is an approximation, but covers
 // everyone who is mentioned alongside places.
-func (a *Atlas) PersonJourney(id string) *Journey {
+func (a *Atlas) PersonJourney(id, lang string) *Journey {
 	p := a.PersonByID[id]
 	if p == nil {
 		return nil
 	}
-	j := &Journey{ID: "person-" + id, Title: p.Name, Subtitle: "Places mentioned alongside " + p.Name + ", in order of the text", Color: "#f5c451", Person: id}
+	j := &Journey{ID: "person-" + id, Title: p.Name, Subtitle: a.tx(lang, "journey.person.sub", "name", p.Name), Color: "#f5c451", Person: id}
 	last := ""
 	for _, v := range a.Verses {
 		if len(v.Places) == 0 || len(v.Places) > 4 {
@@ -171,4 +173,36 @@ func (a *Atlas) PersonJourney(id string) *Journey {
 		j.Km += int(haversine(j.Stops[i-1].Lat, j.Stops[i-1].Lng, j.Stops[i].Lat, j.Stops[i].Lng))
 	}
 	return j
+}
+
+// trOr returns a translation, or the given English text when there is none.
+func (a *Atlas) trOr(lang, key, fallback string) string {
+	if a.tr != nil {
+		if s, ok := a.tr.Raw(lang, key); ok {
+			return s
+		}
+	}
+	return fallback
+}
+
+// JourneysFor returns the curated journeys with their texts in a language.
+func (a *Atlas) JourneysFor(lang string) []*Journey {
+	if lang == i18n.Default || a.tr == nil {
+		return a.Journeys
+	}
+	out := make([]*Journey, len(a.Journeys))
+	for i, j := range a.Journeys {
+		c := *j
+		c.Title = a.trOr(lang, "journey."+j.ID+".title", j.Title)
+		c.Subtitle = a.trOr(lang, "journey."+j.ID+".sub", j.Subtitle)
+		c.Intro = a.trOr(lang, "journey."+j.ID+".intro", j.Intro)
+		c.Stops = make([]Stop, len(j.Stops))
+		for k, st := range j.Stops {
+			st.Name = a.trOr(lang, fmt.Sprintf("journey.%s.stop.%d.name", j.ID, k), st.Name)
+			st.Note = a.trOr(lang, fmt.Sprintf("journey.%s.stop.%d.note", j.ID, k), st.Note)
+			c.Stops[k] = st
+		}
+		out[i] = &c
+	}
+	return out
 }

@@ -1,7 +1,7 @@
 // Small helpers for shareable links.
-export async function copyLink(url, btn, label = '🔗 Copy link') {
-  try { await navigator.clipboard.writeText(url); if (btn) btn.textContent = '✓ Link copied'; }
-  catch (e) { prompt('Copy this link', url); }
+export async function copyLink(url, btn, label = window.tx('js.share.copy')) {
+  try { await navigator.clipboard.writeText(url); if (btn) btn.textContent = window.tx('js.share.copied'); }
+  catch (e) { prompt(window.tx('js.share.prompt'), url); }
   if (btn) setTimeout(() => { btn.textContent = label; }, 1800);
 }
 export function setQuery(params) {

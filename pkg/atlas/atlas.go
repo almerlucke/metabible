@@ -137,13 +137,14 @@ type Atlas struct {
 
 	migOnce    sync.Once
 	mig        *Migration
-	storyOnce  sync.Once
-	story      *Story
+	storyMu    sync.Mutex
+	stories    map[string]*Story
 	cosmosOnce sync.Once
 	cosmos     *Cosmos
 	lowerText  []string
 	nameIdx    []searchEntry
 
+	tr            Translator
 	Enrich        *Enrichment
 	artFixes      []artFix
 	progOnce      sync.Once

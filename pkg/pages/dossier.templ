@@ -10,7 +10,7 @@ import (
 
 templ classic(title string, active string, headExtra templ.Component) {
 	<!DOCTYPE html>
-	<html lang="en" data-theme="dark">
+	<html lang={ langOf(ctx) } data-theme="dark">
 		@atlasHead(title, false) {
 			if headExtra != nil {
 				@headExtra
@@ -41,23 +41,23 @@ templ miniMap(cfg atlas.MapConfig, class string) {
 templ wikiCard(w *atlas.WikiEntry, photo *atlas.GalleryItem) {
 	<div class="card wiki">
 		if w.Image != nil && photo != nil {
-			<figure class="pic zoom" { lbAttrs(*photo)... } tabindex="0" role="button" aria-label={ "Enlarge: " + w.Title }>
+			<figure class="pic zoom" { lbAttrs(*photo)... } tabindex="0" role="button" aria-label={ t(ctx, "ui.enlarge", "title", w.Title) }>
 				<img src={ templ.SafeURL(w.Image.URL) } alt={ w.Title } loading="lazy"/>
 				<figcaption><a href={ templ.SafeURL(w.Image.Page) } rel="noopener">{ imgCredit(w.Image) }</a></figcaption>
 			</figure>
 		}
-		<div class="mb-tag">From Wikipedia</div>
+		<div class="mb-tag">{ t(ctx, "ui.from.wikipedia") }</div>
 		if w.Desc != "" {
 			<div class="wdesc">{ w.Desc }</div>
 		}
 		<p>{ w.Summary }</p>
-		<a href={ templ.SafeURL(w.Page) } rel="noopener">Read more on Wikipedia →</a>
-		<small class="mb-muted"> · text CC BY-SA 4.0</small>
+		<a href={ templ.SafeURL(w.Page) } rel="noopener">{ t(ctx, "ui.read.more.on.wikipedia") }</a>
+		<small class="mb-muted"> { t(ctx, "ui.text.cc.by.sa.4") }</small>
 	</div>
 }
 
 templ lbFigure(it atlas.GalleryItem) {
-	<figure class="art zoom" { lbAttrs(it)... } tabindex="0" role="button" aria-label={ "Enlarge: " + it.Title }>
+	<figure class="art zoom" { lbAttrs(it)... } tabindex="0" role="button" aria-label={ t(ctx, "ui.enlarge", "title", it.Title) }>
 		<img src={ templ.SafeURL(it.Full) } alt={ it.Title } loading="lazy"/>
 		<figcaption>{ it.Title } — <a href={ templ.SafeURL(it.Page) } rel="noopener">{ it.Credit }</a></figcaption>
 	</figure>
@@ -80,7 +80,7 @@ templ chips(refs []atlas.Ref, kind string) {
 		<a class="mb-chip" href={ href(kind, r.ID) }>
 			{ r.Name }
 			if r.Sub != "" {
-				<small class="sub"> · { r.Sub }</small>
+				<small class="sub"> · { kindName(ctx, r.Sub) }</small>
 			}
 		</a>
 	}
@@ -89,13 +89,13 @@ templ chips(refs []atlas.Ref, kind string) {
 templ eventRows(evs []atlas.EventRef) {
 	<ul class="rows">
 		for _, e := range evs {
-			<li><a href={ href("event", e.ID) }><span class="when">{ e.Date }</span> { e.Title }</a></li>
+			<li><a href={ href("event", e.ID) }><span class="when">{ locDate(ctx, e.Date) }</span> { e.Title }</a></li>
 		}
 	</ul>
 }
 
 templ verseGroups(groups []atlas.BookVerses, total int) {
-	<p class="mb-muted">{ plural(total, "verse", "verses") }</p>
+	<p class="mb-muted">{ count(ctx, "verse", total) }</p>
 	for i, g := range groups {
 		<details class="vg" open?={ i == 0 && len(groups) <= 3 }>
 			<summary><a href={ href("book", g.BookID) }>{ g.Book }</a> <span class="mb-muted">{ fmt.Sprint(len(g.Verses)) }</span></summary>
@@ -109,21 +109,21 @@ templ verseGroups(groups []atlas.BookVerses, total int) {
 }
 
 templ lifeBar(d *atlas.PersonDossier) {
-	<div class="lifebar" title={ fmt.Sprintf("%s – %s", yr(d.LifeFrom), yr(d.LifeTo)) }>
+	<div class="lifebar" title={ fmt.Sprintf("%s – %s", yrl(ctx, d.LifeFrom), yrl(ctx, d.LifeTo)) }>
 		for _, e := range eras() {
 			<span class="era" style={ eraSegStyle(e) }></span>
 		}
 		<i class={ templ.KV("exact", d.LifeExact) } style={ segStyle(d.Pct0, d.Pct1) }></i>
 	</div>
 	<div class="lifelbl">
-		<span>4100 BC</span>
+		<span>{ t(ctx, "ui.4100.bc") }</span>
 		<b style={ colorStyle(d.Era.Color) }>
-			{ yr(d.LifeFrom) } – { yr(d.LifeTo) }
+			{ yrl(ctx, d.LifeFrom) } – { yrl(ctx, d.LifeTo) }
 			if !d.LifeExact {
-				<small> (as they appear in the text)</small>
+				<small> { t(ctx, "ui.as.they.appear.in.the") }</small>
 			}
 		</b>
-		<span>AD 100</span>
+		<span>{ t(ctx, "ui.ad.100") }</span>
 	</div>
 }
 
@@ -138,9 +138,9 @@ templ PersonPage(d *atlas.PersonDossier) {
 						{ d.GroupName } ·&nbsp;
 					}
 					if d.P.Gender != "" {
-						{ d.P.Gender }
+						{ genderName(ctx, d.P.Gender) }
 					} else {
-						Person
+						{ t(ctx, "ui.person") }
 					}
 				</div>
 				<h1>{ d.P.Name }</h1>
@@ -148,7 +148,7 @@ templ PersonPage(d *atlas.PersonDossier) {
 					<p class="sub">{ d.Disambig }</p>
 				}
 				if len(d.Aliases) > 0 {
-					<div class="aliases"><span class="mb-muted">Also called</span>
+					<div class="aliases"><span class="mb-muted">{ t(ctx, "ui.also.called") }</span>
 						for _, n := range d.Aliases {
 							<span class="alias">{ n }</span>
 						}
@@ -158,35 +158,35 @@ templ PersonPage(d *atlas.PersonDossier) {
 					@lifeBar(d)
 				}
 				<div class="actions">
-					<a class="mb-btn" href={ templ.SafeURL("/journeys?person=" + d.P.ID) }>🧭 Journey</a>
-					<a class="mb-btn" href={ templ.SafeURL("/tree/" + d.P.ID) }>🌳 Family tree</a>
-					<a class="mb-btn" href={ templ.SafeURL("/lifespans?person=" + d.P.ID) }>⌛ Who was alive?</a>
-					<a class="mb-btn" href={ templ.SafeURL("/cosmos?id=" + d.P.ID) }>✨ In the cosmos</a>
+					<a class="mb-btn" href={ templ.SafeURL("/journeys?person=" + d.P.ID) }>{ t(ctx, "ui.journey") }</a>
+					<a class="mb-btn" href={ templ.SafeURL("/tree/" + d.P.ID) }>{ t(ctx, "ui.family.tree") }</a>
+					<a class="mb-btn" href={ templ.SafeURL("/lifespans?person=" + d.P.ID) }>{ t(ctx, "ui.who.was.alive") }</a>
+					<a class="mb-btn" href={ templ.SafeURL("/cosmos?id=" + d.P.ID) }>{ t(ctx, "ui.in.the.cosmos") }</a>
 				</div>
 			</header>
 			<div class="cols">
 				<div class="main">
 					if d.Dict != "" {
 						<section>
-							<h2>About</h2>
+							<h2>{ t(ctx, "ui.about") }</h2>
 							<div class="prose">@templ.Raw(d.Dict)</div>
 						</section>
 					}
 					if len(d.Gallery) > 0 {
 						<section>
-							<h2>In art</h2>
+							<h2>{ t(ctx, "ui.in.art") }</h2>
 							@gallery(d.Gallery)
 						</section>
 					}
 					if len(d.Events) > 0 {
 						<section>
-							<h2>Timeline</h2>
+							<h2>{ t(ctx, "ui.timeline") }</h2>
 							@eventRows(d.Events)
 						</section>
 					}
 					if len(d.Verses) > 0 {
 						<section>
-							<h2>In the text</h2>
+							<h2>{ t(ctx, "ui.in.the.text") }</h2>
 							@verseGroups(d.Verses, d.VerseCount)
 						</section>
 					}
@@ -197,15 +197,15 @@ templ PersonPage(d *atlas.PersonDossier) {
 					}
 					if d.HasMap {
 						<div class="card">
-							<div class="mb-tag">Places in their story</div>
+							<div class="mb-tag">{ t(ctx, "ui.places.in.their.story") }</div>
 							@miniMap(d.Map, "aside")
 							<div class="chiprow">@chips(d.TopPlaces, "place")</div>
 						</div>
 					}
 					<div class="card">
-						<div class="mb-tag">Family</div>
+						<div class="mb-tag">{ t(ctx, "ui.family") }</div>
 						if d.Father != nil || d.Mother != nil {
-							<h4>Parents</h4>
+							<h4>{ t(ctx, "ui.parents") }</h4>
 							<div class="chiprow">
 								if d.Father != nil {
 									<a class="mb-chip" href={ href("person", d.Father.ID) }>{ d.Father.Name }</a>
@@ -216,30 +216,30 @@ templ PersonPage(d *atlas.PersonDossier) {
 							</div>
 						}
 						if len(d.Partners) > 0 {
-							<h4>Partners</h4>
+							<h4>{ t(ctx, "ui.partners") }</h4>
 							<div class="chiprow">@chips(d.Partners, "person")</div>
 						}
 						if len(d.Siblings) > 0 {
-							<h4>Siblings</h4>
+							<h4>{ t(ctx, "ui.siblings") }</h4>
 							<div class="chiprow">@chips(d.Siblings, "person")</div>
 						}
 						if len(d.Children) > 0 {
-							<h4>Children</h4>
+							<h4>{ t(ctx, "ui.children") }</h4>
 							<div class="chiprow">@chips(d.Children, "person")</div>
 						}
 						if d.Father == nil && d.Mother == nil && len(d.Partners) == 0 && len(d.Children) == 0 && len(d.Siblings) == 0 {
-							<p class="mb-muted">No family recorded.</p>
+							<p class="mb-muted">{ t(ctx, "ui.no.family.recorded") }</p>
 						}
 					</div>
 					if d.BirthPlace != nil || d.DeathPlace != nil {
 						<div class="card">
-							<div class="mb-tag">Life</div>
+							<div class="mb-tag">{ t(ctx, "ui.life") }</div>
 							<ul class="facts">
 								if d.BirthPlace != nil {
-									<li>Born in <a href={ href("place", d.BirthPlace.ID) }>{ d.BirthPlace.Name }</a></li>
+									<li>{ t(ctx, "ui.born.in") } <a href={ href("place", d.BirthPlace.ID) }>{ d.BirthPlace.Name }</a></li>
 								}
 								if d.DeathPlace != nil {
-									<li>Died in <a href={ href("place", d.DeathPlace.ID) }>{ d.DeathPlace.Name }</a></li>
+									<li>{ t(ctx, "ui.died.in") } <a href={ href("place", d.DeathPlace.ID) }>{ d.DeathPlace.Name }</a></li>
 								}
 							</ul>
 						</div>
@@ -258,9 +258,9 @@ templ PlacePage(d *atlas.PlaceDossier) {
 			<header class="hero">
 				<div class="mb-tag">
 					if d.Kind != "" {
-						{ d.Kind }
+						{ kindName(ctx, d.Kind) }
 					} else {
-						Place
+						{ t(ctx, "ui.place") }
 					}
 				</div>
 				<h1>{ d.P.Name }</h1>
@@ -268,14 +268,14 @@ templ PlacePage(d *atlas.PlaceDossier) {
 					<p class="sub">{ d.Comment }</p>
 				}
 				<p class="mb-muted">
-					{ plural(d.VerseCount, "verse", "verses") }
+					{ count(ctx, "verse", d.VerseCount) }
 					if d.P.Y0 != 0 || d.P.Y1 != 0 {
-						· mentioned { yr(d.FirstYear) } – { yr(d.LastYear) }
+						{ t(ctx, "ui.mentioned") } { yrl(ctx, d.FirstYear) } – { yrl(ctx, d.LastYear) }
 					}
 				</p>
 				if d.P.HasGeo {
 					<div class="actions">
-						<a class="mb-btn" href={ templ.SafeURL("/atlas?place=" + d.P.ID) }>⏳ See it on the time atlas</a>
+						<a class="mb-btn" href={ templ.SafeURL("/atlas?place=" + d.P.ID) }>{ t(ctx, "ui.see.it.on.the.time") }</a>
 					</div>
 				}
 			</header>
@@ -286,19 +286,19 @@ templ PlacePage(d *atlas.PlaceDossier) {
 				<div class="main">
 					if d.Dict != "" {
 						<section>
-							<h2>About</h2>
+							<h2>{ t(ctx, "ui.about") }</h2>
 							<div class="prose">@templ.Raw(d.Dict)</div>
 						</section>
 					}
 					if len(d.Events) > 0 {
 						<section>
-							<h2>What happened here</h2>
+							<h2>{ t(ctx, "ui.what.happened.here") }</h2>
 							@eventRows(d.Events)
 						</section>
 					}
 					if len(d.Verses) > 0 {
 						<section>
-							<h2>In the text</h2>
+							<h2>{ t(ctx, "ui.in.the.text") }</h2>
 							@verseGroups(d.Verses, d.VerseCount)
 						</section>
 					}
@@ -309,25 +309,25 @@ templ PlacePage(d *atlas.PlaceDossier) {
 					}
 					if len(d.People) > 0 {
 						<div class="card">
-							<div class="mb-tag">People named alongside</div>
+							<div class="mb-tag">{ t(ctx, "ui.people.named.alongside") }</div>
 							<div class="chiprow">@chips(d.People, "person")</div>
 						</div>
 					}
 					if len(d.Born) > 0 || len(d.Died) > 0 {
 						<div class="card">
 							if len(d.Born) > 0 {
-								<div class="mb-tag">Born here</div>
+								<div class="mb-tag">{ t(ctx, "ui.born.here") }</div>
 								<div class="chiprow">@chips(d.Born, "person")</div>
 							}
 							if len(d.Died) > 0 {
-								<div class="mb-tag">Died here</div>
+								<div class="mb-tag">{ t(ctx, "ui.died.here") }</div>
 								<div class="chiprow">@chips(d.Died, "person")</div>
 							}
 						</div>
 					}
 					if len(d.Nearby) > 0 {
 						<div class="card">
-							<div class="mb-tag">Nearby places</div>
+							<div class="mb-tag">{ t(ctx, "ui.nearby.places") }</div>
 							<div class="chiprow">@chips(d.Nearby, "place")</div>
 						</div>
 					}
@@ -343,20 +343,20 @@ templ EventPage(d *atlas.EventDossier) {
 	@classic(d.E.Title, "", withMap()) {
 		<article class="dossier">
 			<header class="hero">
-				<div class="mb-tag" style={ colorStyle(d.Era.Color) }>{ d.Era.Name } · { d.E.Date }</div>
+				<div class="mb-tag" style={ colorStyle(d.Era.Color) }>{ eraName(ctx, d.Era.ID, d.Era.Name) } · { locDate(ctx, d.E.Date) }</div>
 				<h1>{ d.E.Title }</h1>
 				<p class="mb-muted">
-					if d.Duration != "" {
-						Lasting { d.Duration }
+					if d.E.Days > 0 {
+						{ t(ctx, "ui.lasting") } { durText(ctx, d.E.Days) }
 					}
 				</p>
 				<div class="actions">
-					<a class="mb-btn" href={ templ.SafeURL("/atlas?event=" + d.E.ID) }>⏳ See it on the time atlas</a>
+					<a class="mb-btn" href={ templ.SafeURL("/atlas?event=" + d.E.ID) }>{ t(ctx, "ui.see.it.on.the.time") }</a>
 					if d.Prev != "" {
-						<a class="mb-btn" href={ href("event", d.Prev) }>◀ Earlier</a>
+						<a class="mb-btn" href={ href("event", d.Prev) }>{ t(ctx, "ui.earlier") }</a>
 					}
 					if d.Next != "" {
-						<a class="mb-btn" href={ href("event", d.Next) }>Later ▶</a>
+						<a class="mb-btn" href={ href("event", d.Next) }>{ t(ctx, "ui.later") }</a>
 					}
 				</div>
 			</header>
@@ -371,12 +371,12 @@ templ EventPage(d *atlas.EventDossier) {
 			if len(d.Before) > 0 || len(d.After) > 0 {
 				<div class="chain">
 					<div class="col">
-						<div class="mb-tag">Because of</div>
+						<div class="mb-tag">{ t(ctx, "ui.because.of") }</div>
 						@eventRows(d.Before)
 					</div>
 					<div class="now">{ d.E.Title }</div>
 					<div class="col">
-						<div class="mb-tag">Led to</div>
+						<div class="mb-tag">{ t(ctx, "ui.led.to") }</div>
 						@eventRows(d.After)
 					</div>
 				</div>
@@ -385,7 +385,7 @@ templ EventPage(d *atlas.EventDossier) {
 				<div class="main">
 					if len(d.Verses) > 0 {
 						<section>
-							<h2>The account</h2>
+							<h2>{ t(ctx, "ui.the.account") }</h2>
 							for _, v := range d.Verses {
 								<p class="quote"><a href={ href("verse", v.ID) }>{ v.Label }</a> { v.Text }</p>
 							}
@@ -393,7 +393,7 @@ templ EventPage(d *atlas.EventDossier) {
 					}
 					if d.Notes != "" {
 						<section>
-							<h2>Notes</h2>
+							<h2>{ t(ctx, "ui.notes") }</h2>
 							<div class="prose">@templ.Raw(atlas.Rich(d.Notes))</div>
 						</section>
 					}
@@ -401,24 +401,24 @@ templ EventPage(d *atlas.EventDossier) {
 				<aside>
 					if len(d.Participants) > 0 {
 						<div class="card">
-							<div class="mb-tag">Participants</div>
+							<div class="mb-tag">{ t(ctx, "ui.participants") }</div>
 							<div class="chiprow">@chips(d.Participants, "person")</div>
 						</div>
 					}
 					if len(d.Places) > 0 {
 						<div class="card">
-							<div class="mb-tag">Where</div>
+							<div class="mb-tag">{ t(ctx, "ui.where") }</div>
 							<div class="chiprow">@chips(d.Places, "place")</div>
 						</div>
 					}
 					if len(d.PartOf) > 0 || len(d.Parts) > 0 {
 						<div class="card">
 							if len(d.PartOf) > 0 {
-								<div class="mb-tag">Part of</div>
+								<div class="mb-tag">{ t(ctx, "ui.part.of") }</div>
 								@eventRows(d.PartOf)
 							}
 							if len(d.Parts) > 0 {
-								<div class="mb-tag">Includes</div>
+								<div class="mb-tag">{ t(ctx, "ui.includes") }</div>
 								@eventRows(d.Parts)
 							}
 						</div>
@@ -437,24 +437,24 @@ templ VersePage(d *atlas.VerseDossier) {
 			<header class="hero">
 				<div class="mb-tag">
 					<a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> ·
-					<a href={ href("chapter", d.ChapterID) }>chapter { fmt.Sprint(d.ChapterNum) }</a> · { d.Year }
+					<a href={ href("chapter", d.ChapterID) }>{ t(ctx, "ui.chapter") } { fmt.Sprint(d.ChapterNum) }</a> · { locDate(ctx, d.Year) }
 				</div>
 				<h1>{ d.Label }</h1>
 				<blockquote class="big">@templ.Raw(d.HTML)</blockquote>
 				<div class="actions">
 					if d.Prev != "" {
-						<a class="mb-btn" href={ href("verse", d.Prev) }>◀ Previous verse</a>
+						<a class="mb-btn" href={ href("verse", d.Prev) }>{ t(ctx, "ui.previous.verse") }</a>
 					}
 					if d.Next != "" {
-						<a class="mb-btn" href={ href("verse", d.Next) }>Next verse ▶</a>
+						<a class="mb-btn" href={ href("verse", d.Next) }>{ t(ctx, "ui.next.verse") }</a>
 					}
-					<a class="mb-btn" href={ href("chapter", d.ChapterID) }>📖 Read the chapter</a>
+					<a class="mb-btn" href={ href("chapter", d.ChapterID) }>{ t(ctx, "ui.read.the.chapter") }</a>
 				</div>
 			</header>
 			<div class="cols">
 				<div class="main">
 					<section>
-						<h2>In context</h2>
+						<h2>{ t(ctx, "ui.in.context") }</h2>
 						<div class="context">
 							for _, c := range d.Context {
 								<p class={ "v", templ.KV("cur", c.Current) }><sup><a href={ href("verse", c.ID) }>{ fmt.Sprint(c.Num) }</a></sup> @templ.Raw(c.HTML)</p>
@@ -468,25 +468,25 @@ templ VersePage(d *atlas.VerseDossier) {
 					}
 					if d.HasMap {
 						<div class="card">
-							<div class="mb-tag">On the map</div>
+							<div class="mb-tag">{ t(ctx, "ui.on.the.map") }</div>
 							@miniMap(d.Map, "aside")
 						</div>
 					}
 					if len(d.People) > 0 {
 						<div class="card">
-							<div class="mb-tag">People</div>
+							<div class="mb-tag">{ t(ctx, "ui.people") }</div>
 							<div class="chiprow">@chips(d.People, "person")</div>
 						</div>
 					}
 					if len(d.Places) > 0 {
 						<div class="card">
-							<div class="mb-tag">Places</div>
+							<div class="mb-tag">{ t(ctx, "ui.places") }</div>
 							<div class="chiprow">@chips(d.Places, "place")</div>
 						</div>
 					}
 					if len(d.Events) > 0 {
 						<div class="card">
-							<div class="mb-tag">Events described</div>
+							<div class="mb-tag">{ t(ctx, "ui.events.described") }</div>
 							@eventRows(d.Events)
 						</div>
 					}
@@ -502,7 +502,7 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 	@classic(fmt.Sprintf("%s %d", d.Book.Name, d.Num), "", withMap()) {
 		<div class={ "reader", templ.KV("no-map", len(d.Map.Points) == 0) } data-chapter={ d.ID }>
 			<div class="text">
-				<div class="mb-tag"><a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> · { d.Years }</div>
+				<div class="mb-tag"><a href={ href("book", d.Book.ID) }>{ d.Book.Name }</a> · { locDate(ctx, d.Years) }</div>
 				<h1>{ d.Book.Name } { fmt.Sprint(d.Num) }</h1>
 				<div class="actions">
 					if d.Prev != "" {
@@ -521,7 +521,7 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 							<sup><a href={ href("verse", v.ID) }>{ fmt.Sprint(v.Num) }</a></sup>
 							@templ.Raw(v.HTML)
 							for _, e := range v.Events {
-								<a class="evbadge" href={ href("event", e.ID) } title={ e.Date }>◆ { e.Title }</a>
+								<a class="evbadge" href={ href("event", e.ID) } title={ locDate(ctx, e.Date) }>◆ { e.Title }</a>
 							}
 						</p>
 						if v.ArtItem != nil {
@@ -530,7 +530,7 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 					}
 				</div>
 				<div class="actions" style="margin-top:2rem">
-					<button class="mb-btn" id="readbtn" type="button"><span id="readbadge">Mark as read</span></button>
+					<button class="mb-btn" id="readbtn" type="button"><span id="readbadge">{ t(ctx, "ui.mark.as.read") }</span></button>
 					if d.Prev != "" {
 						<a class="mb-btn" href={ href("chapter", d.Prev) }>◀ { d.PrevLabel }</a>
 					}
@@ -542,7 +542,7 @@ templ ChapterPage(d *atlas.ChapterDossier) {
 			if len(d.Map.Points) > 0 {
 				<div class="rmap">
 					<div id="readmap"></div>
-					<div class="rcap" id="rcap">Scroll the text: the map follows the places.</div>
+					<div class="rcap" id="rcap">{ t(ctx, "ui.scroll.the.text.the.map") }</div>
 				</div>
 			}
 		</div>
@@ -560,12 +560,12 @@ templ BookPage(d *atlas.BookDossier) {
 	@classic(d.B.Name, "", nil) {
 		<article class="dossier">
 			<header class="hero">
-				<div class="mb-tag">{ d.B.Div } · { d.B.Testament }</div>
+				<div class="mb-tag">{ divName(ctx, d.B.Div) } · { testamentName(ctx, d.B.Testament) }</div>
 				<h1>{ d.B.Name }</h1>
-				<p class="mb-muted">{ plural(len(d.B.Chapters), "chapter", "chapters") } · { plural(d.B.Verses, "verse", "verses") } · { plural(d.PeopleN, "person", "people") } · { plural(d.PlacesN, "place", "places") }</p>
-				<div class="skyline" title="People per chapter">
+				<p class="mb-muted">{ count(ctx, "chapter", len(d.B.Chapters)) } · { count(ctx, "verse", d.B.Verses) } · { count(ctx, "person", d.PeopleN) } · { count(ctx, "place", d.PlacesN) }</p>
+				<div class="skyline" title={ t(ctx, "ui.people.per.chapter") }>
 					for _, c := range d.Chapters {
-						<a href={ href("chapter", c.ID) } style={ heatStyle(c.Heat) } title={ fmt.Sprintf("%s %d · %d people · %d places", d.B.Name, c.Num, c.People, c.Places) }></a>
+						<a href={ href("chapter", c.ID) } style={ heatStyle(c.Heat) } title={ t(ctx, "ui.chapter.tip", "book", d.B.Name, "n", c.Num, "people", c.People, "places", c.Places) }></a>
 					}
 				</div>
 				<div class="actions">
@@ -575,13 +575,13 @@ templ BookPage(d *atlas.BookDossier) {
 					if d.Next != nil {
 						<a class="mb-btn" href={ href("book", d.Next.ID) }>{ d.Next.Name } ▶</a>
 					}
-					<a class="mb-btn" href="/canon">📜 All books</a>
+					<a class="mb-btn" href="/canon">{ t(ctx, "ui.all.books") }</a>
 				</div>
 			</header>
 			<div class="cols">
 				<div class="main">
 					<section>
-						<h2>Chapters</h2>
+						<h2>{ t(ctx, "ui.chapters") }</h2>
 						<ul class="rows chapters">
 							for _, c := range d.Chapters {
 								<li><a href={ href("chapter", c.ID) }><b>{ fmt.Sprint(c.Num) }</b> <i>{ c.Excerpt }</i></a></li>
@@ -591,11 +591,11 @@ templ BookPage(d *atlas.BookDossier) {
 				</div>
 				<aside>
 					<div class="card">
-						<div class="mb-tag">Most present people</div>
+						<div class="mb-tag">{ t(ctx, "ui.most.present.people") }</div>
 						<div class="chiprow">@chips(d.TopPeople, "person")</div>
 					</div>
 					<div class="card">
-						<div class="mb-tag">Most named places</div>
+						<div class="mb-tag">{ t(ctx, "ui.most.named.places") }</div>
 						<div class="chiprow">@chips(d.TopPlaces, "place")</div>
 					</div>
 				</aside>

@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"unicode"
 )
 
 // GalleryLink is a link shown beside an image in the lightbox.
@@ -91,7 +92,9 @@ func cleanArtTitle(t string) string {
 	if t == "" {
 		return "Engraving"
 	}
-	return strings.ToUpper(t[:1]) + t[1:]
+	r := []rune(t)
+	r[0] = unicode.ToUpper(r[0]) // by rune: titles can start with Greek or accented letters
+	return string(r)
 }
 
 func (a *Atlas) artItem(art Art) GalleryItem {

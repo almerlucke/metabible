@@ -69,7 +69,7 @@ type EventCard struct {
 	VerseID string
 	Places  []Ref
 	People  []Ref
-	Days    string
+	Days    int
 }
 
 type EraGroup struct {
@@ -95,7 +95,7 @@ func (a *Atlas) EventsTimeline() []EraGroup {
 			pl = pl[:3]
 		}
 		c := EventCard{ID: e.ID, Title: e.Title, Date: e.Date, Year: e.Year, Text: trunc(e.Text, 150), Ref: e.Ref, VerseID: e.VerseID,
-			Places: a.placeRefs(pl), People: a.personRefs(pe), Days: humanDuration(e.Days)}
+			Places: a.placeRefs(pl), People: a.personRefs(pe), Days: e.Days}
 		g := &out[idx[era.ID]]
 		g.Events = append(g.Events, c)
 	}

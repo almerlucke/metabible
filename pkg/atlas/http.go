@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"sort"
 	"strings"
+
+	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
 type Era struct {
@@ -82,7 +84,7 @@ func (a *Atlas) handleWorld(w http.ResponseWriter, r *http.Request) {
 			places = append(places, p)
 		}
 	}
-	writeJSON(w, r, map[string]any{"places": places, "events": a.Events, "eras": Eras})
+	writeJSON(w, r, map[string]any{"places": places, "events": a.Events, "eras": a.LocalEras(i18n.FromContext(r.Context()))})
 }
 
 func (a *Atlas) handlePeople(w http.ResponseWriter, r *http.Request) {
@@ -92,19 +94,20 @@ func (a *Atlas) handlePeople(w http.ResponseWriter, r *http.Request) {
 			out = append(out, p)
 		}
 	}
+	lang := i18n.FromContext(r.Context())
 	names := make([]string, len(a.Groups))
 	for i, g := range a.Groups {
-		names[i] = g.Name
+		names[i] = a.lookup(lang, "group", g.Name)
 	}
 	writeJSON(w, r, map[string]any{"people": out, "groups": names})
 }
 
 func (a *Atlas) handleJourneys(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, r, a.Journeys)
+	writeJSON(w, r, a.JourneysFor(i18n.FromContext(r.Context())))
 }
 
 func (a *Atlas) handlePersonJourney(w http.ResponseWriter, r *http.Request) {
-	j := a.PersonJourney(r.PathValue("id"))
+	j := a.PersonJourney(r.PathValue("id"), i18n.FromContext(r.Context()))
 	if j == nil {
 		http.NotFound(w, r)
 		return
@@ -117,7 +120,7 @@ func (a *Atlas) handleCosmos(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Atlas) handleSearch(w http.ResponseWriter, r *http.Request) {
-	hits := a.Search(r.URL.Query().Get("q"), 14)
+	hits := a.Search(r.URL.Query().Get("q"), 14, i18n.FromContext(r.Context()))
 	if hits == nil {
 		hits = []SearchHit{}
 	}
@@ -126,7 +129,7 @@ func (a *Atlas) handleSearch(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Atlas) handlePeek(w http.ResponseWriter, r *http.Request) {
-	pk := a.PeekFor(r.PathValue("kind"), r.PathValue("id"))
+	pk := a.PeekFor(r.PathValue("kind"), r.PathValue("id"), i18n.FromContext(r.Context()))
 	if pk == nil {
 		http.NotFound(w, r)
 		return
@@ -240,13 +243,30 @@ func (a *Atlas) handleWord(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Atlas) handleStory(w http.ResponseWriter, r *http.Request) {
-	a.storyOnce.Do(func() { a.story = a.Story() })
-	writeJSON(w, r, a.story)
+	lang := i18n.FromContext(r.Context())
+	a.storyMu.Lock()
+	st := a.stories[lang]
+	if st == nil {
+		if a.stories == nil {
+			a.stories = map[string]*Story{}
+		}
+		st = a.Story(lang)
+		a.stories[lang] = st
+	}
+	a.storyMu.Unlock()
+	writeJSON(w, r, st)
 }
 
 func (a *Atlas) handleMigration(w http.ResponseWriter, r *http.Request) {
 	a.migOnce.Do(func() { a.mig = a.Migration() })
-	writeJSON(w, r, a.mig)
+	lang := i18n.FromContext(r.Context())
+	m := *a.mig
+	m.Groups = make([]MigGroup, len(a.mig.Groups))
+	for i, g := range a.mig.Groups {
+		g.Name = a.lookup(lang, "group", g.Name)
+		m.Groups[i] = g
+	}
+	writeJSON(w, r, &m)
 }
 
 // handleValidate reports data problems found by Validate (for the maintainer).
@@ -261,7 +281,7 @@ func (a *Atlas) handleValidate(w http.ResponseWriter, r *http.Request) {
 
 func (a *Atlas) handleCompare(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-	res := a.Compare(q.Get("kind"), q.Get("a"), q.Get("b"))
+	res := a.Compare(q.Get("kind"), q.Get("a"), q.Get("b"), i18n.FromContext(r.Context()))
 	if res == nil {
 		http.NotFound(w, r)
 		return
@@ -272,7 +292,7 @@ func (a *Atlas) handleCompare(w http.ResponseWriter, r *http.Request) {
 // handleRelation returns the family path between two people.
 func (a *Atlas) handleRelation(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-	rel := a.FamilyPath(q.Get("a"), q.Get("b"))
+	rel := a.FamilyPath(q.Get("a"), q.Get("b"), i18n.FromContext(r.Context()))
 	if rel == nil {
 		http.NotFound(w, r)
 		return
@@ -281,11 +301,11 @@ func (a *Atlas) handleRelation(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *Atlas) handleThemes(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, r, a.Themes())
+	writeJSON(w, r, a.Themes(i18n.FromContext(r.Context())))
 }
 
 func (a *Atlas) handleTheme(w http.ResponseWriter, r *http.Request) {
-	t := a.Theme(r.PathValue("id"))
+	t := a.Theme(r.PathValue("id"), i18n.FromContext(r.Context()))
 	if t == nil {
 		http.NotFound(w, r)
 		return

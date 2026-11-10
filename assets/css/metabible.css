@@ -693,3 +693,9 @@ details.gallery figure.art { margin: 0; }
 #lifespans.min #lpanel { display: none; }
 #lifespans.min #lmin { left: 16px; top: 16px; }
 @media (max-width: 900px) { #lmin { left: auto; right: 24px; } #lifespans.min #lmin { left: 16px; right: auto; } }
+
+/* language switcher */
+.langsw { display: inline-flex; gap: 2px; border: 1px solid var(--mb-line); border-radius: 8px; overflow: hidden; }
+.langsw a { padding: .22rem .5rem; font-size: .72rem; letter-spacing: .06em; color: var(--mb-dim); text-decoration: none; }
+.langsw a.on { background: rgba(245,196,81,.18); color: var(--mb-gold2); }
+.langsw a:hover { color: var(--mb-gold2); }

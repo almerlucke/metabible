@@ -1,18 +1,39 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/a-h/templ"
 	"github.com/almerlucke/metabible/pkg/atlas"
+	"github.com/almerlucke/metabible/pkg/i18n"
 	"github.com/almerlucke/metabible/pkg/og"
 	"github.com/almerlucke/metabible/pkg/pages"
 )
 
 // MountAtlas registers the immersive atlas pages and the JSON API behind them.
 // It has no dependency on Mongo.
+// Bundle holds the translations; Middleware applies the language chosen for each request.
+var Bundle = i18n.MustLoad()
+
 func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 	a.Mount(mux)
+	pages.SetBundle(Bundle)
+	a.SetTranslations(Bundle)
+
+	// the texts the browser needs, as a script: /i18n/nl.js
+	mux.HandleFunc("GET /i18n/{file}", func(w http.ResponseWriter, r *http.Request) {
+		lang := strings.TrimSuffix(r.PathValue("file"), ".js")
+		if !Bundle.Has(lang) {
+			lang = i18n.Default
+		}
+		b, _ := json.Marshal(Bundle.Client(lang))
+		w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
+		w.Header().Set("Cache-Control", "public, max-age=300")
+		fmt.Fprintf(w, "window.MB_LANG=%q;window.MB_I18N=%s;\n", lang, b)
+	})
 
 	stats := pages.HomeStats{Verses: len(a.Verses), People: len(a.People), Places: len(a.Places), Events: len(a.Events)}
 	mux.Handle("GET /{$}", templ.Handler(pages.HomePage(stats)))

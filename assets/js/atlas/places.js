@@ -6,12 +6,12 @@ const $ = (id) => document.getElementById(id);
 const world = await fetch('/api/atlas/world').then((r) => r.json());
 const places = world.places.filter((p) => p.vc > 0).sort((a, b) => b.vc - a.vc);
 const KINDS = ['City', 'Region', 'Mountain', 'Water', 'Valley', 'Island', 'Landmark', ''];
-const kindName = (k) => k || 'Other';
+const kindName = (k) => (k ? mbKind(k) : tx('js.kind.other'));
 const active = new Set(KINDS);
 let query = '';
 
-$('plist').innerHTML = `<h3>Places</h3>
-  <input id="psearch" class="mb-input" placeholder="Search ${places.length.toLocaleString()} places…" autocomplete="off">
+$('plist').innerHTML = `<h3>${tx('js.canon.places')}</h3>
+  <input id="psearch" class="mb-input" placeholder="${tx('js.places.search', { n: places.length.toLocaleString(mbLang) })}" autocomplete="off">
   <div class="kinds">${KINDS.map((k) => `<button class="mb-chip on" data-k="${k}" style="--c:${KIND_COLOR[k]}"><i></i>${kindName(k)}</button>`).join('')}</div>
   <div class="mb-muted" id="pcnt" style="font-size:.78rem;margin:.3rem 0 .5rem"></div>
   <div id="pitems" class="mb-scroll"></div>`;
@@ -38,7 +38,7 @@ map.on('load', () => {
 
 function show(id, coords) {
   const p = places.find((x) => x.id === id); if (!p) return;
-  popup.setLngLat(coords || [p.lng, p.lat]).setHTML(`<b>${esc(p.n)}</b><br><span class="mb-muted">${esc(kindName(p.k))} · ${p.vc} verses</span><br><a href="/place/${p.id}">Open place →</a> · <a href="/atlas?place=${p.id}">time atlas</a>`).addTo(map);
+  popup.setLngLat(coords || [p.lng, p.lat]).setHTML(`<b>${esc(p.n)}</b><br><span class="mb-muted">${esc(kindName(p.k))} · ${tx.n('js.verses', p.vc)}</span><br><a href="/place/${p.id}">${tx('js.atlas.open.place')}</a> · <a href="/atlas?place=${p.id}">${tx('js.places.time.atlas')}</a>`).addTo(map);
 }
 
 function matches() {
@@ -47,8 +47,8 @@ function matches() {
 }
 function refresh() {
   const ms = matches();
-  $('pcnt').textContent = `${ms.length.toLocaleString()} places`;
-  $('pitems').innerHTML = ms.slice(0, 120).map((p) => `<div class="pi" data-id="${p.id}"><i style="background:${KIND_COLOR[p.k || '']}"></i><span>${esc(p.n)}</span><small>${p.vc}</small></div>`).join('') + (ms.length > 120 ? `<div class="mb-muted" style="padding:.4rem">…refine the search to see more</div>` : '');
+  $('pcnt').textContent = tx.n('js.places', ms.length);
+  $('pitems').innerHTML = ms.slice(0, 120).map((p) => `<div class="pi" data-id="${p.id}"><i style="background:${KIND_COLOR[p.k || '']}"></i><span>${esc(p.n)}</span><small>${p.vc}</small></div>`).join('') + (ms.length > 120 ? `<div class="mb-muted" style="padding:.4rem">${tx('js.places.refine.the.search.to')}</div>` : '');
   $('pitems').querySelectorAll('.pi').forEach((el) => el.onclick = () => { const p = places.find((x) => x.id === el.dataset.id); map.flyTo({ center: [p.lng, p.lat], zoom: Math.max(map.getZoom(), 7.5), pitch: 50, duration: 1400 }); setTimeout(() => show(p.id), 900); });
   if (ready) {
     const filter = (ms.length === places.length) ? null : ['in', ['get', 'id'], ['literal', ms.map((p) => p.id)]];

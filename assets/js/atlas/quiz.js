@@ -1,7 +1,7 @@
 // Quiz: questions made from the data. A daily round is the same for everyone (seeded by the date).
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmt = (y) => { y = Math.round(y); return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`; };
+const fmt = (y) => window.mbYear(y);
 const qs = new URLSearchParams(location.search);
 
 const [world, peopleData] = await Promise.all([fetch('/api/atlas/world').then((r) => r.json()), fetch('/api/atlas/people').then((r) => r.json())]);
@@ -30,7 +30,7 @@ function qWhichFirst() {
     const [x, y] = sample(datedEvents, 2);
     if (x && y && Math.abs(x.y - y.y) > 40) {
       const first = x.y < y.y ? x : y;
-      return { kind: 'choice', text: 'Which of these came first?', options: shuffle([x.t, y.t]), answer: first.t, explain: `${first.t} is dated ${first.dt}; the other ${first === x ? y.dt : x.dt}.`, link: `/event/${first.id}` };
+      return { kind: 'choice', text: tx('js.quiz.q.first'), options: shuffle([x.t, y.t]), answer: first.t, explain: tx('js.quiz.e.first', { a: first.t, da: mbDate(first.dt), db: mbDate(first === x ? y.dt : x.dt) }), link: `/event/${first.id}` };
     }
   }
 }
@@ -39,14 +39,14 @@ function qWhoAlive() {
   const year = Math.round(a.b + (a.d - a.b) * (0.3 + rand() * 0.4));
   const others = sample(exactLives, 3, (p) => p.id !== a.id && (p.d < year - 5 || p.b > year + 5));
   if (others.length < 3) return null;
-  return { kind: 'choice', text: `Who was alive in ${fmt(year)}?`, options: shuffle([a.n, ...others.map((o) => o.n)]), answer: a.n, explain: `${a.n} lived ${fmt(a.b)} – ${fmt(a.d)}.`, link: `/person/${a.id}` };
+  return { kind: 'choice', text: tx('js.quiz.q.alive', { y: fmt(year) }), options: shuffle([a.n, ...others.map((o) => o.n)]), answer: a.n, explain: tx('js.quiz.e.alive', { n: a.n, a: fmt(a.b), b: fmt(a.d) }), link: `/person/${a.id}` };
 }
 function qFather() {
   const kids = prominent.filter((p) => p.f && byId.get(p.f) && byId.get(p.f).vc >= 6);
   const c = pickOne(kids); if (!c) return null;
   const f = byId.get(c.f);
   const others = sample(prominent, 3, (p) => p.g === 'Male' && p.id !== f.id && p.id !== c.id);
-  return { kind: 'choice', text: `Who was the father of ${c.n}?`, options: shuffle([f.n, ...others.map((o) => o.n)]), answer: f.n, explain: `${f.n} is recorded as ${c.n}'s father.`, link: `/person/${c.id}` };
+  return { kind: 'choice', text: tx('js.quiz.q.father', { n: c.n }), options: shuffle([f.n, ...others.map((o) => o.n)]), answer: f.n, explain: tx('js.quiz.e.father', { f: f.n, c: c.n }), link: `/person/${c.id}` };
 }
 function qWhere() {
   const evs = datedEvents.filter((e) => e.pl.length === 1 && placeById.get(e.pl[0]) && placeById.get(e.pl[0]).vc >= 8);
@@ -54,18 +54,18 @@ function qWhere() {
   const p = placeById.get(e.pl[0]);
   const others = sample(world.places, 3, (x) => x.id !== p.id && x.k === p.k && x.vc >= 25);
   if (others.length < 3) return null;
-  return { kind: 'choice', text: `Where did this happen: “${e.t}”?`, hint: e.tx ? `“${e.tx.slice(0, 140)}${e.tx.length > 140 ? '…' : ''}” ${e.ref || ''}` : '', options: shuffle([p.n, ...others.map((o) => o.n)]), answer: p.n, explain: `${e.t} is placed at ${p.n}.`, link: `/place/${p.id}` };
+  return { kind: 'choice', text: tx('js.quiz.q.where', { t: e.t }), hint: e.tx ? `“${e.tx.slice(0, 140)}${e.tx.length > 140 ? '…' : ''}” ${e.ref || ''}` : '', options: shuffle([p.n, ...others.map((o) => o.n)]), answer: p.n, explain: tx('js.quiz.e.where', { t: e.t, p: p.n }), link: `/place/${p.id}` };
 }
 function qOrder() {
   const picks = sample(datedEvents, 4).sort((a, b) => a.y - b.y);
   if (picks.length < 4 || picks[3].y - picks[0].y < 150 || picks.some((p, i) => i && p.y - picks[i - 1].y < 25)) return qOrder();
-  return { kind: 'order', text: 'Put these events in order, earliest first.', items: shuffle(picks.map((p) => p.t)), answer: picks.map((p) => p.t), explain: picks.map((p) => `${p.t} (${p.dt})`).join(' → ') };
+  return { kind: 'order', text: tx('js.quiz.q.order'), items: shuffle(picks.map((p) => p.t)), answer: picks.map((p) => p.t), explain: picks.map((p) => `${p.t} (${mbDate(p.dt)})`).join(' → ') };
 }
 function qLifespan() {
   const a = pickOne(exactLives); if (!a) return null;
   const real = a.d - a.b, opts = new Set([real]);
   while (opts.size < 4) { const d = Math.max(20, real + Math.round((rand() - 0.5) * 140 / 5) * 5); opts.add(d); }
-  return { kind: 'choice', text: `About how many years did ${a.n} live?`, options: shuffle([...opts].map((n) => `${n} years`)), answer: `${real} years`, explain: `${a.n}: ${fmt(a.b)} – ${fmt(a.d)}.`, link: `/person/${a.id}` };
+  return { kind: 'choice', text: tx('js.quiz.q.lifespan', { n: a.n }), options: shuffle([...opts].map((n) => tx('js.quiz.years', { n }))), answer: tx('js.quiz.years', { n: real }), explain: tx('js.quiz.e.lifespan', { n: a.n, a: fmt(a.b), b: fmt(a.d) }), link: `/person/${a.id}` };
 }
 
 function makeRound() {
@@ -85,10 +85,10 @@ function saveStats(s) { try { localStorage.setItem(statKey, JSON.stringify(s)); 
 function start() {
   const st = stats();
   const doneToday = daily && st.lastDaily === today;
-  $('quiz').innerHTML = `<p class="lead mb-muted">${daily ? `Today's round: five questions, the same for everyone on ${today}.` : 'A random round of five questions.'}</p>
-    ${st.streak ? `<p class="mb-muted">🔥 Streak: ${st.streak} day${st.streak > 1 ? 's' : ''} · best score ${st.best || 0}/5</p>` : ''}
-    ${doneToday ? `<p>You already played today's round and scored <b>${st.lastScore}/5</b>.</p>` : ''}
-    <div class="actions"><button class="mb-btn on" id="go">${doneToday ? 'Play it again' : 'Start'}</button><a class="mb-btn" href="/quiz?mode=${daily ? 'random' : 'daily'}">${daily ? 'Random round instead' : "Today's round"}</a></div>`;
+  $('quiz').innerHTML = `<p class="lead mb-muted">${daily ? tx('js.quiz.daily', { date: today }) : tx('js.quiz.random')}</p>
+    ${st.streak ? `<p class="mb-muted">${tx.n('js.quiz.streak', st.streak, { s: st.best || 0 })}</p>` : ''}
+    ${doneToday ? `<p>${tx('js.quiz.you.already.played.today')} <b>${st.lastScore}/5</b>.</p>` : ''}
+    <div class="actions"><button class="mb-btn on" id="go">${doneToday ? tx('js.quiz.again') : tx('js.quiz.start')}</button><a class="mb-btn" href="/quiz?mode=${daily ? 'random' : 'daily'}">${daily ? tx('js.quiz.random.instead') : tx('js.quiz.today')}</a></div>`;
   $('go').onclick = () => { i = 0; score = 0; results = []; show(); };
 }
 
@@ -102,7 +102,7 @@ function show() {
     $('qbody').innerHTML = `<div class="qopts" role="group" aria-labelledby="qtext">${q.options.map((o, k) => `<button class="qopt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
     $('qbody').querySelectorAll('.qopt').forEach((b) => b.onclick = () => answer(b.dataset.o === q.answer, b));
   } else {
-    $('qbody').innerHTML = `<p class="mb-muted">Click the events in the order you think they happened.</p><div class="qopts" id="qitems">${q.items.map((o) => `<button class="qopt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div><div id="qpicked" class="qpicked"></div>`;
+    $('qbody').innerHTML = `<p class="mb-muted">${tx('js.quiz.click.the.events.in')}</p><div class="qopts" id="qitems">${q.items.map((o) => `<button class="qopt" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div><div id="qpicked" class="qpicked"></div>`;
     $('qitems').querySelectorAll('.qopt').forEach((b) => b.onclick = () => {
       if (b.disabled) return; chosen.push(b.dataset.o); b.disabled = true; b.classList.add('used');
       $('qpicked').innerHTML = chosen.map((c, k) => `<span class="mb-chip">${k + 1}. ${esc(c)}</span>`).join('');
@@ -115,7 +115,7 @@ function answer(ok, btn) {
   const q = round[i];
   results[i] = ok; if (ok) score++;
   document.querySelectorAll('.qopt').forEach((b) => { b.disabled = true; if (q.kind === 'choice') { if (b.dataset.o === q.answer) b.classList.add('right'); else if (b === btn) b.classList.add('wrong'); } });
-  $('qfeed').innerHTML = `<p class="${ok ? 'good' : 'miss'}">${ok ? '✓ Correct.' : '✗ Not quite.'} ${esc(q.explain)} ${q.link ? `<a href="${q.link}">Read more →</a>` : ''}</p><button class="mb-btn on" id="next">${i + 1 < round.length ? 'Next' : 'See my score'}</button>`;
+  $('qfeed').innerHTML = `<p class="${ok ? 'good' : 'miss'}">${ok ? tx('js.quiz.correct') : tx('js.quiz.wrong')} ${esc(q.explain)} ${q.link ? `<a href="${q.link}">${tx('js.quiz.read.more')}</a>` : ''}</p><button class="mb-btn on" id="next">${i + 1 < round.length ? tx('js.quiz.next') : tx('js.quiz.score')}</button>`;
   $('next').focus();
   $('next').onclick = () => { i++; if (i < round.length) show(); else finish(); };
 }
@@ -129,10 +129,10 @@ function finish() {
   }
   st.best = Math.max(st.best || 0, score); st.played = (st.played || 0) + 1; saveStats(st);
   const grid = results.map((r) => (r ? '🟩' : '🟥')).join('');
-  const share = `MetaBible quiz ${daily ? today : ''} ${score}/5\n${grid}\n${location.origin}/quiz`;
-  $('quiz').innerHTML = `<h2>${score}/5</h2><p class="bigemoji">${grid}</p><p>${['Keep reading: there is a lot to discover.', 'A start.', 'Getting there.', 'Good.', 'Very good.', 'Perfect.'][score]}</p>
-    ${st.streak ? `<p class="mb-muted">🔥 Streak: ${st.streak} day${st.streak > 1 ? 's' : ''}</p>` : ''}
-    <div class="actions"><button class="mb-btn on" id="sh">Copy result</button><a class="mb-btn" href="/quiz?mode=random">Another round</a></div>`;
-  $('sh').onclick = async () => { try { await navigator.clipboard.writeText(share); $('sh').textContent = '✓ Copied'; } catch (e) { prompt('Copy your result', share); } };
+  const share = `${tx('js.quiz.share', { date: daily ? today : '', score })}\n${grid}\n${location.origin}/quiz`;
+  $('quiz').innerHTML = `<h2>${score}/5</h2><p class="bigemoji">${grid}</p><p>${tx('js.quiz.msg' + score)}</p>
+    ${st.streak ? `<p class="mb-muted">${tx.n('js.quiz.streak2', st.streak)}</p>` : ''}
+    <div class="actions"><button class="mb-btn on" id="sh">${tx('js.quiz.copy.result')}</button><a class="mb-btn" href="/quiz?mode=random">${tx('js.quiz.another.round')}</a></div>`;
+  $('sh').onclick = async () => { try { await navigator.clipboard.writeText(share); $('sh').textContent = tx('js.quiz.copied'); } catch (e) { prompt(tx('js.quiz.copyprompt'), share); } };
 }
 start();

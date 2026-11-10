@@ -2,19 +2,6 @@ package atlas
 
 import "strings"
 
-var eraIntros = map[string]string{
-	"primeval":   "Before there were nations there was a garden. Creation, a fall, a flood, and a tower: the first chapters of the story are told in a world with almost no map, only genealogies stretching across two thousand years.",
-	"patriarchs": "A man leaves Mesopotamia for a land he has never seen, and a family begins to grow into a people. Abraham, Isaac and Jacob wander between Haran, Canaan and Egypt, and the story acquires its first real places.",
-	"egypt":      "Joseph's family goes down to Egypt in famine and stays for centuries. Then a deliverer arrives, a sea divides, and a nation walks through the wilderness to a mountain where it receives its law.",
-	"conquest":   "Across the Jordan the land has to be taken and then lived in. Joshua's campaigns give way to the Judges: cycles of failure, rescue and rescue again, until the people ask for a king.",
-	"kingdom":    "Saul, David and Solomon: three kings in about a century. Jerusalem becomes a capital, a temple rises on Mount Moriah, and the kingdom reaches its greatest extent.",
-	"divided":    "The kingdom splits in two. Prophets such as Elijah, Isaiah and Jeremiah speak into a long decline, as Assyria and then Babylon grow stronger, until both kingdoms fall.",
-	"exile":      "Jerusalem burns and its people are carried to Babylon. Then Persia changes the map, and groups of exiles return to rebuild the city, the temple and the wall.",
-	"silence":    "Between the last prophet and the first gospel there are some four hundred years that the narrative does not tell. Empires change, and the world is being prepared for what comes next.",
-	"gospels":    "In a small province of the Roman Empire a child is born in Bethlehem. Around the Sea of Galilee, and then on a last road to Jerusalem, a ministry unfolds that the rest of the Bible looks back on.",
-	"church":     "From a room in Jerusalem the message crosses seas and borders. Peter, Paul and many others carry it to Antioch, Asia Minor, Greece and Rome, and John closes the story on the island of Patmos.",
-}
-
 type StoryPoint struct {
 	ID   string  `json:"id"`
 	Name string  `json:"n"`
@@ -70,15 +57,23 @@ func firstSentences(s string, max int) string {
 }
 
 // Story builds the chronological walk: an introduction for each era followed by its events.
-func (a *Atlas) Story() *Story {
+func (a *Atlas) Story(lang string) *Story {
 	st := &Story{}
+	eras := a.LocalEras(lang)
 	cur := ""
 	for _, e := range a.Events {
 		era := eraAt(int(e.Year))
 		if era.ID != cur {
 			cur = era.ID
-			st.Eras = append(st.Eras, StoryEra{Era: era, Intro: eraIntros[era.ID], Start: len(st.Steps)})
-			st.Steps = append(st.Steps, StoryStep{Kind: "era", Era: era.ID, Title: era.Name, Year: float64(era.From), Date: FormatYear(era.From) + " – " + FormatYear(era.To), Text: eraIntros[era.ID]})
+			var local Era
+			for _, le := range eras {
+				if le.ID == era.ID {
+					local = le
+				}
+			}
+			intro := a.tx(lang, "era."+era.ID+".intro")
+			st.Eras = append(st.Eras, StoryEra{Era: local, Intro: intro, Start: len(st.Steps)})
+			st.Steps = append(st.Steps, StoryStep{Kind: "era", Era: era.ID, Title: local.Name, Year: float64(era.From), Date: FormatYear(era.From) + " – " + FormatYear(era.To), Text: intro})
 		}
 		s := StoryStep{Kind: "event", Era: era.ID, ID: e.ID, Title: e.Title, Date: e.Date, Year: e.Year, Ref: e.Ref, VerseID: e.VerseID, Pred: e.Pred}
 

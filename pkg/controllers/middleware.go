@@ -76,6 +76,7 @@ func (g *gzResponse) close() {
 // Middleware adds what every response needs: compression for text, long-lived caching for the
 // bundled vendor files, and the request's base URL for absolute links in page metadata.
 func Middleware(next http.Handler) http.Handler {
+	next = Bundle.Middleware(next) // language detection sits inside, so it sees the final request
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		scheme := "http"
 		if r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" {

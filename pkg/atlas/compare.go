@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/almerlucke/metabible/pkg/i18n"
 )
 
 // ---------------------------------------------------------------- family graph
@@ -60,7 +62,7 @@ type Relation struct {
 }
 
 // FamilyPath finds the shortest family connection between two people.
-func (a *Atlas) FamilyPath(from, to string) *Relation {
+func (a *Atlas) FamilyPath(from, to, lang string) *Relation {
 	if from == to || a.PersonByID[from] == nil || a.PersonByID[to] == nil {
 		return nil
 	}
@@ -112,14 +114,80 @@ func (a *Atlas) FamilyPath(from, to string) *Relation {
 		}
 	}
 	A, B := a.PersonByID[from], a.PersonByID[to]
-	r.Label = relationLabel(order, ups, downs, sp, B.Gender)
-	switch {
-	case r.Label == "":
-		r.Phrase = fmt.Sprintf("%s and %s are connected through %d steps of family.", A.Name, B.Name, len(r.Steps)-1)
-	default:
-		r.Phrase = fmt.Sprintf("%s is %s's %s.", B.Name, A.Name, r.Label)
+	r.Label = a.relLabel(lang, order, ups, downs, sp, B.Gender)
+	if r.Label == "" {
+		r.Phrase = a.tx(lang, "rel.phrase.far", "a", A.Name, "b", B.Name, "n", len(r.Steps)-1)
+	} else {
+		r.Phrase = a.tx(lang, "rel.phrase", "a", A.Name, "b", B.Name, "label", r.Label)
 	}
 	return r
+}
+
+// relLabel names what B is to A. English keeps the original wording; other languages use the rel.* keys.
+func (a *Atlas) relLabel(lang, order string, ups, downs, sp int, gender string) string {
+	if lang == i18n.Default || a.tr == nil {
+		return relationLabel(order, ups, downs, sp, gender)
+	}
+	pick := func(base string) string { // base like "father|mother|parent"
+		parts := strings.Split(base, "|")
+		switch gender {
+		case "Male":
+			return a.tx(lang, "rel."+parts[0])
+		case "Female":
+			return a.tx(lang, "rel."+parts[1])
+		}
+		return a.tx(lang, "rel."+parts[2])
+	}
+	anc := []string{"", "father|mother|parent", "grandfather|grandmother|grandparent", "greatgrandfather|greatgrandmother|greatgrandparent", "great2grandfather|great2grandmother|great2grandparent"}
+	desc := []string{"", "son|daughter|child", "grandson|granddaughter|grandchild", "greatgrandson|greatgranddaughter|greatgrandchild", "great2grandson|great2granddaughter|great2grandchild"}
+	switch {
+	case sp == 0 && downs == 0:
+		if ups < len(anc) {
+			return pick(anc[ups])
+		}
+		return a.tx(lang, "rel.ancestor.far", "n", ups)
+	case sp == 0 && ups == 0:
+		if downs < len(desc) {
+			return pick(desc[downs])
+		}
+		return a.tx(lang, "rel.descendant.far", "n", downs)
+	case sp == 0 && ups == 1 && downs == 1:
+		return pick("brother|sister|sibling")
+	case sp == 0 && ups == 1 && downs >= 2:
+		switch downs {
+		case 2:
+			return pick("nephew|niece|nephewniece")
+		case 3:
+			return pick("greatnephew|greatniece|greatnephewniece")
+		}
+		return a.tx(lang, "rel.cousin.far", "n", downs)
+	case sp == 0 && downs == 1 && ups >= 2:
+		switch ups {
+		case 2:
+			return pick("uncle|aunt|uncleaunt")
+		case 3:
+			return pick("greatuncle|greataunt|greatuncleaunt")
+		}
+		return a.tx(lang, "rel.cousin.far", "n", ups)
+	case sp == 0 && ups >= 2 && downs >= 2:
+		deg := min(ups, downs) - 1
+		var l string
+		switch deg {
+		case 1:
+			l = a.tx(lang, "rel.cousin.1")
+		case 2:
+			l = a.tx(lang, "rel.cousin.2")
+		default:
+			l = a.tx(lang, "rel.cousin.far", "n", deg)
+		}
+		if k := max(ups, downs) - min(ups, downs); k > 0 {
+			l = a.tx(lang, "rel.removed", "label", l, "k", k)
+		}
+		return l
+	case sp == 1 && ups+downs == 0:
+		return pick("husband|wife|spouse")
+	}
+	return ""
 }
 
 func greatPrefix(n int) string {
@@ -316,14 +384,7 @@ func (a *Atlas) topByCount(ids []string, limit int) []string {
 	return u
 }
 
-func fmtSpan(s CmpSide) string {
-	if !s.HasYears {
-		return "an unknown time"
-	}
-	return fmt.Sprintf("%s – %s", FormatYear(s.From), FormatYear(s.To))
-}
-
-func (a *Atlas) Compare(kind, idA, idB string) *CompareResult {
+func (a *Atlas) Compare(kind, idA, idB, lang string) *CompareResult {
 	r := &CompareResult{Kind: kind}
 	for _, b := range a.Books {
 		r.BookNames = append(r.BookNames, b.Name)
@@ -366,7 +427,7 @@ func (a *Atlas) Compare(kind, idA, idB string) *CompareResult {
 		pla, plb := placesOf(pa), placesOf(pb)
 		sharedPl := intersect(pla, plb)
 		r.SharedPlaces = a.placeRefs(a.topByCount(sharedPl, 8))
-		r.Relation = a.FamilyPath(idA, idB)
+		r.Relation = a.FamilyPath(idA, idB, lang)
 		// distance between where each is mostly named
 		ca, cb := a.centroid(a.topByCount(pla, 6)), a.centroid(a.topByCount(plb, 6))
 		if ca != nil && cb != nil {
@@ -383,7 +444,7 @@ func (a *Atlas) Compare(kind, idA, idB string) *CompareResult {
 				r.QuoteVerse, r.QuoteText, r.QuoteLabel = best.ID, best.Text, a.verseLabel(best)
 			}
 		}
-		r.Story = a.personStory(r, pa, pb)
+		r.Story = a.personStory(lang, r, pa, pb)
 	case "place":
 		pa, pb := a.PlaceByID[idA], a.PlaceByID[idB]
 		if pa == nil || pb == nil {
@@ -421,7 +482,7 @@ func (a *Atlas) Compare(kind, idA, idB string) *CompareResult {
 		if pa.HasGeo && pb.HasGeo {
 			r.DistanceKm = int(haversine(pa.Lat, pa.Lng, pb.Lat, pb.Lng))
 		}
-		r.Story = a.placeStory(r, pa, pb)
+		r.Story = a.placeStory(lang, r, pa, pb)
 	default:
 		return nil
 	}
@@ -455,34 +516,45 @@ func (a *Atlas) centroid(placeIDs []string) *[2]float64 {
 	return &[2]float64{la / float64(n), ln / float64(n)}
 }
 
-func overlapSentence(an, bn string, as, bs CmpSide) string {
+func (a *Atlas) fmtSpan(lang string, s CmpSide) string {
+	if !s.HasYears {
+		return a.tx(lang, "compare.unknown.time")
+	}
+	return fmt.Sprintf("%s – %s", a.formatYear(lang, s.From), a.formatYear(lang, s.To))
+}
+
+func (a *Atlas) overlapSentence(lang, an, bn string, as, bs CmpSide, place bool) string {
 	if !as.HasYears || !bs.HasYears {
 		return ""
 	}
 	lo, hi := max(as.From, bs.From), min(as.To, bs.To)
 	if hi > lo {
-		return fmt.Sprintf("%s (%s) and %s (%s) were alive at the same time for about %d years.", an, fmtSpan(as), bn, fmtSpan(bs), hi-lo)
+		key := "st.overlap"
+		if place {
+			key = "st.overlap.place"
+		}
+		return a.tx(lang, key, "a", an, "sa", a.fmtSpan(lang, as), "b", bn, "sb", a.fmtSpan(lang, bs), "n", hi-lo)
 	}
 	gap := lo - hi
 	first, second, f, s := an, bn, as, bs
 	if bs.To < as.From {
 		first, second, f, s = bn, an, bs, as
 	}
-	return fmt.Sprintf("%s (%s) lived about %d years before %s (%s).", first, fmtSpan(f), gap, second, fmtSpan(s))
+	return a.tx(lang, "st.before", "first", first, "sf", a.fmtSpan(lang, f), "second", second, "ss", a.fmtSpan(lang, s), "n", gap)
 }
 
-func (a *Atlas) personStory(r *CompareResult, pa, pb *Person) []string {
+func (a *Atlas) personStory(lang string, r *CompareResult, pa, pb *Person) []string {
 	var out []string
-	if s := overlapSentence(pa.Name, pb.Name, r.A, r.B); s != "" {
+	if s := a.overlapSentence(lang, pa.Name, pb.Name, r.A, r.B, false); s != "" {
 		out = append(out, s)
 	}
 	if r.Relation != nil {
-		out = append(out, r.Relation.Phrase+fmt.Sprintf(" The connection runs through %d steps of family.", len(r.Relation.Steps)-1))
+		out = append(out, r.Relation.Phrase+" "+a.tx(lang, "rel.runs", "n", len(r.Relation.Steps)-1))
 	} else {
-		out = append(out, fmt.Sprintf("The text records no family connection between %s and %s.", pa.Name, pb.Name))
+		out = append(out, a.tx(lang, "st.norelation", "a", pa.Name, "b", pb.Name))
 	}
 	if r.SharedCount > 0 {
-		out = append(out, fmt.Sprintf("They are named together in %s.", plural2(r.SharedCount, "verse", "verses")))
+		out = append(out, a.txn(lang, "st.together", r.SharedCount))
 	}
 	if len(r.SharedEvents) > 0 {
 		var t []string
@@ -492,7 +564,7 @@ func (a *Atlas) personStory(r *CompareResult, pa, pb *Person) []string {
 			}
 			t = append(t, e.Title)
 		}
-		out = append(out, "They take part in the same events: "+strings.Join(t, "; ")+".")
+		out = append(out, a.tx(lang, "st.events", "list", strings.Join(t, "; ")))
 	}
 	if len(r.SharedPlaces) > 0 {
 		var t []string
@@ -502,24 +574,24 @@ func (a *Atlas) personStory(r *CompareResult, pa, pb *Person) []string {
 			}
 			t = append(t, p.Name)
 		}
-		out = append(out, "Their stories meet at "+joinAnd(t)+".")
+		out = append(out, a.tx(lang, "st.placesmeet", "list", a.joinAnd(lang, t)))
 	}
 	if r.DistanceKm > 0 {
-		out = append(out, fmt.Sprintf("The places they are most associated with lie about %d km apart.", r.DistanceKm))
+		out = append(out, a.tx(lang, "st.distance", "km", r.DistanceKm))
 	}
 	return out
 }
 
-func (a *Atlas) placeStory(r *CompareResult, pa, pb *Place) []string {
+func (a *Atlas) placeStory(lang string, r *CompareResult, pa, pb *Place) []string {
 	var out []string
 	if r.DistanceKm > 0 {
-		out = append(out, fmt.Sprintf("%s and %s are about %d km apart as the crow flies; on foot at roughly 30 km a day that is %d days' journey.", pa.Name, pb.Name, r.DistanceKm, max(1, r.DistanceKm*13/10/30)))
+		out = append(out, a.tx(lang, "pst.distance", "a", pa.Name, "b", pb.Name, "km", r.DistanceKm, "d", max(1, r.DistanceKm*13/10/30)))
 	}
-	if s := overlapSentence(pa.Name, pb.Name, r.A, r.B); s != "" {
-		out = append(out, strings.Replace(s, "were alive at the same time", "are named in the text over the same centuries", 1))
+	if s := a.overlapSentence(lang, pa.Name, pb.Name, r.A, r.B, true); s != "" {
+		out = append(out, s)
 	}
 	if r.SharedCount > 0 {
-		out = append(out, fmt.Sprintf("They are named together in %s.", plural2(r.SharedCount, "verse", "verses")))
+		out = append(out, a.txn(lang, "st.together", r.SharedCount))
 	}
 	if len(r.SharedPeople) > 0 {
 		var t []string
@@ -529,27 +601,10 @@ func (a *Atlas) placeStory(r *CompareResult, pa, pb *Place) []string {
 			}
 			t = append(t, p.Name)
 		}
-		out = append(out, "People who appear at both: "+joinAnd(t)+".")
+		out = append(out, a.tx(lang, "pst.people", "list", a.joinAnd(lang, t)))
 	}
 	if len(r.SharedEvents) > 0 {
-		out = append(out, fmt.Sprintf("Both are settings for %s.", plural2(len(r.SharedEvents), "shared event", "shared events")))
+		out = append(out, a.txn(lang, "pst.events", len(r.SharedEvents)))
 	}
 	return out
-}
-
-func plural2(n int, one, many string) string {
-	if n == 1 {
-		return fmt.Sprintf("%d %s", n, one)
-	}
-	return fmt.Sprintf("%d %s", n, many)
-}
-
-func joinAnd(s []string) string {
-	switch len(s) {
-	case 0:
-		return ""
-	case 1:
-		return s[0]
-	}
-	return strings.Join(s[:len(s)-1], ", ") + " and " + s[len(s)-1]
 }

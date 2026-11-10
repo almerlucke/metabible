@@ -6,16 +6,16 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { copyLink } from './share.js';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtYear = (y) => (y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`);
+const fmtYear = (y) => window.mbYear(y);
 
 const ERAS = [
-  ['Primeval', -4100, -2100, '#9575cd'], ['Patriarchs', -2100, -1700, '#26a69a'], ['Exodus', -1700, -1400, '#ef6c00'],
-  ['Judges', -1400, -1050, '#e5533d'], ['Kingdom', -1050, -930, '#f5c451'], ['Divided Kingdom', -930, -586, '#7986cb'],
-  ['Exile', -586, -400, '#a1887f'], ['Between', -400, -5, '#78909c'], ['Jesus', -5, 33, '#ffe082'], ['Church', 33, 100, '#4fc3f7'],
+  [tx('js.era.short.primeval'), -4100, -2100, '#9575cd'], [tx('js.era.short.patriarchs'), -2100, -1700, '#26a69a'], [tx('js.era.short.exodus'), -1700, -1400, '#ef6c00'],
+  [tx('js.era.short.judges'), -1400, -1050, '#e5533d'], [tx('js.era.short.kingdom'), -1050, -930, '#f5c451'], [tx('js.era.short.divided'), -930, -586, '#7986cb'],
+  [tx('js.era.short.exile'), -586, -400, '#a1887f'], [tx('js.era.short.between'), -400, -5, '#78909c'], [tx('js.era.short.jesus'), -5, 33, '#ffe082'], [tx('js.era.short.church'), 33, 100, '#4fc3f7'],
 ];
 const eraColor = (y) => (ERAS.find((e) => y >= e[1] && y < e[2]) || ERAS[ERAS.length - 1])[3];
 
-$('cpanel').innerHTML = '<div class="mb-tag">loading the heavens…</div>';
+$('cpanel').innerHTML = '<div class="mb-tag">' + tx('js.cosmos.loading.the.heavens') + '</div>';
 const c = await fetch('/api/atlas/cosmos').then((r) => r.json());
 const N = c.ids.length;
 
@@ -156,9 +156,9 @@ function select(i, fly) {
   const nb = adj[i].map(([j]) => j).sort((a, b) => c.w[b] - c.w[a]);
   const url = (c.t[i] === 0 ? '/person/' : '/place/') + c.ids[i];
   $('cinfo').style.display = 'block';
-  $('cinfo').innerHTML = `<div class="mb-tag">${c.t[i] === 0 ? (c.g[i] ? esc(c.groups[c.g[i] - 1]) : 'Person') : 'Place'} · ${fmtYear(c.yr[i])}</div>
+  $('cinfo').innerHTML = `<div class="mb-tag">${c.t[i] === 0 ? (c.g[i] ? esc(c.groups[c.g[i] - 1]) : tx('js.person')) : tx('js.place')} · ${fmtYear(c.yr[i])}</div>
     <h3><a href="${url}">${esc(c.names[i])}</a></h3>
-    <div class="links"><a href="${url}">Open page</a>${c.t[i] === 0 ? ` · <a href="/tree/${c.ids[i]}">Family</a> · <a href="/journeys?person=${c.ids[i]}">Journey</a>` : ` · <a href="/atlas?place=${c.ids[i]}">On the atlas</a>`}</div>
+    <div class="links"><a href="${url}">${tx('js.cosmos.open.page')}</a>${c.t[i] === 0 ? ` · <a href="/tree/${c.ids[i]}">${tx('js.cosmos.family')}</a> · <a href="/journeys?person=${c.ids[i]}">${tx('js.cosmos.journey')}</a>` : ` · <a href="/atlas?place=${c.ids[i]}">${tx('js.cosmos.on.the.atlas')}</a>`}</div>
     <div class="mb-tag" style="margin:.7rem 0 .3rem">${nb.length} connections</div>
     <div>${nb.slice(0, 28).map((j) => `<a href="#" class="mb-chip nb" data-i="${j}">${esc(c.names[j])}</a>`).join('')}</div>`;
   $('cinfo').querySelectorAll('.nb').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); select(+a.dataset.i, true); }));
@@ -175,16 +175,16 @@ function flyTo(i) {
 
 // ---------------------------------------------------------------- panel
 const filt = { people: true, places: true, y0: -4100, y1: 100 };
-$('cpanel').innerHTML = `<h3>Cosmos</h3>
-  <div class="mb-muted" style="font-size:.78rem;margin-bottom:.6rem">${N.toLocaleString()} stars · ${(E.length / 3).toLocaleString()} links. Drag to orbit, scroll to zoom, click a star.</div>
-  <input id="csearch" class="mb-input" placeholder="Find a star…" autocomplete="off"><div id="cres"></div>
-  <div class="row" style="margin-top:.6rem"><label>Colour</label><select id="c-color" class="mb-input"><option value="era">By era</option><option value="tribe">By tribe</option><option value="type">People / places</option></select></div>
-  <label class="chk"><input type="checkbox" id="c-people" checked> People</label>
-  <label class="chk"><input type="checkbox" id="c-places" checked> Places</label>
-  <label class="chk"><input type="checkbox" id="c-web" ${weak ? "" : "checked"}> Connections</label>
-  <label class="chk"><input type="checkbox" id="c-rot" ${weak ? "" : "checked"}> Slow rotation</label>
-  <div style="margin-top:.5rem" class="mb-muted">Time window: <b id="c-range">4100 BC – AD 100</b></div>
-  <button class="mb-btn" id="cshare" style="width:100%;margin:.6rem 0">🔗 Copy link</button>
+$('cpanel').innerHTML = `<h3>${tx('js.cosmos.cosmos')}</h3>
+  <div class="mb-muted" style="font-size:.78rem;margin-bottom:.6rem">${tx('js.cosmos.hint', { n: N.toLocaleString(mbLang), l: (E.length / 3).toLocaleString(mbLang) })}</div>
+  <input id="csearch" class="mb-input" placeholder="${tx('js.cosmos.find.a.star')}" autocomplete="off"><div id="cres"></div>
+  <div class="row" style="margin-top:.6rem"><label>${tx('js.cosmos.colour')}</label><select id="c-color" class="mb-input"><option value="era">${tx('js.cosmos.by.era')}</option><option value="tribe">${tx('js.cosmos.by.tribe')}</option><option value="type">${tx('js.cosmos.people.places')}</option></select></div>
+  <label class="chk"><input type="checkbox" id="c-people" checked> ${tx('js.canon.people')}</label>
+  <label class="chk"><input type="checkbox" id="c-places" checked> ${tx('js.canon.places')}</label>
+  <label class="chk"><input type="checkbox" id="c-web" ${weak ? "" : "checked"}> ${tx('js.cosmos.connections')}</label>
+  <label class="chk"><input type="checkbox" id="c-rot" ${weak ? "" : "checked"}> ${tx('js.cosmos.slow.rotation')}</label>
+  <div style="margin-top:.5rem" class="mb-muted">${tx('js.cosmos.time.window')} <b id="c-range">${tx('js.cosmos.4100.bc.ad.100')}</b></div>
+  <button class="mb-btn" id="cshare" style="width:100%;margin:.6rem 0">${tx('js.compare.copy.link')}</button>
   <input type="range" id="c-y0" min="-4100" max="100" value="-4100" step="10" style="width:100%"><input type="range" id="c-y1" min="-4100" max="100" value="100" step="10" style="width:100%">`;
 $('cshare').onclick = () => copyLink(location.href, $('cshare'));
 $('c-color').onchange = (e) => { colorMode = e.target.value; recolor(); };

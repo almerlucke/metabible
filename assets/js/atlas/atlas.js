@@ -128,7 +128,7 @@ map.on('load', () => {
   map.on('click', 'place-dots', (e) => {
     const f = e.features[0].properties;
     new maplibregl.Popup({ offset: 10 }).setLngLat(e.features[0].geometry.coordinates)
-      .setHTML(`<b>${esc(f.n)}</b><br><span class="mb-muted">${esc(f.k || 'place')} · ${f.vc} verses</span><br><a href="/place/${f.id}">Open place →</a>`).addTo(map);
+      .setHTML(`<b>${esc(f.n)}</b><br><span class="mb-muted">${esc(mbKind(f.k) || tx('js.place'))} · ${tx.n('js.verses', f.vc)}</span><br><a href="/place/${f.id}">${tx('js.atlas.open.place')}</a>`).addTo(map);
   });
   map.on('click', 'event-dots', (e) => {
     const f = e.features[0].properties; const ev = evById.get(f.eid);
@@ -149,7 +149,7 @@ let ready = false;
 function showEventPopup(ev, lngLat) {
   const people = (ev.pe || []).slice(0, 6).map((id) => `<a class="mb-chip" href="/person/${id}">${esc(personName.get(id) || '…')}</a>`).join('');
   new maplibregl.Popup({ offset: 12, maxWidth: '320px' }).setLngLat(lngLat).setHTML(
-    `<div class="mb-tag">${esc(ev.dt)}</div><b>${esc(ev.t)}</b>` +
+    `<div class="mb-tag">${esc(mbDate(ev.dt))}</div><b>${esc(ev.t)}</b>` +
     (ev.tx ? `<div class="mb-verse" style="font-size:.85rem;margin:.35rem 0">“${esc(ev.tx)}”</div>` : '') +
     (ev.vid ? `<a href="/verse/${ev.vid}">${esc(ev.ref)} →</a><br>` : '') + people).addTo(map);
 }
@@ -157,17 +157,17 @@ function showEventPopup(ev, lngLat) {
 // ---------------------------------------------------------------- UI chrome
 $('yearbox').innerHTML = '<div class="yr"></div><div class="era"></div><div class="cnt mb-muted"></div>';
 $('layers').innerHTML = `
-  <h3>Layers</h3>
-  <div class="row"><label>Map</label><select id="bm" class="mb-input">${Object.entries(BASEMAPS).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join('')}</select></div>
-  <label class="chk"><input type="checkbox" id="t-terrain" checked> 3D terrain</label>
-  <label class="chk"><input type="checkbox" id="t-chains" checked> Cause &amp; effect arcs</label>
-  <label class="chk"><input type="checkbox" id="t-events" checked> Event rings</label>
-  <label class="chk"><input type="checkbox" id="t-follow" checked> Auto-camera</label>
-  <div class="row" style="margin-top:.5rem"><input id="psearch" class="mb-input" placeholder="Follow a person…" autocomplete="off"></div>
+  <h3>${tx('js.atlas.layers')}</h3>
+  <div class="row"><label>${tx('js.atlas.map')}</label><select id="bm" class="mb-input">${Object.entries(BASEMAPS).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join('')}</select></div>
+  <label class="chk"><input type="checkbox" id="t-terrain" checked> ${tx('js.atlas.3d.terrain')}</label>
+  <label class="chk"><input type="checkbox" id="t-chains" checked> ${tx('js.atlas.cause.effect.arcs')}</label>
+  <label class="chk"><input type="checkbox" id="t-events" checked> ${tx('js.atlas.event.rings')}</label>
+  <label class="chk"><input type="checkbox" id="t-follow" checked> ${tx('js.atlas.auto.camera')}</label>
+  <div class="row" style="margin-top:.5rem"><input id="psearch" class="mb-input" placeholder="${tx('js.atlas.follow.a.person')}" autocomplete="off"></div>
   <div id="psres"></div><div id="pcur"></div>
-  <button class="mb-btn" id="ashare" style="margin-top:.6rem;width:100%">🔗 Copy link to this view</button>`;
+  <button class="mb-btn" id="ashare" style="margin-top:.6rem;width:100%">${tx('js.atlas.copy.link.to.this')}</button>`;
 $('timeline').innerHTML = `
-  <button class="mb-btn icon" id="play" title="Play / pause (space)">▶</button>
+  <button class="mb-btn icon" id="play" title="${tx('js.atlas.play.pause.space')}">▶</button>
   <div class="speeds">${[0.5, 1, 2, 4].map((x) => `<button class="mb-btn sp${x === 1 ? ' on' : ''}" data-s="${x}">${x}×</button>`).join('')}</div>
   <div class="tl-wrap"><canvas id="tl"></canvas><div id="tltip"></div></div>`;
 function syncLayers() { $('t-follow').checked = follow; }
@@ -181,7 +181,7 @@ function viewUrl() {
   return location.pathname + '?' + q.toString();
 }
 const syncUrl = debounce(() => history.replaceState(null, '', viewUrl()), 400);
-$('ashare').onclick = () => copyLink(location.origin + viewUrl(), $('ashare'), '🔗 Copy link to this view');
+$('ashare').onclick = () => copyLink(location.origin + viewUrl(), $('ashare'), tx('js.atlas.copy.link.to.this'));
 
 $('bm').onchange = (e) => setBasemap(map, e.target.value);
 $('t-terrain').onchange = (e) => setTerrain(map, e.target.checked);
@@ -227,7 +227,7 @@ function drawTl() {
   for (const e of events) { const x = Math.round(yearToS(e.y) * tlW) + .5; c.moveTo(x, bandY + bandH + 3); c.lineTo(x, bandY + bandH + (e.pl.length ? 14 : 9)); }
   c.stroke();
   c.fillStyle = 'rgba(236,232,220,.6)'; c.font = '10px Inter, sans-serif'; c.textBaseline = 'alphabetic';
-  for (let y = -4000; y <= 100; y += y < -1000 ? 1000 : 500) { const x = yearToS(y) * tlW; c.fillText(y === 0 ? '1' : fmtYear(y).replace(' BC', 'BC').replace(' AD', 'AD'), Math.min(tlW - 30, Math.max(0, x - 8)), tlH - 3); }
+  for (let y = -4000; y <= 100; y += y < -1000 ? 1000 : 500) { const x = yearToS(y) * tlW; c.fillText(y === 0 ? '1' : fmtYear(y), Math.min(tlW - 30, Math.max(0, x - 8)), tlH - 3); }
   const px = s * tlW;
   c.strokeStyle = '#ffe08a'; c.lineWidth = 2; c.beginPath(); c.moveTo(px, 4); c.lineTo(px, tlH - 14); c.stroke();
   c.fillStyle = '#ffe08a'; c.beginPath(); c.arc(px, 6, 5, 0, 7); c.fill();
@@ -248,13 +248,13 @@ addEventListener('resize', sizeTl);
 function renderFeed(idx) {
   const items = [];
   for (let i = idx; i >= 0 && items.length < 6; i--) items.push(events[i]);
-  $('feed').innerHTML = `<div class="mb-tag" style="margin-bottom:.5rem">Unfolding events</div>` + (items.length ? items.map((e, k) => {
+  $('feed').innerHTML = `<div class="mb-tag" style="margin-bottom:.5rem">${tx('js.atlas.unfolding.events')}</div>` + (items.length ? items.map((e, k) => {
     const pl = e.pl.slice(0, 3).map((id) => placeById.get(id)).filter(Boolean).map((p) => `<a class="mb-chip" href="/place/${p.id}">📍 ${esc(p.n)}</a>`).join('');
     const pe = (e.pe || []).slice(0, 4).map((id) => `<a class="mb-chip" href="/person/${id}">${esc(personName.get(id) || '…')}</a>`).join('');
-    return `<article class="ev${k === 0 ? ' new' : ''}" data-id="${e.id}"><div class="mb-tag">${esc(e.dt)}</div><div class="t">${esc(e.t)}</div>` +
+    return `<article class="ev${k === 0 ? ' new' : ''}" data-id="${e.id}"><div class="mb-tag">${esc(mbDate(e.dt))}</div><div class="t">${esc(e.t)}</div>` +
       (e.tx ? `<div class="mb-verse">“${esc(e.tx.length > 160 ? e.tx.slice(0, 160) + '…' : e.tx)}”</div>` : '') +
       (e.vid ? `<a class="ref" href="/verse/${e.vid}">${esc(e.ref)}</a>` : '') + `<div>${pl}${pe}</div></article>`;
-  }).join('') : '<div class="mb-muted">In the beginning…</div>');
+  }).join('') : '<div class="mb-muted">' + tx('js.atlas.in.the.beginning') + '</div>');
   $('feed').querySelectorAll('article.ev').forEach((a) => a.addEventListener('click', (ev) => {
     if (ev.target.closest('a')) return;
     const e = evById.get(a.dataset.id); if (e) { setPlaying(false); flyToEvent(e, true); }
@@ -299,7 +299,7 @@ async function followPerson(id) {
   map.getSource('route').setData({ type: 'FeatureCollection', features: segs });
   map.setFilter('route', ['<=', ['get', 'y'], year]);
   map.getSource('routepts').setData({ type: 'FeatureCollection', features: stops.map((x) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [x.lng, x.lat] }, properties: { y: x.y, n: x.n } })) });
-  $('pcur').innerHTML = `<div class="mb-chip" style="color:#7df9ff;border-color:#7df9ff">Following ${esc(j.title)} · ${stops.length} stops <a href="#" id="pclear">✕</a></div> <a class="mb-chip" href="/journeys?person=${id}">Open journey →</a>`;
+  $('pcur').innerHTML = `<div class="mb-chip" style="color:#7df9ff;border-color:#7df9ff">${tx('js.atlas.following', { name: esc(j.title), n: stops.length })} <a href="#" id="pclear">✕</a></div> <a class="mb-chip" href="/journeys?person=${id}">${tx('js.atlas.open.journey')}</a>`;
   $('pclear').onclick = (e) => { e.preventDefault(); personInfo = null; followedId = null; syncUrl(); $('pcur').innerHTML = ''; map.getSource('route').setData(empty); map.getSource('routepts').setData(empty); drawTl(); };
   if (p) { setS(yearToS(Math.max(T0, p.y0))); }
   if (stops.length) map.fitBounds(stops.reduce((b, x) => b.extend([x.lng, x.lat]), new maplibregl.LngLatBounds([stops[0].lng, stops[0].lat], [stops[0].lng, stops[0].lat])), { padding: 120, maxZoom: 7, pitch: 50, duration: 2200 });
@@ -315,7 +315,7 @@ function applyYear(force) {
   yb.querySelector('.yr').textContent = fmtYear(year);
   const era = yb.querySelector('.era'); era.textContent = e.n; era.style.color = e.c;
   const idx = latestEventIdx(year);
-  yb.querySelector('.cnt').textContent = `${idx + 1} of ${events.length} events · ${placesSoFar(year)} places`;
+  yb.querySelector('.cnt').textContent = tx('js.atlas.counts', { i: idx + 1, n: events.length, p: placesSoFar(year) });
   if (ready) {
     map.setFilter('place-dots', ['<=', ['get', 'y0'], year]);
     map.setFilter('place-ghost', ['>', ['get', 'y0'], year]);

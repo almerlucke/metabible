@@ -66,13 +66,30 @@ where it stopped. If the file is missing the site simply has no photos.
 Press **P** for a full-screen presentation mode (Esc leaves it), and **Ctrl-K** (or `/`) anywhere to search people, places, events, books and verse references
 (`John 3:16`). Hovering a link to a person, place, verse, book or chapter shows a peek card.
 
+## Languages
+
+The interface is available in English and Dutch, switched with the EN/NL links in the top bar (the choice is
+remembered in a cookie; the browser's language is used the first time).
+
+- All text lives in `pkg/i18n/locales/<code>.json`, flat `"dotted.key": "text"` files embedded in the binary.
+  English is the source and the fallback, so an unfinished language still works.
+- `{placeholders}` are filled in by name; counted texts use `key.one` / `key.other`.
+  Keys starting with `js.` are also sent to the browser (`/i18n/<code>.js`), where `tx('js.key', {…})` reads them.
+- Sentences the server writes itself (relationship stories, era introductions, journey notes, theme names,
+  hover cards, search results) use keys too, so they follow the language.
+- **Add a language:** copy `en.json` to `<code>.json`, set `_name`, translate the values, and add nothing else.
+  `go test ./pkg/i18n` lists any missing keys and checks the placeholders match.
+- Still English everywhere: the Bible text itself (King James Version), the dictionary descriptions of people
+  and places (Easton), Bible book names and people/place names, and image titles. Translating those is separate
+  work (a Dutch Bible text and a name table).
+
 ## Code map
 
 - `pkg/atlas` loads the JSON and builds the indexes, the dossier/browse view models and the
   JSON API under `/api/atlas/*` (`world`, `people`, `journeys`, `journey/{id}`, `cosmos`, `canon`,
   `word`, `search`, `peek/{kind}/{id}`, `story`, `migration`, `compare`, `relation`, `themes`, `theme/{id}`,
   `progress-index`, `validate`).
-- `pkg/controllers/atlas.go` registers every page and API route.
+- `pkg/controllers/atlas.go` registers every page and API route; `pkg/i18n` holds the translations.
 - `pkg/pages/*.templ` are the page templates (`atlas.templ` shell and immersive pages,
   `dossier.templ`, `browse.templ`).
 - `assets/js/atlas/*.js` are one ES module per page; `assets/js/site/site.js` is the shared

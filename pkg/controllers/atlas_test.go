@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"unicode/utf8"
 
 	"github.com/almerlucke/metabible/pkg/atlas"
 )
@@ -32,6 +33,9 @@ func TestRoutes(t *testing.T) {
 		h.ServeHTTP(rec, httptest.NewRequest("GET", p, nil))
 		if rec.Code != 200 {
 			t.Errorf("GET %s = %d", p, rec.Code)
+		}
+		if ct := rec.Header().Get("Content-Type"); (strings.HasPrefix(ct, "text/") || strings.HasPrefix(ct, "application/json")) && !utf8.Valid(rec.Body.Bytes()) {
+			t.Errorf("GET %s is not valid UTF-8", p)
 		}
 	}
 	for _, p := range []string{"/person/nope", "/place/nope", "/event/nope", "/verse/nope", "/chapter/nope", "/book/nope"} {
@@ -85,5 +89,54 @@ func TestGzipAndOG(t *testing.T) {
 	h.ServeHTTP(png, httptest.NewRequest("GET", "/og.png?t=Hi", nil))
 	if png.Header().Get("Content-Type") != "image/png" || png.Body.Len() < 1000 {
 		t.Error("og image")
+	}
+}
+
+func TestLanguageSwitch(t *testing.T) {
+	a, err := atlas.Load("../../data/json", "../../data/journeys.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	mux := http.NewServeMux()
+	MountAtlas(mux, a)
+	h := Middleware(mux)
+
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("GET", "/books?x=1&lang=nl", nil))
+	if rec.Code != 303 || rec.Header().Get("Location") != "/books?x=1" {
+		t.Fatalf("switch: %d %s", rec.Code, rec.Header().Get("Location"))
+	}
+	var cookie *http.Cookie
+	for _, c := range rec.Result().Cookies() {
+		if c.Name == "mb_lang" {
+			cookie = c
+		}
+	}
+	if cookie == nil || cookie.Value != "nl" {
+		t.Fatal("language cookie not set")
+	}
+	req := httptest.NewRequest("GET", "/books", nil)
+	req.AddCookie(cookie)
+	page := httptest.NewRecorder()
+	h.ServeHTTP(page, req)
+	body := page.Body.String()
+	for _, want := range []string{`<html lang="nl"`, "Boeken", "Oude Testament"} {
+		if !strings.Contains(body, want) {
+			t.Errorf("dutch page lacks %q", want)
+		}
+	}
+	// the browser's translation file
+	js := httptest.NewRecorder()
+	h.ServeHTTP(js, httptest.NewRequest("GET", "/i18n/nl.js", nil))
+	if !strings.Contains(js.Body.String(), `window.MB_LANG="nl"`) || !strings.Contains(js.Body.String(), "v.Chr.") {
+		t.Errorf("i18n script: %.120s", js.Body.String())
+	}
+	// APIs follow the cookie too
+	api := httptest.NewRequest("GET", "/api/atlas/themes", nil)
+	api.AddCookie(cookie)
+	ar := httptest.NewRecorder()
+	h.ServeHTTP(ar, api)
+	if !strings.Contains(ar.Body.String(), "Verbond") {
+		t.Errorf("themes api not in dutch: %.100s", ar.Body.String())
 	}
 }

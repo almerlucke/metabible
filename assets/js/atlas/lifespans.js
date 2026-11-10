@@ -1,7 +1,7 @@
 // Who was alive? A zoomable timeline of the Bible's most prominent people, with a year cursor.
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtYear = (y) => { y = Math.round(y); return y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`; };
+const fmtYear = (y) => window.mbYear(y);
 const qs = new URLSearchParams(location.search);
 import { copyLink, setQuery } from './share.js';
 
@@ -37,7 +37,7 @@ let lanes = packLanes(shown);
 
 $('lifespans').innerHTML = `<canvas id="lc"></canvas>
   <div class="mb-panel" id="lpanel"></div>
-  <button class="mb-btn" id="lmin" type="button" aria-label="Hide the panel" title="Hide or show the panel">‹</button>
+  <button class="mb-btn" id="lmin" type="button" aria-label="${tx('js.lifespans.hide.the.panel')}" title="${tx('js.lifespans.hide.or.show.the')}">‹</button>
   <div class="ctip" id="ltip"></div>`;
 const cv = $('lc'), ctx = cv.getContext('2d');
 // the chart runs a little past AD 100 so people at the very end have room, and labels can never be cut off
@@ -101,17 +101,17 @@ function panel() {
   const aliveNow = all.filter(alive).sort((a, b) => b.vc - a.vc);
   const era = eras.find((e) => year >= e.from && year < e.to) || eras[eras.length - 1];
   let html = `<div class="mb-tag" style="color:${era.c}">${esc(era.n)}</div><div class="yr">${fmtYear(year)}</div>
-    <div class="mb-muted" style="font-size:.8rem">${aliveNow.length} people in the text · ${aliveNow.filter((x) => x.exact).length} with known lifespans</div>`;
+    <div class="mb-muted" style="font-size:.8rem">${tx('js.lifespans.summary', { n: aliveNow.length, k: aliveNow.filter((x) => x.exact).length })}</div>`;
   if (sel) {
     const contemps = all.filter((x) => x.id !== sel.id && x.a <= sel.b && x.b >= sel.a).map((x) => ({ x, ov: Math.min(x.b, sel.b) - Math.max(x.a, sel.a) })).sort((m, n) => n.x.vc - m.x.vc).slice(0, 14);
-    html += `<div class="sel"><div class="mb-tag" style="color:#7df9ff">selected</div><h3><a href="/person/${sel.id}">${esc(sel.n)}</a></h3>
-      <div class="mb-muted" style="font-size:.8rem">${fmtYear(sel.a)} – ${fmtYear(sel.b)}${sel.exact ? '' : ' (as appears in text)'}</div>
-      <div class="links"><a href="/tree/${sel.id}">Family</a> · <a href="/journeys?person=${sel.id}">Journey</a> · <a href="/cosmos?id=${sel.id}">Cosmos</a> <a href="#" id="lclear" style="float:right">clear</a></div>
-      <div class="mb-tag" style="margin:.7rem 0 .3rem">Contemporaries</div>` + contemps.map(({ x }) => `<a class="mb-chip c" href="#" data-id="${x.id}">${esc(x.n)}</a>`).join('') + '</div>';
+    html += `<div class="sel"><div class="mb-tag" style="color:#7df9ff">${tx('js.lifespans.selected')}</div><h3><a href="/person/${sel.id}">${esc(sel.n)}</a></h3>
+      <div class="mb-muted" style="font-size:.8rem">${fmtYear(sel.a)} – ${fmtYear(sel.b)}${sel.exact ? '' : ' ' + tx('js.lifespans.approx')}</div>
+      <div class="links"><a href="/tree/${sel.id}">${tx('js.cosmos.family')}</a> · <a href="/journeys?person=${sel.id}">${tx('js.cosmos.journey')}</a> · <a href="/cosmos?id=${sel.id}">${tx('js.cosmos.cosmos')}</a> <a href="#" id="lclear" style="float:right">${tx('js.lifespans.clear')}</a></div>
+      <div class="mb-tag" style="margin:.7rem 0 .3rem">${tx('js.lifespans.contemporaries')}</div>` + contemps.map(({ x }) => `<a class="mb-chip c" href="#" data-id="${x.id}">${esc(x.n)}</a>`).join('') + '</div>';
   } else {
-    html += `<div class="mb-tag" style="margin:.8rem 0 .3rem">Most prominent then</div>` + aliveNow.slice(0, 16).map((x) => `<a class="mb-chip c" href="#" data-id="${x.id}" style="border-color:${groupColor(x.gr)}66">${esc(x.n)}</a>`).join('');
+    html += `<div class="mb-tag" style="margin:.8rem 0 .3rem">${tx('js.lifespans.most.prominent.then')}</div>` + aliveNow.slice(0, 16).map((x) => `<a class="mb-chip c" href="#" data-id="${x.id}" style="border-color:${groupColor(x.gr)}66">${esc(x.n)}</a>`).join('');
   }
-  html += '<div style="margin-top:.9rem"><button class="mb-btn" id="lshare" style="width:100%">🔗 Copy link</button></div>';
+  html += '<div style="margin-top:.9rem"><button class="mb-btn" id="lshare" style="width:100%">' + tx('js.compare.copy.link') + '</button></div>';
   p.innerHTML = html;
   $('lshare').onclick = () => copyLink(location.href, $('lshare'));
   p.querySelectorAll('a.c').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); choose(byId.get(a.dataset.id)); }));
@@ -160,6 +160,6 @@ cv.addEventListener('wheel', (e) => {
 }, { passive: false });
 addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') { year -= e.shiftKey ? 100 : 10; panel(); draw(); } else if (e.key === 'ArrowRight') { year += e.shiftKey ? 100 : 10; panel(); draw(); } });
 addEventListener('resize', size);
-$('lmin').onclick = () => { collapsed = !collapsed; $('lifespans').classList.toggle('min', collapsed); $('lmin').textContent = collapsed ? '›' : '‹'; $('lmin').setAttribute('aria-label', collapsed ? 'Show the panel' : 'Hide the panel'); draw(); };
+$('lmin').onclick = () => { collapsed = !collapsed; $('lifespans').classList.toggle('min', collapsed); $('lmin').textContent = collapsed ? '›' : '‹'; $('lmin').setAttribute('aria-label', collapsed ? tx('js.lifespans.show.panel') : tx('js.lifespans.hide.the.panel')); draw(); };
 size(); panel();
 const pid = qs.get('person'); if (pid && byId.get(pid)) choose(byId.get(pid));

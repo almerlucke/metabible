@@ -1,6 +1,9 @@
 package pages
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type HomeStats struct {
 	Verses int
@@ -14,11 +17,11 @@ templ atlasHead(title string, immersive bool) {
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="color-scheme" content="dark"/>
-		<title>{ title } · MetaBible</title>
-		<meta property="og:site_name" content="MetaBible"/>
-		<meta property="og:title" content={ title + " · MetaBible" }/>
-		<meta property="og:description" content="Explore the Bible on a 3D map, through time, and through its people."/>
-		<meta name="description" content="Explore the Bible on a 3D map, through time, and through its people."/>
+		<title>{ title } · { t(ctx, "site.name") }</title>
+		<meta property="og:site_name" content={ t(ctx, "site.name") }/>
+		<meta property="og:title" content={ title + " · " + t(ctx, "site.name") }/>
+		<meta property="og:description" content={ t(ctx, "site.description") }/>
+		<meta name="description" content={ t(ctx, "site.description") }/>
 		<meta property="og:type" content="website"/>
 		<meta property="og:image" content={ ogImage(ctx, title) }/>
 		<meta name="twitter:card" content="summary_large_image"/>
@@ -28,53 +31,59 @@ templ atlasHead(title string, immersive bool) {
 		<link rel="apple-touch-icon" href="/assets/icons/icon-180.png"/>
 		<link rel="stylesheet" href="/assets/vendor/fonts/fonts.css"/>
 		<link rel="stylesheet" href="/assets/css/metabible.css"/>
+		<script src={ "/i18n/" + langOf(ctx) + ".js" }></script>
 		<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.js","three/addons/":"/assets/vendor/three/addons/"}}</script>
 		{ children... }
 	</head>
 }
 
 templ topNav(active string) {
-	<a class="skip" href="#main">Skip to content</a>
-	<nav class="mb-nav" aria-label="Main">
+	<a class="skip" href="#main">{ t(ctx, "nav.skip") }</a>
+	<nav class="mb-nav" aria-label={ t(ctx, "nav.main") }>
 		<a class="mb-brand" href="/">METABIBLE</a>
 		<div class="links">
-			<a href="/story" class={ templ.KV("on", active == "story") }>Story</a>
-			<a href="/atlas" class={ templ.KV("on", active == "atlas") }>Time Atlas</a>
-			<a href="/journeys" class={ templ.KV("on", active == "journeys") }>Journeys</a>
-			<a href="/tree" class={ templ.KV("on", active == "tree") }>Family</a>
-			<a href="/cosmos" class={ templ.KV("on", active == "cosmos") }>Cosmos</a>
-			<a href="/canon" class={ templ.KV("on", active == "canon") }>Canon</a>
+			<a href="/story" class={ templ.KV("on", active == "story") }>{ t(ctx, "nav.story") }</a>
+			<a href="/atlas" class={ templ.KV("on", active == "atlas") }>{ t(ctx, "nav.atlas") }</a>
+			<a href="/journeys" class={ templ.KV("on", active == "journeys") }>{ t(ctx, "nav.journeys") }</a>
+			<a href="/tree" class={ templ.KV("on", active == "tree") }>{ t(ctx, "nav.family") }</a>
+			<a href="/cosmos" class={ templ.KV("on", active == "cosmos") }>{ t(ctx, "nav.cosmos") }</a>
+			<a href="/canon" class={ templ.KV("on", active == "canon") }>{ t(ctx, "nav.canon") }</a>
 		</div>
 		<details class="more">
-			<summary class={ templ.KV("on", active == "lifespans" || active == "migrations" || active == "gallery" || active == "themes" || active == "compare" || active == "quiz" || active == "progress") }>More ▾</summary>
+			<summary class={ templ.KV("on", active == "lifespans" || active == "migrations" || active == "gallery" || active == "themes" || active == "compare" || active == "quiz" || active == "progress") }>{ t(ctx, "nav.more") } ▾</summary>
 			<div class="menu">
-				<a href="/lifespans">Lifespans</a>
-				<a href="/migrations">Migrations</a>
-				<a href="/gallery">Gallery</a>
-				<a href="/themes">Themes</a>
-				<a href="/compare">Compare</a>
-				<a href="/quiz">Quiz</a>
-				<a href="/progress">My reading</a>
+				<a href="/lifespans">{ t(ctx, "nav.lifespans") }</a>
+				<a href="/migrations">{ t(ctx, "nav.migrations") }</a>
+				<a href="/gallery">{ t(ctx, "nav.gallery") }</a>
+				<a href="/themes">{ t(ctx, "nav.themes") }</a>
+				<a href="/compare">{ t(ctx, "nav.compare") }</a>
+				<a href="/quiz">{ t(ctx, "nav.quiz") }</a>
+				<a href="/progress">{ t(ctx, "nav.progress") }</a>
 			</div>
 		</details>
 		<span class="sep"></span>
 		<div class="links secondary">
-			<a href="/books" class={ templ.KV("on", active == "books") }>Books</a>
-			<a href="/people" class={ templ.KV("on", active == "people") }>People</a>
-			<a href="/places" class={ templ.KV("on", active == "places") }>Places</a>
-			<a href="/events" class={ templ.KV("on", active == "events") }>Events</a>
-			<a href="/concordance" class={ templ.KV("on", active == "concordance") }>Concordance</a>
-			<a href="/credits" class={ templ.KV("on", active == "credits") }>Credits</a>
+			<a href="/books" class={ templ.KV("on", active == "books") }>{ t(ctx, "nav.books") }</a>
+			<a href="/people" class={ templ.KV("on", active == "people") }>{ t(ctx, "nav.people") }</a>
+			<a href="/places" class={ templ.KV("on", active == "places") }>{ t(ctx, "nav.places") }</a>
+			<a href="/events" class={ templ.KV("on", active == "events") }>{ t(ctx, "nav.events") }</a>
+			<a href="/concordance" class={ templ.KV("on", active == "concordance") }>{ t(ctx, "nav.concordance") }</a>
+			<a href="/credits" class={ templ.KV("on", active == "credits") }>{ t(ctx, "nav.credits") }</a>
 		</div>
 		<span class="grow"></span>
-		<button class="mb-kbd" data-mb-search type="button" aria-label="Search">Search <kbd>Ctrl K</kbd></button>
-		<button class="mb-kbd" data-mb-present type="button" aria-label="Presentation mode" title="Presentation mode (P)">▣</button>
+		<div class="langsw" role="group" aria-label={ t(ctx, "nav.language") }>
+			for _, l := range langs() {
+				<a href={ templ.SafeURL("?lang=" + l.Code) } data-lang={ l.Code } hreflang={ l.Code } lang={ l.Code } class={ templ.KV("on", l.Code == langOf(ctx)) }>{ strings.ToUpper(l.Code) }</a>
+			}
+		</div>
+		<button class="mb-kbd" data-mb-search type="button" aria-label={ t(ctx, "nav.search") }>{ t(ctx, "nav.search") } <kbd>Ctrl K</kbd></button>
+		<button class="mb-kbd" data-mb-present type="button" aria-label={ t(ctx, "nav.present") } title={ t(ctx, "nav.present.title") }>▣</button>
 	</nav>
 }
 
 templ immersive(title string, active string, headExtra templ.Component) {
 	<!DOCTYPE html>
-	<html lang="en" data-theme="dark">
+	<html lang={ langOf(ctx) } data-theme="dark">
 		@atlasHead(title, true) {
 			if headExtra != nil {
 				@headExtra
@@ -100,33 +109,33 @@ templ noHead() {
 
 templ HomePage(s HomeStats) {
 	<!DOCTYPE html>
-	<html lang="en" data-theme="dark">
-		@atlasHead("The Bible, alive", false) {
+	<html lang={ langOf(ctx) } data-theme="dark">
+		@atlasHead(t(ctx, "home.title"), false) {
 		}
 		<body>
 			@topNav("")
 			<section class="mb-hero" style="margin-top: var(--mb-nav-h)">
 				<canvas id="hero"></canvas>
 				<div class="inner">
-					<div class="mb-tag">an interactive atlas of scripture</div>
+					<div class="mb-tag">{ t(ctx, "site.tagline") }</div>
 					<h1>METABIBLE</h1>
-					<p class="lead">Four thousand years, three thousand people, one thousand places. Walk the routes, follow the families, watch the story move across the map.</p>
-					<a class="mb-btn" href="/story?play=1" style="font-size:1rem;padding:.7rem 1.6rem">▶ Begin the story</a>
+					<p class="lead">{ t(ctx, "home.lead") }</p>
+					<a class="mb-btn" href="/story?play=1" style="font-size:1rem;padding:.7rem 1.6rem">▶ { t(ctx, "home.begin") }</a>
 					<div class="mb-stats">
-						<div><b>{ fmt.Sprint(s.Verses) }</b>verses</div>
-						<div><b>{ fmt.Sprint(s.People) }</b>people</div>
-						<div><b>{ fmt.Sprint(s.Places) }</b>places</div>
-						<div><b>{ fmt.Sprint(s.Events) }</b>events</div>
+						<div><b>{ fmt.Sprint(s.Verses) }</b>{ t(ctx, "home.stat.verses") }</div>
+						<div><b>{ fmt.Sprint(s.People) }</b>{ t(ctx, "home.stat.people") }</div>
+						<div><b>{ fmt.Sprint(s.Places) }</b>{ t(ctx, "home.stat.places") }</div>
+						<div><b>{ fmt.Sprint(s.Events) }</b>{ t(ctx, "home.stat.events") }</div>
 					</div>
 					<div class="mb-cards">
-						<a class="mb-card" href="/story"><div class="ic">📖</div><b>The Story</b><span>The whole Bible in order: era by era, event by event, with the verses, the map and an optional read-aloud.</span></a>
-						<a class="mb-card" href="/atlas"><div class="ic">⏳</div><b>Time Atlas</b><span>Scrub from 4004 BC to AD 100 and watch events light up across a 3D relief map.</span></a>
-						<a class="mb-card" href="/journeys"><div class="ic">🧭</div><b>Journeys</b><span>Abraham, the Exodus, David, Jesus, Paul — animated routes with the verses beside them.</span></a>
-						<a class="mb-card" href="/tree"><div class="ic">🌳</div><b>Family Tree</b><span>From Adam to Jesus. Find how any two people in the Bible are related.</span></a>
-						<a class="mb-card" href="/cosmos"><div class="ic">✨</div><b>Cosmos</b><span>A 3D constellation of every person and place, with time running upward.</span></a>
-						<a class="mb-card" href="/canon"><div class="ic">📜</div><b>Canon</b><span>All 66 books as ribbons: who appears where, which books share people, and where a word lives.</span></a>
-						<a class="mb-card" href="/migrations"><div class="ic">🔥</div><b>Peoples &amp; Places</b><span>Heatmaps of where the text is, century by century, and a trail for each tribe.</span></a>
-						<a class="mb-card" href="/lifespans"><div class="ic">⌛</div><b>Who Was Alive?</b><span>Pick any year and see who was alive, who they overlapped with.</span></a>
+						<a class="mb-card" href="/story"><div class="ic">📖</div><b>{ t(ctx, "home.card.story.title") }</b><span>{ t(ctx, "home.card.story.text") }</span></a>
+						<a class="mb-card" href="/atlas"><div class="ic">⏳</div><b>{ t(ctx, "home.card.atlas.title") }</b><span>{ t(ctx, "home.card.atlas.text") }</span></a>
+						<a class="mb-card" href="/journeys"><div class="ic">🧭</div><b>{ t(ctx, "home.card.journeys.title") }</b><span>{ t(ctx, "home.card.journeys.text") }</span></a>
+						<a class="mb-card" href="/tree"><div class="ic">🌳</div><b>{ t(ctx, "home.card.tree.title") }</b><span>{ t(ctx, "home.card.tree.text") }</span></a>
+						<a class="mb-card" href="/cosmos"><div class="ic">✨</div><b>{ t(ctx, "home.card.cosmos.title") }</b><span>{ t(ctx, "home.card.cosmos.text") }</span></a>
+						<a class="mb-card" href="/canon"><div class="ic">📜</div><b>{ t(ctx, "home.card.canon.title") }</b><span>{ t(ctx, "home.card.canon.text") }</span></a>
+						<a class="mb-card" href="/migrations"><div class="ic">🔥</div><b>{ t(ctx, "home.card.migrations.title") }</b><span>{ t(ctx, "home.card.migrations.text") }</span></a>
+						<a class="mb-card" href="/lifespans"><div class="ic">⌛</div><b>{ t(ctx, "home.card.lifespans.title") }</b><span>{ t(ctx, "home.card.lifespans.text") }</span></a>
 					</div>
 				</div>
 			</section>
@@ -137,7 +146,7 @@ templ HomePage(s HomeStats) {
 }
 
 templ AtlasPage() {
-	@immersive("Time Atlas", "atlas", mapLibreHead()) {
+	@immersive(t(ctx, "nav.atlas"), "atlas", mapLibreHead()) {
 		<div id="map" class="mb-fill"></div>
 		<div id="yearbox" class="mb-panel"></div>
 		<div id="layers" class="mb-panel"></div>
@@ -148,7 +157,7 @@ templ AtlasPage() {
 }
 
 templ JourneysPage() {
-	@immersive("Journeys", "journeys", mapLibreHead()) {
+	@immersive(t(ctx, "nav.journeys"), "journeys", mapLibreHead()) {
 		<div id="map" class="mb-fill"></div>
 		<div id="jlist" class="mb-panel mb-scroll"></div>
 		<div id="jstep" class="mb-panel"></div>
@@ -157,7 +166,7 @@ templ JourneysPage() {
 }
 
 templ TreePage(id string) {
-	@immersive("Family Tree", "tree", noHead()) {
+	@immersive(t(ctx, "page.tree"), "tree", noHead()) {
 		<div id="tree" class="mb-fill" data-id={ id }></div>
 		<div id="tpanel" class="mb-panel mb-scroll"></div>
 		<script type="module" src="/assets/js/atlas/tree.js"></script>
@@ -165,7 +174,7 @@ templ TreePage(id string) {
 }
 
 templ CosmosPage() {
-	@immersive("Cosmos", "cosmos", noHead()) {
+	@immersive(t(ctx, "nav.cosmos"), "cosmos", noHead()) {
 		<div id="cosmos" class="mb-fill"></div>
 		<div id="cpanel" class="mb-panel"></div>
 		<div id="cinfo" class="mb-panel"></div>
@@ -174,21 +183,21 @@ templ CosmosPage() {
 }
 
 templ CanonPage() {
-	@immersive("Canon", "canon", noHead()) {
+	@immersive(t(ctx, "nav.canon"), "canon", noHead()) {
 		<div id="canon" class="mb-fill mb-scroll"></div>
 		<script type="module" src="/assets/js/atlas/canon.js"></script>
 	}
 }
 
 templ LifespansPage() {
-	@immersive("Who Was Alive?", "lifespans", noHead()) {
+	@immersive(t(ctx, "home.card.lifespans.title"), "lifespans", noHead()) {
 		<div id="lifespans" class="mb-fill"></div>
 		<script type="module" src="/assets/js/atlas/lifespans.js"></script>
 	}
 }
 
 templ StoryPage() {
-	@immersive("The Story", "story", mapLibreHead()) {
+	@immersive(t(ctx, "home.card.story.title"), "story", mapLibreHead()) {
 		<div id="map" class="mb-fill"></div>
 		<div id="sera" class="mb-panel"></div>
 		<div id="scard" class="mb-panel"></div>
@@ -197,7 +206,7 @@ templ StoryPage() {
 }
 
 templ MigrationsPage() {
-	@immersive("Peoples & Places", "migrations", mapLibreHead()) {
+	@immersive(t(ctx, "home.card.migrations.title"), "migrations", mapLibreHead()) {
 		<div id="map" class="mb-fill"></div>
 		<div id="mpanel" class="mb-panel mb-scroll"></div>
 		<script type="module" src="/assets/js/atlas/migrations.js"></script>
@@ -205,11 +214,11 @@ templ MigrationsPage() {
 }
 
 templ ComparePage() {
-	@classic("Compare", "compare", nil) {
+	@classic(t(ctx, "nav.compare"), "compare", nil) {
 		<div class="browse wide cmp">
-			<div class="mb-tag">side by side</div>
-			<h1 class="mb-display">Compare</h1>
-			<p class="mb-muted lead">Pick two people or two places. See when they lived, how they are related, where their stories meet, and a short story of the connection.</p>
+			<div class="mb-tag">{ t(ctx, "ui.side.by.side") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.compare") }</h1>
+			<p class="mb-muted lead">{ t(ctx, "ui.pick.two.people.or.two") }</p>
 			<div id="cmpui"></div>
 			<div id="cmpout"></div>
 		</div>
@@ -218,10 +227,10 @@ templ ComparePage() {
 }
 
 templ ThemesPage() {
-	@classic("Themes", "themes", withMap()) {
+	@classic(t(ctx, "nav.themes"), "themes", withMap()) {
 		<div class="browse wide themes">
-			<div class="mb-tag">follow an idea through the text</div>
-			<h1 class="mb-display">Themes</h1>
+			<div class="mb-tag">{ t(ctx, "ui.follow.an.idea.through.the") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.themes") }</h1>
 			<div class="thgrid">
 				<div id="thlist" class="thlist"></div>
 				<div id="thmain"></div>
@@ -232,10 +241,10 @@ templ ThemesPage() {
 }
 
 templ ProgressPage() {
-	@classic("My reading", "progress", withMap()) {
+	@classic(t(ctx, "nav.progress"), "progress", withMap()) {
 		<div class="browse wide progress">
-			<div class="mb-tag">kept in this browser only</div>
-			<h1 class="mb-display">My reading</h1>
+			<div class="mb-tag">{ t(ctx, "ui.kept.in.this.browser.only") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.my.reading") }</h1>
 			<div id="prog"></div>
 		</div>
 		<script type="module" src="/assets/js/atlas/progress.js"></script>
@@ -243,10 +252,10 @@ templ ProgressPage() {
 }
 
 templ QuizPage() {
-	@classic("Quiz", "quiz", nil) {
+	@classic(t(ctx, "nav.quiz"), "quiz", nil) {
 		<div class="browse quiz">
-			<div class="mb-tag">test what you know</div>
-			<h1 class="mb-display">Quiz</h1>
+			<div class="mb-tag">{ t(ctx, "ui.test.what.you.know") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.quiz") }</h1>
 			<div id="quiz"></div>
 		</div>
 		<script type="module" src="/assets/js/atlas/quiz.js"></script>

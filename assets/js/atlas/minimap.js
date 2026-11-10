@@ -28,6 +28,6 @@ document.querySelectorAll('.mb-minimap').forEach((el) => {
     map.on('mouseleave', 'dots', () => { map.getCanvas().style.cursor = ''; });
   });
   if (cfg.link) {
-    const a = document.createElement('a'); a.href = cfg.link; a.className = 'mb-btn mm-open'; a.textContent = 'Open on atlas →'; el.appendChild(a);
+    const a = document.createElement('a'); a.href = cfg.link; a.className = 'mb-btn mm-open'; a.textContent = tx('js.minimap.open'); el.appendChild(a);
   }
 });

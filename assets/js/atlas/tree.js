@@ -2,7 +2,7 @@
 import { copyLink } from './share.js';
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const fmtYear = (y) => (y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`);
+const fmtYear = (y) => window.mbYear(y);
 const SVGNS = 'http://www.w3.org/2000/svg';
 
 const data = await fetch('/api/atlas/people').then((r) => r.json());
@@ -161,8 +161,8 @@ function renderPath(path) {
 }
 function describe(path) {
   const ups = path.filter((s) => s.via === 'up').length, downs = path.filter((s) => s.via === 'down').length, sp = path.filter((s) => s.via === 'sp').length;
-  const parts = []; if (ups) parts.push(`${ups} generation${ups > 1 ? 's' : ''} up`); if (downs) parts.push(`${downs} down`); if (sp) parts.push(`${sp} marriage${sp > 1 ? 's' : ''}`);
-  return `${path.length - 1} steps: ${parts.join(', ')}`;
+  const parts = []; if (ups) parts.push(window.tx.n('js.tree.gen', ups)); if (downs) parts.push(window.tx('js.tree.down', { n: downs })); if (sp) parts.push(window.tx.n('js.tree.marr', sp));
+  return window.tx('js.tree.steps', { n: path.length - 1, parts: parts.join(', ') });
 }
 
 // ---------------------------------------------------------------- panel
@@ -179,17 +179,17 @@ async function setFocus(id, push) {
 function chips(ids) { return ids.map((i) => `<a class="mb-chip t" data-id="${i}" href="/tree/${i}">${esc(byId.get(i).n)}</a>`).join(''); }
 function renderPanel() {
   const p = byId.get(focus);
-  const fam = [['Parents', get(parents, focus)], ['Partners', get(spouses, focus)], ['Siblings', sibs(focus)], ['Children', get(kids, focus)]].filter(([, l]) => l.length);
-  panel.innerHTML = `<h3>Family tree</h3>
-    <input id="tsearch" class="mb-input" placeholder="Find a person…" autocomplete="off"><div id="tres"></div>
+  const fam = [[window.tx('js.tree.parents'), get(parents, focus)], [window.tx('js.tree.partners'), get(spouses, focus)], [window.tx('js.tree.siblings'), sibs(focus)], [window.tx('js.tree.children'), get(kids, focus)]].filter(([, l]) => l.length);
+  panel.innerHTML = `<h3>${window.tx('js.tree.family.tree')}</h3>
+    <input id="tsearch" class="mb-input" placeholder="${window.tx('js.tree.find.a.person')}" autocomplete="off"><div id="tres"></div>
     <div class="focus"><div class="mb-tag" style="color:${groupColor(p.gr)}">${esc(p.gr ? groups[p.gr - 1] : 'person')}${p.g ? ' · ' + esc(p.g) : ''}</div>
-      <h2>${esc(p.n)}</h2><div class="mb-muted" style="font-size:.78rem">${p.b != null ? 'Born ' + fmtYear(p.b) : ''}${p.d != null ? ' · died ' + fmtYear(p.d) : ''}${p.b == null && (p.y0 || p.y1) ? 'In the text ' + fmtYear(p.y0) + ' – ' + fmtYear(p.y1) : ''} · ${p.vc} verses</div>
+      <h2>${esc(p.n)}</h2><div class="mb-muted" style="font-size:.78rem">${p.b != null ? window.tx('js.tree.born', { y: fmtYear(p.b) }) : ''}${p.d != null ? window.tx('js.tree.died', { y: fmtYear(p.d) }) : ''}${p.b == null && (p.y0 || p.y1) ? window.tx('js.tree.inthetext', { a: fmtYear(p.y0), b: fmtYear(p.y1) }) : ''} · ${window.tx.n('js.verses', p.vc)}</div>
       ${info && info.text ? `<p class="bio">${esc(info.text)}</p>` : ''}
-      <div class="links"><a href="/person/${p.id}">Full page</a> · <a href="/journeys?person=${p.id}">Journey</a> · <a href="/lifespans?person=${p.id}">Lifespans</a></div></div>
+      <div class="links"><a href="/person/${p.id}">${window.tx('js.tree.full.page')}</a> · <a href="/journeys?person=${p.id}">${window.tx('js.cosmos.journey')}</a> · <a href="/lifespans?person=${p.id}">${window.tx('js.tree.lifespans')}</a></div></div>
     ${fam.map(([t, l]) => `<div class="mb-tag" style="margin:.7rem 0 .25rem">${t}</div>${chips(l.slice(0, 24))}${l.length > 24 ? `<span class="mb-muted"> +${l.length - 24}</span>` : ''}`).join('')}
-    <div class="mb-tag" style="margin:1rem 0 .3rem">Path to another person</div>
-    <input id="psearch" class="mb-input" placeholder="Relate ${esc(p.n)} to…" autocomplete="off"><div id="pres"></div>
-    <div class="presets"><button class="mb-btn" data-a="Adam" data-b="Jesus Christ">Adam → Jesus</button><button class="mb-btn" data-a="Abraham" data-b="David">Abraham → David</button><button class="mb-btn" data-a="Noah" data-b="Moses">Noah → Moses</button></div>
+    <div class="mb-tag" style="margin:1rem 0 .3rem">${window.tx('js.tree.path.to.another.person')}</div>
+    <input id="psearch" class="mb-input" placeholder="${window.tx('js.tree.relate', { name: esc(p.n) })}" autocomplete="off"><div id="pres"></div>
+    <div class="presets"><button class="mb-btn" data-a="Adam" data-b="Jesus Christ">${window.tx('js.tree.adam.jesus')}</button><button class="mb-btn" data-a="Abraham" data-b="David">${window.tx('js.tree.abraham.david')}</button><button class="mb-btn" data-a="Noah" data-b="Moses">${window.tx('js.tree.noah.moses')}</button></div>
     <div id="pathinfo"></div>`;
   panel.querySelectorAll('a.t').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); setFocus(a.dataset.id, true); }));
   hookSearch($('tsearch'), $('tres'), (id) => setFocus(id, true));
@@ -200,12 +200,12 @@ function sibs(id) { const s = new Set(); for (const par of get(parents, id)) for
 function showPath(a, b) {
   const path = findPath(a, b);
   const el = $('pathinfo');
-  if (!path) { el.innerHTML = '<p class="mb-muted">No family connection recorded between them.</p>'; return; }
+  if (!path) { el.innerHTML = '<p class="mb-muted">' + window.tx('js.tree.no.family.connection.recorded') + '</p>'; return; }
   mode = 'path'; pathNodes = path; renderPath(path);
   history.replaceState(null, '', `/tree/${a}?to=${b}`);
   el.innerHTML = `<p style="margin:.6rem 0 .3rem"><b>${esc(byId.get(a).n)}</b> → <b>${esc(byId.get(b).n)}</b><br><span class="mb-muted">${describe(path)}</span></p>
-    <ol class="plist">${path.map((s) => `<li><a class="t" data-id="${s.id}" href="/tree/${s.id}">${esc(byId.get(s.id).n)}</a>${s.via ? `<small> ${s.via === 'up' ? '(parent of previous)' : s.via === 'down' ? '(child of previous)' : '(married)'}</small>` : ''}</li>`).join('')}</ol>
-    <button class="mb-btn" id="pback">Back to tree</button> <button class="mb-btn" id="pshare">🔗 Copy link</button>`;
+    <ol class="plist">${path.map((s) => `<li><a class="t" data-id="${s.id}" href="/tree/${s.id}">${esc(byId.get(s.id).n)}</a>${s.via ? `<small> ${s.via === 'up' ? window.tx('js.tree.parentofprev') : s.via === 'down' ? window.tx('js.tree.childofprev') : window.tx('js.tree.married')}</small>` : ''}</li>`).join('')}</ol>
+    <button class="mb-btn" id="pback">${window.tx('js.tree.back.to.tree')}</button> <button class="mb-btn" id="pshare">${window.tx('js.compare.copy.link')}</button>`;
   el.querySelectorAll('a.t').forEach((x) => x.addEventListener('click', (e) => { e.preventDefault(); setFocus(x.dataset.id, true); }));
   $('pback').onclick = () => setFocus(focus, false);
   $('pshare').onclick = () => copyLink(location.href, $('pshare'));

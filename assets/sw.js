@@ -31,7 +31,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET' || url.origin !== location.origin || req.headers.has('range')) return;
   const p = url.pathname;
   if (p.startsWith('/assets/vendor/')) e.respondWith(cacheFirst(req, STATIC));
-  else if (p.startsWith('/assets/')) e.respondWith(staleWhileRevalidate(req, STATIC));
+  else if (p.startsWith('/assets/') || p.startsWith('/i18n/')) e.respondWith(staleWhileRevalidate(req, STATIC));
   else if (p.startsWith('/api/atlas/') && !p.includes('/search') && !p.includes('/word') && !p.includes('/validate')) e.respondWith(staleWhileRevalidate(req, DATA));
   else if (req.mode === 'navigate') e.respondWith(networkFirst(req, PAGES));
 });

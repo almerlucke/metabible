@@ -5,7 +5,7 @@ import { createMap, FONT, esc, arc } from './map.js';
 const $ = (id) => document.getElementById(id);
 const m = await fetch('/api/atlas/migration').then((r) => r.json());
 const qs = new URLSearchParams(location.search);
-const fmt = (y) => (y < 0 ? `${-y} BC` : y === 0 ? '1 BC' : `${y} AD`);
+const fmt = (y) => window.mbYear(y);
 const bucketLabel = (b) => { const a = m.from + b * m.step; return `${fmt(a)} – ${fmt(a + m.step)}`; };
 
 // weights per bucket
@@ -35,22 +35,22 @@ map.on('load', () => {
   map.addLayer({ id: 'tglow', type: 'circle', source: 'tnow', paint: { 'circle-radius': 28, 'circle-color': '#7df9ff', 'circle-opacity': 0.3, 'circle-blur': 0.8 } });
   map.addLayer({ id: 'tnow', type: 'circle', source: 'tnow', paint: { 'circle-radius': 9, 'circle-color': '#fff', 'circle-stroke-color': '#7df9ff', 'circle-stroke-width': 3 } });
   map.addLayer({ id: 'tlbl', type: 'symbol', source: 'tpts', layout: { 'text-field': ['get', 'lbl'], 'text-font': FONT, 'text-size': 11.5, 'text-offset': [0, 1.2], 'text-anchor': 'top', 'text-optional': true }, paint: { 'text-color': '#d8f7ff', 'text-halo-color': 'rgba(5,7,16,.95)', 'text-halo-width': 1.4 } });
-  map.on('click', 'hp', (e) => { const f = e.features[0].properties; new maplibregl.Popup({ offset: 8 }).setLngLat(e.features[0].geometry.coordinates).setHTML(`<b>${esc(f.n)}</b><br><span class="mb-muted">${f.w} mentions in this window</span><br><a href="/place/${f.id}">Open place →</a>`).addTo(map); });
+  map.on('click', 'hp', (e) => { const f = e.features[0].properties; new maplibregl.Popup({ offset: 8 }).setLngLat(e.features[0].geometry.coordinates).setHTML(`<b>${esc(f.n)}</b><br><span class="mb-muted">${tx('js.migrations.mentions', { n: f.w })}</span><br><a href="/place/${f.id}">${tx('js.atlas.open.place')}</a>`).addTo(map); });
   map.on('mouseenter', 'hp', () => { map.getCanvas().style.cursor = 'pointer'; });
   map.on('mouseleave', 'hp', () => { map.getCanvas().style.cursor = ''; });
   ready = true; update(true);
 });
 
 // ------------------------------------------------------------------ panel
-$('mpanel').innerHTML = `<h3>Peoples &amp; places</h3>
-  <div class="seg2"><button class="mb-btn" data-m="heat">🔥 Where the text is</button><button class="mb-btn" data-m="trail">👣 Follow a tribe</button></div>
+$('mpanel').innerHTML = `<h3>${tx('js.migrations.peoples.places')}</h3>
+  <div class="seg2"><button class="mb-btn" data-m="heat">${tx('js.migrations.where.the.text.is')}</button><button class="mb-btn" data-m="trail">${tx('js.migrations.follow.a.tribe')}</button></div>
   <div class="mb-muted note" id="mnote"></div>
   <div class="when"><b id="mwhen"></b><div class="mb-muted" id="mera"></div></div>
-  <div class="slide"><button class="mb-btn icon" id="mplay" title="Play">▶</button><input type="range" id="mslide" min="0" max="${m.nb - 1}" step="1" value="${bucket}"></div>
-  <div class="ticks"><span>4100 BC</span><span>2000 BC</span><span>1 BC</span></div>
-  <div id="mgroup" style="display:none"><div class="mb-tag" style="margin:.7rem 0 .3rem">Tribe or group</div><select id="msel" class="mb-input">${m.groups.map((g) => `<option value="${g.g}">${esc(g.n)}</option>`).join('')}</select></div>
-  <div class="mb-tag" style="margin:.9rem 0 .3rem" id="mlisttitle">Most mentioned now</div><div id="mlist"></div>
-  <div class="mb-muted foot">Counts come from the places named in verses dated to each century, so this shows where the text is, not census data.</div>`;
+  <div class="slide"><button class="mb-btn icon" id="mplay" title="${tx('js.migrations.play')}">▶</button><input type="range" id="mslide" min="0" max="${m.nb - 1}" step="1" value="${bucket}"></div>
+  <div class="ticks"><span>${tx('js.migrations.4100.bc')}</span><span>${tx('js.migrations.2000.bc')}</span><span>${tx('js.migrations.1.bc')}</span></div>
+  <div id="mgroup" style="display:none"><div class="mb-tag" style="margin:.7rem 0 .3rem">${tx('js.migrations.tribe.or.group')}</div><select id="msel" class="mb-input">${m.groups.map((g) => `<option value="${g.g}">${esc(g.n)}</option>`).join('')}</select></div>
+  <div class="mb-tag" style="margin:.9rem 0 .3rem" id="mlisttitle">${tx('js.migrations.most.mentioned.now')}</div><div id="mlist"></div>
+  <div class="mb-muted foot">${tx('js.migrations.counts.come.from.the')}</div>`;
 $('msel').value = group;
 $('mpanel').querySelectorAll('.seg2 .mb-btn').forEach((b) => b.onclick = () => { mode = b.dataset.m; update(true); });
 $('mslide').oninput = (e) => { bucket = +e.target.value; update(false); };
@@ -79,7 +79,7 @@ function update(refit) {
   $('mwhen').textContent = bucketLabel(bucket);
   $('mpanel').querySelectorAll('.seg2 .mb-btn').forEach((b) => b.classList.toggle('on', b.dataset.m === mode));
   $('mgroup').style.display = mode === 'trail' ? 'block' : 'none';
-  $('mnote').textContent = mode === 'heat' ? 'The glow marks where places are named in verses dated around this century (±100 years).' : 'The line joins the centre of the places named alongside members of this group, century by century.';
+  $('mnote').textContent = mode === 'heat' ? tx('js.migrations.note.heat') : tx('js.migrations.note.trail');
   history.replaceState(null, '', `?b=${bucket}&mode=${mode}&g=${group}`);
   const { fc, top } = heatData();
   if (!ready) return;
@@ -88,8 +88,8 @@ function update(refit) {
   for (const l of ['tall', 'tdone', 'tpts', 'tglow', 'tnow', 'tlbl']) map.setLayoutProperty(l, 'visibility', mode === 'trail' ? 'visible' : 'none');
 
   if (mode === 'heat') {
-    $('mlisttitle').textContent = 'Most mentioned now';
-    $('mlist').innerHTML = top.length ? top.map(([p, n]) => `<div class="mi" data-ll="${p.lng},${p.lat}"><span>${esc(p.n)}</span><small>${n}</small></div>`).join('') : '<div class="mb-muted">Almost no places are named in this century.</div>';
+    $('mlisttitle').textContent = tx('js.migrations.most.mentioned.now');
+    $('mlist').innerHTML = top.length ? top.map(([p, n]) => `<div class="mi" data-ll="${p.lng},${p.lat}"><span>${esc(p.n)}</span><small>${n}</small></div>`).join('') : '<div class="mb-muted">' + tx('js.migrations.almost.no.places.are') + '</div>';
     $('mlist').querySelectorAll('.mi').forEach((el) => el.onclick = () => { const [x, y] = el.dataset.ll.split(',').map(Number); map.flyTo({ center: [x, y], zoom: 7.5, pitch: 50, duration: 1400 }); });
     return;
   }

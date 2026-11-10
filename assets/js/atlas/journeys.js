@@ -72,12 +72,12 @@ const PAD = () => (innerWidth > 900 ? { top: 90, bottom: 280, left: 380, right: 
 
 // ------------------------------------------------------------ journeys list
 function renderList() {
-  $('jlist').innerHTML = `<h3>Journeys</h3>
-    <input id="jsearch" class="mb-input" placeholder="Trace any person…" autocomplete="off"><div id="jres"></div>
-    <div class="mb-tag" style="margin:.9rem 0 .4rem">Curated tours</div>` +
+  $('jlist').innerHTML = `<h3>${tx('js.journeys.journeys')}</h3>
+    <input id="jsearch" class="mb-input" placeholder="${tx('js.journeys.trace.any.person')}" autocomplete="off"><div id="jres"></div>
+    <div class="mb-tag" style="margin:.9rem 0 .4rem">${tx('js.journeys.curated.tours')}</div>` +
     curated.map((j) => `<div class="jc${cur && cur.id === j.id ? ' on' : ''}" data-id="${j.id}" style="--c:${j.color}">
-      <div class="dot"></div><div class="tx"><b>${esc(j.title)}</b><span>${esc(j.sub || '')}</span><small>${j.stops.length} stops · ${j.km.toLocaleString()} km</small></div>
-      <label class="cmp" title="Overlay on map"><input type="checkbox" data-cmp="${j.id}" ${compare.has(j.id) ? 'checked' : ''}><span>⧉</span></label></div>`).join('');
+      <div class="dot"></div><div class="tx"><b>${esc(j.title)}</b><span>${esc(j.sub || '')}</span><small>${tx('js.journeys.meta', { n: j.stops.length, km: j.km.toLocaleString(mbLang) })}</small></div>
+      <label class="cmp" title="${tx('js.journeys.overlay.on.map')}"><input type="checkbox" data-cmp="${j.id}" ${compare.has(j.id) ? 'checked' : ''}><span>⧉</span></label></div>`).join('');
   $('jlist').querySelectorAll('.jc').forEach((el) => el.addEventListener('click', (e) => { if (e.target.closest('.cmp')) return; open(curated.find((j) => j.id === el.dataset.id)); }));
   $('jlist').querySelectorAll('[data-cmp]').forEach((c) => c.addEventListener('change', () => { c.checked ? compare.add(c.dataset.cmp) : compare.delete(c.dataset.cmp); drawCompare(); }));
   let t;
@@ -102,8 +102,8 @@ function drawCompare() {
 // ------------------------------------------------------------ opening + stepping
 async function openPerson(id) {
   const j = await fetch('/api/atlas/journey/' + id).then((r) => (r.ok ? r.json() : null));
-  if (!j || j.stops.length < 2) { $('jstep').innerHTML = '<div class="mb-muted">Not enough places mentioned alongside this person to draw a route.</div>'; $('jstep').style.display = 'block'; return; }
-  j.intro = 'An approximate itinerary: the places named in the verses where this person appears, in the order of the text.';
+  if (!j || j.stops.length < 2) { $('jstep').innerHTML = '<div class="mb-muted">' + tx('js.journeys.not.enough.places.mentioned') + '</div>'; $('jstep').style.display = 'block'; return; }
+  j.intro = tx('js.journeys.person.intro');
   $('jres').innerHTML = ''; open(j);
 }
 function open(j) {
@@ -163,15 +163,15 @@ function renderCard() {
   const el = $('jstep'); el.style.display = 'block';
   const n = cur.stops.length;
   const prog = `<div class="prog">${cur.stops.map((s, i) => `<i class="${i <= idx ? 'on' : ''}${i === idx ? ' cur' : ''}" data-i="${i}" title="${esc(s.n)}" style="--c:${cur.color}"></i>`).join('')}</div>`;
-  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button><button class="mb-btn" id="jshare" style="margin-left:auto">🔗 Share</button><a class="mb-btn" href="/export/journey/${cur.id}.gpx" download title="Download for a GPS app">⬇ GPX</a><a class="mb-btn" href="/export/journey/${cur.id}.kml" download title="Download for Google Earth">⬇ KML</a></div>`;
+  const ctl = `<div class="ctl"><button class="mb-btn icon" id="jprev">◀</button><button class="mb-btn icon" id="jplay">▶</button><button class="mb-btn icon" id="jnext">▶|</button><button class="mb-btn" id="jshare" style="margin-left:auto">${tx('js.journeys.share')}</button><a class="mb-btn" href="/export/journey/${cur.id}.gpx" download title="${tx('js.journeys.download.for.a.gps')}">${tx('js.journeys.gpx')}</a><a class="mb-btn" href="/export/journey/${cur.id}.kml" download title="${tx('js.journeys.download.for.google.earth')}">${tx('js.journeys.kml')}</a></div>`;
   if (idx < 0) {
-    el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">${cur.era ? esc(cur.era) + ' · ' : ''}${n} stops · ${cur.km.toLocaleString()} km</div>
+    el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">${cur.era ? esc(cur.era) + ' · ' : ''}${tx('js.journeys.meta', { n, km: cur.km.toLocaleString(mbLang) })}</div>
       <h2>${esc(cur.title)}</h2><div class="mb-muted" style="margin-bottom:.4rem">${esc(cur.sub || cur.subtitle || '')}</div>
       <p class="intro">${esc(cur.intro || '')}</p>${ctl}${prog}`;
   } else {
     const s = cur.stops[idx];
     let km = 0; for (let i = 1; i <= idx; i++) km += hav(cur.stops[i - 1], cur.stops[i]);
-    el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">Stop ${idx + 1} of ${n}${s.y ? ' · ' + fmtYear(s.y) : ''} · ${Math.round(km).toLocaleString()} km travelled</div>
+    el.innerHTML = `<div class="mb-tag" style="color:${cur.color}">${tx('js.journeys.stopof', { i: idx + 1, n })}${s.y ? ' · ' + fmtYear(s.y) : ''} · ${tx('js.journeys.travelled', { km: Math.round(km).toLocaleString(mbLang) })}</div>
       <h2>${s.pl ? `<a href="/place/${s.pl}">${esc(s.n)}</a>` : esc(s.n)}</h2>
       ${s.note ? `<p class="intro">${esc(s.note)}</p>` : ''}
       ${s.tx ? `<div class="mb-verse">“${esc(s.tx)}”</div>` : ''}

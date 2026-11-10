@@ -10,21 +10,21 @@ import (
 // ---------------------------------------------------------------- books
 
 templ BooksPage(groups []atlas.BookGroup) {
-	@classic("Books", "books", nil) {
+	@classic(t(ctx, "nav.books"), "books", nil) {
 		<div class="browse">
-			<div class="mb-tag">sixty-six books</div>
-			<h1 class="mb-display">Books</h1>
-			<p class="mb-muted lead">Each strip is the book's chapters; brighter means more people appear in that chapter. <a href="/canon">See all books side by side →</a></p>
+			<div class="mb-tag">{ t(ctx, "ui.sixty.six.books") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.books") }</h1>
+			<p class="mb-muted lead">{ t(ctx, "ui.each.strip.is.the.book") } <a href="/canon">{ t(ctx, "ui.see.all.books.side.by") }</a></p>
 			for i, g := range groups {
 				if i == 0 || groups[i-1].Testament != g.Testament {
-					<h2 class="testament">{ g.Testament }</h2>
+					<h2 class="testament">{ testamentName(ctx, g.Testament) }</h2>
 				}
-				<h3 class="div">{ g.Div }</h3>
+				<h3 class="div">{ divName(ctx, g.Div) }</h3>
 				<div class="bookgrid">
 					for _, b := range g.Books {
 						<div class="bcard">
 							<a class="bname" href={ href("book", b.ID) }>{ b.Name }</a>
-							<div class="bstats">{ plural(b.Chapters, "chapter", "chapters") } · { plural(b.People, "person", "people") } · { plural(b.Places, "place", "places") }</div>
+							<div class="bstats">{ count(ctx, "chapter", b.Chapters) } · { count(ctx, "person", b.People) } · { count(ctx, "place", b.Places) }</div>
 							<div class="skyline mini">
 								for i, h := range b.Heat {
 									<a href={ href("chapter", b.CIDs[i]) } style={ heatStyle(h) } title={ fmt.Sprintf("%s %d", b.Name, i+1) }></a>
@@ -41,29 +41,29 @@ templ BooksPage(groups []atlas.BookGroup) {
 // ---------------------------------------------------------------- events
 
 templ EventsPage(groups []atlas.EraGroup) {
-	@classic("Events", "events", nil) {
+	@classic(t(ctx, "nav.events"), "events", nil) {
 		<div class="browse">
-			<div class="mb-tag">four thousand years</div>
-			<h1 class="mb-display">Events</h1>
-			<p class="mb-muted lead">The Bible's events in order. <a href="/atlas">Watch them unfold on the map →</a></p>
+			<div class="mb-tag">{ t(ctx, "ui.four.thousand.years") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.events") }</h1>
+			<p class="mb-muted lead">{ t(ctx, "ui.the.bible.s.events.in") } <a href="/atlas">{ t(ctx, "ui.watch.them.unfold.on.the") }</a></p>
 			<div class="evtools">
-				<input id="evq" class="mb-input" type="search" placeholder="Filter events…" autocomplete="off"/>
+				<input id="evq" class="mb-input" type="search" placeholder={ t(ctx, "ui.filter.events") } autocomplete="off"/>
 				<div class="erajump">
 					for _, g := range groups {
-						<a href={ templ.SafeURL("#" + g.Era.ID) } style={ colorStyle(g.Era.Color) }>{ g.Era.Name }</a>
+						<a href={ templ.SafeURL("#" + g.Era.ID) } style={ colorStyle(g.Era.Color) }>{ eraName(ctx, g.Era.ID, g.Era.Name) }</a>
 					}
 				</div>
 			</div>
 			for _, g := range groups {
 				<section class="era" id={ g.Era.ID }>
-					<h2 class="era-head" style={ colorStyle(g.Era.Color) }>{ g.Era.Name } <small>{ yr(g.Era.From) } – { yr(g.Era.To) } · { plural(len(g.Events), "event", "events") }</small></h2>
+					<h2 class="era-head" style={ colorStyle(g.Era.Color) }>{ eraName(ctx, g.Era.ID, g.Era.Name) } <small>{ yrl(ctx, g.Era.From) } – { yrl(ctx, g.Era.To) } · { count(ctx, "event", len(g.Events)) }</small></h2>
 					<div class="tl" style={ templ.SafeCSS("--c:" + g.Era.Color) }>
 						for _, e := range g.Events {
 							<article class="evc" data-q={ e.Title + " " + e.Text }>
 								<div class="when">
-									{ e.Date }
-									if e.Days != "" {
-										<small> · { e.Days }</small>
+									{ locDate(ctx, e.Date) }
+									if e.Days > 0 {
+										<small> · { durText(ctx, e.Days) }</small>
 									}
 								</div>
 								<h3><a href={ href("event", e.ID) }>{ e.Title }</a></h3>
@@ -92,33 +92,33 @@ templ EventsPage(groups []atlas.EraGroup) {
 // ---------------------------------------------------------------- concordance
 
 templ ConcordancePage(r *atlas.ConcResult) {
-	@classic("Concordance", "concordance", nil) {
+	@classic(t(ctx, "nav.concordance"), "concordance", nil) {
 		<div class="browse">
-			<div class="mb-tag">search every verse</div>
-			<h1 class="mb-display">Concordance</h1>
+			<div class="mb-tag">{ t(ctx, "ui.search.every.verse") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.concordance") }</h1>
 			<form class="csearch" method="get" action="/concordance">
 				<input name="search" class="mb-input" type="search" placeholder='Search verses: love, "the Lord is my shepherd", grace peace…' value={ r.Query } autofocus?={ r.Query == "" }/>
 				if r.BookID != "" {
 					<input type="hidden" name="book" value={ r.BookID }/>
 				}
-				<button class="mb-btn" type="submit">Search</button>
+				<button class="mb-btn" type="submit">{ t(ctx, "ui.search") }</button>
 			</form>
 			if len(r.Terms) > 0 {
 				<p class="mb-muted">
-					{ plural(r.Total, "verse", "verses") }
+					{ count(ctx, "verse", r.Total) }
 					if r.BookID != "" {
-						in this book · <a href={ templ.SafeURL("/concordance?search=" + url.QueryEscape(r.Query)) }>show all books</a>
+						{ t(ctx, "ui.in.this.book") } <a href={ templ.SafeURL("/concordance?search=" + url.QueryEscape(r.Query)) }>{ t(ctx, "ui.show.all.books") }</a>
 					}
 				</p>
 				if r.Total > 0 {
-					<div class="dist" title="Where it appears, book by book">
+					<div class="dist" title={ t(ctx, "ui.where.it.appears.book.by") }>
 						for _, b := range r.Books {
 							<a class={ templ.KV("on", b.ID == r.BookID), templ.KV("zero", b.Count == 0) } href={ templ.SafeURL("/concordance?search=" + url.QueryEscape(r.Query) + "&book=" + b.ID) } title={ fmt.Sprintf("%s: %d", b.Name, b.Count) }>
 								<i style={ templ.SafeCSS(fmt.Sprintf("height:%.0f%%", 4+b.Pct*96)) }></i>
 							</a>
 						}
 					</div>
-					<div class="dist-lbl"><span>Genesis</span><span>Malachi</span><span>Matthew</span><span>Revelation</span></div>
+					<div class="dist-lbl"><span>{ t(ctx, "ui.genesis") }</span><span>{ t(ctx, "ui.malachi") }</span><span>{ t(ctx, "ui.matthew") }</span><span>{ t(ctx, "ui.revelation") }</span></div>
 				}
 				<ol class="hits">
 					for _, h := range r.Hits {
@@ -126,13 +126,13 @@ templ ConcordancePage(r *atlas.ConcResult) {
 					}
 				</ol>
 				if r.Capped {
-					<p class="mb-muted">Showing the first { fmt.Sprint(r.Shown) }. Narrow it down by clicking a book above or adding a word.</p>
+					<p class="mb-muted">{ t(ctx, "ui.showing.the.first") } { fmt.Sprint(r.Shown) }{ t(ctx, "ui.narrow.it.down.by.clicking") }</p>
 				}
 				if r.Total == 0 {
-					<p class="mb-muted">No verse contains all of those words.</p>
+					<p class="mb-muted">{ t(ctx, "ui.no.verse.contains.all.of") }</p>
 				}
 			} else {
-				<p class="mb-muted">Try a word, several words (all must appear), or a quoted phrase.</p>
+				<p class="mb-muted">{ t(ctx, "ui.try.a.word.several.words") }</p>
 			}
 		</div>
 	}
@@ -141,23 +141,23 @@ templ ConcordancePage(r *atlas.ConcResult) {
 // ---------------------------------------------------------------- people
 
 templ PeoplePage() {
-	@classic("People", "people", nil) {
+	@classic(t(ctx, "nav.people"), "people", nil) {
 		<div class="browse wide">
-			<div class="mb-tag">three thousand people</div>
-			<h1 class="mb-display">People</h1>
+			<div class="mb-tag">{ t(ctx, "ui.three.thousand.people") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.people") }</h1>
 			<div class="ptools">
-				<input id="pq" class="mb-input" type="search" placeholder="Search by name…" autocomplete="off"/>
-				<select id="pgroup" class="mb-input"><option value="">Any tribe or group</option></select>
-				<select id="pera" class="mb-input"><option value="">Any era</option></select>
+				<input id="pq" class="mb-input" type="search" placeholder={ t(ctx, "ui.search.by.name") } autocomplete="off"/>
+				<select id="pgroup" class="mb-input"><option value="">{ t(ctx, "ui.any.tribe.or.group") }</option></select>
+				<select id="pera" class="mb-input"><option value="">{ t(ctx, "ui.any.era") }</option></select>
 				<select id="pgender" class="mb-input">
-					<option value="">Any gender</option>
-					<option>Male</option>
-					<option>Female</option>
+					<option value="">{ t(ctx, "ui.any.gender") }</option>
+					<option>{ t(ctx, "ui.male") }</option>
+					<option>{ t(ctx, "ui.female") }</option>
 				</select>
 				<select id="psort" class="mb-input">
-					<option value="vc">Most mentioned</option>
+					<option value="vc">{ t(ctx, "ui.most.mentioned") }</option>
 					<option value="az">A – Z</option>
-					<option value="time">Chronological</option>
+					<option value="time">{ t(ctx, "ui.chronological") }</option>
 				</select>
 			</div>
 			<div class="az" id="paz"></div>
@@ -172,7 +172,7 @@ templ PeoplePage() {
 // ---------------------------------------------------------------- places
 
 templ PlacesPage() {
-	@immersive("Places", "places", mapLibreHead()) {
+	@immersive(t(ctx, "nav.places"), "places", mapLibreHead()) {
 		<div id="map" class="mb-fill"></div>
 		<div id="plist" class="mb-panel"></div>
 		<script type="module" src="/assets/js/atlas/places.js"></script>
@@ -182,30 +182,30 @@ templ PlacesPage() {
 // ---------------------------------------------------------------- credits
 
 templ CreditsPage(images []atlas.Credit, texts []atlas.Credit) {
-	@classic("Credits", "credits", nil) {
+	@classic(t(ctx, "nav.credits"), "credits", nil) {
 		<div class="browse credits">
-			<div class="mb-tag">standing on open work</div>
-			<h1 class="mb-display">Credits &amp; licenses</h1>
-			<h2>Data</h2>
+			<div class="mb-tag">{ t(ctx, "ui.standing.on.open.work") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.credits.licenses") }</h1>
+			<h2>{ t(ctx, "ui.data") }</h2>
 			<ul>
-				<li><a href="https://github.com/robertrouse/theographic-metadata" rel="noopener">Theographic Bible Metadata</a>: people, places, events, periods and verse links, CC BY-SA 4.0. This site's cleaned copy and everything derived from it is shared under the same license.</li>
-				<li>Easton's Bible Dictionary (1897) supplies the descriptions of people and places. Public domain.</li>
-				<li>Verse text: King James Version. Public domain.</li>
+				<li><a href="https://github.com/robertrouse/theographic-metadata" rel="noopener">Theographic Bible Metadata</a>{ t(ctx, "ui.people.places.events.periods.and") }</li>
+				<li>{ t(ctx, "ui.easton.s.bible.dictionary.1897") }</li>
+				<li>{ t(ctx, "ui.verse.text.king.james.version") }</li>
 			</ul>
-			<h2>Open content</h2>
+			<h2>{ t(ctx, "ui.open.content") }</h2>
 			<ul>
-				<li>Summaries and photographs come from <a href="https://www.wikipedia.org" rel="noopener">Wikipedia</a> and <a href="https://commons.wikimedia.org" rel="noopener">Wikimedia Commons</a>. Text is CC BY-SA 4.0; each photograph carries its own free license, shown beneath it and listed below.</li>
-				<li>Engravings are by Gustave Doré (1832–1883), from <em>The Holy Bible</em> (1866). Public domain, via Wikimedia Commons.</li>
+				<li>{ t(ctx, "ui.summaries.and.photographs.come.from") } <a href="https://www.wikipedia.org" rel="noopener">Wikipedia</a> { t(ctx, "ui.and") } <a href="https://commons.wikimedia.org" rel="noopener">Wikimedia Commons</a>{ t(ctx, "ui.text.is.cc.by.sa") }</li>
+				<li>{ t(ctx, "ui.engravings.are.by.gustave.dor") } <em>{ t(ctx, "ui.the.holy.bible") }</em> { t(ctx, "ui.1866.public.domain.via.wikimedia") }</li>
 			</ul>
-			<h2>Maps and software</h2>
+			<h2>{ t(ctx, "ui.maps.and.software") }</h2>
 			<ul>
-				<li>Map imagery © Esri, Maxar, Earthstar Geographics and the GIS user community; night map © OpenStreetMap contributors © CARTO; elevation from the AWS Terrain Tiles (Mapzen, USGS, NASA and others).</li>
+				<li>{ t(ctx, "ui.map.imagery.esri.maxar.earthstar") }</li>
 				<li><a href="https://maplibre.org" rel="noopener">MapLibre GL JS</a> (BSD-3-Clause), <a href="https://threejs.org" rel="noopener">three.js</a> (MIT), Inter and Cinzel (SIL Open Font License), <a href="https://templ.guide" rel="noopener">templ</a> (MIT).</li>
 			</ul>
 			if len(images) > 0 {
-				<h2>Images ({ fmt.Sprint(len(images)) })</h2>
+				<h2>{ t(ctx, "ui.images") }{ fmt.Sprint(len(images)) })</h2>
 				<details>
-					<summary>Show every image, author and license</summary>
+					<summary>{ t(ctx, "ui.show.every.image.author.and") }</summary>
 					<table class="credit-table">
 						for _, c := range images {
 							<tr>
@@ -218,9 +218,9 @@ templ CreditsPage(images []atlas.Credit, texts []atlas.Credit) {
 				</details>
 			}
 			if len(texts) > 0 {
-				<h2>Wikipedia texts ({ fmt.Sprint(len(texts))})</h2>
+				<h2>{ t(ctx, "ui.wikipedia.texts") }{ fmt.Sprint(len(texts))})</h2>
 				<details>
-					<summary>Show every article used</summary>
+					<summary>{ t(ctx, "ui.show.every.article.used") }</summary>
 					<ul class="credit-list">
 						for _, c := range texts {
 							<li><a href={ templ.SafeURL(c.Page) } rel="noopener">{ c.Title }</a></li>
@@ -235,22 +235,22 @@ templ CreditsPage(images []atlas.Credit, texts []atlas.Credit) {
 // ---------------------------------------------------------------- gallery
 
 templ GalleryPage(items []atlas.GalleryItem, engravings int, people int, places int) {
-	@classic("Gallery", "gallery", nil) {
+	@classic(t(ctx, "nav.gallery"), "gallery", nil) {
 		<div class="browse wide galpage">
-			<div class="mb-tag">open images</div>
-			<h1 class="mb-display">Gallery</h1>
-			<p class="mb-muted lead">Engravings by Gustave Doré and photographs from Wikimedia Commons. Click any picture to enlarge it, read its license and follow it to the person, event or place it belongs to.</p>
+			<div class="mb-tag">{ t(ctx, "ui.open.images") }</div>
+			<h1 class="mb-display">{ t(ctx, "ui.gallery") }</h1>
+			<p class="mb-muted lead">{ t(ctx, "ui.engravings.by.gustave.dor.and") }</p>
 			if len(items) == 0 {
-				<p class="mb-muted">No images have been fetched yet. Run <code>go run ./cmd/enrich</code>.</p>
+				<p class="mb-muted">{ t(ctx, "ui.no.images.have.been.fetched") } <code>go run ./cmd/enrich</code>.</p>
 			} else {
 				<div class="galtools">
 					<div class="seg2" id="galtabs">
-						<button class="mb-btn on" data-f="">All { fmt.Sprint(len(items)) }</button>
-						<button class="mb-btn" data-f="engraving">Engravings { fmt.Sprint(engravings) }</button>
-						<button class="mb-btn" data-f="person">People { fmt.Sprint(people) }</button>
-						<button class="mb-btn" data-f="place">Places { fmt.Sprint(places) }</button>
+						<button class="mb-btn on" data-f="">{ t(ctx, "ui.all") } { fmt.Sprint(len(items)) }</button>
+						<button class="mb-btn" data-f="engraving">{ t(ctx, "ui.engravings") } { fmt.Sprint(engravings) }</button>
+						<button class="mb-btn" data-f="person">{ t(ctx, "ui.people") } { fmt.Sprint(people) }</button>
+						<button class="mb-btn" data-f="place">{ t(ctx, "ui.places") } { fmt.Sprint(places) }</button>
 					</div>
-					<input id="galq" class="mb-input" type="search" placeholder="Filter by title…" autocomplete="off"/>
+					<input id="galq" class="mb-input" type="search" placeholder={ t(ctx, "ui.filter.by.title") } autocomplete="off"/>
 				</div>
 				@gallery(items)
 			}
