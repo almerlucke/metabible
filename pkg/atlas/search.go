@@ -44,7 +44,7 @@ func (a *Atlas) buildSearch() {
 		a.nameIdx = append(a.nameIdx, searchEntry{Type: "place", ID: p.ID, Label: p.Name, Aux: p.Kind, URL: "/place/" + p.ID, Lower: strings.TrimSpace(strings.ToLower(p.Name + " " + p.Orig)), W: p.Verses})
 	}
 	for _, e := range a.Events {
-		a.nameIdx = append(a.nameIdx, searchEntry{Type: "event", ID: e.ID, Label: e.Title, Aux: e.Date, URL: "/atlas?event=" + e.ID, Lower: strings.ToLower(e.Title), W: 20})
+		a.nameIdx = append(a.nameIdx, searchEntry{Type: "event", ID: e.ID, Label: e.Title, Aux: e.Date, URL: "/atlas?event=" + e.ID, Lower: strings.TrimSpace(strings.ToLower(e.Title + " " + e.Orig)), W: 20})
 	}
 	for _, b := range a.Books {
 		a.nameIdx = append(a.nameIdx, searchEntry{Type: "book", ID: b.ID, Label: b.Name, Aux: b.Testament, URL: "/book/" + b.ID, Lower: strings.ToLower(strings.Join(a.allBookNames(b), " ")), W: 100000})

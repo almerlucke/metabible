@@ -699,3 +699,48 @@ func TestDutchNames(t *testing.T) {
 		t.Error("story shared between views")
 	}
 }
+
+func TestDutchEventTitles(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	same := 0
+	for _, e := range a.Events {
+		d := nl.EventByID[e.ID]
+		if d == nil || d == e {
+			t.Fatalf("event %s missing from the Dutch view", e.ID)
+		}
+		if d.Title == e.Title {
+			same++
+		}
+		if d.Orig != e.Title && d.Orig != "" {
+			t.Errorf("Orig %q vs %q", d.Orig, e.Title)
+		}
+	}
+	if same > 10 {
+		t.Errorf("%d event titles untranslated", same)
+	}
+	if hits := nl.Search("sodom verwoest", 3, "nl"); len(hits) == 0 || hits[0].Type != "event" {
+		t.Errorf("Dutch title search: %+v", hits)
+	}
+	if hits := nl.Search("sodom destroyed", 3, "nl"); len(hits) == 0 {
+		t.Error("English title should still be found")
+	}
+	// the cross references of a person point at the translated events
+	for _, p := range nl.People {
+		if es := nl.personEvents[p.ID]; len(es) > 0 {
+			if nl.EventByID[es[0].ID] != es[0] {
+				t.Fatal("personEvents still points at the source events")
+			}
+			break
+		}
+	}
+	lives := 0
+	for _, e := range a.Events {
+		if e.Life {
+			lives++
+		}
+	}
+	if lives < 100 {
+		t.Errorf("only %d lifespan events flagged", lives)
+	}
+}

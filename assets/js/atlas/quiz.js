@@ -23,7 +23,7 @@ const sample = (a, n, ok = () => true) => shuffle(a.filter(ok)).slice(0, n);
 // ---------------------------------------------------------------- question makers
 const prominent = people.filter((p) => p.vc >= 20);
 const exactLives = people.filter((p) => p.b != null && p.d != null && p.vc >= 8);
-const datedEvents = events.filter((e) => e.tx && !/^(Birth|Death|Lifetime) of/.test(e.t));
+const datedEvents = events.filter((e) => e.tx && !e.life);
 
 function qWhichFirst() {
   for (let k = 0; k < 40; k++) {

@@ -69,7 +69,7 @@ func (a *Atlas) Mount(mux *http.ServeMux) {
 	mux.HandleFunc("GET /api/atlas/journey/{id}", a.viewed((*Atlas).handlePersonJourney))
 	mux.HandleFunc("GET /api/atlas/cosmos", a.viewed((*Atlas).handleCosmos))
 	mux.HandleFunc("GET /api/atlas/story", a.viewed((*Atlas).handleStory))
-	mux.HandleFunc("GET /api/atlas/validate", a.viewed((*Atlas).handleValidate))
+	mux.HandleFunc("GET /api/atlas/validate", a.handleValidate) // always the source data
 	mux.HandleFunc("GET /api/atlas/compare", a.viewed((*Atlas).handleCompare))
 	mux.HandleFunc("GET /export/journey/{file}", a.viewed((*Atlas).handleExport))
 	mux.HandleFunc("GET /api/atlas/progress-index", a.viewed((*Atlas).handleProgressIndex))

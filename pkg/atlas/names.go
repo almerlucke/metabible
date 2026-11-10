@@ -25,6 +25,15 @@ type viewSet struct {
 func (a *Atlas) loadNames(dir string) {
 	files, _ := filepath.Glob(filepath.Join(dir, "..", "names", "*.json"))
 	a.names = map[string]*nameTable{}
+	a.titles = map[string]map[string]string{}
+	tfiles, _ := filepath.Glob(filepath.Join(dir, "..", "titles", "*.json"))
+	for _, f := range tfiles {
+		raw, err := os.ReadFile(f)
+		m := map[string]string{}
+		if err == nil && json.Unmarshal(raw, &m) == nil && len(m) > 0 {
+			a.titles[strings.TrimSuffix(filepath.Base(f), ".json")] = m
+		}
+	}
 	for _, f := range files {
 		base := filepath.Base(f)
 		if strings.Count(base, ".") != 1 { // nl.glue.json is input for the tool, not a table
@@ -49,9 +58,12 @@ func (a *Atlas) View(lang string) *Atlas {
 	if a.base != nil {
 		return a.base.View(lang)
 	}
-	nt := a.names[lang]
-	if nt == nil {
+	nt, titles := a.names[lang], a.titles[lang]
+	if nt == nil && titles == nil {
 		return a
+	}
+	if nt == nil {
+		nt = &nameTable{}
 	}
 	a.views.mu.Lock()
 	defer a.views.mu.Unlock()
@@ -81,6 +93,30 @@ func (a *Atlas) View(lang string) *Atlas {
 		}
 		v.Places[i] = &c
 		v.PlaceByID[c.ID] = &c
+	}
+	if titles != nil {
+		moved := map[*Event]*Event{}
+		v.Events = make([]*Event, len(a.Events))
+		v.EventByID = make(map[string]*Event, len(a.Events))
+		for i, e := range a.Events {
+			c := *e
+			if t := titles[e.ID]; t != "" {
+				c.Orig, c.Title = e.Title, t
+			}
+			moved[e], v.Events[i], v.EventByID[c.ID] = &c, &c, &c
+		}
+		remap := func(m map[string][]*Event) map[string][]*Event {
+			out := make(map[string][]*Event, len(m))
+			for k, es := range m {
+				ne := make([]*Event, len(es))
+				for i, e := range es {
+					ne[i] = moved[e]
+				}
+				out[k] = ne
+			}
+			return out
+		}
+		v.personEvents, v.placeEvents, v.eventSucc = remap(a.personEvents), remap(a.placeEvents), remap(a.eventSucc)
 	}
 	v.nameIdx = nil
 	v.buildSearch()

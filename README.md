@@ -90,7 +90,10 @@ remembered in a cookie; the browser's language is used the first time).
   doubtful ones). Names of several words ("Mount of Olives", "Daughter of Pharaoh") are put together with the glue
   words in `data/names/<code>.glue.json`, which also holds hand-written overrides. Whatever is not in the table keeps
   its English name. In code, `atlas.View(lang)` is the atlas with those names; handlers and pages use it.
-- Still English everywhere: the dictionary descriptions of people and places (Easton), event titles, and image titles. Translating those is separate work (a name table).
+- **Event titles:** `data/titles/<code>.json` maps an event id to its title (the Dutch file is made by
+  `python3 cmd/names/titles_nl.py`: Birth/Lifetime/Death titles from the name table, the rest translated by hand).
+  Missing titles keep the English one.
+- Still English everywhere: the dictionary descriptions of people and places (Easton) and image titles. Translating those is separate work (a name table).
 
 ## Code map
 

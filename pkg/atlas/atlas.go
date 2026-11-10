@@ -62,6 +62,8 @@ type Person struct {
 type Event struct {
 	ID      string   `json:"id"`
 	Title   string   `json:"t"`
+	Orig    string   `json:"-"`              // the source title, when Title is a translation
+	Life    bool     `json:"life,omitempty"` // a birth, lifetime or death entry (not a happening in itself)
 	Year    float64  `json:"y"`
 	Days    int      `json:"d"`
 	Places  []string `json:"pl,omitempty"`
@@ -163,7 +165,8 @@ type Atlas struct {
 	bibles     map[string]map[string]string
 	lowerBible map[string][]string
 	nameIdx    []searchEntry
-	names      map[string]*nameTable // spellings of people and places per language (data/names)
+	names      map[string]*nameTable        // spellings of people and places per language (data/names)
+	titles     map[string]map[string]string // event titles per language (data/titles)
 	views      *viewSet
 	base       *Atlas // set on a per-language view
 
@@ -481,7 +484,7 @@ func Load(dir string, journeysFile string) (*Atlas, error) {
 
 	for _, e := range revents {
 		y, dt := parseYear(e.StartDate)
-		ev := &Event{ID: e.ID, Title: e.Title, Year: y, Date: dt, Days: parseDays(e.Duration),
+		ev := &Event{ID: e.ID, Title: e.Title, Life: isLifespanEvent(e.Title), Year: y, Date: dt, Days: parseDays(e.Duration),
 			Pred: e.Pred, PartOf: e.PartOf, People: e.Particip, Sort: e.SortKey, Notes: e.Notes, Vs: e.Verses}
 		seen := map[string]bool{}
 		for _, id := range append(append([]string{}, e.Locations...), e.PlacesFV...) {
