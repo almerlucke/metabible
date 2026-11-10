@@ -47,12 +47,12 @@ type Person struct {
 	Partners []string `json:"p,omitempty"`
 	Children []string `json:"c,omitempty"`
 	Group    int      `json:"gr"`
+	Disambig string   `json:"dis,omitempty"`
 	Verses   int      `json:"vc"`
 	Dict     string   `json:"-"`
 	AlsoCall string   `json:"-"`
 	Vs       []string `json:"-"`
 	Events   []string `json:"-"`
-	Disambig string   `json:"-"`
 	BirthPl  string   `json:"-"`
 	DeathPl  string   `json:"-"`
 }

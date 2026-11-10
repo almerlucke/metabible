@@ -1,0 +1,180 @@
+package pages
+
+import (
+	"fmt"
+	"net/url"
+
+	"github.com/almerlucke/metabible/pkg/atlas"
+)
+
+// ---------------------------------------------------------------- books
+
+templ BooksPage(groups []atlas.BookGroup) {
+	@classic("Books", "books", nil) {
+		<div class="browse">
+			<div class="mb-tag">sixty-six books</div>
+			<h1 class="mb-display">Books</h1>
+			<p class="mb-muted lead">Each strip is the book's chapters; brighter means more people appear in that chapter. <a href="/canon">See all books side by side →</a></p>
+			for i, g := range groups {
+				if i == 0 || groups[i-1].Testament != g.Testament {
+					<h2 class="testament">{ g.Testament }</h2>
+				}
+				<h3 class="div">{ g.Div }</h3>
+				<div class="bookgrid">
+					for _, b := range g.Books {
+						<div class="bcard">
+							<a class="bname" href={ href("book", b.ID) }>{ b.Name }</a>
+							<div class="bstats">{ plural(b.Chapters, "chapter", "chapters") } · { plural(b.People, "person", "people") } · { plural(b.Places, "place", "places") }</div>
+							<div class="skyline mini">
+								for i, h := range b.Heat {
+									<a href={ href("chapter", b.CIDs[i]) } style={ heatStyle(h) } title={ fmt.Sprintf("%s %d", b.Name, i+1) }></a>
+								}
+							</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+	}
+}
+
+// ---------------------------------------------------------------- events
+
+templ EventsPage(groups []atlas.EraGroup) {
+	@classic("Events", "events", nil) {
+		<div class="browse">
+			<div class="mb-tag">four thousand years</div>
+			<h1 class="mb-display">Events</h1>
+			<p class="mb-muted lead">The Bible's events in order. <a href="/atlas">Watch them unfold on the map →</a></p>
+			<div class="evtools">
+				<input id="evq" class="mb-input" type="search" placeholder="Filter events…" autocomplete="off"/>
+				<div class="erajump">
+					for _, g := range groups {
+						<a href={ templ.SafeURL("#" + g.Era.ID) } style={ colorStyle(g.Era.Color) }>{ g.Era.Name }</a>
+					}
+				</div>
+			</div>
+			for _, g := range groups {
+				<section class="era" id={ g.Era.ID }>
+					<h2 class="era-head" style={ colorStyle(g.Era.Color) }>{ g.Era.Name } <small>{ yr(g.Era.From) } – { yr(g.Era.To) } · { plural(len(g.Events), "event", "events") }</small></h2>
+					<div class="tl" style={ templ.SafeCSS("--c:" + g.Era.Color) }>
+						for _, e := range g.Events {
+							<article class="evc" data-q={ e.Title + " " + e.Text }>
+								<div class="when">
+									{ e.Date }
+									if e.Days != "" {
+										<small> · { e.Days }</small>
+									}
+								</div>
+								<h3><a href={ href("event", e.ID) }>{ e.Title }</a></h3>
+								if e.Text != "" {
+									<p class="mb-verse">
+										“{ e.Text }”
+										if e.VerseID != "" {
+											<a class="ref" href={ href("verse", e.VerseID) }>{ e.Ref }</a>
+										}
+									</p>
+								}
+								<div class="chiprow">
+									@chips(e.Places, "place")
+									@chips(e.People, "person")
+								</div>
+							</article>
+						}
+					</div>
+				</section>
+			}
+		</div>
+		<script src="/assets/js/atlas/events.js"></script>
+	}
+}
+
+// ---------------------------------------------------------------- concordance
+
+templ ConcordancePage(r *atlas.ConcResult) {
+	@classic("Concordance", "concordance", nil) {
+		<div class="browse">
+			<div class="mb-tag">search every verse</div>
+			<h1 class="mb-display">Concordance</h1>
+			<form class="csearch" method="get" action="/concordance">
+				<input name="search" class="mb-input" type="search" placeholder='Search verses: love, "the Lord is my shepherd", grace peace…' value={ r.Query } autofocus?={ r.Query == "" }/>
+				if r.BookID != "" {
+					<input type="hidden" name="book" value={ r.BookID }/>
+				}
+				<button class="mb-btn" type="submit">Search</button>
+			</form>
+			if len(r.Terms) > 0 {
+				<p class="mb-muted">
+					{ plural(r.Total, "verse", "verses") }
+					if r.BookID != "" {
+						in this book · <a href={ templ.SafeURL("/concordance?search=" + url.QueryEscape(r.Query)) }>show all books</a>
+					}
+				</p>
+				if r.Total > 0 {
+					<div class="dist" title="Where it appears, book by book">
+						for _, b := range r.Books {
+							<a class={ templ.KV("on", b.ID == r.BookID), templ.KV("zero", b.Count == 0) } href={ templ.SafeURL("/concordance?search=" + url.QueryEscape(r.Query) + "&book=" + b.ID) } title={ fmt.Sprintf("%s: %d", b.Name, b.Count) }>
+								<i style={ templ.SafeCSS(fmt.Sprintf("height:%.0f%%", 4+b.Pct*96)) }></i>
+							</a>
+						}
+					</div>
+					<div class="dist-lbl"><span>Genesis</span><span>Malachi</span><span>Matthew</span><span>Revelation</span></div>
+				}
+				<ol class="hits">
+					for _, h := range r.Hits {
+						<li><a class="loc" href={ href("verse", h.ID) }>{ h.Label }</a> @templ.Raw(h.HTML)</li>
+					}
+				</ol>
+				if r.Capped {
+					<p class="mb-muted">Showing the first { fmt.Sprint(r.Shown) }. Narrow it down by clicking a book above or adding a word.</p>
+				}
+				if r.Total == 0 {
+					<p class="mb-muted">No verse contains all of those words.</p>
+				}
+			} else {
+				<p class="mb-muted">Try a word, several words (all must appear), or a quoted phrase.</p>
+			}
+		</div>
+	}
+}
+
+// ---------------------------------------------------------------- people
+
+templ PeoplePage() {
+	@classic("People", "people", nil) {
+		<div class="browse wide">
+			<div class="mb-tag">three thousand people</div>
+			<h1 class="mb-display">People</h1>
+			<div class="ptools">
+				<input id="pq" class="mb-input" type="search" placeholder="Search by name…" autocomplete="off"/>
+				<select id="pgroup" class="mb-input"><option value="">Any tribe or group</option></select>
+				<select id="pera" class="mb-input"><option value="">Any era</option></select>
+				<select id="pgender" class="mb-input">
+					<option value="">Any gender</option>
+					<option>Male</option>
+					<option>Female</option>
+				</select>
+				<select id="psort" class="mb-input">
+					<option value="vc">Most mentioned</option>
+					<option value="az">A – Z</option>
+					<option value="time">Chronological</option>
+				</select>
+			</div>
+			<div class="az" id="paz"></div>
+			<p class="mb-muted" id="pcount"></p>
+			<div class="pgrid" id="pgrid"></div>
+			<div id="pmore" class="more"></div>
+		</div>
+		<script type="module" src="/assets/js/atlas/people.js"></script>
+	}
+}
+
+// ---------------------------------------------------------------- places
+
+templ PlacesPage() {
+	@immersive("Places", "places", mapLibreHead()) {
+		<div id="map" class="mb-fill"></div>
+		<div id="plist" class="mb-panel"></div>
+		<script type="module" src="/assets/js/atlas/places.js"></script>
+	}
+}

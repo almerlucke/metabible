@@ -25,6 +25,16 @@ func MountAtlas(mux *http.ServeMux, a *atlas.Atlas) {
 	mux.Handle("GET /canon", templ.Handler(pages.CanonPage()))
 	mux.Handle("GET /lifespans", templ.Handler(pages.LifespansPage()))
 
+	// browse pages
+	mux.Handle("GET /books", templ.Handler(pages.BooksPage(a.BooksBrowse())))
+	mux.Handle("GET /events", templ.Handler(pages.EventsPage(a.EventsTimeline())))
+	mux.Handle("GET /people", templ.Handler(pages.PeoplePage()))
+	mux.Handle("GET /places", templ.Handler(pages.PlacesPage()))
+	mux.HandleFunc("GET /concordance", func(w http.ResponseWriter, r *http.Request) {
+		res := a.Concordance(r.URL.Query().Get("search"), r.URL.Query().Get("book"), 400)
+		templ.Handler(pages.ConcordancePage(res)).ServeHTTP(w, r)
+	})
+
 	// dossier pages, served from the in-memory atlas (no Mongo needed)
 	detail := func(w http.ResponseWriter, r *http.Request, c templ.Component, ok bool) {
 		if !ok {
