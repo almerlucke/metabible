@@ -130,7 +130,8 @@ func main() {
 			dice := 2 * float64(c) / float64(n+df[w])
 			sim := similarity(name, w)
 			if sim >= 0.8 && (n <= 2 || float64(c) >= 0.3*float64(n)) {
-				if sc := sim + 0.3*dice; sc > ss || (sc == ss && w < sw) {
+				// the unfolded spelling counts too, so Hanan beats the look-alike Anan
+				if sc := sim + 0.3*dice + 0.6*plain(name, w); sc > ss || (sc == ss && w < sw) {
 					sw, ss = w, sc
 				}
 			}
@@ -166,6 +167,7 @@ func main() {
 		Words     map[string]string `json:"words"`
 		Overrides map[string]string `json:"overrides"` // whole English names
 		Names     map[string]string `json:"names"`     // single English names that cannot be found by alignment
+		Spelling  map[string]string `json:"spelling"`  // modern spelling of words the Bible text writes without a diaeresis (Azie -> Azië)
 	}
 	if raw, err := os.ReadFile(fmt.Sprintf("data/names/%s.glue.json", *lang)); err == nil {
 		check(json.Unmarshal(raw, &glue))
@@ -315,6 +317,21 @@ func main() {
 		}
 	}
 
+	// the Bible text spells Azie, Syrie... without the diaeresis; the site uses the modern spelling
+	wordRe2 := regexp.MustCompile(`[\p{L}]+`)
+	modern := func(m map[string]string) {
+		for id, name := range m {
+			m[id] = wordRe2.ReplaceAllStringFunc(name, func(w string) string {
+				if r, ok := glue.Spelling[w]; ok {
+					return r
+				}
+				return w
+			})
+		}
+	}
+	modern(out.People)
+	modern(out.Places)
+
 	if *report {
 		sort.Strings(unsure)
 		fmt.Println("== unsure (=> accepted, -> rejected)")
@@ -376,6 +393,16 @@ func fold(s string) string {
 		out = append(out, r)
 	}
 	return string(out)
+}
+
+// plain compares two names letter for letter, ignoring only case. 0..1.
+func plain(a, b string) float64 {
+	a, b = strings.ToLower(a), strings.ToLower(b)
+	m := max(len([]rune(a)), len([]rune(b)))
+	if m == 0 {
+		return 0
+	}
+	return 1 - float64(lev(a, b))/float64(m)
 }
 
 func lev(a, b string) int {

@@ -24,6 +24,11 @@ def load_entities():
                 out[x['id']] = x
     return out
 
+_spelling = json.load(open(f'data/names/{lang}.glue.json')).get('spelling', {})
+def modern(text):
+    """Azie -> Azië: the site's spelling of names the Bible text writes without a diaeresis."""
+    return re.sub(r'[^\W\d_]+', lambda m: _spelling.get(m.group(0), m.group(0)), text)
+
 def hand_path(): return f'data/easton/{lang}.hand.json'
 def done(): return json.load(open(hand_path())) if os.path.exists(hand_path()) else {}
 
@@ -81,7 +86,7 @@ def merge(dir_):
             if re.search(r'\b(the|and|which|his|their)\b', text):
                 problems.append((id_, 'English words left')); continue
             out = re.sub(r'⟦(\d+)⟧', lambda m: localise_label(links[int(m.group(1)) - 1]), text.strip())
-            have[id_] = out; added += 1
+            have[id_] = modern(out); added += 1
     json.dump(have, open(hand_path(), 'w'), ensure_ascii=False, indent=0, sort_keys=True)
     print(added, 'added;', len(have), 'in total;', len(problems), 'problems')
     for p in problems: print('  ', p)
