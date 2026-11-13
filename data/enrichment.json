@@ -42,7 +42,7 @@
    "desc": "Ruins of an ancient town in Israel",
    "page": "https://en.wikipedia.org/wiki/Azekah",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/TEL_AZEKA_A.jpg/330px-TEL_AZEKA_A.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/TEL_AZEKA_A.jpg/330px-TEL_AZEKA_A.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:TEL_AZEKA_A.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "AVRAMGR",
@@ -75,7 +75,7 @@
    "desc": "Ancient Assyrian city",
    "page": "https://en.wikipedia.org/wiki/Nineveh",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Nineveh_-_Mashki_Gate.jpg/330px-Nineveh_-_Mashki_Gate.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Nineveh_-_Mashki_Gate.jpg/330px-Nineveh_-_Mashki_Gate.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Nineveh_-_Mashki_Gate.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Omar Siddeeq Yousif",
@@ -101,7 +101,7 @@
    "desc": "Mountain in East Jerusalem",
    "page": "https://en.wikipedia.org/wiki/Mount_of_Olives",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/2013-Aerial-Mount_of_Olives.jpg/330px-2013-Aerial-Mount_of_Olives.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/2013-Aerial-Mount_of_Olives.jpg/330px-2013-Aerial-Mount_of_Olives.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:2013-Aerial-Mount_of_Olives.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Godot13",
@@ -128,7 +128,7 @@
    "desc": "Capital and largest city of Greece",
    "page": "https://en.wikipedia.org/wiki/Athens",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Athens_Acropolis_at_Daybreak.jpg/330px-Athens_Acropolis_at_Daybreak.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Athens_Acropolis_at_Daybreak.jpg/330px-Athens_Acropolis_at_Daybreak.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Athens_Acropolis_at_Daybreak.jpg",
     "license": "CC BY 4.0",
     "artist": "Andrew Parlette",
@@ -143,7 +143,7 @@
    "desc": "Largest Greek island",
    "page": "https://en.wikipedia.org/wiki/Crete",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Island_of_Crete%2C_Greece.JPG/330px-Island_of_Crete%2C_Greece.JPG?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Island_of_Crete%2C_Greece.JPG/330px-Island_of_Crete%2C_Greece.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Island_of_Crete%2C_Greece.JPG",
     "license": "Public domain",
     "artist": "ISS Expedition 28 crew",
@@ -164,7 +164,7 @@
    "desc": "City in the West Bank, Palestine",
    "page": "https://en.wikipedia.org/wiki/Bethlehem",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Church_of_the_Nativity_%287703592746%29.jpg/330px-Church_of_the_Nativity_%287703592746%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Church_of_the_Nativity_%287703592746%29.jpg/330px-Church_of_the_Nativity_%287703592746%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Church_of_the_Nativity_%287703592746%29.jpg",
     "license": "CC BY 2.0",
     "artist": "Neil Ward",
@@ -179,7 +179,7 @@
    "desc": "City in Hama Governorate, Syria",
    "page": "https://en.wikipedia.org/wiki/Hama",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Hama%2C_Panoramic_view%2C_Syria.jpg/330px-Hama%2C_Panoramic_view%2C_Syria.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Hama%2C_Panoramic_view%2C_Syria.jpg/330px-Hama%2C_Panoramic_view%2C_Syria.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Hama%2C_Panoramic_view%2C_Syria.jpg",
     "license": "CC BY 4.0",
     "artist": "Vyacheslav Argenberg",
@@ -218,7 +218,7 @@
    "desc": "Ancient Greek city in Anatolia",
    "page": "https://en.wikipedia.org/wiki/Ephesus",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/330px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/330px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Ephesus_Celsus_Library_Fa%C3%A7ade.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Benh LIEU SONG",
@@ -233,7 +233,7 @@
    "desc": "Historic valley in Jerusalem and religious concept",
    "page": "https://en.wikipedia.org/wiki/Gehenna",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg/330px-11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg/330px-11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Michal Levinsky",
@@ -260,7 +260,7 @@
    "desc": "Archaeological ruin south of Beit Shemesh",
    "page": "https://en.wikipedia.org/wiki/Jarmuth",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Tel-Yarmuth-2-33721.jpg/330px-Tel-Yarmuth-2-33721.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Tel-Yarmuth-2-33721.jpg/330px-Tel-Yarmuth-2-33721.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Tel-Yarmuth-2-33721.jpg",
     "license": "CC BY 4.0",
     "artist": "Bukvoed",
@@ -287,7 +287,7 @@
    "desc": "Mountainous region stretching between the Dead Sea and the Gulf of Aqaba",
    "page": "https://en.wikipedia.org/wiki/Mount_Seir",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Jordanien.svg/330px-Jordanien.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Jordanien.svg/330px-Jordanien.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Jordanien.svg",
     "license": "CC BY-SA 3.0",
     "artist": "Bgabel",
@@ -326,7 +326,7 @@
    "desc": "Ancient Greek city in Anatolia",
    "page": "https://en.wikipedia.org/wiki/Miletus",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Miletus_-_Ancient_Greek_theatre_02.jpg/330px-Miletus_-_Ancient_Greek_theatre_02.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Miletus_-_Ancient_Greek_theatre_02.jpg/330px-Miletus_-_Ancient_Greek_theatre_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Miletus_-_Ancient_Greek_theatre_02.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Bernard Gagnon",
@@ -352,7 +352,7 @@
    "desc": "Village at Lake Tiberias in historical Judea",
    "page": "https://en.wikipedia.org/wiki/Capernaum",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_%28or_Kfar_Nahum%29_on_the_shore_of_the_Lake_of_Galilee%2C_Northern_Israel.jpg/330px-thumbnail.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_%28or_Kfar_Nahum%29_on_the_shore_of_the_Lake_of_Galilee%2C_Northern_Israel.jpg/330px-thumbnail.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Sites_of_Christianity_in_the_Galillee_-_Ruins_of_the_ancient_Great_Synagogue_at_Capernaum_%28or_Kfar_Nahum%29_on_the_shore_of_the_Lake_of_Galilee%2C_Northern_Israel.jpg",
     "license": "CC BY-SA 3.0 igo",
     "artist": "Eddie Gerald",
@@ -396,7 +396,7 @@
    "desc": "Second-largest city in Greece",
    "page": "https://en.wikipedia.org/wiki/Thessaloniki",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Tessaloniki_BW_2017-10-05_18-22-47.jpg/330px-Tessaloniki_BW_2017-10-05_18-22-47.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Tessaloniki_BW_2017-10-05_18-22-47.jpg/330px-Tessaloniki_BW_2017-10-05_18-22-47.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Tessaloniki_BW_2017-10-05_18-22-47.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Berthold Werner",
@@ -417,7 +417,7 @@
    "desc": "Ancient Israelite city mentioned in the Bible",
    "page": "https://en.wikipedia.org/wiki/Bethel",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Bethel_MET_DP116361.jpg/330px-Bethel_MET_DP116361.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Bethel_MET_DP116361.jpg/330px-Bethel_MET_DP116361.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Bethel_MET_DP116361.jpg",
     "license": "CC0",
     "artist": "Francis Frith",
@@ -438,7 +438,7 @@
    "desc": "Hellenistic city, modern Antakya, Turkey",
    "page": "https://en.wikipedia.org/wiki/Antioch",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Antioch_on_the_Orontes_en.svg/330px-Antioch_on_the_Orontes_en.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Antioch_on_the_Orontes_en.svg/330px-Antioch_on_the_Orontes_en.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Antioch_on_the_Orontes_en.svg",
     "license": "CC BY-SA 4.0",
     "artist": "UndercoverClassicist",
@@ -471,7 +471,7 @@
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Lod",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/LodJune132022_01.jpg/330px-LodJune132022_01.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/LodJune132022_01.jpg/330px-LodJune132022_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:LodJune132022_01.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -486,7 +486,7 @@
    "desc": "Municipality type B in Jerusalem, Palestine",
    "page": "https://en.wikipedia.org/wiki/Bethany",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg/330px-%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg/330px-%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:%D7%94%D7%A0%D7%95%D7%A3_%D7%9C%D7%9E%D7%AA%D7%97%D7%9D_%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98%D7%94_%D7%95%D7%99%D7%A7%D7%98%D7%95%D7%A8%D7%99%D7%94.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Tomer hu",
@@ -519,7 +519,7 @@
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Ashdod",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg/330px-%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg/330px-%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:%D7%A4%D7%90%D7%A8%D7%A7_%D7%95%D7%90%D7%92%D7%9D_%D7%94%D7%9E%D7%A8%D7%99%D7%A0%D7%94_%D7%9C%D7%A7%D7%A8%D7%90%D7%AA_%D7%A1%D7%95%D7%A3_%D7%A2%D7%91%D7%95%D7%93%D7%95%D7%AA_%D7%94%D7%91%D7%A0%D7%99%D7%99%D7%94%2C_%D7%9E%D7%A8%D7%A5_2024.jpg_03.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "מקף־עברי",
@@ -534,7 +534,7 @@
    "desc": "City in Palestine",
    "page": "https://en.wikipedia.org/wiki/Gaza_City",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg/330px-Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg/330px-Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Images_of_war_23-25_from_Gaza%2C_by_Jaber_Badwen%2C_IMG_6315.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Jaber Jehad Badwan",
@@ -555,7 +555,7 @@
    "desc": "Archaeological site in Israel",
    "page": "https://en.wikipedia.org/wiki/Adullam",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Hill_of_Adullam%2C_Covered_in_Pines.jpg/330px-Hill_of_Adullam%2C_Covered_in_Pines.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Hill_of_Adullam%2C_Covered_in_Pines.jpg/330px-Hill_of_Adullam%2C_Covered_in_Pines.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Hill_of_Adullam%2C_Covered_in_Pines.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Davidbena",
@@ -594,7 +594,7 @@
    "desc": "Israeli settlement in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Shilo_(Israeli_settlement)",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Shiloh_%281%29.jpg/330px-Shiloh_%281%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Shiloh_%281%29.jpg/330px-Shiloh_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Shiloh_%281%29.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Avi1111 dr. avishai teicher",
@@ -615,7 +615,7 @@
    "desc": "Capital city of Syria",
    "page": "https://en.wikipedia.org/wiki/Damascus",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg/330px-Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg/330px-Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Damascus%2C_Syria%2C_Panoramic_view_of_Damascus.jpg",
     "license": "CC BY 4.0",
     "artist": "Vyacheslav Argenberg",
@@ -630,7 +630,7 @@
    "desc": "Freshwater lake in Israel",
    "page": "https://en.wikipedia.org/wiki/Sea_of_Galilee",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Kinneret_cropped.jpg/330px-Kinneret_cropped.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Kinneret_cropped.jpg/330px-Kinneret_cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Kinneret_cropped.jpg",
     "license": "CC BY 2.0",
     "artist": "Zachi Evenor and User:MathKnight",
@@ -663,7 +663,7 @@
    "desc": "Valley southwest of Jerusalem, Israel",
    "page": "https://en.wikipedia.org/wiki/Valley_of_Rephaim",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg/330px-NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg/330px-NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:NahalRefaimJaffaJerusalemOldRailroadFeb112023.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -678,7 +678,7 @@
    "desc": "Ancient Semitic maritime civilization",
    "page": "https://en.wikipedia.org/wiki/Phoenicia",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Phoenicia_map-en.svg/330px-Phoenicia_map-en.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Phoenicia_map-en.svg/330px-Phoenicia_map-en.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Phoenicia_map-en.svg",
     "license": "CC BY 3.0",
     "artist": "Kordas, based on Alvaro's work",
@@ -693,7 +693,7 @@
    "desc": "Ancient town mentioned in the Bible",
    "page": "https://en.wikipedia.org/wiki/Zorah",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Mosaic_floor_at_Zorah.jpg/330px-Mosaic_floor_at_Zorah.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Mosaic_floor_at_Zorah.jpg/330px-Mosaic_floor_at_Zorah.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Mosaic_floor_at_Zorah.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Davidbena",
@@ -708,10 +708,10 @@
    "desc": "Ancient kingdom East of the Dead Sea",
    "page": "https://en.wikipedia.org/wiki/Moab",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kingdoms_around_Israel_830_map.svg/330px-Kingdoms_around_Israel_830_map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kingdoms_around_Israel_830_map.svg/330px-Kingdoms_around_Israel_830_map.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Kingdoms_around_Israel_830_map.svg",
     "license": "CC BY-SA 3.0",
-    "artist": "Kingdoms_of_Israel_and_Judah_map_830.svg: *Oldtidens_Israel_\u0026_Judea.svg: FinnWikiNo derivative work: Richardprins (talk) derivative work: Richardprins (talk)",
+    "artist": "Kingdoms_of_Israel_and_Judah_map_830.svg: *Oldtidens_Israel_&_Judea.svg: FinnWikiNo derivative work: Richardprins (talk) derivative work: Richardprins (talk)",
     "credit": ".mw-parser-output .messagebox{margin:4px 0;width:auto;border-collapse:collapse;border:2px solid var(--border-color-progressive,#6485d1);background-color:var(--background-color-neutral-subtle,#fbfcff);color:var(--color-base,#202122);box-sizing:border-box;border-inline-start-width:8px}.mw-parser-output .messagebox.mbox-small{font-size:88%;line-height:1.25em}.mw-parser-output .mbox-warning,.mw-parser-output .mbox-speedy{border:2px solid var(--border-color-error,#b22222);background:var(--background-color-error-subtle,#ffdbdb);border-inline-start-width:8px}.mw-parser-output .mbox-serious,.mw-parser-output .mbox-delete,.mw-parser-output .mbox-stop{border:2px solid var(--border-color-error,#b22222);border-inline-start-width:8px}.mw-parser-output .mbox-issue,.mw-parser-output .mbox-content{border:2px solid #f28500;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-query,.mw-parser-output .mbox-style{border:2px solid #f4c430;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-shit{border:2px solid #960;border-inline-start-width:8px}.mw-parser-output .mbox-license{border:2px solid #88a;border-inline-start-width:initial}.mw-parser-output .mbox-legal{border:2px solid var(--border-color-notice,#666);background:var(--background-color-base,#fff);border-inline-start-width:8px}.mw-parser-output .mbox-honor{border:2px solid #ca3;background:var(--background-color-warning-subtle,#fcf4db);border-inline-start-width:8px}.mw-parser-output .mbox-growth{border:2px solid #8d4;background:var(--background-color-success-subtle,#d5fdf4);border-inline-start-width:8px}.mw-parser-output .mbox-move{border:2px solid #93c;border-inline-start-width:8px}.mw-parser-output .mbox-protection,.mw-parser-output .mbox-message{border:2px solid var(--border-color-base,#aaa);border-inline-start-width:8px}.mw-parser-output .messagebox .mbox-text{border:none;padding:0.25em 0.9em;width:100%}.mw-parser-output .messagebox .mbox-image{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0.9em;padding-inline-end:0;text-align:center}.mw-parser-output .messagebox .mbox-imageright{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0;padding-inline-end:0.9em;text-align:center}.mw-parser-output .messagebox .mbox-empty-cell{border:none;padding:0;width:1px}.mw-parser-output .messagebox .mbox-invalid-type{text-align:center}@media(min-width:720px){.mw-parser-output .messagebox{margin:4px 10%}.mw-parser-output .messagebox.mbox-small{clear:right;float:right;margin:4px 0 4px 1em;width:238px}}body.skin--responsive .mw-parser-output table.messagebox img{max-width:none!important}References for this description (or part of this) or for the depiction in the file are not provided. Relevant discussion may be found on the talk page.Kingdoms_of_Israel_and_Judah_map_830.svg",
     "w": 330,
     "h": 394
@@ -723,7 +723,7 @@
    "desc": "Biblical city in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Shechem",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Tell_Balata.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "TrickyH",
@@ -744,7 +744,7 @@
    "desc": "Ancient Greek city in Asia Minor",
    "page": "https://en.wikipedia.org/wiki/Thyatira",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Columns_of_Thiatira.jpg/330px-Columns_of_Thiatira.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Columns_of_Thiatira.jpg/330px-Columns_of_Thiatira.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Columns_of_Thiatira.jpg",
     "license": "CC0",
     "artist": "Pragdon",
@@ -777,7 +777,7 @@
    "desc": "Mountain range in Jordan",
    "page": "https://en.wikipedia.org/wiki/Abarim",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Madaba_Hills_from_Mount_Nebo_at_Sunrise.jpg/330px-Madaba_Hills_from_Mount_Nebo_at_Sunrise.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Madaba_Hills_from_Mount_Nebo_at_Sunrise.jpg/330px-Madaba_Hills_from_Mount_Nebo_at_Sunrise.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Madaba_Hills_from_Mount_Nebo_at_Sunrise.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Raya Sharbain",
@@ -828,7 +828,7 @@
    "desc": "Neolithic settlement; city in Israel",
    "page": "https://en.wikipedia.org/wiki/Beit_She'an",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Beit_shean.jpg/330px-Beit_shean.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Beit_shean.jpg/330px-Beit_shean.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Beit_shean.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Omer berner",
@@ -849,7 +849,7 @@
    "desc": "Mountain in northern Israel",
    "page": "https://en.wikipedia.org/wiki/Mount_Tabor",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg/330px-%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg/330px-%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:%D7%94%D7%A8_%D7%AA%D7%91%D7%95%D7%A8_%D7%91%D7%9E%D7%91%D7%98_%D7%9E%D7%93%D7%A8%D7%95%D7%9D_%D7%9E%D7%A2%D7%A8%D7%91.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Noamdahary",
@@ -870,7 +870,7 @@
    "desc": "Lowland region in south-central Israel",
    "page": "https://en.wikipedia.org/wiki/Shephelah",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/TarumFeb282022.jpg_03.jpg/330px-TarumFeb282022.jpg_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/TarumFeb282022.jpg_03.jpg/330px-TarumFeb282022.jpg_03.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:TarumFeb282022.jpg_03.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -891,7 +891,7 @@
    "desc": "Moshav in Jerusalem, Israel",
    "page": "https://en.wikipedia.org/wiki/Eshtaol",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/EshtaolFeb282022.jpg/330px-EshtaolFeb282022.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/EshtaolFeb282022.jpg/330px-EshtaolFeb282022.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:EshtaolFeb282022.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -906,7 +906,7 @@
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Ashkelon",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/93439_marina_ashkelon_PikiWiki_Israel.jpg/330px-93439_marina_ashkelon_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/93439_marina_ashkelon_PikiWiki_Israel.jpg/330px-93439_marina_ashkelon_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:93439_marina_ashkelon_PikiWiki_Israel.jpg",
     "license": "CC BY 2.5",
     "artist": "דוידי ורדי",
@@ -987,7 +987,7 @@
    "desc": "Regional unit in Greece",
    "page": "https://en.wikipedia.org/wiki/Achaea",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/2010_Dimi_Achaias_numbered.svg/330px-2010_Dimi_Achaias_numbered.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/2010_Dimi_Achaias_numbered.svg/330px-2010_Dimi_Achaias_numbered.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:2010_Dimi_Achaias_numbered.svg",
     "license": "Public domain",
     "artist": "Achaia_municipalities_numbered.svg: Badseed derivative work: Pitichinaccio (talk)",
@@ -1008,7 +1008,7 @@
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Lod",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/LodJune132022_01.jpg/330px-LodJune132022_01.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/LodJune132022_01.jpg/330px-LodJune132022_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:LodJune132022_01.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -1029,7 +1029,7 @@
    "desc": "Group of ten Hellenistic cities in the Levant",
    "page": "https://en.wikipedia.org/wiki/Decapolis",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/The-Decapolis-map.svg/330px-The-Decapolis-map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/The-Decapolis-map.svg/330px-The-Decapolis-map.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:The-Decapolis-map.svg",
     "license": "CC BY-SA 2.5",
     "artist": "Nichalp",
@@ -1044,7 +1044,7 @@
    "desc": "Region in northern Israel",
    "page": "https://en.wikipedia.org/wiki/Galilee",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Lower_Galilee_map.svg/330px-Lower_Galilee_map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Lower_Galilee_map.svg/330px-Lower_Galilee_map.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Lower_Galilee_map.svg",
     "license": "CC BY 3.0",
     "artist": "Dolní_Galilea.svg: Daniel Baránek derivative work: TheCuriousGnome (talk)",
@@ -1059,7 +1059,7 @@
    "desc": "Largest city in the Northern District of Israel",
    "page": "https://en.wikipedia.org/wiki/Nazareth",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg/330px-Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg/330px-Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Nazareth_Panorama_Dafna_Tal_IMOT_%2814532097313%29.jpg",
     "license": "CC BY-SA 2.0",
     "artist": "Israel_photo_gallery",
@@ -1092,7 +1092,7 @@
    "desc": "City in Lebanon",
    "page": "https://en.wikipedia.org/wiki/Tyre%2C_Lebanon",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg/330px-SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg/330px-SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:SubmergedEgyptianHarbour_TyreSour_Lebanon_RomanDeckert04112019.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "RomanDeckert",
@@ -1107,7 +1107,7 @@
    "desc": "Geographical place mentioned in the Bible",
    "page": "https://en.wikipedia.org/wiki/Valley_of_Elah",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Valley_of_Elah_from_Tel_Azeka.jpg/330px-Valley_of_Elah_from_Tel_Azeka.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Valley_of_Elah_from_Tel_Azeka.jpg/330px-Valley_of_Elah_from_Tel_Azeka.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Valley_of_Elah_from_Tel_Azeka.jpg",
     "license": "CC0",
     "artist": "Wilson44691",
@@ -1122,7 +1122,7 @@
    "desc": "City in Israel",
    "page": "https://en.wikipedia.org/wiki/Beit_Shemesh",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg/330px-%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg/330px-%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:%D7%92%D7%91%D7%A2%D7%AA_%D7%94%D7%AA%D7%95%D7%A8%D7%9E%D7%95%D7%A1%D7%99%D7%9D_03.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "דג קטן",
@@ -1167,7 +1167,7 @@
    "desc": "Archaeological site in the foothills of the Judaean Mountains",
    "page": "https://en.wikipedia.org/wiki/Gezer",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/88338_gazar_mound_PikiWiki_Israel.jpg/330px-88338_gazar_mound_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/88338_gazar_mound_PikiWiki_Israel.jpg/330px-88338_gazar_mound_PikiWiki_Israel.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:88338_gazar_mound_PikiWiki_Israel.jpg",
     "license": "CC BY 2.5",
     "artist": "זאב שטיין",
@@ -1182,7 +1182,7 @@
    "desc": "Biblical city in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Shechem",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Tell_Balata.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "TrickyH",
@@ -1203,7 +1203,7 @@
    "desc": "Palestinian neighborhood in East Jerusalem",
    "page": "https://en.wikipedia.org/wiki/Silwan",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/SilwanDec102022_10.jpg/330px-SilwanDec102022_10.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/SilwanDec102022_10.jpg/330px-SilwanDec102022_10.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:SilwanDec102022_10.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -1218,7 +1218,7 @@
    "desc": "Desert in southern Israel",
    "page": "https://en.wikipedia.org/wiki/Negev",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/NahalHavarimNov212022_03.jpg/330px-NahalHavarimNov212022_03.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/NahalHavarimNov212022_03.jpg/330px-NahalHavarimNov212022_03.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:NahalHavarimNov212022_03.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "Hagai Agmon-Snir حچاي اچمون-سنير חגי אגמון-שניר",
@@ -1233,7 +1233,7 @@
    "desc": "Historic valley in Jerusalem and religious concept",
    "page": "https://en.wikipedia.org/wiki/Gehenna",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg/330px-11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg/330px-11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:11-3000-115_%D7%92%D7%99%D7%90_%D7%91%D7%9F_%D7%94%D7%99%D7%A0%D7%95%D7%9D_5.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Michal Levinsky",
@@ -1248,7 +1248,7 @@
    "desc": "Geographical region in Turkey",
    "page": "https://en.wikipedia.org/wiki/Cilicia",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Roman_Empire_-_Cilicia_%28125_AD%29.svg/330px-Roman_Empire_-_Cilicia_%28125_AD%29.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Roman_Empire_-_Cilicia_%28125_AD%29.svg/330px-Roman_Empire_-_Cilicia_%28125_AD%29.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Roman_Empire_-_Cilicia_%28125_AD%29.svg",
     "license": "CC BY-SA 4.0",
     "artist": "Milenioscuro",
@@ -1269,7 +1269,7 @@
    "desc": "Ancient city in Turkey",
    "page": "https://en.wikipedia.org/wiki/Sardis",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bath-Gymnasium_complex_at_Sardis%2C_late_2nd_-_early_3rd_century_AD%2C_Sardis%2C_Turkey_%2817098680002%29.jpg/330px-The_Bath-Gymnasium_complex_at_Sardis%2C_late_2nd_-_early_3rd_century_AD%2C_Sardis%2C_Turkey_%2817098680002%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/The_Bath-Gymnasium_complex_at_Sardis%2C_late_2nd_-_early_3rd_century_AD%2C_Sardis%2C_Turkey_%2817098680002%29.jpg/330px-The_Bath-Gymnasium_complex_at_Sardis%2C_late_2nd_-_early_3rd_century_AD%2C_Sardis%2C_Turkey_%2817098680002%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:The_Bath-Gymnasium_complex_at_Sardis%2C_late_2nd_-_early_3rd_century_AD%2C_Sardis%2C_Turkey_%2817098680002%29.jpg",
     "license": "CC BY-SA 2.0",
     "artist": "Carole Raddato from FRANKFURT, Germany",
@@ -1302,7 +1302,7 @@
    "desc": "Mountain in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Mount_Gerizim",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/%D7%A8%D7%9B%D7%A1_%D7%94%D7%A8_%D7%92%D7%A8%D7%99%D7%96%D7%99%D7%9D.jpg/330px-%D7%A8%D7%9B%D7%A1_%D7%94%D7%A8_%D7%92%D7%A8%D7%99%D7%96%D7%99%D7%9D.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/%D7%A8%D7%9B%D7%A1_%D7%94%D7%A8_%D7%92%D7%A8%D7%99%D7%96%D7%99%D7%9D.jpg/330px-%D7%A8%D7%9B%D7%A1_%D7%94%D7%A8_%D7%92%D7%A8%D7%99%D7%96%D7%99%D7%9D.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:%D7%A8%D7%9B%D7%A1_%D7%94%D7%A8_%D7%92%D7%A8%D7%99%D7%96%D7%99%D7%9D.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "יאיר דב",
@@ -1323,7 +1323,7 @@
    "desc": "Ancient Greek city",
    "page": "https://en.wikipedia.org/wiki/Perga",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Perge_city_overview.jpg/330px-Perge_city_overview.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Perge_city_overview.jpg/330px-Perge_city_overview.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Perge_city_overview.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Saffron Blaze",
@@ -1338,7 +1338,7 @@
    "desc": "Capital city of South Governorate, Lebanon",
    "page": "https://en.wikipedia.org/wiki/Sidon",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg/330px-View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg/330px-View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:View_from_Sidon%27s_Sea_Castle%2C_Sidon%2C_Lebanon.jpg",
     "license": "CC BY 4.0",
     "artist": "Vyacheslav Argenberg",
@@ -1389,7 +1389,7 @@
    "desc": "Ancient maritime district of southern Anatolia, in present Turkey",
    "page": "https://en.wikipedia.org/wiki/Pamphylia",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Nympheaum_of_Hadrian_%28Perge%29_02.jpg/330px-Nympheaum_of_Hadrian_%28Perge%29_02.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Nympheaum_of_Hadrian_%28Perge%29_02.jpg/330px-Nympheaum_of_Hadrian_%28Perge%29_02.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Nympheaum_of_Hadrian_%28Perge%29_02.jpg",
     "license": "CC BY-SA 3.0",
     "artist": "Bernard Gagnon",
@@ -1466,12 +1466,6 @@
    "desc": "Name list",
    "page": "https://en.wikipedia.org/wiki/Ahijah"
   },
-  "rec1YbscOE9IyJ5ey": {
-   "title": "Manasseh of Judah",
-   "summary": "Manasseh was the fourteenth king of the Kingdom of Judah. He was the oldest of the sons of Hezekiah and Hephzibah. He became king at the age of 12 and reigned for 55 years.",
-   "desc": "Fourteenth king of the Kingdom of Judah",
-   "page": "https://en.wikipedia.org/wiki/Manasseh_of_Judah"
-  },
   "rec1ZMFtfbEvoGC73": {
    "title": "David",
    "summary": "David was a leader of the Tribe of Judah who became the second king of the united Kingdom of Israel, according to the Hebrew Bible and Old Testament.",
@@ -1484,7 +1478,7 @@
    "desc": "Amorite king; Biblical character",
    "page": "https://en.wikipedia.org/wiki/Og",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg/330px-The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg/330px-The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:The_Giant_%27Uj_and_the_Prophets_Moses%2C_Jesus_and_Muhammad_-_Khalili_Collection_Islamic_Art_HIGHRES.jpg",
     "license": "CC BY-SA 3.0 igo",
     "artist": "Khalili Collections",
@@ -1559,10 +1553,10 @@
    "desc": "Ancient kingdom East of the Dead Sea",
    "page": "https://en.wikipedia.org/wiki/Moab",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kingdoms_around_Israel_830_map.svg/330px-Kingdoms_around_Israel_830_map.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kingdoms_around_Israel_830_map.svg/330px-Kingdoms_around_Israel_830_map.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Kingdoms_around_Israel_830_map.svg",
     "license": "CC BY-SA 3.0",
-    "artist": "Kingdoms_of_Israel_and_Judah_map_830.svg: *Oldtidens_Israel_\u0026_Judea.svg: FinnWikiNo derivative work: Richardprins (talk) derivative work: Richardprins (talk)",
+    "artist": "Kingdoms_of_Israel_and_Judah_map_830.svg: *Oldtidens_Israel_&_Judea.svg: FinnWikiNo derivative work: Richardprins (talk) derivative work: Richardprins (talk)",
     "credit": ".mw-parser-output .messagebox{margin:4px 0;width:auto;border-collapse:collapse;border:2px solid var(--border-color-progressive,#6485d1);background-color:var(--background-color-neutral-subtle,#fbfcff);color:var(--color-base,#202122);box-sizing:border-box;border-inline-start-width:8px}.mw-parser-output .messagebox.mbox-small{font-size:88%;line-height:1.25em}.mw-parser-output .mbox-warning,.mw-parser-output .mbox-speedy{border:2px solid var(--border-color-error,#b22222);background:var(--background-color-error-subtle,#ffdbdb);border-inline-start-width:8px}.mw-parser-output .mbox-serious,.mw-parser-output .mbox-delete,.mw-parser-output .mbox-stop{border:2px solid var(--border-color-error,#b22222);border-inline-start-width:8px}.mw-parser-output .mbox-issue,.mw-parser-output .mbox-content{border:2px solid #f28500;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-query,.mw-parser-output .mbox-style{border:2px solid #f4c430;background:var(--background-color-warning-subtle,#ffe);border-inline-start-width:8px}.mw-parser-output .mbox-shit{border:2px solid #960;border-inline-start-width:8px}.mw-parser-output .mbox-license{border:2px solid #88a;border-inline-start-width:initial}.mw-parser-output .mbox-legal{border:2px solid var(--border-color-notice,#666);background:var(--background-color-base,#fff);border-inline-start-width:8px}.mw-parser-output .mbox-honor{border:2px solid #ca3;background:var(--background-color-warning-subtle,#fcf4db);border-inline-start-width:8px}.mw-parser-output .mbox-growth{border:2px solid #8d4;background:var(--background-color-success-subtle,#d5fdf4);border-inline-start-width:8px}.mw-parser-output .mbox-move{border:2px solid #93c;border-inline-start-width:8px}.mw-parser-output .mbox-protection,.mw-parser-output .mbox-message{border:2px solid var(--border-color-base,#aaa);border-inline-start-width:8px}.mw-parser-output .messagebox .mbox-text{border:none;padding:0.25em 0.9em;width:100%}.mw-parser-output .messagebox .mbox-image{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0.9em;padding-inline-end:0;text-align:center}.mw-parser-output .messagebox .mbox-imageright{border:none;padding-top:2px;padding-bottom:2px;padding-inline-start:0;padding-inline-end:0.9em;text-align:center}.mw-parser-output .messagebox .mbox-empty-cell{border:none;padding:0;width:1px}.mw-parser-output .messagebox .mbox-invalid-type{text-align:center}@media(min-width:720px){.mw-parser-output .messagebox{margin:4px 10%}.mw-parser-output .messagebox.mbox-small{clear:right;float:right;margin:4px 0 4px 1em;width:238px}}body.skin--responsive .mw-parser-output table.messagebox img{max-width:none!important}References for this description (or part of this) or for the depiction in the file are not provided. Relevant discussion may be found on the talk page.Kingdoms_of_Israel_and_Judah_map_830.svg",
     "w": 330,
     "h": 394
@@ -1772,7 +1766,7 @@
    "desc": "Ancient South Arabian kingdom",
    "page": "https://en.wikipedia.org/wiki/Sheba",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Yemen_100_BC.svg/330px-Yemen_100_BC.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Yemen_100_BC.svg/330px-Yemen_100_BC.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Yemen_100_BC.svg",
     "license": "CC BY-SA 3.0",
     "artist": "User:Schreiber",
@@ -1949,11 +1943,11 @@
    "desc": "Biblical character",
    "page": "https://en.wikipedia.org/wiki/Ahimelech",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg/330px-Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg/330px-Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg",
     "license": "Public domain",
     "artist": "Arent de Gelder",
-    "credit": "http://www.getty.edu/art/gettyguide/artObjectDetails?artobj=771\u0026handle=li",
+    "credit": "http://www.getty.edu/art/gettyguide/artObjectDetails?artobj=771&handle=li",
     "w": 330,
     "h": 226
    }
@@ -2042,7 +2036,7 @@
    "desc": "Ancient pre-Iranian civilization between 3200 and 539 BC",
    "page": "https://en.wikipedia.org/wiki/Elam",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Elam_Map-en.svg/330px-Elam_Map-en.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Elam_Map-en.svg/330px-Elam_Map-en.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Elam_Map-en.svg",
     "license": "CC BY-SA 3.0",
     "artist": "File:Near East topographic map-blank.svg: Sémhur File:Elam-map-PL.svg: Wkotwica derivative work: Morningstar1814",
@@ -2147,7 +2141,7 @@
    "desc": "Central figure in the Hebrew Bible's Book of Joshua",
    "page": "https://en.wikipedia.org/wiki/Joshua",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg/330px-Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg/330px-Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg",
     "license": "Public domain",
     "artist": "Didier Descouens",
@@ -2210,7 +2204,7 @@
    "desc": "Prophet (6 BC – AD 30)",
    "page": "https://en.wikipedia.org/wiki/John_the_Baptist",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg/330px-Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg/330px-Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Accademia_-_St_John_the_Baptist_by_Titian_Cat314.jpg",
     "license": "Public domain",
     "artist": "Titian",
@@ -2231,7 +2225,7 @@
    "desc": "King of Elam in the Bible",
    "page": "https://en.wikipedia.org/wiki/Chedorlaomer",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Strijd_van_Abraham_tegen_Kedorlaomer%2C_RP-P-1912-319.jpg/330px-Strijd_van_Abraham_tegen_Kedorlaomer%2C_RP-P-1912-319.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Strijd_van_Abraham_tegen_Kedorlaomer%2C_RP-P-1912-319.jpg/330px-Strijd_van_Abraham_tegen_Kedorlaomer%2C_RP-P-1912-319.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Strijd_van_Abraham_tegen_Kedorlaomer%2C_RP-P-1912-319.jpg",
     "license": "CC0",
     "artist": "Rijksmuseum",
@@ -2282,7 +2276,7 @@
    "desc": "Central figure in the Hebrew Bible's Book of Joshua",
    "page": "https://en.wikipedia.org/wiki/Joshua",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg/330px-Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg/330px-Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Collection_Motais_de_Narbonne_-_Josu%C3%A9_arr%C3%A8te_la_course_du_soleil_-_Carlo_Maratta.jpg",
     "license": "Public domain",
     "artist": "Didier Descouens",
@@ -2321,11 +2315,11 @@
    "desc": "Biblical character",
    "page": "https://en.wikipedia.org/wiki/Ahimelech",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg/330px-Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg/330px-Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Ahimelech_Giving_the_Sword_of_Goliath_to_David.jpg",
     "license": "Public domain",
     "artist": "Arent de Gelder",
-    "credit": "http://www.getty.edu/art/gettyguide/artObjectDetails?artobj=771\u0026handle=li",
+    "credit": "http://www.getty.edu/art/gettyguide/artObjectDetails?artobj=771&handle=li",
     "w": 330,
     "h": 226
    }
@@ -2468,7 +2462,7 @@
    "desc": "Name list",
    "page": "https://en.wikipedia.org/wiki/Stephen",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Stephen_%28Carlo_Crivelli%29.jpg/330px-Saint_Stephen_%28Carlo_Crivelli%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Stephen_%28Carlo_Crivelli%29.jpg/330px-Saint_Stephen_%28Carlo_Crivelli%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Saint_Stephen_%28Carlo_Crivelli%29.jpg",
     "license": "Public domain",
     "artist": "Carlo Crivelli",
@@ -2495,7 +2489,7 @@
    "desc": "1st-century AD tetrarch of Galilee and Perea (r. 1–39)",
    "page": "https://en.wikipedia.org/wiki/Herod_Antipas",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Herod_Antipas_medal.svg/330px-Herod_Antipas_medal.svg.png?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Herod_Antipas_medal.svg/330px-Herod_Antipas_medal.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Herod_Antipas_medal.svg",
     "license": "Public domain",
     "artist": "Georges Reverdy",
@@ -2623,7 +2617,7 @@
    "desc": "First two sons of Adam and Eve",
    "page": "https://en.wikipedia.org/wiki/Cain_and_Abel",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg/330px-Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg/330px-Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_Cain_slaying_Abel_%28Courtauld_Institute%29.jpg",
     "license": "Public domain",
     "artist": "Peter Paul Rubens",
@@ -2692,7 +2686,7 @@
    "desc": "Biblical character in the Book of Kings",
    "page": "https://en.wikipedia.org/wiki/Naboth",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg/330px-Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg/330px-Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Steniging_van_Nabot%2C_RP-P-OB-45.354.jpg",
     "license": "CC0",
     "artist": "Rijksmuseum",
@@ -2705,18 +2699,6 @@
    "title": "List of people named Shemaiah in the Bible",
    "summary": "Shemaiah is the name of several people in the Hebrew Bible :a Levite in the time of David, who with 200 of his relatives took part in the bringing up of the ark from Obed-edom to Hebron the eldest son of Obed-edom Shemaiah son of Nethanel, a scribe mentioned as active at the death of David Shemaiah, a prophet in the reign of Rehoboam one of the Levites whom Jehoshaphat appointed to teach the law Shemaiah, the father of Shimri, listed as a Simeonite five generations before the reign of Hezekiah Shemaiah son of Jeduthun, a Levite in the time of Hezekiah a Levite appointed to \"distribute the oblations of the Lord\" during the reign of Hezekiah a Levite in the time of Josiah the father of Urijah …",
    "page": "https://en.wikipedia.org/wiki/List_of_people_named_Shemaiah_in_the_Bible"
-  },
-  "recaK8xpsOSVcWMc2": {
-   "title": "Jabin",
-   "summary": "Jabin is a Biblical name meaning 'discerner', or 'the wise'. It may refer to:A king of Hazor at the time of the entrance of Israel into Canaan, whose overthrow and that of the northern chiefs with whom he had entered into a confederacy against Joshua was the crowning act in the conquest of the land. The Battle of the Waters of Merom, fought at Lake Hula, was the last of Joshua's battles of which we have any record. Here for the first time the Israelites encountered the iron chariots and horses of the Canaanites. The Israelites killed him and everyone in his city along with all the people in the cities of Madon, Shimron, Achshaph, Debir, and Anab. They then destroyed Hazor by fire.",
-   "desc": "Kings of Hazor mentioned in the Hebrew Bible",
-   "page": "https://en.wikipedia.org/wiki/Jabin"
-  },
-  "recauQ3IPfRTuQbBj": {
-   "title": "Noah",
-   "summary": "Noah appears as the last of the Antediluvian patriarchs in the traditions of Abrahamic religions. His story appears in the Hebrew Bible, the Quran and Baha'i writings, and extracanonically.",
-   "desc": "Biblical prophet known for building an ark",
-   "page": "https://en.wikipedia.org/wiki/Noah"
   },
   "recbHLkz06CSe3C4K": {
    "title": "Elijah",
@@ -2736,7 +2718,7 @@
    "desc": "Protagonist of the Book of Daniel of the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Daniel_(biblical_figure)",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Sir_Peter_Paul_Rubens_-_Daniel_in_the_Lions%27_Den_-_Google_Art_Project.jpg/330px-Sir_Peter_Paul_Rubens_-_Daniel_in_the_Lions%27_Den_-_Google_Art_Project.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Sir_Peter_Paul_Rubens_-_Daniel_in_the_Lions%27_Den_-_Google_Art_Project.jpg/330px-Sir_Peter_Paul_Rubens_-_Daniel_in_the_Lions%27_Den_-_Google_Art_Project.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Sir_Peter_Paul_Rubens_-_Daniel_in_the_Lions%27_Den_-_Google_Art_Project.jpg",
     "license": "Public domain",
     "artist": "Peter Paul Rubens",
@@ -2853,7 +2835,7 @@
    "desc": "Biblical city in the West Bank",
    "page": "https://en.wikipedia.org/wiki/Shechem",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tell_Balata.jpg/330px-Tell_Balata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Tell_Balata.jpg",
     "license": "CC BY-SA 4.0",
     "artist": "TrickyH",
@@ -2904,7 +2886,7 @@
    "desc": "Kings mentioned in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Zebah_and_Zalmunna",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg",
     "license": "Public domain",
     "artist": "Hieronymus Wierix / After Marten van Cleve",
@@ -3339,7 +3321,7 @@
    "desc": "Kings mentioned in the Hebrew Bible",
    "page": "https://en.wikipedia.org/wiki/Zebah_and_Zalmunna",
    "image": {
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=api\u0026utm_content=thumbnail",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg/330px-Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
     "page": "https://commons.wikimedia.org/wiki/File:Hieronymus_Wierix%2C_Gillis_Coignet_%28After%29_-_Gideon.jpg",
     "license": "Public domain",
     "artist": "Hieronymus Wierix / After Marten van Cleve",
@@ -4187,7 +4169,7 @@
    "title": "Ezekiel’s Vision of the Valley of Dry Bones",
    "license": "Public domain",
    "artist": "Gustave Doré",
-   "credit": "Doré, Gustave (1866) The Bible - With illustrations by Gustave Doré, Paris, London, New York: Cassell \u0026 Co. OCLC: 557492693.",
+   "credit": "Doré, Gustave (1866) The Bible - With illustrations by Gustave Doré, Paris, London, New York: Cassell & Co. OCLC: 557492693.",
    "score": 0
   },
   {
@@ -4598,7 +4580,7 @@
    "title": "Gustave Doré - The Holy Bible - Judith XIV - Judith showing the head of Holofernes - original",
    "license": "Public domain",
    "artist": "Gustave Doré (1832-1883) The \"Pannemaker\" in the lower right refers to Adolphe François Pannemaker (1822-1900) one of Doré's assistants in turning his art into a full-fledged engraving, and a reasonably notable engraver in his own right.",
-   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illustrations by Gustave Doré. (Cassell / Company, Limited: London, Paris \u0026 Melbourne)",
+   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illustrations by Gustave Doré. (Cassell / Company, Limited: London, Paris & Melbourne)",
    "score": 0
   },
   {
@@ -4607,7 +4589,7 @@
    "title": "Gustave Doré - The Holy Bible - Plate CXLI, The Judas Kiss",
    "license": "Public domain",
    "artist": "Gustave Doré (1832-1883) The \"Pannemaker\" in the lower right refers to Adolphe François Pannemaker (1822-1900) one of Doré's assistants in turning his art into a full-fledged engraving, and a reasonably notable engraver in his own right.",
-   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris \u0026 Melbourne)",
+   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris & Melbourne)",
    "score": 0
   },
   {
@@ -4616,7 +4598,7 @@
    "title": "Gustave Doré - The Holy Bible - Plate I, The Deluge (cropped)",
    "license": "Public domain",
    "artist": "Gustave Doré / Adam Cuerden",
-   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris \u0026 Melbourne)",
+   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris & Melbourne)",
    "score": 0
   },
   {
@@ -4686,7 +4668,7 @@
    "title": "Gustave dure holy bible deluge edited",
    "license": "Public domain",
    "artist": "Gustave Doré",
-   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris \u0026 Melbourne",
+   "credit": "The Holy Bible: Containing the Old and New Testiments, According to the Authorised Version. With Illusrations by Gustave Doré. (Cassell / Company, Limited: London, Paris & Melbourne",
    "score": 0
   },
   {

@@ -171,6 +171,7 @@ type Atlas struct {
 	titles     map[string]map[string]string // event titles per language (data/titles)
 	easton     map[string]map[string]string // translated dictionary texts per language (data/easton)
 	edited     map[string]map[string]bool   // dictionary texts that were translated by hand (no machine-translation note)
+	wikis      map[string]*wikiTable        // Wikipedia summaries in other languages (data/enrichment.<lang>.json)
 	artwork    map[string]map[string]string // engraving titles per language, by cleaned English title (data/artwork)
 	lang       string                       // the language of a per-language view (empty on the source atlas)
 	views      *viewSet

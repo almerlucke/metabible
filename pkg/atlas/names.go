@@ -17,6 +17,13 @@ type nameTable struct {
 	Places map[string]string `json:"places"`
 }
 
+// wikiTable is data/enrichment.<lang>.json (cmd/wikilang): the summary of the same Wikipedia
+// article in the language.
+type wikiTable struct {
+	Places map[string]WikiEntry `json:"places"`
+	People map[string]WikiEntry `json:"people"`
+}
+
 type viewSet struct {
 	mu sync.Mutex
 	m  map[string]*Atlas
@@ -29,6 +36,17 @@ func (a *Atlas) loadNames(dir string) {
 	a.easton = map[string]map[string]string{}
 	a.artwork = map[string]map[string]string{}
 	a.edited = map[string]map[string]bool{}
+	a.wikis = map[string]*wikiTable{}
+	wfiles, _ := filepath.Glob(filepath.Join(dir, "..", "enrichment.*.json"))
+	for _, f := range wfiles {
+		var t wikiTable
+		raw, err := os.ReadFile(f)
+		if err != nil || json.Unmarshal(raw, &t) != nil || len(t.Places)+len(t.People) == 0 {
+			continue
+		}
+		code := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(f), "enrichment."), ".json")
+		a.wikis[code] = &t
+	}
 	afiles, _ := filepath.Glob(filepath.Join(dir, "..", "artwork", "*.json"))
 	for _, f := range afiles {
 		raw, err := os.ReadFile(f)
@@ -102,7 +120,8 @@ func (a *Atlas) View(lang string) *Atlas {
 	}
 	nt, titles := a.names[lang], a.titles[lang]
 	dict := a.easton[lang]
-	if nt == nil && titles == nil && dict == nil && a.artwork[lang] == nil && a.bibles[lang] == nil {
+	wiki := a.wikis[lang]
+	if nt == nil && titles == nil && dict == nil && a.artwork[lang] == nil && a.bibles[lang] == nil && wiki == nil {
 		return a
 	}
 	if nt == nil {
@@ -171,6 +190,25 @@ func (a *Atlas) View(lang string) *Atlas {
 			return out
 		}
 		v.personEvents, v.placeEvents, v.eventSucc = remap(a.personEvents), remap(a.placeEvents), remap(a.eventSucc)
+	}
+	if wiki != nil && a.Enrich != nil {
+		// the article of the language replaces the English text; the photos stay
+		en := *a.Enrich
+		en.Places = make(map[string]WikiEntry, len(a.Enrich.Places))
+		for id, w := range a.Enrich.Places {
+			if l, ok := wiki.Places[id]; ok {
+				w.Title, w.Summary, w.Desc, w.Page = l.Title, l.Summary, l.Desc, l.Page
+			}
+			en.Places[id] = w
+		}
+		en.People = make(map[string]WikiEntry, len(a.Enrich.People))
+		for id, w := range a.Enrich.People {
+			if l, ok := wiki.People[id]; ok {
+				w.Title, w.Summary, w.Desc, w.Page = l.Title, l.Summary, l.Desc, l.Page
+			}
+			en.People[id] = w
+		}
+		v.Enrich = &en
 	}
 	v.nameIdx = nil
 	v.buildSearch()

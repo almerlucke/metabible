@@ -837,3 +837,33 @@ func TestDutchEventText(t *testing.T) {
 		t.Errorf("only %d events show a Dutch verse", n)
 	}
 }
+
+func TestDutchWikipedia(t *testing.T) {
+	a := load(t)
+	if a.Enrich == nil || len(a.wikis["nl"].Places)+len(a.wikis["nl"].People) == 0 {
+		t.Skip("no Dutch Wikipedia summaries")
+	}
+	nl := a.View("nl")
+	changed, photos := 0, 0
+	for id, w := range a.Enrich.People {
+		d := nl.Enrich.People[id]
+		if d.Summary != w.Summary {
+			changed++
+		}
+		if (d.Image == nil) != (w.Image == nil) {
+			t.Fatalf("%s: the photo must stay", id)
+		}
+		if d.Image != nil {
+			photos++
+		}
+		if d.Page != w.Page {
+			t.Errorf("%s: the translation must link to the English article it was made from", id)
+		}
+	}
+	if changed < 300 || photos == 0 {
+		t.Errorf("%d people translated, %d photos", changed, photos)
+	}
+	if a.Enrich.People["rec0BAacWSGBXZ0zI"].Summary == nl.Enrich.People["rec0BAacWSGBXZ0zI"].Summary {
+		t.Error("Solomon is not translated")
+	}
+}

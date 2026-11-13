@@ -99,6 +99,9 @@ remembered in a cookie; the browser's language is used the first time).
   the placeholders for the verse links, length and leftover English before adding them. `data/easton/<code>.json` is an
   offline machine translation (`python3 cmd/easton/translate.py <code>`, CTranslate2 + an open OPUS-MT model, see the
   script's header) that is only used for entries without a hand translation; those show a "machine-translated" note.
+- **Wikipedia summaries:** `data/enrichment.<code>.json` holds the summaries of `data/enrichment.json` translated by hand
+  (`python3 cmd/easton/wiki_hand.py prepare|merge`). They keep the English article's title and link, because they are
+  translations of that article (CC BY-SA 4.0); the photos stay those of the English entries.
 - **Image titles:** `data/artwork/<code>.json` maps the cleaned English title of an engraving to its title in that
   language (`python3 cmd/names/artwork_nl.py`). Photos of people and places are titled with the local name. The
   credits page keeps the Commons file names, as they are the attribution.

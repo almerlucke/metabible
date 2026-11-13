@@ -517,7 +517,17 @@ func acceptPlace(p *atlas.Place, pg *page) bool {
 	return haversine(p.Lat, p.Lng, pg.Coordinates[0].Lat, pg.Coordinates[0].Lon) <= 150
 }
 
+// skip lists people whose best Wikipedia match is the wrong person or only a general article.
+var skip = map[string]bool{
+	"rec1YbscOE9IyJ5ey": true, // Manasseh (son of Joseph): the article is about the king of Judah
+	"recauQ3IPfRTuQbBj": true, // Noah (daughter of Zelophehad): the article is about Noah of the ark
+	"recaK8xpsOSVcWMc2": true, // Jabin (king of Hazor): a general article on the name
+}
+
 func acceptPerson(p *atlas.Person, pg *page) bool {
+	if skip[p.ID] {
+		return false
+	}
 	name := baseName(p.Name)
 	if name == "" || name == "God" || len(strings.Fields(name)) == 0 {
 		return false
