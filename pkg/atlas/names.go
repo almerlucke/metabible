@@ -28,6 +28,7 @@ func (a *Atlas) loadNames(dir string) {
 	a.titles = map[string]map[string]string{}
 	a.easton = map[string]map[string]string{}
 	a.artwork = map[string]map[string]string{}
+	a.edited = map[string]map[string]bool{}
 	afiles, _ := filepath.Glob(filepath.Join(dir, "..", "artwork", "*.json"))
 	for _, f := range afiles {
 		raw, err := os.ReadFile(f)
@@ -39,13 +40,32 @@ func (a *Atlas) loadNames(dir string) {
 	efiles, _ := filepath.Glob(filepath.Join(dir, "..", "easton", "*.json"))
 	for _, f := range efiles {
 		base := filepath.Base(f)
-		if strings.Count(base, ".") != 1 { // nl.sample.json is a preview
+		if strings.Count(base, ".") != 1 { // nl.hand.json is read below, nl.sample.json is a preview
 			continue
 		}
 		raw, err := os.ReadFile(f)
 		m := map[string]string{}
 		if err == nil && json.Unmarshal(raw, &m) == nil && len(m) > 0 {
 			a.easton[strings.TrimSuffix(base, ".json")] = m
+		}
+	}
+	// <lang>.hand.json holds texts translated by hand; they replace the machine translation
+	hfiles, _ := filepath.Glob(filepath.Join(dir, "..", "easton", "*.hand.json"))
+	for _, f := range hfiles {
+		lang := strings.TrimSuffix(filepath.Base(f), ".hand.json")
+		raw, err := os.ReadFile(f)
+		m := map[string]string{}
+		if err != nil || json.Unmarshal(raw, &m) != nil {
+			continue
+		}
+		if a.easton[lang] == nil {
+			a.easton[lang] = map[string]string{}
+		}
+		a.edited[lang] = map[string]bool{}
+		for id, text := range m {
+			if text = strings.TrimSpace(text); text != "" {
+				a.easton[lang][id], a.edited[lang][id] = text, true
+			}
 		}
 	}
 	tfiles, _ := filepath.Glob(filepath.Join(dir, "..", "titles", "*.json"))
@@ -106,7 +126,7 @@ func (a *Atlas) View(lang string) *Atlas {
 			c.Orig, c.Name = p.Name, n
 		}
 		if d := dict[p.ID]; d != "" {
-			c.Dict, c.DictMT = d, true
+			c.Dict, c.DictMT = d, !a.edited[lang][p.ID]
 		}
 		v.People[i] = &c
 		v.PersonByID[c.ID] = &c
@@ -119,7 +139,7 @@ func (a *Atlas) View(lang string) *Atlas {
 			c.Orig, c.Name = p.Name, n
 		}
 		if d := dict[p.ID]; d != "" {
-			c.Dict, c.DictMT = d, true
+			c.Dict, c.DictMT = d, !a.edited[lang][p.ID]
 		}
 		v.Places[i] = &c
 		v.PlaceByID[c.ID] = &c

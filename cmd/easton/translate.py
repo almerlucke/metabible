@@ -14,6 +14,7 @@ import json, os, re, sys, time
 home = os.environ.get('MT_HOME', os.path.expanduser('~/.cache/metabible-mt'))
 sys.path.insert(0, home + '/lib')
 import ctranslate2, sentencepiece as spm
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 lang = sys.argv[1] if len(sys.argv) > 1 else 'nl'
 limit = int(sys.argv[2]) if len(sys.argv) > 2 else 0
@@ -40,18 +41,7 @@ def split_sentences(s):
     out.append(s[last:])
     return [x for x in out if x.strip()]
 
-BOOKS = {  # Easton's abbreviation -> the usual Dutch one
- 'Gen.':'Gen.','Ex.':'Ex.','Lev.':'Lev.','Num.':'Num.','Deut.':'Deut.','Josh.':'Joz.','Judg.':'Richt.','Ruth':'Ruth','Sam.':'Sam.','Kings':'Kon.','Chr.':'Kron.','Ezra':'Ezra','Neh.':'Neh.',
- 'Esther':'Esth.','Esth.':'Esth.','Job':'Job','Ps.':'Ps.','Prov.':'Spr.','Eccl.':'Pred.','Cant.':'Hoogl.','Song':'Hoogl.','Isa.':'Jes.','Jer.':'Jer.','Lam.':'Klaagl.','Ezek.':'Ezech.','Dan.':'Dan.',
- 'Hos.':'Hos.','Joel':'Joël','Amos':'Amos','Obad.':'Obad.','Jonah':'Jona','Mic.':'Micha','Nah.':'Nah.','Hab.':'Hab.','Zeph.':'Zef.','Hag.':'Hag.','Zech.':'Zach.','Mal.':'Mal.','Matt.':'Matt.',
- 'Mark':'Marc.','Luke':'Luc.','John':'Joh.','Acts':'Hand.','Rom.':'Rom.','Cor.':'Kor.','Gal.':'Gal.','Eph.':'Ef.','Phil.':'Fil.','Col.':'Kol.','Thess.':'Thess.','Tim.':'Tim.','Titus':'Tit.',
- 'Philem.':'Filem.','Heb.':'Hebr.','James':'Jak.','Pet.':'Petr.','Jude':'Jud.','Rev.':'Openb.'}
-
-def localise_label(link):
-    m = re.match(r'^\[(\d?\s?)([A-Za-z]+\.?)(\s+[\d].*?)\]\((.*)\)$', link, re.S)
-    if m and m.group(2) in BOOKS:
-        return f'[{m.group(1)}{BOOKS[m.group(2)]}{m.group(3)}]({m.group(4)})'
-    return link
+from translate_labels import localise_label  # noqa: E402
 
 def core(seg):
     """(leading, text, trailing): punctuation and spaces around the part worth translating."""
