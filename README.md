@@ -93,10 +93,12 @@ remembered in a cookie; the browser's language is used the first time).
 - **Event titles:** `data/titles/<code>.json` maps an event id to its title (the Dutch file is made by
   `python3 cmd/names/titles_nl.py`: Birth/Lifetime/Death titles from the name table, the rest translated by hand).
   Missing titles keep the English one.
-- **Dictionary descriptions:** `data/easton/<code>.json` maps a person or place id to the Easton text in that language
-  (`python3 cmd/easton/translate.py nl`: offline machine translation with CTranslate2 and an open OPUS-MT model, see the
-  script's header for the setup; links to verses are kept, book abbreviations localised). The site tells the reader the
-  text is machine-translated. Missing entries keep the English text.
+- **Dictionary descriptions:** `data/easton/<code>.hand.json` maps a person or place id to the Easton text translated by
+  hand in that language (the Dutch file covers every entry). It was made in batches: `python3 cmd/easton/hand.py prepare DIR
+  --top N` (or `--short N`) writes the batches, a translator writes `out_NN.json` per batch, and `hand.py merge DIR` checks
+  the placeholders for the verse links, length and leftover English before adding them. `data/easton/<code>.json` is an
+  offline machine translation (`python3 cmd/easton/translate.py <code>`, CTranslate2 + an open OPUS-MT model, see the
+  script's header) that is only used for entries without a hand translation; those show a "machine-translated" note.
 - **Image titles:** `data/artwork/<code>.json` maps the cleaned English title of an engraving to its title in that
   language (`python3 cmd/names/artwork_nl.py`). Photos of people and places are titled with the local name. The
   credits page keeps the Commons file names, as they are the attribution.

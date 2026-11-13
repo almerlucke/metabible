@@ -4,6 +4,7 @@
     python3 cmd/easton/hand.py prepare DIR --top 20          # batches of the most-read entries not done yet
     python3 cmd/easton/hand.py prepare DIR --short 300       # all entries of at most 300 characters
     python3 cmd/easton/hand.py merge DIR                      # check DIR/out_*.json and add them to data/easton/nl.hand.json
+    python3 cmd/easton/hand.py merge DIR --allow-english      # same, for texts that quote English on purpose (A.V./R.V. wordings, book titles); read the flagged ones first
 
 A batch is a list of {id, name, text}; every verse link in the text is replaced by a placeholder
 (⟦1⟧, ⟦2⟧…) that the translator must keep. The translator writes out_NN.json: {id: translated text}.
@@ -68,7 +69,7 @@ def prepare(dir_, top=0, short=0, per_batch=10):
                 g.write(f'{en}\t{nl}\n')
     print(len(picked), 'entries in', (len(picked) + per_batch - 1) // per_batch, 'batches ->', dir_)
 
-def merge(dir_):
+def merge(dir_, allow_english=False):
     ents, have = load_entities(), done()
     added, problems = 0, []
     for f in sorted(os.listdir(dir_)):
@@ -83,7 +84,7 @@ def merge(dir_):
                 problems.append((id_, f'placeholders {sorted(map(int, found))} for {len(links)} links')); continue
             if len(src) > 120 and not 0.6 < len(text) / len(src) < 1.7:
                 problems.append((id_, f'length ratio {len(text) / len(src):.2f}')); continue
-            if re.search(r'\b(the|and|which|his|their)\b', text):
+            if not allow_english and re.search(r'\b(the|and|which|his|their)\b', text):
                 problems.append((id_, 'English words left')); continue
             out = re.sub(r'⟦(\d+)⟧', lambda m: localise_label(links[int(m.group(1)) - 1]), text.strip())
             have[id_] = modern(out); added += 1
@@ -95,4 +96,4 @@ if __name__ == '__main__':
     cmd, dir_ = sys.argv[1], sys.argv[2]
     args = dict(zip(sys.argv[3::2], sys.argv[4::2]))
     if cmd == 'prepare': prepare(dir_, int(args.get('--top', 0)), int(args.get('--short', 0)), int(args.get('--per', 10)))
-    else: merge(dir_)
+    else: merge(dir_, '--allow-english' in sys.argv)
