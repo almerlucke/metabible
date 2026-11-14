@@ -551,7 +551,6 @@ type VerseDossier struct {
 	ChapterNum int
 	Label      string
 	HTML       string
-	Alt        string // the King James text with its person/place links, when HTML is a translation
 	Prev, Next string
 	Context    []CtxVerse
 	People     []Ref
@@ -574,9 +573,6 @@ func (a *Atlas) VerseDossier(id, lang string) *VerseDossier {
 		return nil
 	}
 	d := &VerseDossier{V: v, Book: b, ChapterID: v.Chapter, ChapterNum: a.ChapterNum[v.Chapter], Label: a.verseLabel(v, lang), HTML: a.richIn(v, lang), Year: FormatYear(v.Year)}
-	if a.HasBible(lang) && a.VerseIn(v, lang) != v.Text {
-		d.Alt = RichInline(mdOf(v))
-	}
 	siblings := a.chapterVerses[v.Chapter]
 	for i, o := range siblings {
 		if o.ID != id {
