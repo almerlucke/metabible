@@ -97,7 +97,7 @@ templ ConcordancePage(r *atlas.ConcResult) {
 			<div class="mb-tag">{ t(ctx, "ui.search.every.verse") }</div>
 			<h1 class="mb-display">{ t(ctx, "ui.concordance") }</h1>
 			<form class="csearch" method="get" action="/concordance">
-				<input name="search" class="mb-input" type="search" placeholder='Search verses: love, "the Lord is my shepherd", grace peace…' value={ r.Query } autofocus?={ r.Query == "" }/>
+				<input name="search" class="mb-input" type="search" placeholder={ t(ctx, "ui.search.verses.example") } value={ r.Query } autofocus?={ r.Query == "" }/>
 				if r.BookID != "" {
 					<input type="hidden" name="book" value={ r.BookID }/>
 				}
