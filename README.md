@@ -82,8 +82,9 @@ remembered in a cookie; the browser's language is used the first time).
 - **Bible text:** extra translations are `data/bible/<code>.json`, `{"01001001": "text"}` keyed by the verse id of
   the source data (`data/bible/nl.json` is the Statenvertaling, 1637, public domain, converted from the
   [open-bibles](https://github.com/seven1m/open-bibles) Zefania file). Verses a translation lacks fall back to the King James text.
-  Verse pages, the reading view, concordance, search, hover cards, story and journeys follow the language; a translated verse page
-  also shows the King James text with its person and place links. A translation is plain text (no inline links).
+  Verse pages, the reading view, concordance, search, hover cards, story and journeys follow the language; the people
+  and places of a verse are linked in the translated text by finding their name in it (`linkNames` in `pkg/atlas/bible.go`: exact name
+  first, then the most similar capitalised word, as the Statenvertaling spells many names differently from the name table).
 - Bible book names are keys too (`book.<OSIS>`), and a reference can be typed in any language (`Richteren 3:4`, `Judges 3:4`).
 - **People and place names:** `data/names/<code>.json` maps an id to its spelling in that language's Bible
   (`go run ./cmd/names -lang nl` writes it by aligning each name with the verses it occurs in; `-report` lists the

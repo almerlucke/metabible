@@ -867,3 +867,30 @@ func TestDutchWikipedia(t *testing.T) {
 		t.Error("Solomon is not translated")
 	}
 }
+
+func TestDutchVerseLinks(t *testing.T) {
+	a := load(t)
+	nl := a.View("nl")
+	var want, got int
+	var num1317 string
+	for _, v := range nl.Verses {
+		h := nl.richIn(v, "nl")
+		want += len(v.People) + len(v.Places)
+		got += strings.Count(h, "<a class=")
+		if v.Osis == "Num.13.17" {
+			num1317 = h
+		}
+	}
+	// many listed people are only meant by a pronoun, so not every pair is linked
+	if got < want/4 {
+		t.Errorf("too few links: %d of %d", got, want)
+	}
+	for _, w := range []string{`class="k-person" href="/person/`, `>Mozes</a>`, `>Kanaan</a>`} {
+		if !strings.Contains(num1317, w) {
+			t.Errorf("Num 13:17 lacks %s: %s", w, num1317)
+		}
+	}
+	if strings.Contains(a.richIn(a.Verses[0], "en"), "Kanaan") {
+		t.Error("English verse touched")
+	}
+}
