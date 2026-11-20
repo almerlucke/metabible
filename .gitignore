@@ -100,3 +100,6 @@ tmp/
 !.vscode/tasks.json
 ### WebStorm ###
 ### WebStorm Patch ###
+
+# local secrets
+.env

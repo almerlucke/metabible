@@ -127,7 +127,10 @@ remembered in a cookie; the browser's language is used the first time).
 ## License
 
 The data and everything derived from it follow the source's license, Creative Commons
-Attribution-ShareAlike 4.0 (Theographic). Wikipedia text is CC BY-SA 4.0 as well. See `/credits`.
+Attribution-ShareAlike 4.0 (Theographic). Wikipedia text is CC BY-SA 4.0 as well. See `/credits`
+and `DATA-LICENSE.md`. The source code is MIT licensed, see `LICENSE`.
+
+Copy `.env.example` to `.env` and fill it in for the docker-compose MongoDB (`.env` is not committed).
 
 ## Notes on the data
 
